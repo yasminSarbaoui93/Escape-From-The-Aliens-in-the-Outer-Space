@@ -12,7 +12,7 @@ public class FractionMain {
 		myfractions[1]=g;
 		myfractions[4]=sum;
 		// Print the result
-		System.out.println(myfractions[4].toString());
+		System.out.println(myfractions[4].toString()+ "ciaooooo");
 
 	}
 
