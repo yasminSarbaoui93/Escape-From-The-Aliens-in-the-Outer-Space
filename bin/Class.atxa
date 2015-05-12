@@ -1,0 +1,183 @@
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#Class.atxa> a atxa-core:reloFile .
+
+atxa:DetailNode atxa-core:detailLevel "0" .
+
+atxa-core:docRoot atxa-core:browseModel "com.architexa.diagrams.relo.jdt/com.architexa.diagrams.relo.jdt.browse.ClassStrucBrowseModel" ;
+	atxa-core:contains _:node19jdu7e10x200 .
+
+_:node19jdu7e10x200 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5> ;
+	atxa-core:posX "262" ;
+	atxa-core:posY "162" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain> .
+
+_:node19jdu7e10x200 atxa-core:contains _:node19jdu7e10x201 .
+
+_:node19jdu7e10x201 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction> ;
+	atxa-core:posX "546" ;
+	atxa-core:posY "208" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.getDenominator()> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.add(Fraction,)> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.denominator> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.Fraction(int,int,)> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.Fraction(int,)> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.getNumerator()> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.numerator> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.setDenominator(int,)> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.setNumerator(int,)> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.toString()> .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x202 .
+
+_:node19jdu7e10x202 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.getDenominator()> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "258" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x203 .
+
+_:node19jdu7e10x203 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.add(Fraction,)> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "274" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x204 .
+
+_:node19jdu7e10x204 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.denominator> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "226" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x205 .
+
+_:node19jdu7e10x205 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.Fraction(int,int,)> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "290" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x206 .
+
+_:node19jdu7e10x206 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.Fraction(int,)> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "306" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x207 .
+
+_:node19jdu7e10x207 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.getNumerator()> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "322" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x208 .
+
+_:node19jdu7e10x208 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.numerator> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "242" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x209 .
+
+_:node19jdu7e10x209 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.setDenominator(int,)> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "338" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x210 .
+
+_:node19jdu7e10x210 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.setNumerator(int,)> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "354" .
+
+_:node19jdu7e10x201 atxa-core:contains _:node19jdu7e10x211 .
+
+_:node19jdu7e10x211 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$Fraction.toString()> ;
+	atxa-core:posX "547" ;
+	atxa-core:posY "370" .
+
+_:node19jdu7e10x200 atxa-core:contains _:node19jdu7e10x212 .
+
+_:node19jdu7e10x212 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain> ;
+	atxa-core:posX "268" ;
+	atxa-core:posY "187" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain.FractionMain()> , <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain.main(String[],)> .
+
+_:node19jdu7e10x212 atxa-core:contains _:node19jdu7e10x213 .
+
+_:node19jdu7e10x213 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain.FractionMain()> ;
+	atxa-core:posX "269" ;
+	atxa-core:posY "205" .
+
+_:node19jdu7e10x212 atxa-core:contains _:node19jdu7e10x214 .
+
+_:node19jdu7e10x214 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#it.polimi.ingsw.cg_5$FractionMain.main(String[],)> ;
+	atxa-core:posX "269" ;
+	atxa-core:posY "221" .
+
+_:node19jdu7e10x195 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node19jdu7e10x214 ;
+	rdf:object _:node19jdu7e10x206 .
+
+_:node19jdu7e10x196 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node19jdu7e10x214 ;
+	rdf:object _:node19jdu7e10x205 .
+
+_:node19jdu7e10x197 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node19jdu7e10x214 ;
+	rdf:object _:node19jdu7e10x203 .
+
+_:node19jdu7e10x198 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node19jdu7e10x214 ;
+	rdf:object _:node19jdu7e10x211 .
+
+_:node19jdu7e10x199 a atxa-core:link ;
+	atxa-core:model atxa-jdt:calls ;
+	rdf:subject _:node19jdu7e10x214 ;
+	rdf:object _:node19jdu7e10x215 .
+
+atxa-core:docRoot atxa-core:contains _:node19jdu7e10x216 .
+
+_:node19jdu7e10x216 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#java.io> ;
+	atxa-core:posX "610" ;
+	atxa-core:posY "53" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#java.io> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#java.io$PrintStream> .
+
+_:node19jdu7e10x216 atxa-core:contains _:node19jdu7e10x217 .
+
+_:node19jdu7e10x217 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#java.io$PrintStream> ;
+	atxa-core:posX "616" ;
+	atxa-core:posY "78" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#java.io$PrintStream> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#java.io$PrintStream.println(String,)> .
+
+_:node19jdu7e10x217 atxa-core:contains _:node19jdu7e10x215 .
+
+_:node19jdu7e10x215 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#java.io$PrintStream.println(String,)> ;
+	atxa-core:posX "617" ;
+	atxa-core:posY "96" .
+
+@prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix atxa-jdt-wkspc: <http://www.architexa.com/rdf/jdt-wkspc#> .
+@prefix atxa-core: <http://www.architexa.com/rdf/core#> .
+@prefix atxa: <http://www.architexa.com/rdf/> .
+@prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
+
+<http://www.architexa.com/rdf/rse-eclipse#Class.atxa> a atxa-core:reloFile ;
+	atxa-core:contains _:node19jdu7e10x202 , _:node19jdu7e10x203 , _:node19jdu7e10x204 , _:node19jdu7e10x205 , _:node19jdu7e10x206 , _:node19jdu7e10x207 , _:node19jdu7e10x208 , _:node19jdu7e10x209 , _:node19jdu7e10x210 , _:node19jdu7e10x211 , _:node19jdu7e10x201 , _:node19jdu7e10x213 , _:node19jdu7e10x214 , _:node19jdu7e10x212 , _:node19jdu7e10x200 , _:node19jdu7e10x215 , _:node19jdu7e10x217 , _:node19jdu7e10x216 , atxa-core:docRoot , _:node19jdu7e10x202 , _:node19jdu7e10x203 , _:node19jdu7e10x204 , _:node19jdu7e10x205 , _:node19jdu7e10x206 , _:node19jdu7e10x207 , _:node19jdu7e10x208 , _:node19jdu7e10x209 , _:node19jdu7e10x210 , _:node19jdu7e10x211 , _:node19jdu7e10x201 , _:node19jdu7e10x213 , _:node19jdu7e10x214 , _:node19jdu7e10x212 , _:node19jdu7e10x200 , _:node19jdu7e10x215 , _:node19jdu7e10x217 , _:node19jdu7e10x216 , atxa-core:docRoot , _:node19jdu7e10x195 , _:node19jdu7e10x196 , _:node19jdu7e10x197 , _:node19jdu7e10x198 , _:node19jdu7e10x199 , _:node19jdu7e10x195 , _:node19jdu7e10x196 , _:node19jdu7e10x197 , _:node19jdu7e10x198 , _:node19jdu7e10x199 .
+
