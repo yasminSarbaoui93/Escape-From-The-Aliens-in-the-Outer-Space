@@ -1,5 +1,5 @@
 package it.polimi.ingsw.cg_5;
 
-public class itemCard {
+public class ItemCard {
 
 }
