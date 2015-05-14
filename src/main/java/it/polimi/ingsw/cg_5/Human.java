@@ -2,11 +2,13 @@ package it.polimi.ingsw.cg_5;
 
 public class Human extends Character {
 
-	public Human() {
+	
+	public Human(String name) {
+		canAttack=false;
+		maxMove=1;
+		this.name=name;
 		
-		this.canAttack=false;
-		this.maxMove=1;
-		//this.currentSector=abc;// settore inizio umani
+		//this.currentSector=humanStart;// settore inizio umani
 	}
 
 }
