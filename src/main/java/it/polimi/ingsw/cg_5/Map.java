@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_5;
 
 import java.util.HashMap;
 
+//Creazione mappa tramite Hashmap
 public class Map {
 
 	private HashMap <String, Sector> map = new HashMap <String,Sector>();
