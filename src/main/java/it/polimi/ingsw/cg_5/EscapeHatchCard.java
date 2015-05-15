@@ -1,16 +1,17 @@
 package it.polimi.ingsw.cg_5;
 
-public class ItemCard extends Card{
+public class EscapeHatchCard extends Card {
 	
-	// costruttore carta
-	public ItemCard(){
+	
+// costruttore CartaEscape
+	public void EscapeHacthCard(){
 		
 	}
-
+	
 	@Override
 	public void cardEffect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
