@@ -1,11 +1,17 @@
 package it.polimi.ingsw.cg_5;
 
-public class GameCard extends Card{
+public abstract class GameCard extends Card{
+	//attributo che indica se vi e presente icona delle carte Item sulla carta 
+	
+private boolean itemIcon;
+
+//costruttore
+	public GameCard(boolean itemIcon) {
+	this.itemIcon=itemIcon;
+}
+
 
 	@Override
-	public void cardEffect() {
-		
-		
-	} 
+	public abstract void cardEffect(); 
 
 }
