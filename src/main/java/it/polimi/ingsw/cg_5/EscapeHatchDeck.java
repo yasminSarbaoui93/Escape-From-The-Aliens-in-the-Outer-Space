@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EscapeHatchDeck extends Deck {
 
@@ -8,15 +9,24 @@ public class EscapeHatchDeck extends Deck {
 	
 	// costruttore escape Hatch deck
 	public EscapeHatchDeck(){
+		
+		escapeHatchDeck= new ArrayList<EscapeHatchCard>();
+		for(int i=0;i<3;i++){
+		escapeHatchDeck.add(new EscapeHatchCard(EscapeHatchType.GREEN_SHALLOP));
+		escapeHatchDeck.add(new EscapeHatchCard(EscapeHatchType.RED_SHALLOP));
+		}
+		
+		Collections.shuffle(escapeHatchDeck);
+		}
 		//creara deck una carta alla volta 
-		//poi si fara shuffle del deck creato
+		
+	public int dimension(){
+		return escapeHatchDeck.size();
 	}
-	
 	
 	@Override
 	public Card removeCard() {
-		// TODO Auto-generated method stub
-		return null;
+		return escapeHatchDeck.remove(escapeHatchDeck.size()-1);
 	}
 
 }
