@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public  class Sector {
 	//kjjlk
+	//ekjewgkjlgerwr
 private ArrayList <Sector> bordersList= new ArrayList <Sector> ();
 //private ArrayList <Character> playerList = new ArrayList <Character> ();
 private final String sectorName;
