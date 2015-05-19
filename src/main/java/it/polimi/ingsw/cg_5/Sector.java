@@ -21,7 +21,7 @@ public ArrayList <Sector> getReachableSectors(){
 }
 @Override
 public String toString() {
-	return "Sector [sectorName=" + sectorName + " sectorType= " + getClass() +  " ]";
+	return  sectorName +" ";
 }
 public void addBorder(Sector border) {
 	this.bordersList.add(border);	

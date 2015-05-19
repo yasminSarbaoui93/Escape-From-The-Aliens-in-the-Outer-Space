@@ -89,7 +89,7 @@ public class Map  {
 		while (iterator.hasNext()) {
 		   String key = iterator.next().toString();
 		   String value = map.get(key).toString();		  
-		   System.out.println(key + " " + value);
+		   System.out.println(" " + value);
 		}
 	}
 
