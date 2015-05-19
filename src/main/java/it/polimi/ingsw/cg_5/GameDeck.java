@@ -6,29 +6,33 @@ import java.util.Collections;
 public class GameDeck extends Deck {
 	private ArrayList<GameCard> gameDeck;
 	
-	//costruttore di GameDeck
+	//costruttore di GameDeck 10 NOISEYOUSECTORE E NOISEANYSECTOR  DI QUESTI 4 CON ITEMICON CIASCUNO.  5 CARTE SILENZIO
 	public GameDeck(){
 		gameDeck = new ArrayList<GameCard>();
-		for(int i=0;i<5;i++){
-		gameDeck.add(new Silence(false));
+		
+		for(int i=0;i<6;i++){
+			gameDeck.add(new GameCard(false,GameCardType.NOISE_YOUR_SECTOR));
+			gameDeck.add(new GameCard(false,GameCardType.NOISE_ANY_SECTOR));
+		}
+		
+		for(int j=0;j<4;j++){
+			gameDeck.add(new GameCard(true,GameCardType.NOISE_YOUR_SECTOR));
+			gameDeck.add(new GameCard(true,GameCardType.NOISE_ANY_SECTOR));
 			
 		}
 		
-		for(int j=0;j<6;j++){
-			gameDeck.add(new NoiseYourSector(false));
-			gameDeck.add(new NoiseAnySector(false));
-		}
-		
-		for(int a=0;a<4;a++){
-			gameDeck.add(new NoiseAnySector(true));
-			gameDeck.add(new NoiseYourSector(true));
+		for(int a=0;a<5;a++){
+			gameDeck.add(new GameCard(false,GameCardType.SILENCE));
+			
 		}
 		Collections.shuffle(gameDeck);
+	
 	}
 	
 	@Override
 	public Card removeCard() {
 		return gameDeck.remove(gameDeck.size()-1);
+		
 		//togliera una carta dal mazzo GameDeck
 	}
 

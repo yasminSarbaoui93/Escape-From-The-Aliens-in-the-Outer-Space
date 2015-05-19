@@ -1,17 +1,42 @@
 package it.polimi.ingsw.cg_5;
 
-public class EscapeHatchCard extends Card {
+public  class EscapeHatchCard implements Card {
 	
+	// tipo
+	private final EscapeHatchType escapeHatchType;
 	
-// costruttore CartaEscape
-	public void EscapeHacthCard(){
+// costruttore
+	public EscapeHatchCard(EscapeHatchType escapeHatchType) {
 		
+		this.escapeHatchType = escapeHatchType;
 	}
-	
+
+
+
+
 	@Override
 	public void cardEffect() {
 		// TODO Auto-generated method stub
-
+		
 	}
+	
+
+
+	@Override
+	public String toString() {
+		return "EscapeHatchCard (" + escapeHatchType + ")";
+	}
+
+
+
+
+	public EscapeHatchType getEscapeHatchType() {
+		return escapeHatchType;
+	}
+
+	
+	
+	
+	
 
 }
