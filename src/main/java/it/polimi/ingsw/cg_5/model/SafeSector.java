@@ -10,12 +10,10 @@ public class SafeSector extends Sector {
 		// TODO Auto-generated method stub
 		return super.toString()+ "Safe";
 	}
-<<<<<<< HEAD
+
 	/*public boolean isSafeSector(Object o){
 		prova.map.get("A03").getClass() == SafeSector.class
 	}
 	*/
-=======
-	
->>>>>>> refs/heads/master
+
 }

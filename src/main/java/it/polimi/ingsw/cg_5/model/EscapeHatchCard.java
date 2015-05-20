@@ -10,18 +10,6 @@ public  class EscapeHatchCard implements Card {
 		
 		this.escapeHatchType = escapeHatchType;
 	}
-<<<<<<< HEAD
-=======
-
-
-
-
-	@Override
-	public void cardEffect() {
-		// TODO Auto-generated method stub
-		
-	}
->>>>>>> refs/heads/master
 	
 
 
