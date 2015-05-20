@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public class GameCard implements Card{
 	//attributo che indica se vi e presente l'icona delle carte Item sulla carta 
@@ -15,11 +15,7 @@ public class GameCard implements Card{
 		return gameCardType;
 	}
 
-	@Override
-	public void cardEffect() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public String toString() {

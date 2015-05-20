@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public class SafeSector extends Sector {
 	public SafeSector(String name){
@@ -10,5 +10,8 @@ public class SafeSector extends Sector {
 		// TODO Auto-generated method stub
 		return super.toString()+ "Safe";
 	}
-	
+	/*public boolean isSafeSector(Object o){
+		prova.map.get("A03").getClass() == SafeSector.class
+	}
+	*/
 }

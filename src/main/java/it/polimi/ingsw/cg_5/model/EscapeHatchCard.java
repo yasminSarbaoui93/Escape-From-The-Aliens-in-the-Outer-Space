@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public  class EscapeHatchCard implements Card {
 	
@@ -9,15 +9,6 @@ public  class EscapeHatchCard implements Card {
 	public EscapeHatchCard(EscapeHatchType escapeHatchType) {
 		
 		this.escapeHatchType = escapeHatchType;
-	}
-
-
-
-
-	@Override
-	public void cardEffect() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 

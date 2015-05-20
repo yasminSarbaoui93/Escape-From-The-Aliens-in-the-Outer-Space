@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,7 +18,7 @@ public class Map  {
 	String tipoSettore="SAFE";
 	FileReader fileSettori;
 	try {
-		fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/Mappa_Galilei.txt");
+		fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei.txt");
 		Scanner in =new Scanner(fileSettori);
 		while(in.hasNextLine()){ //leggiamo fino alla fine del file
 			while (in.hasNext() ){ 
@@ -61,7 +61,7 @@ public class Map  {
 		try {
 			String nomeSettore;
 			String nomeConfine;
-			fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/Mappa_Galilei_Confini.txt");
+			fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei_Confini.txt");
 			Scanner in =new Scanner(fileSettori);
 			while(in.hasNextLine()){				
 					nomeSettore=in.next();

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public class ItemCard implements Card {
 	
@@ -16,14 +16,6 @@ public class ItemCard implements Card {
 
 	public ItemCardType getItemCardType() {
 		return itemCardType;
-	}
-
-
-
-	@Override
-	public void cardEffect() {
-		// TODO Auto-generated method stub
-		
 	}
 
 
