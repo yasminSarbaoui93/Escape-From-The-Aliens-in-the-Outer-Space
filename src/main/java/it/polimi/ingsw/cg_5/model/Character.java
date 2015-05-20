@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 //umano emula le azioni dell  alieno quando usa la carta attacck e adrenaline per cui il metodo equivarrà per entrambi
 //Le  carte sedativo ,spotlight,defence corrisponderanno a metodi solo per l'umano.

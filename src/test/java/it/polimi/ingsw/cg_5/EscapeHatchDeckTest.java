@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5;
 
 import static org.junit.Assert.*;
+import it.polimi.ingsw.cg_5.model.EscapeHatchDeck;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public class HumanStart extends Sector {
 	public HumanStart(String name){

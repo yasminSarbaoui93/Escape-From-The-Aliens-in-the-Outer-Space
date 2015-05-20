@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 public class GameCard implements Card{
 	//attributo che indica se vi e presente l'icona delle carte Item sulla carta 

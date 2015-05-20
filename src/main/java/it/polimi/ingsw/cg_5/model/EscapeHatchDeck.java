@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

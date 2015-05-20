@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_5;
+package it.polimi.ingsw.cg_5.model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
