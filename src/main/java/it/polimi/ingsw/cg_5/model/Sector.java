@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.model;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -31,6 +32,25 @@ public HashSet <Sector> getReachableSectors(int i){
 		}
 	return listaTuttiConfini;	
 	
+=======
+
+
+public  class Sector {
+	
+private ArrayList <Sector> bordersList= new ArrayList <Sector> ();
+//private ArrayList <Character> playerList = new ArrayList <Character> ();
+private final String sectorName;
+
+public Sector(String sectorName){
+	this.sectorName=sectorName;
+}
+
+public String getSectorName() {
+	return sectorName;
+}
+public ArrayList <Sector> getReachableSectors(){
+	return this.bordersList;
+>>>>>>> refs/heads/master
 }
 @Override
 public String toString() {

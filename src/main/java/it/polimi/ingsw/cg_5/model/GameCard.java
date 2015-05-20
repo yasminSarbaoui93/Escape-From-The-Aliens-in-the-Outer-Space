@@ -15,7 +15,15 @@ public class GameCard implements Card{
 		return gameCardType;
 	}
 
+<<<<<<< HEAD
 
+=======
+	@Override
+	public void cardEffect() {
+		// TODO Auto-generated method stub
+		
+	}
+>>>>>>> refs/heads/master
 
 	@Override
 	public String toString() {
