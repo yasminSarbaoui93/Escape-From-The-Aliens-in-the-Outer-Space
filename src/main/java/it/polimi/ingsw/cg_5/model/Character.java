@@ -8,6 +8,8 @@ public abstract class Character {
 	protected Sector currentSector;
 	protected boolean canAttack=false;
 	protected String name;
+	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
+	// quando il character viene ucciso
 	
 	//public Character(String name){
 		

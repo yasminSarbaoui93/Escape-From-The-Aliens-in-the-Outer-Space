@@ -43,6 +43,20 @@ public class Main {
 					
 				}
 			
-			
+		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
+		//// cambio turno giocatore
+		Player oldCurrentPlayer = prova2.getCurrentPlayer();
+		prova2.getPlayerList().remove(oldCurrentPlayer);
+		prova2.setCurrentPlayer(prova2.getPlayerList().get(0));
+		prova2.getPlayerList().add(oldCurrentPlayer);
+		
+		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
+		System.out.println(prova2.getPlayerList().get(4).getItemPlayerCard());
+		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
 }
 }

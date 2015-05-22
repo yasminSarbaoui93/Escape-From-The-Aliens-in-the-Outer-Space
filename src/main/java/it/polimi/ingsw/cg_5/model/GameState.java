@@ -12,7 +12,11 @@ public class GameState extends Observable{
 	private EscapeHatchDeck escapeHatchDeck;
 	private ItemDeck itemDeck;
 	private static GameDeck gameDeck;
-	private HashSet<Player> playerList = new HashSet <Player>();
+	private ArrayList<Player> playerList = new ArrayList <Player>();
+	//poichè usiamo un arraylist dovremmo fare un controllo quando un giocatore si iscrive, se il suo nickname è
+	//già esistente se ne richiede un altro
+	private Player currentPlayer;
+	
 	
 	public GameState(String players [] /* String map */){
 		//questo è il costruttore di gamestate, inizializziamo la mappa in base a quella scelta per questo gioco,
@@ -28,9 +32,10 @@ public class GameState extends Observable{
 		itemDeck= new ItemDeck();
 		gameDeck = new GameDeck();
 		playerList=setCharacter(players);
+		currentPlayer=getPlayerList().get(0);
 		}
 	
-	public HashSet<Player> getPlayerList() {
+	public ArrayList<Player> getPlayerList() {
 		return playerList;
 	}
 	// i due metodi setAlien/HumanName servono per inserire in una lista i valori degli enum contenenti i nomi dei giocatori
@@ -54,11 +59,11 @@ public class GameState extends Observable{
 			}
 
 	
-	public HashSet <Player> setCharacter(String players []){
+	public ArrayList <Player> setCharacter(String players []){
 		//questo metodo è il fulcro della creazione dei giocatori, viene passata l'array coi nomi dei giocatori,
 		//questi vengono creati e gli viene assegnato casualmente un personaggio, setCharacter utilizza il metodo
 		//createCharacterList per creare una lista di personaggi da assegnare ai giocatori
-		 HashSet <Player> playerList= new  HashSet <Player> ();
+		ArrayList <Player> playerList= new  ArrayList <Player> ();
 		 ArrayList <Character> characterList= new ArrayList <Character> ();
 		 characterList=createCharacterList(players.length);
 		 Collections.shuffle(characterList);
@@ -97,12 +102,30 @@ public class GameState extends Observable{
 	
 	
 	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	public Map getMap() {
 		return map;
 	}
+	
 
 	public void setMap(Map map) {
 		this.map = map;
+	}
+	
+
+	public ItemDeck getItemDeck() {
+		return itemDeck;
+	}
+
+	public void setItemDeck(ItemDeck itemDeck) {
+		this.itemDeck = itemDeck;
 	}
 
 	// sara chiamato dal action attack per eliminare i player dal gioco(zhou)

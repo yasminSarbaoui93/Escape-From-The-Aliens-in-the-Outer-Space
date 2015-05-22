@@ -6,7 +6,7 @@ public class Player {
 
 	//Add and remove for arrayList
 	private final String nickName;
-	private ArrayList <ItemCard> itemPlayerCard;
+	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
 	private Character playerCharacter ; 
 	private boolean alreadyDrawn;
 
@@ -16,6 +16,20 @@ public class Player {
 		this.nickName=nickName;
 	}
 	
+	
+	
+	public ArrayList<ItemCard> getItemPlayerCard() {
+		return itemPlayerCard;
+	}
+
+
+
+	public void setItemPlayerCard(ArrayList<ItemCard> itemPlayerCard) {
+		this.itemPlayerCard = itemPlayerCard;
+	}
+
+
+
 	public String getNickName() {
 		return nickName;
 	}
