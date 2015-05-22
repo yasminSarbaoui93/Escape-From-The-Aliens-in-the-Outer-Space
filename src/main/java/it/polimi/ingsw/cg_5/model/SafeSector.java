@@ -11,9 +11,9 @@ public class SafeSector extends Sector {
 		return super.toString()+ "Safe";
 	}
 
-	/*public boolean isSafeSector(Object o){
-		prova.map.get("A03").getClass() == SafeSector.class
+	public boolean isSafeSector(Sector a){
+		return a.getClass() == SafeSector.class;
 	}
-	*/
+	
 
 }

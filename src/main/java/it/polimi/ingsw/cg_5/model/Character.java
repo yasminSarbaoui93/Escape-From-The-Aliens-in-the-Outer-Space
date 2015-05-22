@@ -18,6 +18,17 @@ public abstract class Character {
 		return currentSector;
 	}
 	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public void setCurrentSector(Sector currentSector){
 		this.currentSector = currentSector;
 	}

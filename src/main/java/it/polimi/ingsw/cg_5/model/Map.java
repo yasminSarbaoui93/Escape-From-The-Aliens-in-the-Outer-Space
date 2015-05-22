@@ -38,6 +38,14 @@ public class Map  {
 						EscapeSector settore=new EscapeSector(nomeSettore);
 						this.addSector(nomeSettore , settore); 
 						}
+					if (tipoSettore.equals("HUMAN_SECTOR")) {
+						HumanStart settore=new HumanStart(nomeSettore);
+						this.addSector(nomeSettore , settore); 
+						}
+					if (tipoSettore.equals("ALIEN_SECTOR")) {
+						AlienStart settore=new AlienStart(nomeSettore);
+						this.addSector(nomeSettore , settore); 
+						}
 				
 				}
 				else{
