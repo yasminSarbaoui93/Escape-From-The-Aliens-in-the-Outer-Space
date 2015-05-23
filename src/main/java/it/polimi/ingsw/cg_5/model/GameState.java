@@ -18,7 +18,7 @@ public class GameState extends Observable{
 	private Player currentPlayer;
 	
 	
-	public GameState(String players [] /* String map */){
+	public GameState(String players [] /* String map */){ //PATTERN BUILDER
 		//questo è il costruttore di gamestate, inizializziamo la mappa in base a quella scelta per questo gioco,
 		//inizializziamo tutti i mazzi,inoltre viene passato un array coi nomi dei giocatori, chiamiamo il metodo
 		//set character che si occuperà di creare i player, di creare i character e ritorna la lista dei giocatori
