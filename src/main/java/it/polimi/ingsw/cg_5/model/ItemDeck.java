@@ -42,6 +42,7 @@ public class ItemDeck extends Deck {
 	// la carta rimossa dovra essere aggiunta alla lista usedItemDeck e ritornata
 	@Override
 	public ItemCard removeCard() {
+
 		return itemDeck.remove(itemDeck.size()-1);
 		
 	}
@@ -55,6 +56,7 @@ public class ItemDeck extends Deck {
 	public String toString() {
 
 		return "ItemDeck [" + itemDeck + "]\n\nDeck Of Descard Cards ["+usedItemDeck+"]";
+
 	}
 
 }

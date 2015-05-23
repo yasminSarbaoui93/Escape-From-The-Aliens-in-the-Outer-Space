@@ -5,11 +5,35 @@ import java.util.ArrayList;
 public class Player {
 
 	//Add and remove for arrayList
-	private ArrayList <ItemCard> itemPlayerCard;
+	private final String nickName;
+	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
 	private Character playerCharacter ; 
 	private boolean alreadyDrawn;
 
 	
+	
+	public Player(String nickName){
+		this.nickName=nickName;
+	}
+	
+	
+	
+	public ArrayList<ItemCard> getItemPlayerCard() {
+		return itemPlayerCard;
+	}
+
+
+
+	public void setItemPlayerCard(ArrayList<ItemCard> itemPlayerCard) {
+		this.itemPlayerCard = itemPlayerCard;
+	}
+
+
+
+	public String getNickName() {
+		return nickName;
+	}
+
 	//Getter and setter to associate a character to each player. This will be done randomly
 	public Character getPlayerCharacter() {
 		return playerCharacter;
