@@ -10,40 +10,41 @@ import java.util.Scanner;
 public class Map  {
 	protected HashMap <String, Sector> map = new HashMap <String,Sector>();	
 	
-	public void Generator() { 
+	public Map() { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
 	//Il file è strutturato per righe, ogni riga rappresenta un tipo di settore che andrà generato
-	String nomeSettore;
-	String tipoSettore="SAFE";
-	FileReader fileSettori;
+	String sectorName;
+	String sectorType="SAFE";
+	FileReader sectorsFile;
+	
 	try {
 
-		fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei.txt");
-		Scanner in =new Scanner(fileSettori);
+		sectorsFile = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei.txt");
+		Scanner in =new Scanner(sectorsFile);
 		while(in.hasNextLine()){ //leggiamo fino alla fine del file
 			while (in.hasNext() ){ 
-				nomeSettore=in.next();
-				if(nomeSettore.contains("/")==false){ // se la stringa non contiene "/" chiamiamo il costruttore
+				sectorName=in.next();
+				if(sectorName.contains("/")==false){ // se la stringa non contiene "/" chiamiamo il costruttore
 													  //in base al tipo letto dal file
-					if(tipoSettore.equals("SAFE")){								
-						SafeSector settore= new SafeSector(nomeSettore);
-						this.addSector(nomeSettore , settore); 
+					if(sectorType.equals("SAFE")){								
+						SafeSector settore= new SafeSector(sectorName);
+						this.addSector(sectorName , settore); 
 					}
-					if (tipoSettore.equals("DANGEROUS")) {
-						DangerousSector settore=new DangerousSector(nomeSettore);
-						this.addSector(nomeSettore , settore); 
+					if (sectorType.equals("DANGEROUS")) {
+						DangerousSector settore=new DangerousSector(sectorName);
+						this.addSector(sectorName , settore); 
 					}
-					if (tipoSettore.equals("ESCAPE_HATCH")) {
-						EscapeSector settore=new EscapeSector(nomeSettore);
-						this.addSector(nomeSettore , settore); 
+					if (sectorType.equals("ESCAPE_HATCH")) {
+						EscapeSector settore=new EscapeSector(sectorName);
+						this.addSector(sectorName , settore); 
 						}
 				
 				}
 				else{
 					//se entriamo nell'else vuol dire che abbiamo letto "/", cioè siamo arrivati a fine riga,
 					//la prossima stringa che leggeremo ci indicherà il tipo dei settori elencati nella nuova riga
-					tipoSettore=in.next();
+					sectorType=in.next();
 				}
 			}
 		}
@@ -63,28 +64,28 @@ public class Map  {
 	//questo metodo legge da file i confini dei settori e li aggiunge nella lista dei settori confinanti di ogni confine
 	// per fare questo leggerà per ogni riga il primo settore,che è il settore a cui aggiungere i confini, mentre
 	// i settori fino alla fine della riga sono i settori da aggiungere come confini
-		FileReader fileSettori;
+		FileReader sectorsFile;
 		try {
-			String nomeSettore;
+			String sectorName;
 			String nomeConfine;
-			fileSettori = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei_Confini.txt");
+			sectorsFile = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei_Confini.txt");
 
-			Scanner in =new Scanner(fileSettori);
+			Scanner in =new Scanner(sectorsFile);
 			while(in.hasNextLine()){				
-					nomeSettore=in.next();
+				sectorName=in.next();
 					nomeConfine=in.next();
 							while(nomeConfine.contains("/")==false){
 					//finchè non leggo"/" vuol dire che devo aggiungere la stringa che leggo come confine
 					//se esco dal ciclo vuol dire che ho letto "/", sono arrivato a fine riga, quindi cambierà
 					//il settore a cui aggiungere i confini
-								this.map.get(nomeSettore).addBorder(this.map.get(nomeConfine));
+								this.map.get(sectorName).addBorder(this.map.get(nomeConfine));
 								nomeConfine=in.next();
 							}				
 			}
 			in.close();
 			 
 		}catch (FileNotFoundException e) {
-			System.err.println("Errore nel leggere file Mappa Confini");
+			System.err.println("Error in reading file Mappa Confini");
 		}
 		
 	}
