@@ -29,4 +29,11 @@ public class EscapeHatchDeck extends Deck {
 		return escapeHatchDeck.remove(escapeHatchDeck.size()-1);
 	}
 
+	@Override
+	public String toString() {
+		return "EscapeHatchDeck [" + escapeHatchDeck + "]";
+	}
+	
+	
+
 }

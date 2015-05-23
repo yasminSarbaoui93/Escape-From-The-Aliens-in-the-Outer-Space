@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_5.model;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -17,18 +17,31 @@ public Sector(String sectorName){
 public String getSectorName() {
 	return sectorName;
 }
-public HashSet <Sector> getReachableSectors(int i){
+
+
+/**
+ *Method that creates a list of all the reachable sectors starting from the current one; it depends on the max movement that the current player can do.
+ *Given the starting sector as a parameter so that it will be removed from the list of reachable sectors
+ * @param maxMove
+ * @param startSector
+ * @return a list of all the reachable sectors
+ */
+public HashSet <Sector> getReachableSectors(int maxMove, Sector startSector){ 
 	HashSet <Sector> listaTuttiConfini = new HashSet <Sector> ();
-	HashSet <Sector> supporto = new HashSet <Sector> ();
+	HashSet <Sector> support = new HashSet <Sector> ();
 	
 	listaTuttiConfini.addAll(bordersList);
-		for(int j=1; j<i ; j++){	
-			supporto.addAll(listaTuttiConfini);
-		Iterator <Sector> it = supporto.iterator();
+	
+		for(int j=1; j<maxMove ; j++){	
+			support.addAll(listaTuttiConfini);
+			Iterator <Sector> it = support.iterator();
 			while (it.hasNext()) {
-			listaTuttiConfini.addAll(it.next().getReachableSectors(1));		
+			listaTuttiConfini.addAll(it.next().getReachableSectors(1, startSector));
+			
 			}
+			listaTuttiConfini.remove(startSector);
 		}
+		
 	return listaTuttiConfini;	
 	
 
@@ -41,7 +54,7 @@ public void addBorder(Sector border) {
 	this.bordersList.add(border);	
 }
 public void bordersPrint(){
-	System.out.println("Il settore confina con :" + bordersList);
+	System.out.println("The sector confines with :" + bordersList);
 }
 
 }

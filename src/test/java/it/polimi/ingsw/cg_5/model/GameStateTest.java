@@ -1,15 +1,16 @@
 package it.polimi.ingsw.cg_5.model;
 
-
-import java.util.HashSet;
+import static org.junit.Assert.*;
 
 import java.util.Iterator;
 
-public class Main {
+import org.junit.Test;
 
-	public static void main(String[] args) {
+public class GameStateTest {
 
-	String players []=new String[5];
+	@Test
+	public void test() {
+String players []=new String[5];
 		
 		for (int i=0 ; i<5; i++){
 			players[i]="Giocatore"+i;
@@ -26,7 +27,7 @@ public class Main {
 			
 			System.out.println("Inoltre il giocatore si potrà muovere nei seguenti settori: \n" +
 			prova2.getMap().takeSector(player.getPlayerCharacter().getCurrentSector()
-			.getSectorName()).getReachableSectors(2) + "\n" );
+			.getSectorName()).getReachableSectors(2, player.getPlayerCharacter().getCurrentSector()) + "\n" );
 					
 				}
 			
@@ -45,5 +46,7 @@ public class Main {
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
-}
+
+	}
+
 }

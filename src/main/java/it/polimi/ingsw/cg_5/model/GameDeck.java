@@ -25,15 +25,27 @@ public class GameDeck extends Deck {
 			gameDeck.add(new GameCard(false,GameCardType.SILENCE));
 			
 		}
+		
+		//When creating the new deck, we shuffle it and then the cards will be drawn from the top
 		Collections.shuffle(gameDeck);
 	
 	}
 	
 	@Override
+	
+	//Removes the last card of the deck as it would be drawn from the top
 	public Card removeCard() {
 		return gameDeck.remove(gameDeck.size()-1);
 		
-		//togliera una carta dal mazzo GameDeck
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "GameDeck: "+gameDeck;
+	}
+	
+	
 
 }

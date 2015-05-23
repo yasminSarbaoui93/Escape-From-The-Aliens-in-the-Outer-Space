@@ -12,6 +12,13 @@ public  class EscapeHatchCard implements Card {
 	}
 	
 
+	public boolean isRed(){
+		return this.escapeHatchType.equals(EscapeHatchType.RED_SHALLOP);
+	}
+	
+	public boolean isGreen(EscapeHatchType colourCard){
+		return this.escapeHatchType.equals(EscapeHatchType.GREEN_SHALLOP);
+	}
 
 	@Override
 	public String toString() {

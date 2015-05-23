@@ -11,10 +11,9 @@ public abstract class Character {
 	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
 	// quando il character viene ucciso
 	
-	//public Character(String name){
-		
-		//this.name=name; 
-	//}
+	public Character(String name){
+		this.name=name; 
+	}
 	
 	public Sector getCurrentSector(){
 		return currentSector;
