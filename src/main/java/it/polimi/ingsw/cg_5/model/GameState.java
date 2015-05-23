@@ -25,7 +25,6 @@ public class GameState extends Observable{
 		//siamo pronti per iniziare a giocare, inoltre l'assegnazione sia dei player che dei character + casuale
 		//quindi non succederà mai che il primo player sia sempre alieno o umano, oppure che vengono usati sempre prima
 		//gli stessi personaggi(tipo the captain piero ceccarella ecc)
-		map.Generator();
 		map.AddBorders();
 		turn=1;
 		escapeHatchDeck= new EscapeHatchDeck();
