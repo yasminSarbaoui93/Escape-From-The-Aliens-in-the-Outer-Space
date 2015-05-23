@@ -10,17 +10,30 @@ import java.util.Scanner;
 public class Map  {
 	protected HashMap <String, Sector> map = new HashMap <String,Sector>();	
 	
-	public Map() { 
+	
+	public Map(String choosenMap) { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
 	//Il file è strutturato per righe, ogni riga rappresenta un tipo di settore che andrà generato
 	String sectorName;
 	String sectorType="SAFE";
 	FileReader sectorsFile;
+	String mapFile=FilePath.GALILEI.getFilePath();
+	String mapBordersFile= FilePath.GALILEI_CONFINI.getFilePath();
+	
+	if(choosenMap=="GALVANI"){
+		mapFile=FilePath.GALVANI.getFilePath();
+		mapBordersFile=FilePath.GALVANI_CONFINI.getFilePath();
+	}
+	if(choosenMap=="FERMI"){
+		mapFile=FilePath.FERMI.getFilePath();
+		mapBordersFile=FilePath.FERMI_CONFINI.getFilePath();
+	}
+	
 	
 	try {
 
-		sectorsFile = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei.txt");
+		sectorsFile = new FileReader(mapFile);
 		Scanner in =new Scanner(sectorsFile);
 		while(in.hasNextLine()){ //leggiamo fino alla fine del file
 			while (in.hasNext() ){ 
@@ -39,6 +52,14 @@ public class Map  {
 						EscapeSector settore=new EscapeSector(sectorName);
 						this.addSector(sectorName , settore); 
 						}
+					if (sectorType.equals("ALIEN_SECTOR")) {
+						AlienStart settore=new AlienStart(sectorName);
+						this.addSector(sectorName , settore); 
+						}
+					if (sectorType.equals("HUMAN_SECTOR")) {
+						HumanStart settore=new HumanStart(sectorName);
+						this.addSector(sectorName , settore); 
+						}
 				
 				}
 				else{
@@ -52,6 +73,7 @@ public class Map  {
 	} catch (FileNotFoundException e) {
 		System.err.println("Errore nel leggere file Mappa");
 	}
+	this.AddBorders(mapBordersFile);
 	
 	}
 	
@@ -60,7 +82,7 @@ public class Map  {
 	/**
 	 * Method that adds all the confines of all the sectors to create the map. It reads the confines from a text file
 	 */
-	public void AddBorders(){
+	public void AddBorders(String mapBordersFile){
 	//questo metodo legge da file i confini dei settori e li aggiunge nella lista dei settori confinanti di ogni confine
 	// per fare questo leggerà per ogni riga il primo settore,che è il settore a cui aggiungere i confini, mentre
 	// i settori fino alla fine della riga sono i settori da aggiungere come confini
@@ -68,8 +90,7 @@ public class Map  {
 		try {
 			String sectorName;
 			String nomeConfine;
-			sectorsFile = new FileReader("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galilei_Confini.txt");
-
+			sectorsFile = new FileReader(mapBordersFile);
 			Scanner in =new Scanner(sectorsFile);
 			while(in.hasNextLine()){				
 				sectorName=in.next();
@@ -78,8 +99,16 @@ public class Map  {
 					//finchè non leggo"/" vuol dire che devo aggiungere la stringa che leggo come confine
 					//se esco dal ciclo vuol dire che ho letto "/", sono arrivato a fine riga, quindi cambierà
 					//il settore a cui aggiungere i confini
+								
+								///////NON CANCELLARE SERVONO PER CONTROLLARE SE NEI CONFINI VIENE AGGIUNTO null PERCHE'
+								//LEGGE DA FILE UN SETTORE CHE NON ESISTE
+								//String teststring=this.map.get(nomeConfine).getSectorName();
+								//System.out.println(teststring);
 								this.map.get(sectorName).addBorder(this.map.get(nomeConfine));
 								nomeConfine=in.next();
+								
+								
+								
 							}				
 			}
 			in.close();

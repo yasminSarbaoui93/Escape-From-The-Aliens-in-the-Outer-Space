@@ -9,7 +9,7 @@ public class GameManager {
 	private ArrayList <Game> gameList;
 	
 	public void GameCreator(String playerList [] ){
-		gameList.add(new Game(new GameState(playerList), gameIndex));
+		gameList.add(new Game(new GameState(playerList, "Galilei"), gameIndex));
 		gameIndex++;
 	}
 	

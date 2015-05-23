@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class GameState extends Observable{
 	//tutti gli attributi del gioco che potrebbero essere utili per rappresentare una partita
-	private Map  map= new Map();
+	private Map  map;
 	private int turn;
 	private EscapeHatchDeck escapeHatchDeck;
 	private ItemDeck itemDeck;
@@ -18,15 +18,14 @@ public class GameState extends Observable{
 	private Player currentPlayer;
 	
 	
-	public GameState(String players [] /* String map */){ //PATTERN BUILDER
+	public GameState(String players [], String choosenMap ){ //PATTERN BUILDER
 		//questo è il costruttore di gamestate, inizializziamo la mappa in base a quella scelta per questo gioco,
 		//inizializziamo tutti i mazzi,inoltre viene passato un array coi nomi dei giocatori, chiamiamo il metodo
 		//set character che si occuperà di creare i player, di creare i character e ritorna la lista dei giocatori
 		//siamo pronti per iniziare a giocare, inoltre l'assegnazione sia dei player che dei character + casuale
 		//quindi non succederà mai che il primo player sia sempre alieno o umano, oppure che vengono usati sempre prima
 		//gli stessi personaggi(tipo the captain piero ceccarella ecc)
-
-		map.AddBorders();
+		map=new Map(choosenMap);
 		turn=1;
 		escapeHatchDeck= new EscapeHatchDeck();
 		itemDeck= new ItemDeck();

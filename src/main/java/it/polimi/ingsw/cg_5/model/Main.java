@@ -1,22 +1,20 @@
 package it.polimi.ingsw.cg_5.model;
 
-import static org.junit.Assert.*;
-
 import java.util.Iterator;
 
-import org.junit.Test;
+public class Main {
 
-public class GameStateTest {
-
-	@Test
-	public void test() {
+	public static void main(String[] args) {
+		
 String players []=new String[5];
 		
 		for (int i=0 ; i<5; i++){
 			players[i]="Giocatore"+i;
 		}
 		
-		GameState prova2= new GameState (players, "Galilei");
+		
+		GameState prova2= new GameState (players,"GALILEI");
+
 		Iterator <Player> iteratore = prova2.getPlayerList().iterator();
 		Player player = new Player("a");
 		while (iteratore.hasNext()) {
@@ -27,11 +25,11 @@ String players []=new String[5];
 			
 			System.out.println("Inoltre il giocatore si potrà muovere nei seguenti settori: \n" +
 			prova2.getMap().takeSector(player.getPlayerCharacter().getCurrentSector()
-			.getSectorName()).getReachableSectors(2, player.getPlayerCharacter().getCurrentSector()) + "\n" );
+			.getSectorName()).getReachableSectors(player.getPlayerCharacter().getMaxMove(), player.getPlayerCharacter().getCurrentSector()) + "\n" );
 					
 				}
 			
-		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
+		/*prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
@@ -46,7 +44,12 @@ String players []=new String[5];
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
+*/
+		//prova2.getMap().printMap();
+		System.out.println(prova2.getMap().takeSector("HUMAN_START").getReachableSectors(1, prova2.getMap().takeSector("HUMAN_START")));
+	}
+
 
 	}
 
-}
+
