@@ -13,7 +13,6 @@ public class MapTest {
 		
 		//Creation of the map
 		Map map1= new Map();
-		map1.Generator();
 		map1.AddBorders();
 		map1.printMap();
 		
