@@ -9,10 +9,9 @@ public abstract class Character {
 	protected boolean canAttack=false;
 	protected String name;
 	
-	//public Character(String name){
-		
-		//this.name=name; 
-	//}
+	public Character(String name){
+		this.name=name; 
+	}
 	
 	public Sector getCurrentSector(){
 		return currentSector;

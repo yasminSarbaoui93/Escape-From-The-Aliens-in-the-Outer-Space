@@ -7,21 +7,20 @@ public class ItemDeck extends Deck {
 	
 	// descrizione dell quantita' di Carta: adrenaline attack teleport spotlight sono 2 
 	//sedatives sono 3 e defense 1
-	private ArrayList<ItemCard> usedItemCard;
+	private ArrayList<ItemCard> usedItemDeck;
 	private ArrayList<ItemCard> itemDeck;
 	
 	//  ritorna dimensione dell item deck
 	
-	public int dimension(){
+	public int getSize(){
 		return itemDeck.size();
-		
 	}
 	
-	// crea item deck poi fa shuffle 
+	//Creates an empty array so that when i create it, it can be either the deck of discarded cards and the deck of itemCards 
 	public ItemDeck(){
-		usedItemCard= new ArrayList<ItemCard>();
 		itemDeck= new ArrayList<ItemCard>();
-		
+		usedItemDeck = new ArrayList<ItemCard>();
+
 		for(int i=0;i<2;i++){
 			itemDeck.add(new ItemCard(ItemCardType.ADRENALINE) );
 			itemDeck.add(new ItemCard(ItemCardType.ATTACK ) );
@@ -38,15 +37,24 @@ public class ItemDeck extends Deck {
 		itemDeck.add(new ItemCard(ItemCardType.DEFENCE) );
 		
 		Collections.shuffle(itemDeck);
-		
-		
 	}
+	
 	// la carta rimossa dovra essere aggiunta alla lista usedItemDeck e ritornata
 	@Override
-	public Card removeCard() {
-	ItemCard currentCard = itemDeck.remove(itemDeck.size()-1);
-	usedItemCard.add(currentCard);
-	return currentCard;
+	public ItemCard removeCard() {
+		return itemDeck.remove(itemDeck.size()-1);
+		
+	}
+	
+	public void addToUsedDeck(ItemCard currentCard){
+		this.usedItemDeck.add(currentCard);
+		
+	}
+
+	@Override
+	public String toString() {
+
+		return "ItemDeck [" + itemDeck + "]\n\nDeck Of Descard Cards ["+usedItemDeck+"]";
 	}
 
 }

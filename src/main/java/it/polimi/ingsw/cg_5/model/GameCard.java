@@ -15,19 +15,25 @@ public class GameCard implements Card{
 		return gameCardType;
 	}
 
+
+	
 	@Override
 	public String toString() {
-		return "(" + gameCardType + ","
-				+ itemIcon + ")";
+		String c="[";
+		if(this.gameCardType.equals(GameCardType.SILENCE)){
+			c += "Silence in your sector, Item Icon: ";
+		}
+		if(this.gameCardType.equals(GameCardType.NOISE_YOUR_SECTOR)){
+			c += "Noise in your sector, Item Icon: ";
+		}
+		if(gameCardType.equals(GameCardType.NOISE_ANY_SECTOR)){
+			c += "Noise in any sector, Item Icon: ";
+		}
+		
+		c+= itemIcon+"] ";
+		
+		return c;
+		
 	}
-	
-	
-	
-	
-	
-
-	
-
-
 
 }

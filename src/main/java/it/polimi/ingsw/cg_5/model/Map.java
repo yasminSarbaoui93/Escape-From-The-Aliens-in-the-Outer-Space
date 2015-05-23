@@ -54,6 +54,11 @@ public class Map  {
 	
 	}
 	
+	
+
+	/**
+	 * Method that adds all the confines of all the sectors to create the map. It reads the confines from a text file
+	 */
 	public void AddBorders(){
 	//questo metodo legge da file i confini dei settori e li aggiunge nella lista dei settori confinanti di ogni confine
 	// per fare questo leggerà per ogni riga il primo settore,che è il settore a cui aggiungere i confini, mentre
@@ -84,6 +89,10 @@ public class Map  {
 		
 	}
 	
+	
+	/**
+	 * Prints all the sectors in the map.
+	 */
 	public void printMap(){ 
 		//questo metodo stampa tutti gli elementi della mappa, sarà utile per implementare la CLI
 		Iterator<String> iterator = map.keySet().iterator();
@@ -101,5 +110,10 @@ public class Map  {
 	
 	public Sector takeSector(String name){
 		return map.get(name);
+	}
+	
+	@Override
+	public String toString() {
+		return "Map [map=" + map + "]";
 	}
 }
