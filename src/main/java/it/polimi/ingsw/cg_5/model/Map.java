@@ -94,6 +94,7 @@ public class Map  {
 			Scanner in =new Scanner(sectorsFile);
 			while(in.hasNextLine()){				
 				sectorName=in.next();
+				//System.out.println(sectorName + "a");
 					nomeConfine=in.next();
 							while(nomeConfine.contains("/")==false){
 					//finchè non leggo"/" vuol dire che devo aggiungere la stringa che leggo come confine
@@ -103,7 +104,7 @@ public class Map  {
 								///////NON CANCELLARE SERVONO PER CONTROLLARE SE NEI CONFINI VIENE AGGIUNTO null PERCHE'
 								//LEGGE DA FILE UN SETTORE CHE NON ESISTE
 								//String teststring=this.map.get(nomeConfine).getSectorName();
-								//System.out.println(teststring);
+							    //System.out.println(teststring);
 								this.map.get(sectorName).addBorder(this.map.get(nomeConfine));
 								nomeConfine=in.next();
 								
