@@ -15,8 +15,8 @@ String players []=new String[5];
 		
 		GameState prova2= new GameState (players,"GALVANI");
 
-		Iterator <Player> iteratore = prova2.getPlayerList().iterator();
-		/*Player player = new Player("a");
+		/*Iterator <Player> iteratore = prova2.getPlayerList().iterator();
+		Player player = new Player("a");
 		while (iteratore.hasNext()) {
 			player=iteratore.next();			
 			System.out.println(player.getNickName() + "\n" );

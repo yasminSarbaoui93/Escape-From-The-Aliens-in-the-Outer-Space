@@ -7,7 +7,7 @@ import java.util.Iterator;
 public abstract class Sector {
 	
 private HashSet <Sector> bordersList= new HashSet<Sector>();
-//private ArrayList <Character> playerList = new ArrayList <Character> ();
+//private ArrayList <Character> characterList = new ArrayList <Character> ();
 private final String sectorName;
 
 public Sector(String sectorName){
