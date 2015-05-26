@@ -1,13 +1,14 @@
 package it.polimi.ingsw.cg_5.model;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
 public abstract class Sector {
 	
 private HashSet <Sector> bordersList= new HashSet<Sector>();
-//private ArrayList <Character> characterList = new ArrayList <Character> ();
+private ArrayList <Character> characterList = new ArrayList <Character> ();
 private final String sectorName;
 
 public Sector(String sectorName){
@@ -18,6 +19,14 @@ public String getSectorName() {
 	return sectorName;
 }
 
+
+public ArrayList<Character> getCharacterList() {
+	return characterList;
+}
+
+public void setCharacterList(ArrayList<Character> characterList) {
+	this.characterList = characterList;
+}
 
 /**
  *Method that creates a list of all the reachable sectors starting from the current one; it depends on the max movement that the current player can do.

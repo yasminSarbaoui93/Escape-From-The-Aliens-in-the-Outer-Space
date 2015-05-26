@@ -13,7 +13,7 @@ String players []=new String[5];
 		}
 		
 		
-		GameState prova2= new GameState (players,"GALVANI");
+		GameState prova2= new GameState (players,"GALILEI");
 
 		/*Iterator <Player> iteratore = prova2.getPlayerList().iterator();
 		Player player = new Player("a");
@@ -45,7 +45,8 @@ String players []=new String[5];
 		prova2.getCurrentPlayer().getItemPlayerCard().add(prova2.getItemDeck().removeCard());
 		System.out.println(prova2.getCurrentPlayer().getItemPlayerCard());
 */
-		prova2.getMap().printMap();
+		//prova2.getMap().printMap();
+	
 	}
 
 

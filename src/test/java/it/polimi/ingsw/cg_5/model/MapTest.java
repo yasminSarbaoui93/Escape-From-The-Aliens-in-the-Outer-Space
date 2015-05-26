@@ -12,7 +12,7 @@ public class MapTest {
 	public void creationMapTest() {
 		
 		//Creation of the map
-		Map map1= new Map("Galilei");
+		Map map1= new Map("GALILEI");
 		map1.printMap();
 		
 		//print the borders of sector A02
@@ -35,6 +35,7 @@ public class MapTest {
 		comparisonSectors.add(map1.map.get("B03"));
 		comparisonSectors.add(map1.map.get("C02"));
 		comparisonSectors.add(map1.map.get("C01"));
+		
 	
 		assertEquals(reachableSectors = map1.takeSector("A02").getReachableSectors(2, map1.takeSector("A02")), comparisonSectors);
 		System.out.println("Reachable sectors for maxMove = 2 are: " +reachableSectors);

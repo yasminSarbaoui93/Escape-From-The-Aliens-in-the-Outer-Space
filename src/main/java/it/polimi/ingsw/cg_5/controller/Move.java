@@ -12,11 +12,11 @@ public class Move extends Action {
 
 	@Override
 	public void execute() {
-		if(gameState.getCurrentPlayer().getPlayerCharacter().isCanAttack() &&
-			gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getReachableSectors
+		if(	gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getReachableSectors
 			(gameState.getCurrentPlayer().getPlayerCharacter().getMaxMove(),
 			gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector()).contains(this.destinationSector) ){
 			
+			gameState.getCurrentPlayer().getPlayerCharacter().setCurrentSector(destinationSector);
 		}
 
 	}
