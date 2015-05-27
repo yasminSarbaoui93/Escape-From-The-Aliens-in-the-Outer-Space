@@ -14,11 +14,11 @@ public class Attack extends Action {
 	
 	@Override
 	public void execute() {
-	if(gameState.getCurrentPlayer().getPlayerCharacter().isCanAttack()){
-		if (gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getCharacterList().isEmpty()){
+	
+	/*	if (gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getCharacterList().isEmpty()){
 			//il giocatore ha attaccato in A00, l'attacco non è andato a buon fine
 		}
-		else {
+		else 
 		ArrayList <Character> deadCharacter = new ArrayList <Character> ();
 		deadCharacter.addAll(gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getCharacterList());
 	    gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getCharacterList().clear();
@@ -27,7 +27,17 @@ public class Attack extends Action {
 	    
 		}
 		
+		/*public boolean checkAttack(){
+			//if(gamestate.getTurn.getTurnState.equals(turnState.HASMOVED))
+			 * return true;
+			 * 
+			 *return false;
+			 */
+			
+		}
+		
+		
 	}
-	}
+	
 
-}
+

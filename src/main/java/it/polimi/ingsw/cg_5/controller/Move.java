@@ -12,13 +12,21 @@ public class Move extends Action {
 
 	@Override
 	public void execute() {
-		if(	gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getReachableSectors
-			(gameState.getCurrentPlayer().getPlayerCharacter().getMaxMove(),
-			gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector()).contains(this.destinationSector) ){
-			
 			gameState.getCurrentPlayer().getPlayerCharacter().setCurrentSector(destinationSector);
 		}
-
-	}
+	
+	 public boolean checkMove(){
+	  if(	gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector().getReachableSectors
+			(gameState.getCurrentPlayer().getPlayerCharacter().getMaxMove(),
+			gameState.getCurrentPlayer().getPlayerCharacter().getCurrentSector()).contains(this.destinationSector)
+			//||gamestate.getTurn.getTurnState.equals(turnState.Started))
+			)
+			return true;
+	  
+			
+			else return false;
+			}
+	
+	
 
 }
