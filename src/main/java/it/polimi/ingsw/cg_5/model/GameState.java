@@ -11,7 +11,7 @@ public class GameState extends Observable{
 	private int round;
 	private EscapeHatchDeck escapeHatchDeck;
 	private ItemDeck itemDeck;
-	private static GameDeck gameDeck;
+	private  GameDeck gameDeck;
 	private ArrayList<Character> characterList = new ArrayList <Character>();
 	private Character currentCharacter;
 	private Turn turn= new Turn();
@@ -28,7 +28,7 @@ public class GameState extends Observable{
 		round=1;
 		escapeHatchDeck= new EscapeHatchDeck();
 		itemDeck= new ItemDeck();
-		gameDeck = new GameDeck();
+		gameDeck=new GameDeck();
 		characterList=createCharacterList(IDsofplayers);
 		currentCharacter=getCharacterList().get(0);
 		turn.setTurnState(TurnState.STARTED);
@@ -125,6 +125,12 @@ public class GameState extends Observable{
 	public void setCurrentCharacter(Character currentCharacter) {
 		this.currentCharacter = currentCharacter;
 	}
+
+	public  GameDeck getGameDeck() {
+		return gameDeck;
+	}
+
+	
 	
 }
 	

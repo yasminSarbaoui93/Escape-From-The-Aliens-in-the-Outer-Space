@@ -6,6 +6,10 @@ import java.util.Collections;
 public class GameDeck extends Deck {
 	private ArrayList<GameCard> gameDeck;
 	
+	public ArrayList<GameCard> getGameDeck() {
+		return gameDeck;
+	}
+
 	//costruttore di GameDeck 10 NOISEYOUSECTORE E NOISEANYSECTOR  DI QUESTI 4 CON ITEMICON CIASCUNO.  5 CARTE SILENZIO
 	public GameDeck(){
 		gameDeck = new ArrayList<GameCard>();

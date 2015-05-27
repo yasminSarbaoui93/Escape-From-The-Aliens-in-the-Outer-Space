@@ -6,15 +6,14 @@ import it.polimi.ingsw.cg_5.model.GameState;
 
 public class DrawCardFromGamedeck extends Action {
  GameDeck gameDeck;
-	public DrawCardFromGamedeck(GameState gameState, GameDeck gameDeck) {
+	public DrawCardFromGamedeck(GameState gameState) {
 		super(gameState);
-		this.gameDeck=gameDeck;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void execute() {
-		//If(gameState.getGameDeck().removeCard().getGameCardType.....logica per usare le carte
+		gameCard DrawnCard=
 	}
 
 }
