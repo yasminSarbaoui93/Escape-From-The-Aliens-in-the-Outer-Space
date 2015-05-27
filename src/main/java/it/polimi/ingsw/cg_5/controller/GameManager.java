@@ -8,8 +8,8 @@ public class GameManager {
 	private int gameIndex=0;
 	private ArrayList <Game> gameList;
 	
-	public void GameCreator(String playerList [] ){
-		gameList.add(new Game(new GameState(playerList, "Galilei"), gameIndex));
+	public void GameCreator(ArrayList <Integer> IDsofplayers ){
+		gameList.add(new Game(new GameState(IDsofplayers, "Galilei"), gameIndex));
 		gameIndex++;
 	}
 	
