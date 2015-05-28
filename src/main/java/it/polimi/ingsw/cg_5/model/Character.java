@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Character {
 	protected int maxMove;
 	protected Sector currentSector;
-	protected String name;
+	protected final String name;
 	private final int playerID;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
 	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
@@ -35,11 +35,6 @@ public abstract class Character {
 	
 	public String getName() {
 		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 

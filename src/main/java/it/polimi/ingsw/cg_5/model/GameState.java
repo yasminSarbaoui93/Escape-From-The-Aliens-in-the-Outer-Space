@@ -2,44 +2,47 @@ package it.polimi.ingsw.cg_5.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Observable;
 
 public class GameState extends Observable{
 	//tutti gli attributi del gioco che potrebbero essere utili per rappresentare una partita
-	private Map  map;
+	private final Map  map;
 	private int round;
 	private EscapeHatchDeck escapeHatchDeck;
 	private ItemDeck itemDeck;
 	private static GameDeck gameDeck;
 	private ArrayList<Character> characterList = new ArrayList <Character>();
 	private Character currentCharacter;
-	private Turn turn= new Turn();
+	private Turn turn;
+
 	
 	
-	public GameState(ArrayList <Integer> IDsofplayers , String choosenMap ){ //PATTERN BUILDER
-		//questo è il costruttore di gamestate, inizializziamo la mappa in base a quella scelta per questo gioco,
-		//inizializziamo tutti i mazzi,inoltre viene passato un array coi nomi dei giocatori, chiamiamo il metodo
-		//set character che si occuperà di creare i player, di creare i character e ritorna la lista dei giocatori
-		//siamo pronti per iniziare a giocare, inoltre l'assegnazione sia dei player che dei character + casuale
-		//quindi non succederà mai che il primo player sia sempre alieno o umano, oppure che vengono usati sempre prima
-		//gli stessi personaggi(tipo the captain piero ceccarella ecc)
+	
+	/**
+	 * Costructor of a basic Game state; the map initalized is based on the string passed as a parameter.
+	 * All the decks are initialized and the characters are assigned casually to each player
+	 * @param IDsofplayers: list of all the players that joined the game (created by the controller)
+	 * @param choosenMap: map where the players will start the game
+	 */
+	public GameState(ArrayList <Integer> IDsofplayers , String choosenMap ){
+		
 		map=new Map(choosenMap);
 		round=1;
 		escapeHatchDeck= new EscapeHatchDeck();
 		itemDeck= new ItemDeck();
-		gameDeck = new GameDeck();
+		gameDeck = new GameDeck();		
 		characterList=createCharacterList(IDsofplayers);
-		currentCharacter=getCharacterList().get(0);
-		turn.setTurnState(TurnState.STARTED);
-		}
-	
-	public ArrayList<Character> getCharacterList() {
-		return characterList;
+		
+		turn = new Turn(TurnState.STARTED, 0);
+		currentCharacter=getCharacterList().get(turn.getPlayerTurn());
+		//turn.setTurnState(TurnState.STARTED);
 	}
-	// i due metodi setAlien/HumanName servono per inserire in una lista i valori degli enum contenenti i nomi dei giocatori
-	//questa lista viene passata come parametro quando creiamo i character, visto che il costruttore dei character
-	//necessita di una String name come parametro d'ingresso
+
+	
+	/**This method adds in a list, the enum values containing the players' names. This list is passed as a parameter when
+	 * the characters are created since the character's constructor needs a string name as parameter.
+	 * @return The list of alien names.
+	 */
 	public ArrayList <String> setAlienName (){
 		ArrayList <String> list = new ArrayList <String>();
 		for( AlienName e : AlienName.values()){
@@ -47,19 +50,66 @@ public class GameState extends Observable{
 		}
 		Collections.shuffle(list);
 		return list;
-			}
-	public ArrayList <String> setHumanName (){
+	}
+	
+	
+	/**This method adds in a list, the enum values containing the players' names. This list is passed as a parameter when
+	 * the characters are created since the character's constructor needs a string name as parameter.
+	 * @return The list of human names.
+	 */
+	private ArrayList <String> setHumanName (){
 		ArrayList <String> list = new ArrayList <String>();
 		for( HumanName e : HumanName.values()){
 			list.add(e.getHumanName());
 		}
 		Collections.shuffle(list);
 		return list;
-			}	
-	public ArrayList <Character> createCharacterList(ArrayList <Integer> IDsofplayers){
-		//questo metodo dato in ingresso il numero di partecipanti al gioco, ritorna una lista di personaggi seguendo
-		//le regole del gioco(N° alieni >= N° umani), il metodo si avvale di setAlienName e setHumanName per ottenere
-		//i nomi dei personaggi, da passare al costruttore di character
+	}
+	
+	//GETTERS AND SETTERS
+	
+	public EscapeHatchDeck getEscapeHatchDeck() {
+		return escapeHatchDeck;
+	}
+	
+	public ArrayList<Character> getCharacterList() {
+		return characterList;
+	}
+
+
+	public void setEscapeHatchDeck(EscapeHatchDeck escapeHatchDeck) {
+		this.escapeHatchDeck = escapeHatchDeck;
+	}
+
+
+	public static GameDeck getGameDeck() {
+		return gameDeck;
+	}
+
+
+	public static void setGameDeck(GameDeck gameDeck) {
+		GameState.gameDeck = gameDeck;
+	}
+
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+
+	public void setCharacterList(ArrayList<Character> characterList) {
+		this.characterList = characterList;
+	}
+		
+	
+	/**
+	 * This method associates a different character to each player's ID, so that there's no way to confuse the players.
+	 * The method uses setAlienName and SetHumanName to get the characters' names needed to be passed to the character's constructor.
+	 * @param IDsofplayers : IDs of players that joined the game; this is given by the controller when a player sends the request and goes into the waiting list.
+	 * @return List of the characters that are associated to the different Plsyers' ID.
+	 */
+	private ArrayList <Character> createCharacterList(ArrayList <Integer> IDsofplayers){
+
 		int humanNumber = IDsofplayers.size()/2;
 		int alienNumber = IDsofplayers.size()-humanNumber;
 		ArrayList <Character> characterList = new ArrayList <Character>();
@@ -67,6 +117,7 @@ public class GameState extends Observable{
 		ArrayList <String> humanList = new ArrayList <String>(); 
 		alienList= setAlienName();
 		humanList= setHumanName();
+		
 		Collections.shuffle(IDsofplayers);
 		for(int j=0; j<humanNumber; j++){//crea umani
 			Human human=new Human(humanList.remove(humanList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
@@ -87,9 +138,7 @@ public class GameState extends Observable{
 	}
 	
 
-	public void setMap(Map map) {
-		this.map = map;
-	}
+
 	
 
 	public ItemDeck getItemDeck() {
