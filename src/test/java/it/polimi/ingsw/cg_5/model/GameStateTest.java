@@ -2,7 +2,8 @@ package it.polimi.ingsw.cg_5.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import java.util.Random;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class GameStateTest {
@@ -31,35 +32,54 @@ public class GameStateTest {
 			System.out.println("The character " +character.getName() + "  of the player with ID-" +character.getPlayerID()+
 					" is on the sector " + character.getCurrentSector().toString());
 			
-			System.out.println(character.getName()+"can move to the sectors: " +
-					matchGalilei1.getMap().takeSector(character.getCurrentSector()
-			.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()) + "\n" );
+			System.out.println(character.getName()+"can move to the sectors: "+matchGalilei1.reachableSectorsOfTheCurrentCharacter(character)+"\n");
 					
 		} 
 		
+		System.out.println("STARTING THE ROUND NUMBER " + matchGalilei1.getRound()+"\n");
 		
+		System.out.println("It's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
+		System.out.println(matchGalilei1.getCurrentCharacter()+" and my item cards are\n"+matchGalilei1.getCurrentCharacter().getItemPlayerCard());
 		
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		System.out.println("The item cards of the character "+matchGalilei1.getCurrentCharacter()+" are "+matchGalilei1.getCurrentCharacter().getItemPlayerCard());
-		
-	//	turnMatchGalilei.increasePlayerTurn();
-		
-
+		//Change turn of the player
 		matchGalilei1.goToNextCharacter();;
-
-		
-	//	Character oldCurrentCharacter = matchGalilei1.getCurrentCharacter();
-		//matchGalilei1.getCharacterList().remove(oldCurrentCharacter);
-	//	matchGalilei1.setCurrentCharacter(matchGalilei1.getCharacterList().get(0));
-		//matchGalilei1.getCharacterList().add(oldCurrentCharacter);
-		
+		System.out.println("\nNow it's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
 		System.out.println(matchGalilei1.getCurrentCharacter());
 		
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
 		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
+		
+		//Change turn of the player
+		matchGalilei1.goToNextCharacter();
+		System.out.println("\nNow it's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
+		System.out.println(matchGalilei1.getCurrentCharacter());
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCaracterDrawsItemCard();
+		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
+
+		System.out.println("\n"+matchGalilei1.getCharacterList().get(2)+" and I have just been ATTACKED");
+		matchGalilei1.removeCharacter(matchGalilei1.getCharacterList().remove(2));
+		
+		//After killing a character, the list has to get smaller and the character's position shiftet left
+		assertEquals(4, matchGalilei1.getCharacterList().size());
+		
+		
+		for(int i=0; i<10; i++){
+		//Change turn of the player
+		matchGalilei1.goToNextCharacter();
+		System.out.println("\nNow it's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
+		System.out.println(matchGalilei1.getCurrentCharacter());
+		}
+		
+		for(int i=0; i<183; i++){
+			matchGalilei1.goToNextCharacter();
+		}
 
 	}
 

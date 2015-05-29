@@ -6,14 +6,16 @@ import java.util.Observable;
 
 public class GameState extends Observable{
 	//tutti gli attributi del gioco che potrebbero essere utili per rappresentare una partita
-	private final Map  map;
+	
+	private Map  map;
 	private int round;
 	private EscapeHatchDeck escapeHatchDeck;
 	private ItemDeck itemDeck;
 	private static GameDeck gameDeck;
 	private ArrayList<Character> characterList = new ArrayList <Character>();
 	private Character currentCharacter;
-	private Turn turn;
+	private Turn turn= new Turn();
+	private final int MAX_NUM_ROUND;
 
 	
 	
@@ -32,7 +34,7 @@ public class GameState extends Observable{
 		itemDeck= new ItemDeck();
 		gameDeck = new GameDeck();		
 		characterList=createCharacterList(IDsofplayers);
-		
+		this.MAX_NUM_ROUND = 39;
 		currentCharacter=getCharacterList().get(0);
 		turn.setTurnState(TurnState.STARTED);
 	}
@@ -171,7 +173,19 @@ public class GameState extends Observable{
 	}
 	
 	public void goToNextCharacter(){
-		setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));
+		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1)
+			setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));
+		
+		else if(round>=MAX_NUM_ROUND){
+			System.out.println("IL MATCH E TERMINATO IN QUANTO RAGGIUNTO IL NUMERO MASSIMO DI ROUND = " +MAX_NUM_ROUND);
+		}
+		
+		else {
+			round = round+1;
+			System.out.println("\nThe turn of the last player's ended, it's starting the round number: "+round);
+			currentCharacter = getCharacterList().get(0);
+		}
+		
 	}
 
 
@@ -182,6 +196,19 @@ public class GameState extends Observable{
 
 	public void setTurn(Turn turn) {
 		this.turn = turn;
+	}
+	
+	public void currentCaracterDrawsItemCard(){
+		if(getCurrentCharacter().getItemPlayerCard().size()<3)
+			getCurrentCharacter().getItemPlayerCard().add(getItemDeck().removeCard());
+		else
+			System.out.println("You can hold only 3 item cards, so you must use one before drawing");
+		
+	}
+	
+	public String reachableSectorsOfTheCurrentCharacter(Character character){
+		return getMap().takeSector(character.getCurrentSector()
+				.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()).toString();
 	}
 	
 	
