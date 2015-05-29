@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_5.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
