@@ -37,26 +37,24 @@ public abstract class Sector {
  */
 
 	public HashSet <Sector> getReachableSectors(int maxMove, Sector startSector){ 
-		HashSet <Sector> listOfAllConfines = new HashSet <Sector> ();
+		HashSet <Sector> listaTuttiConfini = new HashSet <Sector> ();
 		HashSet <Sector> support = new HashSet <Sector> ();
-		listOfAllConfines.addAll(bordersList);
-	
+		
+		listaTuttiConfini.addAll(bordersList);
+		
 			for(int j=1; j<maxMove ; j++){	
-				support.addAll(listOfAllConfines);
+				support.addAll(listaTuttiConfini);
 				Iterator <Sector> it = support.iterator();
 				while (it.hasNext()) {
+				listaTuttiConfini.addAll(it.next().getReachableSectors(1, startSector));
 				
-					Sector nextSector = it.next();				
-				
-						listOfAllConfines.addAll(nextSector.getReachableSectors(1, startSector));
-		
-						nextSector = it.next();		
 				}
-				listOfAllConfines.remove(startSector);		
+				listaTuttiConfini.remove(startSector);
 			}
-		
-			return listOfAllConfines;	
-		}
+			
+		return listaTuttiConfini;
+	}
+	
 	@Override
 	public String toString() {
 		return  sectorName +" ";

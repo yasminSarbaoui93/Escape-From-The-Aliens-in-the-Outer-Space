@@ -33,9 +33,8 @@ public class GameState extends Observable{
 		gameDeck = new GameDeck();		
 		characterList=createCharacterList(IDsofplayers);
 		
-		turn = new Turn(TurnState.STARTED, 0);
-		currentCharacter=getCharacterList().get(turn.getPlayerTurn());
-		//turn.setTurnState(TurnState.STARTED);
+		currentCharacter=getCharacterList().get(0);
+		turn.setTurnState(TurnState.STARTED);
 	}
 
 	
@@ -65,6 +64,45 @@ public class GameState extends Observable{
 		Collections.shuffle(list);
 		return list;
 	}
+	
+	
+	
+	
+	/**
+	 * This method associates a different character to each player's ID, so that there's no way to confuse the players.
+	 * The method uses setAlienName and SetHumanName to get the characters' names needed to be passed to the character's constructor.
+	 * @param IDsofplayers : IDs of players that joined the game; this is given by the controller when a player sends the request and goes into the waiting list.
+	 * @return List of the characters that are associated to the different Plsyers' ID.
+	 */
+	private ArrayList <Character> createCharacterList(ArrayList <Integer> IDsofplayers){
+
+		int humanNumber = IDsofplayers.size()/2;
+		int alienNumber = IDsofplayers.size()-humanNumber;
+		ArrayList <Character> characterList = new ArrayList <Character>();
+		ArrayList <String> alienList = new ArrayList <String>(); 
+		ArrayList <String> humanList = new ArrayList <String>(); 
+		alienList= setAlienName();
+		humanList= setHumanName();
+		
+		Collections.shuffle(IDsofplayers);
+		for(int j=0; j<humanNumber; j++){//crea umani
+			Human human=new Human(humanList.remove(humanList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
+			human.setCurrentSector(map.takeSector("HUMAN_START"));
+			characterList.add(human);
+		}
+		for(int j=0; j<alienNumber; j++){
+			Alien alien=new Alien(alienList.remove(alienList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
+			alien.setCurrentSector(map.takeSector("ALIEN_START"));
+			characterList.add(alien);
+		}
+		
+		return characterList;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+	
 	
 	//GETTERS AND SETTERS
 	
@@ -102,44 +140,6 @@ public class GameState extends Observable{
 	}
 		
 	
-	/**
-	 * This method associates a different character to each player's ID, so that there's no way to confuse the players.
-	 * The method uses setAlienName and SetHumanName to get the characters' names needed to be passed to the character's constructor.
-	 * @param IDsofplayers : IDs of players that joined the game; this is given by the controller when a player sends the request and goes into the waiting list.
-	 * @return List of the characters that are associated to the different Plsyers' ID.
-	 */
-	private ArrayList <Character> createCharacterList(ArrayList <Integer> IDsofplayers){
-
-		int humanNumber = IDsofplayers.size()/2;
-		int alienNumber = IDsofplayers.size()-humanNumber;
-		ArrayList <Character> characterList = new ArrayList <Character>();
-		ArrayList <String> alienList = new ArrayList <String>(); 
-		ArrayList <String> humanList = new ArrayList <String>(); 
-		alienList= setAlienName();
-		humanList= setHumanName();
-		
-		Collections.shuffle(IDsofplayers);
-		for(int j=0; j<humanNumber; j++){//crea umani
-			Human human=new Human(humanList.remove(humanList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			human.setCurrentSector(map.takeSector("HUMAN_START"));
-			characterList.add(human);
-		}
-		for(int j=0; j<alienNumber; j++){
-			Alien alien=new Alien(alienList.remove(alienList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			alien.setCurrentSector(map.takeSector("ALIEN_START"));
-			characterList.add(alien);
-		}
-		
-		return characterList;
-	}
-
-	public Map getMap() {
-		return map;
-	}
-	
-
-
-	
 
 	public ItemDeck getItemDeck() {
 		return itemDeck;
@@ -159,21 +159,32 @@ public class GameState extends Observable{
 		return round;
 	}
 
-	public Turn getTurn() {
-		return turn;
-	}
-
-	public void setTurn(Turn turn) {
-		this.turn = turn;
-	}
 
 	public Character getCurrentCharacter() {
 		return currentCharacter;
 	}
+	
+	
 
 	public void setCurrentCharacter(Character currentCharacter) {
 		this.currentCharacter = currentCharacter;
 	}
+	
+	public void goToNextCharacter(){
+		setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));
+	}
+
+
+	public Turn getTurn() {
+		return turn;
+	}
+
+
+	public void setTurn(Turn turn) {
+		this.turn = turn;
+	}
+	
+	
 	
 }
 	

@@ -20,11 +20,14 @@ public class GameStateTest {
 		
 		//New GameState with Galilei map and 5 players identified by their IDs
 		GameState matchGalilei1= new GameState (playersID, "Galilei");
-		Iterator <Character> iteratore = matchGalilei1.getCharacterList().iterator();
+		Iterator <Character> iterator = matchGalilei1.getCharacterList().iterator();
+		
+		ArrayList <Character> listOfCharacters = matchGalilei1.getCharacterList();
+		System.out.println(listOfCharacters+"\n");
 		
 		Character character;
-		while (iteratore.hasNext()) {
-			character=iteratore.next();			
+		while (iterator.hasNext()) {
+			character=iterator.next();			
 			System.out.println("The character " +character.getName() + "  of the player with ID-" +character.getPlayerID()+
 					" is on the sector " + character.getCurrentSector().toString());
 			
@@ -33,23 +36,33 @@ public class GameStateTest {
 			.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()) + "\n" );
 					
 		} 
-			
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
-		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
-		//// cambio turno giocatore
-		Character oldCurrentCharacter = matchGalilei1.getCurrentCharacter();
-		matchGalilei1.getCharacterList().remove(oldCurrentCharacter);
-		matchGalilei1.setCurrentCharacter(matchGalilei1.getCharacterList().get(0));
-		matchGalilei1.getCharacterList().add(oldCurrentCharacter);
 		
-		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
-		System.out.println(matchGalilei1.getCharacterList().get(4).getItemPlayerCard());
+		
+		
+		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
+		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
+		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
+		System.out.println("The item cards of the character "+matchGalilei1.getCurrentCharacter()+" are "+matchGalilei1.getCurrentCharacter().getItemPlayerCard());
+		
+	//	turnMatchGalilei.increasePlayerTurn();
+		
+
+		matchGalilei1.goToNextCharacter();;
+
+		
+	//	Character oldCurrentCharacter = matchGalilei1.getCurrentCharacter();
+		//matchGalilei1.getCharacterList().remove(oldCurrentCharacter);
+	//	matchGalilei1.setCurrentCharacter(matchGalilei1.getCharacterList().get(0));
+		//matchGalilei1.getCharacterList().add(oldCurrentCharacter);
+		
+		System.out.println(matchGalilei1.getCurrentCharacter());
+		
 		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
 		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(matchGalilei1.getItemDeck().removeCard());
 		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
 
 	}
+
+
 
 }
