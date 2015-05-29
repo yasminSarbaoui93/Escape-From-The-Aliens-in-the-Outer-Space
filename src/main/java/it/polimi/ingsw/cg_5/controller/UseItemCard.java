@@ -37,6 +37,7 @@ public class UseItemCard extends Action {
 		if(usingItemCardType==ItemCardType.TELEPORT){
 			
 		}
+	
 		if(usingItemCardType==ItemCardType.DEFENCE){
 			//messaggio non e possibile usarla  questo momento
 			

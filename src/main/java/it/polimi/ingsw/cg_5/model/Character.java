@@ -10,6 +10,7 @@ public abstract class Character {
 	protected Sector currentSector;
 	protected String name;
 	private final int playerID;
+	protected boolean canAttack;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
 	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
 	// quando il character viene ucciso
@@ -55,6 +56,13 @@ public abstract class Character {
 		this.maxMove = maxMove;
 	}
 	
+	public boolean isCanAttack() {
+		return canAttack;
+	}
+
+	public void setCanAttack(boolean canAttack) {
+		this.canAttack = canAttack;
+	}
 
 		
 	

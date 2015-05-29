@@ -6,7 +6,7 @@ import it.polimi.ingsw.cg_5.model.Character;
 
 
 public class Attack extends Action {
-	Sector attackedSector;
+
 	
 	public Attack (GameState gameState){
 	super(gameState);
@@ -14,37 +14,56 @@ public class Attack extends Action {
 	
 	@Override
 	public void execute() {
-	
-		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().isEmpty()){
+		// SE IL SECTORE CONTIENE SOLO IL CURRENT PLAYERL'ATTACCO ANDRA A VUOTO
+		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().size()==1){
 			//il giocatore ha attaccato in A00, l'attacco non è andato a buon fine
 		}
 		else {
-		ArrayList <Character> deadCharacter = new ArrayList <Character> ();
-		deadCharacter.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
+		ArrayList <Character> CharacterToKill = new ArrayList <Character> ();
+		CharacterToKill.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
+		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere
+		CharacterToKill.remove(gameState.getCurrentCharacter());
 		ArrayList<Character> safeCharacter=new ArrayList<Character>();
-		ItemCard defenceCard=new ItemCard(ItemCardType.DEFENCE);
-		for(Character character: deadCharacter){
+		
+		ItemCard defenceCard = null;
+		
+		for(Character character: CharacterToKill){
 	    	for(ItemCard itemCard:character.getItemPlayerCard()){
 	    		if(itemCard.getItemCardType()==ItemCardType.DEFENCE){
 	    			safeCharacter.add(character);
+	    			defenceCard=itemCard;
 	    		}
 	    	}
+	    	
 	    	}
-	    	if(!safeCharacter.isEmpty()){
-	    		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
-	    		deadCharacter.removeAll(safeCharacter);
+		
+		// la lista dei giocatori non e' vuota allora vuol dire che bisognera levare il player con safe
+    	if(!safeCharacter.isEmpty()){
+    		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
+    		CharacterToKill.removeAll(safeCharacter);
+    	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);
+	    	}
+    	
+    	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
+		gameState.getCharacterList().removeAll(CharacterToKill);
+	    	
 	    	
 	    }
-	    // rimuovi i deadCharacter anche dal gioco
-	    // controlla che ci siano ancora umani, altrimenti hanno vinto gli alieni
+	    	
+	    
 	    }
-	}	
+		
 		
 	public boolean checkAttack(){
-			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED/* && attributo canattack a true*/))
+			if(gameState.getCurrentCharacter().getClass()==Human.class){
+			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
 			 return true;
-			 
-			 return false;
+			}
+			if(gameState.getCurrentCharacter().getClass()==Alien.class){
+				if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED))
+					return true;
+			}
+			return false;
 			 
 			
 		}
