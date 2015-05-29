@@ -39,6 +39,20 @@ public class ItemDeck extends Deck {
 		Collections.shuffle(itemDeck);
 	}
 	
+	public ArrayList<ItemCard> getUsedItemDeck() {
+		return usedItemDeck;
+	}
+
+	
+
+	public ArrayList<ItemCard> getItemDeck() {
+		return itemDeck;
+	}
+
+	public void setItemDeck(ArrayList<ItemCard> itemDeck) {
+		this.itemDeck = itemDeck;
+	}
+
 	// la carta rimossa dovra essere aggiunta alla lista usedItemDeck e ritornata
 	@Override
 	public ItemCard removeCard() {

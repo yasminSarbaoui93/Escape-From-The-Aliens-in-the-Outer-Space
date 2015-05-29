@@ -5,7 +5,11 @@ public class GameCard implements Card{
 	private final GameCardType gameCardType;
     private boolean itemIcon;
 
-//costruttore
+public boolean isItemIcon() {
+		return itemIcon;
+	}
+
+	//costruttore
 	public GameCard(boolean itemIcon,GameCardType gameCardType) {
 	this.itemIcon=itemIcon;
 	this.gameCardType=gameCardType;

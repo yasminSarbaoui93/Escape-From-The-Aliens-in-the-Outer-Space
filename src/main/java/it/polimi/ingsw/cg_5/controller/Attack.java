@@ -21,14 +21,27 @@ public class Attack extends Action {
 		else {
 		ArrayList <Character> deadCharacter = new ArrayList <Character> ();
 		deadCharacter.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
-	    gameState.getCurrentCharacter().getCurrentSector().getCharacterList().clear();
+		ArrayList<Character> safeCharacter=new ArrayList<Character>();
+		ItemCard defenceCard=new ItemCard(ItemCardType.DEFENCE);
+		for(Character character: deadCharacter){
+	    	for(ItemCard itemCard:character.getItemPlayerCard()){
+	    		if(itemCard.getItemCardType()==ItemCardType.DEFENCE){
+	    			safeCharacter.add(character);
+	    		}
+	    	}
+	    	}
+	    	if(!safeCharacter.isEmpty()){
+	    		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
+	    		deadCharacter.removeAll(safeCharacter);
+	    	
+	    }
 	    // rimuovi i deadCharacter anche dal gioco
 	    // controlla che ci siano ancora umani, altrimenti hanno vinto gli alieni
 	    }
 	}	
 		
 	public boolean checkAttack(){
-			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED))
+			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED/* && attributo canattack a true*/))
 			 return true;
 			 
 			 return false;

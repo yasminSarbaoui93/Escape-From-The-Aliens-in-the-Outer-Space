@@ -129,7 +129,12 @@ public class GameState extends Observable{
 	public  GameDeck getGameDeck() {
 		return gameDeck;
 	}
-
+	
+	// rimescolo il mazzo
+	public GameDeck setGameState(){
+		return this.gameDeck=new GameDeck();
+		
+	}
 	
 	
 }
