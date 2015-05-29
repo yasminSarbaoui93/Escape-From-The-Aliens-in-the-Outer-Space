@@ -20,6 +20,7 @@ public class GameStateTest {
 		
 		//New GameState with Galilei map and 5 players identified by their IDs
 		GameState matchGalilei1= new GameState (playersID, "Galilei");
+		System.out.println("The map used is " + matchGalilei1.getMap().getMapName());
 		Iterator <Character> iterator = matchGalilei1.getCharacterList().iterator();
 		
 		ArrayList <Character> listOfCharacters = matchGalilei1.getCharacterList();
@@ -34,6 +35,7 @@ public class GameStateTest {
 			System.out.println(character.getName()+"can move to the sectors: "+matchGalilei1.reachableSectorsOfTheCurrentCharacter(character)+"\n");
 					
 		} 
+		
 		
 		System.out.println("STARTING THE ROUND NUMBER " + matchGalilei1.getRound()+"\n");
 		

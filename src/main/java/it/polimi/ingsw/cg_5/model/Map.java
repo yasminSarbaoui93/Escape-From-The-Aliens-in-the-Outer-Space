@@ -10,12 +10,13 @@ import it.polimi.ingsw.cg_5.model.Sector;;
 
 public class Map  {
 	protected HashMap <String, Sector> map = new HashMap <String,Sector>();	
-	
+	private String choosenMap;
 	
 	public Map(String choosenMap) { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
 	//Il file è strutturato per righe, ogni riga rappresenta un tipo di settore che andrà generato
+	this.choosenMap = choosenMap;
 	String sectorName;
 	String sectorType="SAFE";
 	FileReader sectorsFile;
@@ -151,6 +152,9 @@ public class Map  {
 		return map.get(name);
 	}
 	
+	public String getMapName(){
+		return choosenMap;
+	}
 
 
 	@Override
