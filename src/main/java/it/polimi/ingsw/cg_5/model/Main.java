@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg_5.model;
 
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Main {
 
@@ -16,7 +16,7 @@ ArrayList<Integer> players = new ArrayList<Integer>();
 		
 		GameState prova2= new GameState (players,"GALILEI");
 
-		prova2.getMap().printMap();
+		prova2.getMap().printMap("GALILEI");
 	
 	}
 

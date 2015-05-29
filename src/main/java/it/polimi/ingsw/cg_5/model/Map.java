@@ -6,15 +6,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import it.polimi.ingsw.cg_5.model.Sector;;
 
 public class Map  {
 	protected HashMap <String, Sector> map = new HashMap <String,Sector>();	
-	
+	private String choosenMap;
 	
 	public Map(String choosenMap) { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
 	//Il file è strutturato per righe, ogni riga rappresenta un tipo di settore che andrà generato
+	this.choosenMap = choosenMap;
 	String sectorName;
 	String sectorType="SAFE";
 	FileReader sectorsFile;
@@ -124,15 +126,22 @@ public class Map  {
 	/**
 	 * Prints all the sectors in the map.
 	 */
-	public void printMap(){ 
+	public void printMap(String name){ 
+		
+		String c = "";
+		c += "Printing map "+name+": [";
 		//questo metodo stampa tutti gli elementi della mappa, sarà utile per implementare la CLI
 		Iterator<String> iterator = map.keySet().iterator();
 		//keySet restituisce tutte le chiavi degli oggetti contenuti nella Hashmap
 		while (iterator.hasNext()) {
 		   String key = iterator.next().toString();
 		   String value = map.get(key).toString();		  
-		   System.out.println(" " + value  );
+		  // System.out.println(" " + value  );
+		   c+= " "+ value;
+		 
 		}
+		 c+="]";
+		  System.out.println(c);
 	}
 
 	public void  addSector(String name, Sector sector){
@@ -143,6 +152,11 @@ public class Map  {
 		return map.get(name);
 	}
 	
+	public String getMapName(){
+		return choosenMap;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Map [map=" + map + "]";

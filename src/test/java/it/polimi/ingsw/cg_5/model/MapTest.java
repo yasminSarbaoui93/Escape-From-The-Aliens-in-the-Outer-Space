@@ -1,8 +1,7 @@
 package it.polimi.ingsw.cg_5.model;
 
-import static org.junit.Assert.*;
 
-import java.util.HashSet;
+
 
 import org.junit.Test;
 
@@ -13,42 +12,33 @@ public class MapTest {
 		
 		//Creation of the map
 		Map map1= new Map("GALILEI");
-		map1.printMap();
+		map1.printMap("GALILEI");
 		
 		//print the borders of sector A02
 		map1.map.get("A02").bordersPrint();
 		
-		HashSet <Sector> reachableSectors = new HashSet <Sector> ();
 		
-		//Set to compare the result of the method with the real borders and moves
-		HashSet <Sector> comparisonSectors = new HashSet <Sector>();
-		comparisonSectors.add(map1.map.get("B01"));
-		comparisonSectors.add(map1.map.get("1"));
-		comparisonSectors.add(map1.map.get("A03"));
+		//Creation of the map
+		Map map2= new Map("FERMI");
+		map2.printMap("FERMI");
+		map2.map.get("M02").bordersPrint();
 		
-		//The reachable sectors if the maxMove is 1, are equals to the borders of the same sector
+		//Creation of the map
+		Map map3= new Map("GALVANI");
+		map3.printMap("GALVANI");
 		
-		assertEquals(reachableSectors = map1.takeSector("A02").getReachableSectors(1, map1.takeSector("A02")), comparisonSectors);
-		System.out.println("Reachable sectors for maxMove = 1 are: "+reachableSectors);
+		//print the borders of sector A02
+		map3.map.get("J06").bordersPrint();
 		
-		comparisonSectors.add(map1.map.get("A04"));
-		comparisonSectors.add(map1.map.get("B03"));
-		comparisonSectors.add(map1.map.get("C02"));
-		comparisonSectors.add(map1.map.get("C01"));
-		
-	
-		assertEquals(reachableSectors = map1.takeSector("A02").getReachableSectors(2, map1.takeSector("A02")), comparisonSectors);
-		System.out.println("Reachable sectors for maxMove = 2 are: " +reachableSectors);
-		
-		comparisonSectors.add(map1.map.get("D02"));
-		comparisonSectors.add(map1.map.get("C04"));
-		comparisonSectors.add(map1.map.get("A05"));
-		comparisonSectors.add(map1.map.get("B04"));
-		comparisonSectors.add(map1.map.get("C03"));
-		
-		assertEquals(reachableSectors = map1.takeSector("A02").getReachableSectors(3, map1.takeSector("A02")), comparisonSectors);
-		System.out.println("Reachable sectors for maxMove = 3 are: "+reachableSectors);
+		//Human and Alien start are not seen as borders since we can't cross them doring the game
+		map3.map.get("K06").bordersPrint();
 	}
+	
+	
+	
+	
+
+	
 	
 	public void testFile(){
 		

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Character {
 	protected int maxMove;
 	protected Sector currentSector;
-	protected String name;
+	protected final String name;
 	private final int playerID;
 	protected boolean canAttack;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
@@ -36,11 +36,6 @@ public abstract class Character {
 	
 	public String getName() {
 		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 

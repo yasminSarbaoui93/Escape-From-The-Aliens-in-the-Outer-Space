@@ -14,8 +14,9 @@ public class EscapeHatchDeckTest {
 		
 		Card card = escapeHatchDeck.removeCard();
 		Card card1 = escapeHatchDeck.removeCard();
+		System.out.println(escapeHatchDeck.dimension());
+		assertEquals(6, escapeHatchDeck.dimension());
 		
-			
 		System.out.println(card);
 		System.out.println(card1);
 		System.out.println(escapeHatchDeck);

@@ -9,6 +9,15 @@ public class Human extends Character {
 		canAttack =false;
 	//	this.currentSector = humanStart;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+			
+		return "I'm the Human "+name;	
+	}
+	
 
 	
 	

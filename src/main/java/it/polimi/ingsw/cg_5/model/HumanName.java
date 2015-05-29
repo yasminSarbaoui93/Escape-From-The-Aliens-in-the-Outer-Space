@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_5.model;
 
 public enum HumanName {
-	THE_CAPTAIN("THE CAPTAIN"), THE_PILOT("THE PILOT") , THE_PSYCHOLOGIST("THE PSYCHOLOGIST"),
-	THE_SOLDIER("THE SOLDIER");
+	THE_CAPTAIN("Ennio Maria Dominoni (Captain)"), THE_PILOT("Cabal(pilot)") , THE_PSYCHOLOGIST("Silvano Porpora (psychologist)"),
+	THE_SOLDIER("Tuccio Brendon (soldier)");
 	
 	private final String HumanName;
 	

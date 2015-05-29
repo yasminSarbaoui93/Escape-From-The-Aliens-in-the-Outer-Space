@@ -4,4 +4,9 @@ public class AlienStart extends Sector {
 	public AlienStart(String name){
 		super(name);
 	}
+	
+	@Override
+	public String toString() {
+		return "Alien Start ";
+	}
 }

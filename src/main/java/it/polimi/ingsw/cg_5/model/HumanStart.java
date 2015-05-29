@@ -4,4 +4,10 @@ public class HumanStart extends Sector {
 	public HumanStart(String name){
 		super(name);
 	}
+
+	@Override
+	public String toString() {
+		return "Human Start ";
+	}
+	
 }

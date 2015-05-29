@@ -9,6 +9,13 @@ public class Alien extends Character {
 		maxMove = 2;
 		canAttack =true;
 	}
+	
+
+	@Override
+	public String toString() {
+			
+		return "I'm "+name;	
+	}
 
 	
 
