@@ -22,7 +22,7 @@ public class DrawCardFromGamedeck extends Action {
 		// se ilmazzo è vuoto lo ricrea .
 		if(gameState.getGameDeck().getGameDeck().isEmpty()){
 			gameState.setGameState();
-			
+			System.out.println("mazzo ricreato");
 		
 		}
 		// pesca Carta e vari comportmenti i base alla carta pescata
@@ -32,19 +32,24 @@ public class DrawCardFromGamedeck extends Action {
 			// chiedi al player settore dove si vuole muovere quando decide di andares su dangerous sector
 			//sceglie anche il settore che bleffera'
 			//cosi da rendere immaediata noyse_any_sector come noise_your_sector
-		}
+			System.out.println("Noyse anysector");
+			}
 		if(drawnCard.getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
 			//stampa a video settore del currentPlayer
 			
+			System.out.println("Noyse your sector");
 		}
 		
 		if(drawnCard.getGameCardType()==GameCardType.SILENCE ){
 			//stampa a tutti Silence
+			System.out.println("silence");
+		
 		}
 		//  dovro trovare un posto dove mettere il check che il deck deck non sia vuoto- o se è vuoto controllare che usedItemDeck 
 		//non sia vuoto
 		if(drawnCard.isItemIcon()==true && checkItemDecks()){
 			ItemCard DrawnitemCard =this.gameState.getItemDeck().removeCard();
+			System.out.println("ha icona ");
 			gameState.getCurrentCharacter().getItemPlayerCard().add(DrawnitemCard);
 		}
 		

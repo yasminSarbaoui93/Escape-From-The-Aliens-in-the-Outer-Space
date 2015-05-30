@@ -97,7 +97,7 @@ public class GameState extends Observable{
 			alien.setCurrentSector(map.takeSector("ALIEN_START"));
 			characterList.add(alien);
 		}
-		
+		//Collections.shuffle(characterList);
 		return characterList;
 	}
 

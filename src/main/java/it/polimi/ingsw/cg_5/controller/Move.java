@@ -19,8 +19,8 @@ public class Move extends Action {
 	  if(	gameState.getCurrentCharacter().getCurrentSector().getReachableSectors
 			(gameState.getCurrentCharacter().getMaxMove(),
 			gameState.getCurrentCharacter().getCurrentSector()).contains(this.destinationSector)
-			//||gamestate.getTurn.getTurnState.equals(turnState.Started))
-			)
+		    && gameState.getTurn().getTurnState().equals(TurnState.STARTED))
+			
 			return true;
 	  
 			
