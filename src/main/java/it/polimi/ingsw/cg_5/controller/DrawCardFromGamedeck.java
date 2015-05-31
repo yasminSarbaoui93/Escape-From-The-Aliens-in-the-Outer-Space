@@ -76,5 +76,9 @@ public class DrawCardFromGamedeck extends Action {
 		return false;
 		
 	}
+	public boolean playerCardSize(){
+		return false;
+		
+	}
 
 }

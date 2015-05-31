@@ -24,14 +24,7 @@ public abstract class Character {
 		return itemPlayerCard;
 	}
 	
-	
-	public void removeUsedItemcard(ItemCard itemCardToRemove){
-		
-		for(ItemCard playerItemCard : getItemPlayerCard()){
-			if(playerItemCard.equals(itemCardToRemove))
-				getItemPlayerCard().remove(itemCardToRemove);
-		}
-	}
+
 	
 	
 	public int getPlayerID() {
@@ -67,6 +60,10 @@ public abstract class Character {
 
 	public void setCanAttack(boolean canAttack) {
 		this.canAttack = canAttack;
+	}
+	@Override
+	public String toString() {
+		return "Character [name=" + name + ", playerID=" + playerID + "]";
 	}
 	
 

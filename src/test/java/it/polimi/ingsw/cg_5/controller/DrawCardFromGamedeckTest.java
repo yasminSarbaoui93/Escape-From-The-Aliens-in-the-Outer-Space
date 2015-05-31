@@ -1,12 +1,12 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import static org.junit.Assert.*;
+
 
 import java.util.ArrayList;
 
 import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.GameState;
-import it.polimi.ingsw.cg_5.model.Sector;
+
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 import org.junit.Test;

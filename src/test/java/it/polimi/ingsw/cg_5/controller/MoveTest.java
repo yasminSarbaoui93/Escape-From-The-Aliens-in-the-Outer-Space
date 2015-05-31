@@ -22,7 +22,7 @@ public class MoveTest {
 		// problema primo player che gioca e sempre human .. va rimischiato primadi assegnare turni
 		
 		GameState stateprova= new GameState(playersID,"GALLILEI");
-		System.out.println("INSERISCO settore valido L09");
+		System.out.println("INSERISCO settore valido L09 per  l'human");
 		Sector destination = stateprova.getMap().takeSector("L09");
 		Move mossaValida= new Move(stateprova, destination);
 		System.out.println("LA CHECK DA "+mossaValida.checkMove());
