@@ -9,8 +9,6 @@ protected final GameState gameState;
 public Action(GameState gameState){
 	this.gameState=gameState;
 }
-
-
 		
 public GameState getGameState() {
 	return gameState;

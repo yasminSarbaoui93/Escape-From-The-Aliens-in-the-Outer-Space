@@ -30,6 +30,7 @@ public class AttackTest {
 			if(attacco.checkAttack()){
 				System.out.println("la check da dato true e quindi si attacca");
 				attacco.execute();
+				System.out.println(stateprova.getTurn().getTurnState());
 			}else System.out.println("la check ha dato esito negativo");
 			
 			/*sposto il player in un settore e lo faccio attaccare a vuoto*/

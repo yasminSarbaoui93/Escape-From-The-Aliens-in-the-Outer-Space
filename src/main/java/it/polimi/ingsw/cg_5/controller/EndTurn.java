@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.GameState;
+import it.polimi.ingsw.cg_5.model.TurnState;
 
 public class EndTurn extends Action {
 
@@ -11,16 +12,14 @@ public class EndTurn extends Action {
 
 	@Override
 	public void execute() {
-		//cambia il current player del gameState
-		
-		
-		
-		// nel caso che laa index del player sia = all ultima posizione  della lista di character il round verra aumentato
+		gameState.goToNextCharacter();
+		gameState.getTurn().setTurnState(TurnState.STARTED);
 	}
 	
 	public boolean checkEndTurn(){
-		//se siamo al turnState.ENDTURN possiamo eseguirlo
-		// nel caso che laa index del player sia = all ultima posizione  della lista di character il round verra aumentato
+		if(gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN) 
+			return true;
+		else
 		return false;
 		
 		

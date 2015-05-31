@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
 import static org.junit.Assert.*;
+import it.polimi.ingsw.cg_5.model.TurnState;
 
 import org.junit.Test;
 
@@ -28,23 +29,13 @@ GameManager prova = new GameManager();
 		
 		
 		prova.MatchCreator();
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		
-		
+			
 		for(WaitingList waitingList: prova.getPlayerListManager().getWaitingLists()){
 		System.out.println(waitingList);
+		
 		}
+		
+			
 	}
 
 }

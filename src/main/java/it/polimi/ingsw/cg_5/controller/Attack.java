@@ -14,22 +14,19 @@ public class Attack extends Action {
 	
 	@Override
 	public void execute() {
-		// SE IL SECTORE CONTIENE SOLO IL CURRENT PLAYERL'ATTACCO ANDRA A VUOTO
+		// SE IL SECTORE CONTIENE SOLO IL CURRENT PLAYER L'ATTACCO ANDRA A VUOTO
 		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().size()==1){
 			//il giocatore ha attaccato in A00, l'attacco non è andato a buon fine
 			System.out.println("ops non c'è nessuno");
 		}
 		else {
 		ArrayList <Character> characterToKill = new ArrayList <Character> ();
-		System.out.println(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 		characterToKill.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
-		System.out.println(characterToKill);
-		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere
+		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere, altrimenti si suiciderebbe
 		characterToKill.remove(gameState.getCurrentCharacter());
-		ArrayList<Character> safeCharacter=new ArrayList<Character>();
-		
+		ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
+		//che ha la carta difesa in mano
 		ItemCard defenceCard = null;
-		
 		for(Character character: characterToKill){
 	    	for(ItemCard itemCard:character.getItemPlayerCard()){
 	    		if(itemCard.getItemCardType()==ItemCardType.DEFENCE){
@@ -38,27 +35,27 @@ public class Attack extends Action {
 	    		}
 	    	}
 	    	
-	    	}
+	    }
 		
-		// la lista dei giocatori non e' vuota allora vuol dire che bisognera levare il player con safe
+		// la lista dei giocatori non e' vuota allora vuol dire che bisognera levare il player che si salva
     	if(!safeCharacter.isEmpty()){
     		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
     		characterToKill.removeAll(safeCharacter);
-    	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);
+    	for(Character character : safeCharacter){
+    		int i=gameState.getCharacterList().indexOf(character);
+    		gameState.getCharacterList().get(i).getItemPlayerCard().remove(defenceCard);
+    	}
+    	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);//scarto la carta difesa
 	    	}
-    	System.out.println(characterToKill);
+    	
     	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
 		gameState.getCharacterList().removeAll(characterToKill);
 		gameState.getCurrentCharacter().getCurrentSector().getCharacterList().removeAll(characterToKill);
-	    	System.out.println("\ni player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
+	    	System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
-	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/
-	    	
-	    	
-	    	
+	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
 	    }
-	    	
-	    
+	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);		
 	    }
 		
 		

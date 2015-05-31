@@ -45,7 +45,7 @@ public class DrawCardFromGamedeck extends Action {
 			System.out.println("silence");
 		
 		}
-		//  dovro trovare un posto dove mettere il check che il deck deck non sia vuoto- o se è vuoto controllare che usedItemDeck 
+		//  dovro trovare un posto dove mettere il check che il deck  non sia vuoto- o se è vuoto controllare che usedItemDeck 
 		//non sia vuoto
 		if(drawnCard.isItemIcon()==true && checkItemDecks()){
 			ItemCard DrawnitemCard =this.gameState.getItemDeck().removeCard();
