@@ -16,7 +16,7 @@ ArrayList<Integer> players = new ArrayList<Integer>();
 		
 		GameState prova2= new GameState (players,"GALILEI");
 
-		prova2.getMap().printMap();
+		//prova2.getMap().printMap();
 	
 	}
 

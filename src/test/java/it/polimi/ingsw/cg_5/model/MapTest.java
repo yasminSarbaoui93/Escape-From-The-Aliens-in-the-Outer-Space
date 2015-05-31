@@ -13,22 +13,25 @@ public class MapTest {
 		
 		//Creation of the map
 		Map map1= new Map("GALILEI");
-		map1.printMap();
+		//map1.printMap();
 		
 		//print the borders of sector A02
-		map1.map.get("A02").bordersPrint();
+		//map1.map.get("F02").bordersPrint();
 		
 		HashSet <Sector> reachableSectors = new HashSet <Sector> ();
 		
 		//Set to compare the result of the method with the real borders and moves
 		HashSet <Sector> comparisonSectors = new HashSet <Sector>();
-		comparisonSectors.add(map1.map.get("B01"));
-		comparisonSectors.add(map1.map.get("1"));
-		comparisonSectors.add(map1.map.get("A03"));
+		comparisonSectors.add(map1.map.get("F01"));
+		comparisonSectors.add(map1.map.get("G02"));
+		comparisonSectors.add(map1.map.get("G03"));
+		comparisonSectors.add(map1.map.get("EO2"));
+		comparisonSectors.add(map1.map.get("E03"));
+		comparisonSectors.add(map1.map.get("F03"));
 		
 		//The reachable sectors if the maxMove is 1, are equals to the borders of the same sector
-		
-		assertEquals(reachableSectors = map1.takeSector("A02").getReachableSectors(1, map1.takeSector("A02")), comparisonSectors);
+		System.out.println("Reachable sectors for maxMove = 1 are: "+  map1.takeSector("F02").getReachableSectors(1, map1.takeSector("F02")));
+		assertEquals(reachableSectors = map1.takeSector("F02").getReachableSectors(1, map1.takeSector("F02")), comparisonSectors);
 		System.out.println("Reachable sectors for maxMove = 1 are: "+reachableSectors);
 		
 		comparisonSectors.add(map1.map.get("A04"));

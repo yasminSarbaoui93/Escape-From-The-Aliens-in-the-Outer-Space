@@ -60,6 +60,7 @@ public class GameState extends Observable{
 		//questo metodo dato in ingresso il numero di partecipanti al gioco, ritorna una lista di personaggi seguendo
 		//le regole del gioco(N° alieni >= N° umani), il metodo si avvale di setAlienName e setHumanName per ottenere
 		//i nomi dei personaggi, da passare al costruttore di character
+		//inoltre viene settato al personggio un ID PLayere Casuale, creando la coppia personaggio/giocatore
 		int humanNumber = IDsofplayers.size()/2;
 		int alienNumber = IDsofplayers.size()-humanNumber;
 		ArrayList <Character> characterList = new ArrayList <Character>();

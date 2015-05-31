@@ -142,6 +142,9 @@ public class Map  {
 	public Sector takeSector(String name){
 		return map.get(name);
 	}
+	public int getSize(){
+		return this.map.size();
+	}
 	
 	@Override
 	public String toString() {
