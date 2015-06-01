@@ -20,7 +20,7 @@ public class Attack extends Action {
 
 		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().size()==1){
 
-			//il giocatore ha attaccato in A00, l'attacco non è andato a buon fine
+	
 			System.out.println("ops non c'è nessuno");
 
 		}

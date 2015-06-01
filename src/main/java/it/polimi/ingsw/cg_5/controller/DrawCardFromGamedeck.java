@@ -17,6 +17,10 @@ public class DrawCardFromGamedeck extends Action {
 
 	}
 
+	/* 
+	 * It controls if there are still cards in the game deck. If so, it removes the last card from the game deck;
+	 * if not, it creates a new game deck where to draw the cards.
+	 */
 	@Override
 	public void execute() {
 		// se ilmazzo è vuoto lo ricrea .

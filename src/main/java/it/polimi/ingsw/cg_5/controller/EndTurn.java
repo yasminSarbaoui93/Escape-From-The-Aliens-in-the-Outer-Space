@@ -10,6 +10,10 @@ public class EndTurn extends Action {
 		// TODO Auto-generated constructor stub
 	}
 
+	/* (non-Javadoc)
+	 * @see it.polimi.ingsw.cg_5.controller.Action#execute()
+	 * Controls all the conditions to end a turn. A turn can end after an attack, or after using a card of type gameCard or ItemCard.
+	 */
 	@Override
 	public void execute() {
 		gameState.goToNextCharacter();
