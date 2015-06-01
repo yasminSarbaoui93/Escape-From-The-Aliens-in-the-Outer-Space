@@ -1,11 +1,9 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.model.Card;
+
 import it.polimi.ingsw.cg_5.model.DangerousSector;
-import it.polimi.ingsw.cg_5.model.Deck;
 import it.polimi.ingsw.cg_5.model.GameCard;
 import it.polimi.ingsw.cg_5.model.GameCardType;
-import it.polimi.ingsw.cg_5.model.GameDeck;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.TurnState;
@@ -19,13 +17,13 @@ public class DrawCardFromGamedeck extends Action {
 
 	@Override
 	public void execute() {
-		// se ilmazzo è vuoto lo ricrea .
+		// se il mazzo è vuoto lo ricrea .
 		if(gameState.getGameDeck().getGameDeck().isEmpty()){
-			gameState.setGameState();
+			gameState.setGameDeck();
 			System.out.println("mazzo ricreato");
 		
 		}
-		// pesca Carta e vari comportmenti i base alla carta pescata
+		// pesca Carta e vari comportamenti i base alla carta pescata
 		GameCard drawnCard= (GameCard) gameState.getGameDeck().removeCard();
 		
 		if(drawnCard.getGameCardType()==GameCardType.NOISE_ANY_SECTOR){
