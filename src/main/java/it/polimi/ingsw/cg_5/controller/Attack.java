@@ -14,9 +14,10 @@ public class Attack extends Action {
 	
 	@Override
 	public void execute() {
-		// SE IL SECTORE CONTIENE SOLO IL CURRENT PLAYERL'ATTACCO ANDRA A VUOTO
+		// The attack can be done after the character moved to the new current sector. So if in the current sector there's only the current carachter
+		//the attack will not be succesful
 		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().size()==1){
-			//il giocatore ha attaccato in A00, l'attacco non è andato a buon fine
+
 		}
 		else {
 		ArrayList <Character> CharacterToKill = new ArrayList <Character> ();
@@ -35,16 +36,16 @@ public class Attack extends Action {
 	    		}
 	    	}
 	    	
-	    	}
-		
-		// la lista dei giocatori non e' vuota allora vuol dire che bisognera levare il player con safe
+	    }
+	
+		//If the list of safe players is not empty, this means that they've used the defence card, so this has to be put in the used item deck
     	if(!safeCharacter.isEmpty()){
     		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
     		CharacterToKill.removeAll(safeCharacter);
-    	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);
-	    	}
+    		gameState.getItemDeck().getUsedItemDeck().add(defenceCard);
+	    }
     	
-    	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
+    	//removes the characters with no defence card that were killed
 		gameState.getCharacterList().removeAll(CharacterToKill);
 	    	
 	    	
@@ -54,10 +55,14 @@ public class Attack extends Action {
 	    }
 		
 		
+	/**This method checks if the character that is willing to attack can really do it. If the character is a human, it can attack only if he has the item card to do it,
+	 * while if the character is an alien, he can always attack if he already moved to the sector where he wants to attack.
+	 * @return True if the character can attack; false if the character is not allowd to attack.
+	 */
 	public boolean checkAttack(){
 			if(gameState.getCurrentCharacter().getClass()==Human.class){
-			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
-			 return true;
+				if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
+					return true;
 			}
 			if(gameState.getCurrentCharacter().getClass()==Alien.class){
 				if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED))

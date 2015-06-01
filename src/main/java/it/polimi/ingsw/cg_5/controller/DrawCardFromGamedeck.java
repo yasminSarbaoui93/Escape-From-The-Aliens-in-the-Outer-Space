@@ -14,14 +14,14 @@ public class DrawCardFromGamedeck extends Action {
 
 	public DrawCardFromGamedeck(GameState gameState) {
 		super(gameState);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public void execute() {
 		// se ilmazzo è vuoto lo ricrea .
 		if(gameState.getGameDeck().getGameDeck().isEmpty()){
-			gameState.setGameState();
+			gameState.setGameDeck();
 			
 		
 		}
