@@ -11,6 +11,8 @@ public class ItemCard implements Card {
 		
 		this.itemCardType = itemCardType;
 	}
+	
+	
 
 
 
