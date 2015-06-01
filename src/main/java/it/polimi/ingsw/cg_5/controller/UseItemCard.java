@@ -59,7 +59,6 @@ public class UseItemCard extends Action {
 	 * @return True if the character is a Human and he holds the card he wants to use
 	 */
 	
-	//se e' true la check e true la carta viene rimossa poi succesivamente verra chiamata la remove
 	public boolean checkItemDeck(){
 		if(gameState.getCurrentCharacter().getClass() == Alien.class){
 			return false;

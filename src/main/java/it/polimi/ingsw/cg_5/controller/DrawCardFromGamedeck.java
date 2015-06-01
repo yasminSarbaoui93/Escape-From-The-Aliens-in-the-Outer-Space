@@ -12,15 +12,22 @@ public class DrawCardFromGamedeck extends Action {
 
 	public DrawCardFromGamedeck(GameState gameState) {
 		super(gameState);
-		// TODO Auto-generated constructor stub
+
 	}
 
+	/* 
+	 * It controls if there are still cards in the game deck. If so, it removes the last card from the game deck;
+	 * if not, it creates a new game deck where to draw the cards.
+	 */
 	@Override
 	public void execute() {
 		// se il mazzo è vuoto lo ricrea .
 		if(gameState.getGameDeck().getGameDeck().isEmpty()){
+
 			gameState.setGameDeck();
+
 			System.out.println("mazzo ricreato");
+
 		
 		}
 		// pesca Carta e vari comportamenti i base alla carta pescata

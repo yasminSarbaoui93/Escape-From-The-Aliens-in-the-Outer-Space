@@ -14,6 +14,9 @@ public GameState getGameState() {
 	return gameState;
 }
 
+/**Abstract method that verifies all the conditions necessary to execute the specific action
+ * 
+ */
 public abstract void execute();
 
 }

@@ -39,6 +39,11 @@ public class WaitingList {
 	public int getSize(){
 		return playersID.size();
 		}
+	
+	
+	/**Boolean method that controls if the conditions for starting a new game are satisfied.
+	 * @return True if the waiting list is full or if the time is over.
+	 */
 	public boolean canStartNewGame(){
 		if(this.getSize()== this.maxSize) return true;
 		else return false;
