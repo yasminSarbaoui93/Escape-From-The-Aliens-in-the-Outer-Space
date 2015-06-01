@@ -6,11 +6,23 @@ import it.polimi.ingsw.cg_5.model.*;
 public class Match {
 	private final Integer numberGame;
 	private GameState gameState;
+	private MatchState matchState;
 	
 	
+	public MatchState getMatchState() {
+		return matchState;
+	}
+
+
+	public void setMatchState(MatchState matchState) {
+		this.matchState = matchState;
+	}
+
+
 	public Match(GameState gameState ,int numberGame){
 		this.numberGame=numberGame;
 		this.gameState=gameState;
+		this.matchState=MatchState.RUNNING;
 	}
 	
 
@@ -32,6 +44,14 @@ public class Match {
 	}
 	
 	
+	//  controllo se gli umani siano fniti
+	public boolean isGameOver(){
+		if(this.gameState.getNumberOfHumanAlive()!=0)
+		return false;
+		
+		return true;
+		
+	}
 	
 	
 
