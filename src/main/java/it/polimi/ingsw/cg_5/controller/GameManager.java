@@ -47,7 +47,7 @@ public class GameManager {
 		return playerListManager;
 	}
 	
-	//controllo se il player e' nel match dichiarato e che sia il suo turno per poi andare avanti
+	//controllo se il player e' nel match dichiarato e che sia il suo turno per poi andare avanti con controlli
 	
 	public boolean canAct(Integer numerGame,Integer playerID){
 		if(this.listOfMatch.containsKey(numerGame)){

@@ -58,7 +58,7 @@ public class DrawCardFromGamedeck extends Action {
 			gameState.getCurrentCharacter().getItemPlayerCard().add(DrawnitemCard);
 		}
 		
-		gameState.getTurn().setTurnState(TurnState.ENDTURN);
+		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
 		//ricordarsi del controlloche a fine turn il player deve avere al   max 3 CarteItem
 		
