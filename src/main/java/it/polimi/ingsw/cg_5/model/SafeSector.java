@@ -8,7 +8,7 @@ public class SafeSector extends Sector {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return super.toString()+ "Safe";
+		return super.toString()+"(S)";
 	}
 
 	public boolean isSafeSector(Sector a){

@@ -7,7 +7,7 @@ public class HumanStart extends Sector {
 
 	@Override
 	public String toString() {
-		return "Human Start ";
+		return " HHH  ";
 	}
 	
 }

@@ -7,6 +7,6 @@ public class AlienStart extends Sector {
 	
 	@Override
 	public String toString() {
-		return "Alien Start ";
+		return " AAA  ";
 	}
 }

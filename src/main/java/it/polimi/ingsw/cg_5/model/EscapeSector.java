@@ -16,9 +16,11 @@ public class EscapeSector extends Sector {
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString()+ "Escape";
+public String toString() {
+
+		
+		return " ESC  ";
+		
 	}
 	
 	

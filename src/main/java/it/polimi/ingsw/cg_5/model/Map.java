@@ -143,6 +143,59 @@ public class Map  {
 		 c+="]";
 		  System.out.println(c);
 	}
+	
+	
+	/**Method that draws a certain map created using HashMap. Those maps are made of hexagonal Sectors, so those will be printed in a staggered way.
+	 * 
+	 */
+	public void drawMap(){
+		String mapToDraw = "";
+		
+		String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W"};
+		String[] listOfNumbers = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"};
+		
+
+		String sectorName;
+
+		for(int i=0; i<listOfNumbers.length; i++){
+			
+			for(int j=0; j<alphabet.length; j+=2){
+				sectorName = alphabet[j]+listOfNumbers[i];
+				
+				if(map.get(sectorName)!=null)
+					mapToDraw += "["+map.get(sectorName).toString()+"] ";
+				else
+					  
+					mapToDraw += "         ";
+				//	mapToDraw += "  [||||||]  ";
+				
+	
+			}
+			
+			mapToDraw += "\n";
+			mapToDraw += "     ";
+			
+			for(int j=1; j<alphabet.length; j+=2){
+				sectorName = alphabet[j]+listOfNumbers[i];
+				
+				if(map.get(sectorName)!=null)
+					mapToDraw += "["+map.get(sectorName).toString()+"] ";
+					
+				else
+					mapToDraw += "         ";
+				//	mapToDraw += "  [||||||]  ";
+				
+	
+			}
+			
+			mapToDraw += "\n";
+		}
+		
+		System.out.println(mapToDraw);
+			
+	
+	}
+	
 
 	public void  addSector(String name, Sector sector){
 		map.put(name, sector);

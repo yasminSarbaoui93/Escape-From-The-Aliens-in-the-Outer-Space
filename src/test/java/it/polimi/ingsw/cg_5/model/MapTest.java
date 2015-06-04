@@ -36,6 +36,11 @@ public class MapTest {
 		
 		//Human and Alien start are not seen as borders since we can't cross them doring the game
 		map3.map.get("K06").bordersPrint();
+		
+		System.out.println("\n\n");
+		map1.drawMap();
+		map2.drawMap();
+		map3.drawMap();
 	}
 	
 	
