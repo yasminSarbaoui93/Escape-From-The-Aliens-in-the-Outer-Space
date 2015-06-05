@@ -57,7 +57,7 @@ public abstract class Sector {
 	
 	@Override
 	public String toString() {
-		return  sectorName +" ";
+		return  sectorName;
 	}
 	public void addBorder(Sector border) {
 		this.bordersList.add(border);	
