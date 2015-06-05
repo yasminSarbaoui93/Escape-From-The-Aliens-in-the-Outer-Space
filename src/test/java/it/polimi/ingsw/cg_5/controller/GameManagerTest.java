@@ -29,6 +29,15 @@ GameManager prova = new GameManager();
 		
 		
 		prova.MatchCreator();
+		prova.getPlayerListManager().addToChosenList("FERMI",3);
+		prova.getPlayerListManager().addToChosenList("GALILEI",4);
+		prova.getPlayerListManager().addToChosenList("GALILEI",5);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.MatchCreator();
+		
 			
 		for(WaitingList waitingList: prova.getPlayerListManager().getWaitingLists()){
 		System.out.println(waitingList);
