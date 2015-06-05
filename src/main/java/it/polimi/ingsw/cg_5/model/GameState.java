@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_5.model;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -220,6 +221,19 @@ public class GameState extends Observable{
 	public String reachableSectorsOfTheCurrentCharacter(Character character){
 		return getMap().takeSector(character.getCurrentSector()
 				.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()).toString();
+	}
+	
+	//zhou metodo per ottenere il numero di giocatori umani presenti al gioco
+	public int getNumberOfHumanAlive(){
+		int numberOfHumanAlive=0;
+		for(Character character : this.characterList){
+			if(character.getClass()==Human.class)
+				numberOfHumanAlive++;
+		}
+		
+		return numberOfHumanAlive;
+		
+		
 	}
 	
 	

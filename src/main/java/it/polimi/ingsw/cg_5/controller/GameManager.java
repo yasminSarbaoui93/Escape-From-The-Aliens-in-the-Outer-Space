@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import it.polimi.ingsw.cg_5.model.*;
 
+
 public class GameManager {
 		private static int indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
@@ -40,11 +41,23 @@ public class GameManager {
 		return listOfMatch.get(numberGame);
 	}
 	
+	
 
 	public PlayerListManager getPlayerListManager() {
 		return playerListManager;
 	}
 	
+	//controllo se il player e' nel match dichiarato e che sia il suo turno per poi andare avanti con controlli
+	
+	public boolean canAct(Integer numerGame,Integer playerID){
+		if(this.listOfMatch.containsKey(numerGame)){
+				if(this.listOfMatch.get(numerGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
+					return true;		
+			}
+	
+		return false;
+		
+	}
 	
 	
 }
