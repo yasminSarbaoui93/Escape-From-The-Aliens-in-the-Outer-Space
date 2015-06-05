@@ -61,7 +61,11 @@ public class Attack extends Action {
 	    	System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
 	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	}
-	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);		
+	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);	
+	    
+	    // una volta eseguito attacco lo stato del canAttack dello umano deve tornare a false
+	    if(gameState.getCurrentCharacter().getClass()==Human.class)
+	    gameState.getCurrentCharacter().setCanAttack(false);
 	    }
 		
 		

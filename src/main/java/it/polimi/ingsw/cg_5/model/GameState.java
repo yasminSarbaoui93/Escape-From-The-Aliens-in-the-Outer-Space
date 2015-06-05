@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_5.model;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -220,6 +221,34 @@ public class GameState extends Observable{
 	public String reachableSectorsOfTheCurrentCharacter(Character character){
 		return getMap().takeSector(character.getCurrentSector()
 				.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()).toString();
+	}
+	
+	/**This method takes the list of current players of a certin match, and it's called after an attack or after a human reaches the Escape Hatch Sector to check the number of Humans still alive in the current game.
+	 * @return list of humans still alive in the current game.
+	 */
+	public int getNumberOfHumanAlive(){
+		int numberOfHumanAlive=0;
+		for(Character character : this.characterList){
+			if(character.getClass()==Human.class)
+				numberOfHumanAlive++;
+		}
+		
+		return numberOfHumanAlive;
+		
+		
+	}
+	
+	/**This method takes the list of current players of a certin match, and it's called after an attack to check the number of Aliens still alive in the current game.
+	 * @return list of aliens still alive in the current game.
+	 */
+	public int getNumberOfAliensAlive(){
+		int numberOfAliensAlive = 0;
+		for(Character character: this.characterList){
+			if(character.getClass()==Alien.class)
+				numberOfAliensAlive++;
+		}
+		
+		return numberOfAliensAlive;
 	}
 	
 	

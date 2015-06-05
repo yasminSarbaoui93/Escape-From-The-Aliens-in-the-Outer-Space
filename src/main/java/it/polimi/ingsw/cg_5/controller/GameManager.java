@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import it.polimi.ingsw.cg_5.model.*;
 
+
 public class GameManager {
 		private static int indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
@@ -40,11 +41,27 @@ public class GameManager {
 		return listOfMatch.get(numberGame);
 	}
 	
+	
 
 	public PlayerListManager getPlayerListManager() {
 		return playerListManager;
 	}
 	
+	
+	/**Controls if the player that sends a request for doing a certain action is in the list of player of the match and if it's his turn.
+	 * @param numberGame
+	 * @param playerID
+	 * @return true if the player's ID is in the list of current players of a certain match.
+	 */
+	public boolean canAct(Integer numberGame,Integer playerID){
+		if(this.listOfMatch.containsKey(numberGame)){
+				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
+					return true;		
+			}
+	
+		return false;
+		
+	}
 	
 	
 }

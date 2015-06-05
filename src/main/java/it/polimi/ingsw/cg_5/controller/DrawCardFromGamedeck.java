@@ -1,11 +1,9 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.model.Card;
+
 import it.polimi.ingsw.cg_5.model.DangerousSector;
-import it.polimi.ingsw.cg_5.model.Deck;
 import it.polimi.ingsw.cg_5.model.GameCard;
 import it.polimi.ingsw.cg_5.model.GameCardType;
-import it.polimi.ingsw.cg_5.model.GameDeck;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.TurnState;
@@ -23,17 +21,16 @@ public class DrawCardFromGamedeck extends Action {
 	 */
 	@Override
 	public void execute() {
-		// se ilmazzo è vuoto lo ricrea .
+		// se il mazzo è vuoto lo ricrea .
 		if(gameState.getGameDeck().getGameDeck().isEmpty()){
 
 			gameState.setGameDeck();
-			
 
 			System.out.println("mazzo ricreato");
 
 		
 		}
-		// pesca Carta e vari comportmenti i base alla carta pescata
+		// pesca Carta e vari comportamenti i base alla carta pescata
 		GameCard drawnCard= (GameCard) gameState.getGameDeck().removeCard();
 		
 		if(drawnCard.getGameCardType()==GameCardType.NOISE_ANY_SECTOR){
@@ -61,7 +58,7 @@ public class DrawCardFromGamedeck extends Action {
 			gameState.getCurrentCharacter().getItemPlayerCard().add(DrawnitemCard);
 		}
 		
-		gameState.getTurn().setTurnState(TurnState.ENDTURN);
+		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
 		//ricordarsi del controlloche a fine turn il player deve avere al   max 3 CarteItem
 		
@@ -76,7 +73,7 @@ public class DrawCardFromGamedeck extends Action {
 		
 	}
 	
-	// contrllo che nn siano vuoti itedeck e useditemDeck
+	// contrllo che nn siano vuoti itemdeck e useditemDeck
 	public boolean checkItemDecks(){
 		if(!gameState.getItemDeck().getItemDeck().isEmpty()|| !gameState.getItemDeck().getUsedItemDeck().isEmpty())
 		return true;
