@@ -44,10 +44,17 @@ public class Match {
 	}
 	
 	
-	//  controllo se gli umani siano fniti
+	
+	/**Boolean to control if there are still humans or aliens still alive. If so, the game will not be over; while if there are no more humans or no more aliens playng the game, or if the number of rounds reached the maximum value of 39, the game will be over.
+	 * @return true if the game is over.
+	 */
 	public boolean isGameOver(){
 		if(this.gameState.getNumberOfHumanAlive()!=0)
-		return false;
+			return false;
+		if(this.gameState.getRound()<40)
+			return false;
+		if(this.gameState.getNumberOfAliensAlive()!=0)
+			return false;
 		
 		return true;
 		

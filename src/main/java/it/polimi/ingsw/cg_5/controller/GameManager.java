@@ -47,11 +47,15 @@ public class GameManager {
 		return playerListManager;
 	}
 	
-	//controllo se il player e' nel match dichiarato e che sia il suo turno per poi andare avanti con controlli
 	
-	public boolean canAct(Integer numerGame,Integer playerID){
-		if(this.listOfMatch.containsKey(numerGame)){
-				if(this.listOfMatch.get(numerGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
+	/**Controls if the player that sends a request for doing a certain action is in the list of player of the match and if it's his turn.
+	 * @param numberGame
+	 * @param playerID
+	 * @return true if the player's ID is in the list of current players of a certain match.
+	 */
+	public boolean canAct(Integer numberGame,Integer playerID){
+		if(this.listOfMatch.containsKey(numberGame)){
+				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
 					return true;		
 			}
 	
