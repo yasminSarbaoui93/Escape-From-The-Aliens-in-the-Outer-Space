@@ -157,8 +157,8 @@ public class GameState extends Observable{
 		
 		characterList.remove(attackedCharacter);
 		this.setChanged();
-		notifyObservers(attackedCharacter);
-		System.out.println("AND I WAS ATTACKED.");
+		notifyObservers(attackedCharacter +" AND I WAS ATTACKED.");
+
 	}
 	
 	public int getRound() {
