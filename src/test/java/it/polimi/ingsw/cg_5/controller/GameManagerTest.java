@@ -35,7 +35,12 @@ GameManager prova = new GameManager();
 		
 		}
 		
-			
+	
+		prova.getListOfMatch().get(1).getGameState().removeCharacter(prova.getListOfMatch().get(1).getGameState().getCharacterList().get(1));;
+		prova.getListOfMatch().get(1).getGameState().goToNextCharacter();
+		prova.getListOfMatch().get(1).getGameState().goToNextCharacter();
+		prova.getListOfMatch().get(1).getGameState().currentCaracterDrawsItemCard();
+		prova.getListOfMatch().get(1).getGameState().setGameDeck();
 	}
 
 }
