@@ -2,11 +2,20 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 
-public class GameManager {
+public class GameManager implements Observer {
+	
+
+	
+	
+	
 		private static int indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
@@ -21,6 +30,7 @@ public class GameManager {
 				ArrayList <Integer> lista = waitingList.getPlayersID();
 				System.out.println(lista);
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap());
+				newGameState.addObserver(this);
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches);
 				listOfMatch.put(indexOfCurrentMatches,newMatch);
 				waitingListToRemove.add(waitingList);
@@ -60,6 +70,21 @@ public class GameManager {
 			}
 	
 		return false;
+		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		//This updates all the arguments of the type character that are returned from the methods attackCharacter or setCurrentCharacter of the model.
+		if(arg instanceof Character){
+			Character character = (Character) arg;
+			System.out.println(character);
+		}
+		
+		if(arg instanceof String){
+			String message = (String) arg;
+			System.out.println(message);
+		}
 		
 	}
 	

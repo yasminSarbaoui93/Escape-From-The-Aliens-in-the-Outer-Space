@@ -122,6 +122,7 @@ public class GameState extends Observable{
 
 	public void setEscapeHatchDeck(EscapeHatchDeck escapeHatchDeck) {
 		this.escapeHatchDeck = escapeHatchDeck;
+		
 	}
 
 
@@ -130,13 +131,10 @@ public class GameState extends Observable{
 	}
 
 
-	public void setGameDeck(GameDeck gameDeck) {
-		this.gameDeck = gameDeck;
-	}
-
-
 	public void setRound(int round) {
 		this.round = round;
+		this.setChanged();
+		notifyObservers("\nThe turn of the last player's ended, it's starting the round number: "+round);
 	}
 
 
@@ -158,6 +156,9 @@ public class GameState extends Observable{
 	public void removeCharacter(Character attackedCharacter){
 		
 		characterList.remove(attackedCharacter);
+		this.setChanged();
+		notifyObservers(attackedCharacter +" AND I WAS ATTACKED.");
+
 	}
 	
 	public int getRound() {
@@ -173,13 +174,17 @@ public class GameState extends Observable{
 
 	public void setCurrentCharacter(Character currentCharacter) {
 		this.currentCharacter = currentCharacter;
+		this.setChanged();
+		notifyObservers();
 	}
 
 	
 	// rimescolo il mazzo
 	public GameDeck setGameDeck(){
-		return this.gameDeck=new GameDeck();
-		
+		this.gameDeck=new GameDeck();
+		this.setChanged();
+		notifyObservers("The cards of the game deck are over. A new one has been created");
+		return this.gameDeck;
 	}
 	
 	
@@ -191,13 +196,12 @@ public class GameState extends Observable{
 			if(round>=MAX_NUM_ROUND)
 				System.out.println("IL MATCH E TERMINATO IN QUANTO RAGGIUNTO IL NUMERO MASSIMO DI ROUND = " +MAX_NUM_ROUND);
 			else{
-				round = round+1;
-				System.out.println("\nThe turn of the last player's ended, it's starting the round number: "+round);
+				setRound(round+1);
 				currentCharacter = getCharacterList().get(0);
 			}
 			
 		}
-		
+		System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
 	}
 
 
@@ -215,7 +219,8 @@ public class GameState extends Observable{
 			getCurrentCharacter().getItemPlayerCard().add(getItemDeck().removeCard());
 		else
 			System.out.println("You can hold only 3 item cards, so you must use one before drawing");
-		
+		setChanged();
+		notifyObservers("The player "+currentCharacter.getPlayerID()+" drew an item card.");
 	}
 	
 	public String reachableSectorsOfTheCurrentCharacter(Character character){
