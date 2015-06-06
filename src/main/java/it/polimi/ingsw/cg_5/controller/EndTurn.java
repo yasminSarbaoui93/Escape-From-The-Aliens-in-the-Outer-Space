@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg_5.controller;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
+
+
 public class EndTurn extends Action {
 
 	public EndTurn(GameState gameState) {
@@ -28,7 +30,8 @@ public class EndTurn extends Action {
 		
 		
 	}
-	// fare controllo prima di di fare end turn .
+	
+	
 		public boolean playerCardSize(){
 			if(gameState.getCurrentCharacter().getItemPlayerCard().size()>3)
 			return false;

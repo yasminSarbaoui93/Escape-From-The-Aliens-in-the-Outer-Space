@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import static org.junit.Assert.*;
-import it.polimi.ingsw.cg_5.model.DangerousSector;
+
+
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.Sector;
 

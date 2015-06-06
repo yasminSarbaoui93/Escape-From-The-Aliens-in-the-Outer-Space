@@ -1,10 +1,9 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import static org.junit.Assert.*;
+
 import it.polimi.ingsw.cg_5.model.GameState;
-import it.polimi.ingsw.cg_5.model.ItemCard;
+
 import it.polimi.ingsw.cg_5.model.ItemCardType;
-import it.polimi.ingsw.cg_5.model.ItemDeck;
 
 import java.util.ArrayList;
 

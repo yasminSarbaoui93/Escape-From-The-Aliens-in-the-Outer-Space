@@ -16,7 +16,7 @@ public class DiscardItemCard extends Action {
 
 	@Override
 	public void execute() {
-		System.out.println("il curretplayer ha rimosso una carta");
+		System.out.println("il current player ha rimosso una carta");
 
 	}
 
