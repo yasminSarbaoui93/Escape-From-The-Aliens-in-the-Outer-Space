@@ -31,10 +31,10 @@ public class DrawCardFromGamedeckTest {
 		DrawCardFromGamedeck pescaCarta=new DrawCardFromGamedeck(stateprova);
 		stateprova.getTurn().setTurnState(TurnState.HASMOVED);
 		System.out.println(stateprova.getCurrentCharacter().getCurrentSector());
-		System.out.println(pescaCarta.checkDrawnFromGameDeck());
+		System.out.println(pescaCarta.checkAction());
 		pescaCarta.execute();
 		// dopo aver pescato  il turnstate va a endTurn quindi il check ritornera false
-		System.out.println(pescaCarta.checkDrawnFromGameDeck());
+		System.out.println(pescaCarta.checkAction());
 		
 		System.out.println("\n\nrimuovo tutte le carte del deck");
 		for(int i=1;i<25;i++){

@@ -25,8 +25,8 @@ public class MoveTest {
 		System.out.println("Provo a spostare il current character in L09,funzionerà solo se human");
 		Sector destination = stateprova.getMap().takeSector("L09");
 		Move mossaValida= new Move(stateprova, destination);
-		System.out.println("LA CHECK DA "+mossaValida.checkMove());
-		if(mossaValida.checkMove()){
+		System.out.println("LA CHECK DA "+mossaValida.checkAction());
+		if(mossaValida.checkAction()){
 		mossaValida.execute();
 		}
 		System.out.println("IL SETTORE ATTUALE DEL PLAYER  "+stateprova.getCurrentCharacter().getCurrentSector());
@@ -37,8 +37,8 @@ public class MoveTest {
 				+ "è umano e che si è già mosso \n , e quindi la check darà false");
 		Sector destination2 = stateprova.getMap().takeSector("L04");
 		Move mossaAlieno= new Move(stateprova, destination2);
-		System.out.println("LA CHECK DA "+mossaAlieno.checkMove());
-		if(mossaAlieno.checkMove()){
+		System.out.println("LA CHECK DA "+mossaAlieno.checkAction());
+		if(mossaAlieno.checkAction()){
 			mossaAlieno.execute();
 		}
 		System.out.println("IL SETTORE ATTUALE DEL PLAYER  "+stateprova.getCurrentCharacter().getCurrentSector());

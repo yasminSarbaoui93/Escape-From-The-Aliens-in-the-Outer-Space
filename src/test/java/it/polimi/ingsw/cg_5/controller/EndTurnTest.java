@@ -24,29 +24,29 @@ public class EndTurnTest {
 		System.out.println(stateprova.getTurn().getTurnState());
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		System.out.println(stateprova.getTurn().getTurnState());
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		System.out.println(stateprova.getCurrentCharacter());
 		System.out.println(stateprova.getTurn().getTurnState());
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
-		if(endTurn.checkEndTurn()){
+		if(endTurn.checkAction()){
 			endTurn.execute();
 		}
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);

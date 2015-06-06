@@ -31,7 +31,7 @@ public class UseItemCardTest {
 		UseItemCard cartaAdrenalina= new UseItemCard(stateprova, ItemCardType.ADRENALINE);
 		
 		
-		if(cartaAdrenalina.checkItemDeck()){
+		if(cartaAdrenalina.checkAction()){
 			cartaAdrenalina.execute();
 		}
 		

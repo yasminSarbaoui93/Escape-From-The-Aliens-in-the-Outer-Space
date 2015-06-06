@@ -27,7 +27,7 @@ public class AttackTest {
 			stateprova.getTurn().setTurnState(TurnState.HASMOVED);
 			System.out.println("il player attuale e un "+stateprova.getCurrentCharacter());
 			Attack attacco=new Attack(stateprova);
-			if(attacco.checkAttack()){
+			if(attacco.checkAction()){
 				System.out.println("la check da dato true e quindi si attacca");
 				attacco.execute();
 				System.out.println(stateprova.getTurn().getTurnState());
@@ -37,7 +37,7 @@ public class AttackTest {
 			
 			stateprova.getCurrentCharacter().setCurrentSector(stateprova.getMap().takeSector("W05"));
 			stateprova.getMap().takeSector("W05").getCharacterList().add(stateprova.getCurrentCharacter());
-			if(attacco.checkAttack()){
+			if(attacco.checkAction()){
 				attacco.execute();
 			}
 			

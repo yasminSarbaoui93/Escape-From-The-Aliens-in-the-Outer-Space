@@ -27,7 +27,7 @@ public class Move extends Action {
 	  * If the turn is on the state "STARTED" and the selected sector is reachable, then the character can move there.
 	 * @return
 	 */
-	public boolean checkMove(){
+	public boolean checkAction(){
 	  if(	gameState.getCurrentCharacter().getCurrentSector().getReachableSectors
 			(gameState.getCurrentCharacter().getMaxMove(),
 			gameState.getCurrentCharacter().getCurrentSector()).contains(this.destinationSector)

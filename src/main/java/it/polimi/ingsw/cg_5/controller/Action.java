@@ -18,5 +18,8 @@ public GameState getGameState() {
  * 
  */
 public abstract void execute();
+public abstract boolean checkAction();
 
 }
+
+

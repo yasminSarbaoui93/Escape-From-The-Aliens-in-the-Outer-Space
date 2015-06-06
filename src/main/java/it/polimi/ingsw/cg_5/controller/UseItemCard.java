@@ -59,7 +59,7 @@ public class UseItemCard extends Action {
 	 * @return True if the character is a Human and he holds the card he wants to use
 	 */
 	
-	public boolean checkItemDeck(){
+	public boolean checkAction(){
 		if(gameState.getCurrentCharacter().getClass() == Alien.class){
 			return false;
 		}
@@ -67,6 +67,7 @@ public class UseItemCard extends Action {
 			for(ItemCard playerItemCard : gameState.getCurrentCharacter().getItemPlayerCard()){
 				if(playerItemCard.getItemCardType().equals(usingItemCardType)){
 					gameState.getCurrentCharacter().getItemPlayerCard().remove(playerItemCard);
+					gameState.getItemDeck().getUsedItemDeck().add(playerItemCard);
 					return true;
 				}
 			}

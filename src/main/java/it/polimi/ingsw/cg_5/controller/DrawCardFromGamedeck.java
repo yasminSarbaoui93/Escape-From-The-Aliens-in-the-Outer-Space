@@ -64,7 +64,7 @@ public class DrawCardFromGamedeck extends Action {
 		
 	}
 	//  il  giocatore puo' pescare solo se si e gia mossi e se si e in un Dangerous Sector
-	public boolean checkDrawnFromGameDeck(){
+	public boolean checkAction(){
 		if(gameState.getTurn().getTurnState()==TurnState.HASMOVED&&
 				gameState.getCurrentCharacter().getCurrentSector().getClass()==DangerousSector.class)
 			return true;
@@ -81,9 +81,6 @@ public class DrawCardFromGamedeck extends Action {
 		return false;
 		
 	}
-	public boolean playerCardSize(){
-		return false;
-		
-	}
+	
 
 }

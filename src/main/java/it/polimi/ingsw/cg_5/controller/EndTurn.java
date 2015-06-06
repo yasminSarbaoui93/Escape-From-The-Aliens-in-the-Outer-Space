@@ -20,7 +20,7 @@ public class EndTurn extends Action {
 		gameState.getTurn().setTurnState(TurnState.STARTED);
 	}
 	
-	public boolean checkEndTurn(){
+	public boolean checkAction(){
 		if(gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN) 
 			return true;
 		else
@@ -28,5 +28,14 @@ public class EndTurn extends Action {
 		
 		
 	}
+	// fare controllo prima di di fare end turn .
+		public boolean playerCardSize(){
+			if(gameState.getCurrentCharacter().getItemPlayerCard().size()>3)
+			return false;
+			
+			else
+				return true;
+			
+		}
 
 }

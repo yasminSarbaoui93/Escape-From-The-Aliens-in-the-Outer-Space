@@ -73,7 +73,7 @@ public class Attack extends Action {
 	 * while if the character is an alien, he can always attack if he already moved to the sector where he wants to attack.
 	 * @return True if the character can attack; false if the character is not allowd to attack.
 	 */
-	public boolean checkAttack(){
+	public boolean checkAction(){
 
 			//if(gameState.getCurrentCharacter().getClass()==Human.class){
 			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
