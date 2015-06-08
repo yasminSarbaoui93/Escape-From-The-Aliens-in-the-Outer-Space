@@ -25,14 +25,14 @@ public class RmiClient {
 			Integer maxSize= Integer.parseInt(in.nextLine());
 			Integer yourId=remoteMethods1.SubscribeRequest(stringa, maxSize);
 			System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarà:" + yourId  );	
-			/*System.out.println("Proviamo a muoverci: dimmi un settore!");
+			System.out.println("Proviamo a muoverci: dimmi un settore!");
 			String sector=in.nextLine();
 			// PER ORA PASSIAMO 0 PERCHE' TESTO COL PRIMO GIOCO CHE VIENE CREATO NELLA LIST OF MATCH
 			// CI SERVE SUBSCRIBER PER NOTIFICARE A TUTTI I COINVOLTI IL GIOCO CREATO E L'ID DEL GIOCO!!
 			// CHE DOVRANNO SALVARE IN APPOSITO ATTRIBUTO DENTRO LA VIEW
 			System.out.println(remoteMethods1.performMove(sector, yourId,0));
 			System.out.println(remoteMethods1.performAttack(yourId,0));
-			*/
+			
 			in.close();
 		}
 		catch( Exception e){
