@@ -166,8 +166,8 @@ public class Map  {
 					mapToDraw += "["+map.get(sectorName).toString()+"] ";
 				else
 					  
-					mapToDraw += "         ";
-				//	mapToDraw += "  [||||||]  ";
+				//	mapToDraw += "         ";
+					mapToDraw += "//////// " ;
 				
 	
 			}
@@ -182,8 +182,8 @@ public class Map  {
 					mapToDraw += "["+map.get(sectorName).toString()+"] ";
 					
 				else
-					mapToDraw += "         ";
-				//	mapToDraw += "  [||||||]  ";
+			//		mapToDraw += "         ";
+					mapToDraw += "//////// ";
 				
 	
 			}

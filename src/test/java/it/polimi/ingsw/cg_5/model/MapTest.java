@@ -3,12 +3,15 @@ package it.polimi.ingsw.cg_5.model;
 
 
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 public class MapTest {
 
 	@Test
 	public void creationMapTest() {
+		
 		
 		//Creation of the map
 		Map map1= new Map("GALILEI");
@@ -37,11 +40,13 @@ public class MapTest {
 		//Human and Alien start are not seen as borders since we can't cross them doring the game
 		map3.map.get("K06").bordersPrint();
 		
+
 		System.out.println("\n\n");
 		map1.drawMap();
 		map2.drawMap();
 		map3.drawMap();
 	}
+
 	
 	
 	
