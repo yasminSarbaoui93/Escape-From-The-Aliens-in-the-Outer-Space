@@ -204,6 +204,33 @@ public class Map  {
 	public Sector takeSector(String name){
 		return map.get(name);
 	}
+	public Sector getSectorByAlien(){
+	Iterator <String> iterator = map.keySet().iterator();
+	Sector sector = takeSector(iterator.next());
+		while(iterator.hasNext()){
+		sector = takeSector(iterator.next());
+		if(sector.getClass() == AlienStart.class ){
+			
+			return sector;
+		}
+		
+	}
+		return sector;
+	}	
+	
+	public Sector getSectorByHuman(){
+		Iterator <String> iterator = map.keySet().iterator();
+		Sector sector = takeSector(iterator.next());
+			while(iterator.hasNext()){
+			sector = takeSector(iterator.next());
+			if(sector.getClass() == HumanStart.class ){
+				
+				return sector;
+			}
+			
+		}
+			return sector;
+		}	
 	public int getSize(){
 		return this.map.size();
 	}

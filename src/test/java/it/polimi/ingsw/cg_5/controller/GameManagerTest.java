@@ -37,6 +37,7 @@ GameManager prova = new GameManager();
 		prova.getPlayerListManager().addToChosenList("GALILEI",8);
 		prova.getPlayerListManager().addToChosenList("GALILEI",8);
 		prova.MatchCreator();
+		System.out.println(prova.getListOfMatch().get(1).getGameState().getMap().takeSector("L06").getCharacterList());
 		
 			
 		for(WaitingList waitingList: prova.getPlayerListManager().getWaitingLists()){

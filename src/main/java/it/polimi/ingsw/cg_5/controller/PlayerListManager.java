@@ -15,7 +15,7 @@ public ArrayList<WaitingList> getWaitingLists() {
  * @param choosenMap
  * @param choosenMaxSize
  */
-public void addToChosenList(String choosenMap, int choosenMaxSize){	
+public Integer addToChosenList(String choosenMap, int choosenMaxSize){	
 	if(WaitingLists.isEmpty()){ 
 		
 			WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize);
@@ -25,11 +25,11 @@ public void addToChosenList(String choosenMap, int choosenMaxSize){
 	else if(!WaitingLists.isEmpty()) {	
 		for(WaitingList waitingList : WaitingLists){				
 
-			if(waitingList.getSize()<waitingList.getMaxSize() && choosenMap==waitingList.getChoosenMap()
+			if(waitingList.getSize()<waitingList.getMaxSize() && choosenMap.equals(waitingList.getChoosenMap())
 					&& choosenMaxSize >= waitingList.getMaxSize()){
 			waitingList.addToWaitingList(PlayerId);		
 			PlayerId++;
-			return; //SERVE PER TERMINARE QUI LA FUNZIONE, ALTRIMENTI SE TERMINA IL CICLO FOREACH CREO NUOVO GIOCO
+			return PlayerId-1; //SERVE PER TERMINARE QUI LA FUNZIONE, ALTRIMENTI SE TERMINA IL CICLO FOREACH CREO NUOVO GIOCO
 			}
 		}		
 		
@@ -39,6 +39,7 @@ public void addToChosenList(String choosenMap, int choosenMaxSize){
 				
 			
 	}
+	return PlayerId-1;
 		
 	}
 }
