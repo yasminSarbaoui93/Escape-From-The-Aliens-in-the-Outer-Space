@@ -3,6 +3,7 @@ package rmiconnection;
 import java.rmi.*;
 
 
+
 public interface RemoteMethods extends Remote {
 	
 	Integer SubscribeRequest(String choosenMap, int choosenMaxSize)throws RemoteException;

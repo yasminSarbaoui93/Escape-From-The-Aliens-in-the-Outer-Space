@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.util.ArrayList;
+
+
 import it.polimi.ingsw.cg_5.model.*;
 
 
@@ -8,7 +11,8 @@ public class Match {
 	private GameState gameState;
 	private MatchState matchState;
 	
-	
+
+
 	public MatchState getMatchState() {
 		return matchState;
 	}
@@ -23,6 +27,7 @@ public class Match {
 		this.numberGame=numberGame;
 		this.gameState=gameState;
 		this.matchState=MatchState.RUNNING;
+	
 	}
 	
 

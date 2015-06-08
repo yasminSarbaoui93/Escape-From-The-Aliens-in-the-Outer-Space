@@ -2,20 +2,24 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.util.ArrayList;
 
+
+
 public class WaitingList {
 	private ArrayList <Integer> playersID = new ArrayList <Integer> ();
 	private final String choosenMap;
 	private final int maxSize;
 	private final int  MAX_NUM_OF_PLAYERS=8;
 	
+
 	public int getMaxSize() {
 		return maxSize;
 	}
 	
-	public WaitingList(int playerID, String choosenMap, int maxSize) {
+	public WaitingList(int playerID, String choosenMap, int maxSize ) {
 		this.playersID.add(playerID);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
+		
 	}
 	
 	public ArrayList<Integer> getPlayersID() {
@@ -24,6 +28,7 @@ public class WaitingList {
 
 	public  void addToWaitingList(Integer PlayersID){
 		playersID.add(PlayersID);
+	
 	}
 	
 	public String getChoosenMap() {

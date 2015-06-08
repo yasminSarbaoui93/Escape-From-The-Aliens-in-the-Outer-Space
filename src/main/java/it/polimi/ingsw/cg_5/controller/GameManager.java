@@ -2,11 +2,12 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
 import it.polimi.ingsw.cg_5.model.*;
 
 
-public class GameManager {
+public class GameManager extends Observable{
 		private static int indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();

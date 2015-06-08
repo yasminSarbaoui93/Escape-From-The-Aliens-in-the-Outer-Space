@@ -7,6 +7,7 @@ import java.rmi.server.*;
 
 
 
+
 public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMethods {
 	GameManager gameManager ;
 
