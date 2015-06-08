@@ -2,11 +2,9 @@ package rmiconnection;
 
 import it.polimi.ingsw.cg_5.controller.*;
 
+
 import java.rmi.*;
 import java.rmi.server.*;
-
-
-
 
 public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMethods {
 	GameManager gameManager ;
@@ -30,6 +28,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	@Override
 	public String performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 		if(gameManager.canAct(numberGame, yourId)){
 			Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(), 
 					gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName));
@@ -49,7 +48,6 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	}
 	
 	public String performAttack(Integer yourId ,Integer numberGame) throws RemoteException {
-		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		if(gameManager.canAct(numberGame, yourId)){
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAttack()){
@@ -66,6 +64,35 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			return "Non è il tuo turno o non sei iscritto a nessun gioco!";
 		}
 	}
+	
+	public String performEndTurn(Integer yourId,Integer numberGame)  throws RemoteException{
+		if(gameManager.canAct(numberGame, yourId)){
+			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
+			if(endTurn.checkEndTurn()){		
+				endTurn.execute();
+				return "hai finito il turno";
+			}
+			else 
+				return "non puoi finire il turno!";
+		}
+		else return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+		
+	}
+	
+	public String performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException{
+		if(gameManager.canAct(numberGame, yourId)){
+			DrawCardFromGamedeck drawCard = new DrawCardFromGamedeck(gameManager.getListOfMatch().get(numberGame).getGameState());
+			if(drawCard.checkDrawnFromGameDeck()){		
+				drawCard.execute();
+				return "hai pescato con successo";
+			}
+			else 
+				return "non puoi pescare";
+		}
+		else return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+		
+	}
+	
 
 	
 
