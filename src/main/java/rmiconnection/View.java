@@ -2,11 +2,14 @@ package rmiconnection;
 
 import java.util.Scanner;
 
+import PubSub.Subscriber;
+
 
 
 public class View  {
 	int PlayerID=101;
 	RmiClient rmiClient;
+	Subscriber subscriber;
 	
 	
 	public RmiClient getRmiClient() {
