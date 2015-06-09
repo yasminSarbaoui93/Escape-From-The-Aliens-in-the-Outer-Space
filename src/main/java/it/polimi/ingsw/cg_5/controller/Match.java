@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.model.*;
 
 
@@ -7,8 +8,9 @@ public class Match {
 	private final Integer numberGame;
 	private GameState gameState;
 	private MatchState matchState;
-	
-	
+	private final Broker broker;
+
+
 	public MatchState getMatchState() {
 		return matchState;
 	}
@@ -19,13 +21,17 @@ public class Match {
 	}
 
 
-	public Match(GameState gameState ,int numberGame){
+	public Match(GameState gameState ,Integer numberGame, Broker broker){
 		this.numberGame=numberGame;
 		this.gameState=gameState;
 		this.matchState=MatchState.RUNNING;
+		this.broker = broker;
+		this.broker.setTopic("Game number: "+numberGame);
+	
 	}
 	
 
+	
 	public GameState getGameState() {
 		return gameState;
 	}
@@ -37,6 +43,13 @@ public class Match {
 	public int getNumberGame() {
 		return numberGame;
 	}
+	
+	
+
+	public Broker getBroker() {
+		return broker;
+	}
+
 
 	@Override
 	public String toString() {

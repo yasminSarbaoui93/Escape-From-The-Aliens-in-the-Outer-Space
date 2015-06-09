@@ -90,15 +90,15 @@ public class GameState extends Observable{
 		Collections.shuffle(IDsofplayers);
 		for(int j=0; j<humanNumber; j++){//crea umani
 			Human human=new Human(humanList.remove(humanList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			human.setCurrentSector(map.takeSector("HUMAN_START"));
+			human.setCurrentSector(map.getSectorByHuman());
 			characterList.add(human);
-			map.takeSector("HUMAN_START").getCharacterList().add(human);
+			map.getSectorByAlien().getCharacterList().add(human);
 		}
 		for(int j=0; j<alienNumber; j++){
 			Alien alien=new Alien(alienList.remove(alienList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			alien.setCurrentSector(map.takeSector("ALIEN_START"));
+			alien.setCurrentSector(map.getSectorByAlien());
 			characterList.add(alien);
-			map.takeSector("ALIEN_START").getCharacterList().add(alien);
+			map.getSectorByAlien().getCharacterList().add(alien);
 		}
 		Collections.shuffle(characterList);
 		return characterList;
@@ -109,7 +109,7 @@ public class GameState extends Observable{
 	}
 	
 	
-	//GETTERS AND SETTERS
+	/*****************************GETTERS AND SETTERS**********************************/
 	
 	public EscapeHatchDeck getEscapeHatchDeck() {
 		return escapeHatchDeck;
@@ -201,8 +201,10 @@ public class GameState extends Observable{
 			}
 			
 		}
+
 		
 		//System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
+
 	}
 
 

@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 
 
-public class GameManager implements Observer {
-	
 
-	
-	
-	
-		private static int indexOfCurrentMatches=0;
+public class GameManager implements Observer{
+	private static Integer indexOfCurrentMatches=0;
+
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
 	
@@ -25,13 +21,20 @@ public class GameManager implements Observer {
 	 */
 	public void MatchCreator(){
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
+		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
 			if(waitingList.canStartNewGame()){
 				ArrayList <Integer> lista = waitingList.getPlayersID();
 				System.out.println(lista);
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap());
 				newGameState.addObserver(this);
-				Match newMatch =new Match(newGameState ,indexOfCurrentMatches);
+
+				Match newMatch =new Match(newGameState ,indexOfCurrentMatches, waitingList.getBroker());
+				
+				System.out.println(newMatch.getBroker().getSubscribers());
+				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
+				
+
 				listOfMatch.put(indexOfCurrentMatches,newMatch);
 				waitingListToRemove.add(waitingList);
 				System.out.println("Ho Creato un nuovo Match");
@@ -75,6 +78,7 @@ public class GameManager implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+
 		//This updates all the arguments of the type character that are returned from the methods attackCharacter or setCurrentCharacter of the model.
 		if(arg instanceof Character){
 			Character character = (Character) arg;
@@ -85,6 +89,7 @@ public class GameManager implements Observer {
 			String message = (String) arg;
 			System.out.println(message);
 		}
+
 		
 	}
 	

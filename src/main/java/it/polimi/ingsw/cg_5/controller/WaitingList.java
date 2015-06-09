@@ -1,13 +1,20 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import it.polimi.ingsw.cg_5.connection.Broker;
+
 import java.util.ArrayList;
+
+
+
 
 public class WaitingList {
 	private ArrayList <Integer> playersID = new ArrayList <Integer> ();
 	private final String choosenMap;
 	private final int maxSize;
-	private final int  MAX_NUM_OF_PLAYERS=8;
+	private Broker broker;
+	//private final int  MAX_NUM_OF_PLAYERS=8;
 	
+
 	public int getMaxSize() {
 		return maxSize;
 	}
@@ -16,14 +23,26 @@ public class WaitingList {
 		this.playersID.add(playerID);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
+		this.broker = new Broker("Waiting List");
+		
 	}
 	
+	
+	
+	public Broker getBroker() {
+		return broker;
+	}
+
+
 	public ArrayList<Integer> getPlayersID() {
 		return playersID;
 	}
+	
 
 	public  void addToWaitingList(Integer PlayersID){
 		playersID.add(PlayersID);
+		
+	
 	}
 	
 	public String getChoosenMap() {
