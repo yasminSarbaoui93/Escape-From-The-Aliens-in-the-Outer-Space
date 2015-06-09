@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_5.controller;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
 import it.polimi.ingsw.cg_5.model.GameState;
@@ -19,14 +20,14 @@ public class MainProvaGioco {
 	public static void main(String[] args) {
 		
 		ArrayList<Integer> playersID = new ArrayList<Integer>();
-		
+		Broker broker= new Broker("ciao");
 		for (int i=0 ; i<2; i++){
 			playersID.add(i);
 		}
 		
 		GameState gameState = new GameState(playersID,"GALILEI");
 		
-		Match match =new Match(gameState, 0);
+		Match match =new Match(gameState, 0,broker);
 		
 		System.out.println("il gioco e' iniziato e i player sono"+gameState.getCharacterList());
 		
