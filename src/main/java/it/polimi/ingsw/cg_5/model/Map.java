@@ -201,7 +201,8 @@ public class Map  {
 		map.put(name, sector);
 	}
 	
-	public Sector takeSector(String name){
+	public Sector takeSector(String name) throws NullPointerException{
+		if(map.get(name) == null) throw new NullPointerException();
 		return map.get(name);
 	}
 	public int getSize(){

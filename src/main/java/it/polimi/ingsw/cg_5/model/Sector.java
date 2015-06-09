@@ -10,7 +10,6 @@ public abstract class Sector {
 	private HashSet <Sector> bordersList= new HashSet<Sector>();
 	private ArrayList <Character> characterList = new ArrayList <Character> ();
 	private final String sectorName;
-
 	public Sector(String sectorName){
 		this.sectorName=sectorName;
 	}
@@ -19,7 +18,7 @@ public abstract class Sector {
 		return sectorName;
 	}
 
-	public ArrayList<Character> getCharacterList() {
+	public ArrayList<Character> getCharacterList(){
 		return characterList;
 	}
 

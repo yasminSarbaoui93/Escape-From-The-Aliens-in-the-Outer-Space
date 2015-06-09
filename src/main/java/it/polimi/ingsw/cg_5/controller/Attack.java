@@ -6,8 +6,18 @@ import it.polimi.ingsw.cg_5.model.Character;
 
 
 public class Attack extends Action {
-
+	private ArrayList <Character> characterToKill = new ArrayList <Character> ();
 	
+	public ArrayList<Character> getCharacterToKill() {
+		return characterToKill;
+	}
+	ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
+	//che ha la carta difesa in mano
+
+	public ArrayList<Character> getSafeCharacter() {
+		return safeCharacter;
+	}
+
 	public Attack (GameState gameState){
 	super(gameState);
 	}
@@ -17,20 +27,11 @@ public class Attack extends Action {
 
 		// The attack can be done after the character moved to the new current sector. So if in the current sector there's only the current carachter
 		//the attack will not be succesful
-
-		if (gameState.getCurrentCharacter().getCurrentSector().getCharacterList().size()==1){
-
-	
-			System.out.println("ops non c'è nessuno");
-
-		}
-		else {
-		ArrayList <Character> characterToKill = new ArrayList <Character> ();
+		
 		characterToKill.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere, altrimenti si suiciderebbe
 		characterToKill.remove(gameState.getCurrentCharacter());
-		ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
-		//che ha la carta difesa in mano
+		
 		ItemCard defenceCard = null;
 		for(Character character: characterToKill){
 	    	for(ItemCard itemCard:character.getItemPlayerCard()){
@@ -58,9 +59,9 @@ public class Attack extends Action {
     	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
 		gameState.getCharacterList().removeAll(characterToKill);
 		gameState.getCurrentCharacter().getCurrentSector().getCharacterList().removeAll(characterToKill);
-	    	System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
+	    	//System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
-	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	}
+	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
 	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);	
 	    
 	    // una volta eseguito attacco lo stato del canAttack dello umano deve tornare a false

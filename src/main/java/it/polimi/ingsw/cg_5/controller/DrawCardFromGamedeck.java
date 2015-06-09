@@ -9,6 +9,11 @@ import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 public class DrawCardFromGamedeck extends Action {
+	private GameCard drawnCard;
+	
+	public GameCard getDrawnCard() {
+		return drawnCard;
+	}
 
 	public DrawCardFromGamedeck(GameState gameState) {
 		super(gameState);
@@ -26,41 +31,16 @@ public class DrawCardFromGamedeck extends Action {
 
 			gameState.setGameDeck();
 
-			System.out.println("mazzo ricreato");
+			//System.out.println("mazzo ricreato");
 
 		
 		}
-		// pesca Carta e vari comportamenti i base alla carta pescata
-		GameCard drawnCard= (GameCard) gameState.getGameDeck().removeCard();
-		
-		if(drawnCard.getGameCardType()==GameCardType.NOISE_ANY_SECTOR){
-			// chiedi al player settore dove si vuole muovere quando decide di andares su dangerous sector
-			//sceglie anche il settore che bleffera'
-			//cosi da rendere immaediata noyse_any_sector come noise_your_sector
-			System.out.println("Noyse anysector");
-			}
-		if(drawnCard.getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
-			//stampa a video settore del currentPlayer
-			
-			System.out.println("Noyse your sector");
-		}
-		
-		if(drawnCard.getGameCardType()==GameCardType.SILENCE ){
-			//stampa a tutti Silence
-			System.out.println("silence");
-		
-		}
-		//  dovro trovare un posto dove mettere il check che il deck  non sia vuoto- o se è vuoto controllare che usedItemDeck 
-		//non sia vuoto
-		if(drawnCard.isItemIcon()==true && checkItemDecks()){
-			ItemCard DrawnitemCard =this.gameState.getItemDeck().removeCard();
-			System.out.println("ha icona ");
-			gameState.getCurrentCharacter().getItemPlayerCard().add(DrawnitemCard);
-		}
+		// pesca Carta e vari comportamenti in base alla carta pescata
+		drawnCard= (GameCard) gameState.getGameDeck().removeCard();
 		
 		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
-		//ricordarsi del controlloche a fine turn il player deve avere al   max 3 CarteItem
+	
 		
 	}
 	//  il  giocatore puo' pescare solo se si e gia mossi e se si e in un Dangerous Sector
@@ -73,7 +53,7 @@ public class DrawCardFromGamedeck extends Action {
 		
 	}
 	
-	// contrllo che nn siano vuoti itemdeck e useditemDeck
+	// controllo che nn siano vuoti itemdeck e useditemDeck
 	public boolean checkItemDecks(){
 		if(!gameState.getItemDeck().getItemDeck().isEmpty()|| !gameState.getItemDeck().getUsedItemDeck().isEmpty())
 		return true;

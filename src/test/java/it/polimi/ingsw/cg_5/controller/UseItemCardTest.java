@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_5.controller;
 
 
 import it.polimi.ingsw.cg_5.model.GameState;
-
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 
 import java.util.ArrayList;
@@ -27,7 +26,8 @@ public class UseItemCardTest {
 		System.out.println(stateprova.getCurrentCharacter().getClass());
 		System.out.println(stateprova.getCurrentCharacter().getItemPlayerCard());
 		
-		UseItemCard cartaAdrenalina= new UseItemCard(stateprova, ItemCardType.ADRENALINE);
+		String sectorToSpotlight=stateprova.getMap().takeSector("N08").getSectorName();
+		UseItemCard cartaAdrenalina= new UseItemCard(stateprova, ItemCardType.ADRENALINE, sectorToSpotlight);
 		
 		
 		if(cartaAdrenalina.checkAction()){

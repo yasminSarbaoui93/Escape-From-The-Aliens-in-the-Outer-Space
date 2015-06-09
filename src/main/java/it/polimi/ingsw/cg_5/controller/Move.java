@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_5.controller;
 import it.polimi.ingsw.cg_5.model.*;
 
 public class Move extends Action {
+	EscapeHatchCard escapeCard=null;
 	Sector destinationSector;
 	public Move(GameState gameState, Sector destinationSector) {
 		super(gameState);
@@ -21,6 +22,15 @@ public class Move extends Action {
 		gameState.getCurrentCharacter().setCurrentSector(destinationSector);
 		gameState.getTurn().setTurnState(TurnState.HASMOVED);
 		
+		if(destinationSector.getClass()==EscapeSector.class){
+			escapeCard=(EscapeHatchCard) gameState.getEscapeHatchDeck().removeCard();
+			
+			if(escapeCard.getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+				gameState.getCharacterList().remove(gameState.getCurrentCharacter());
+				gameState.goToNextCharacter();
+			}
+		}
+		
 		}
 	
 	 /**It controls that the destination sector is contained in the list of reachable sectors of the current carachter (depending on the max move and on the position).
@@ -28,6 +38,16 @@ public class Move extends Action {
 	 * @return
 	 */
 	public boolean checkAction(){
+		if(destinationSector.getClass()==EscapeSector.class){
+			if(gameState.getCurrentCharacter().getClass()==Alien.class)
+				return false;
+			if(!((EscapeSector) destinationSector).isAvailable()){
+				return false;
+				
+			}
+			
+		}
+		
 	  if(	gameState.getCurrentCharacter().getCurrentSector().getReachableSectors
 			(gameState.getCurrentCharacter().getMaxMove(),
 			gameState.getCurrentCharacter().getCurrentSector()).contains(this.destinationSector)
@@ -39,6 +59,6 @@ public class Move extends Action {
 			else return false;
 			}
 	
-	
+		
 
 }

@@ -201,7 +201,8 @@ public class GameState extends Observable{
 			}
 			
 		}
-		System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
+		
+		//System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
 	}
 
 

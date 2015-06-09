@@ -5,6 +5,7 @@ public class EscapeSector extends Sector {
 	private boolean isAvailable;
 	public EscapeSector(String name){
 		super(name);
+		isAvailable=true;
 	}
 	
 	//getter to verify if the sector has never been used yet

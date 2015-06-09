@@ -1,49 +1,61 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.cg_5.model.Alien;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
-
+import it.polimi.ingsw.cg_5.model.TurnState;
+import it.polimi.ingsw.cg_5.model.Character;
 
 public class UseItemCard extends Action {
-	
+	ArrayList <Character> spottedPlayers;
+	String sectorToSpotLight;
 	ItemCardType usingItemCardType;
-	public UseItemCard(GameState gameState,ItemCardType itemCardType) {
+	public UseItemCard(GameState gameState,ItemCardType itemCardType,String sectorToSpotlight) {
 		super(gameState);
 		this.usingItemCardType=itemCardType;
+		this.sectorToSpotLight=sectorToSpotlight;
 		
 		
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws NullPointerException{
 		
 
 		
 		if(usingItemCardType==ItemCardType.ADRENALINE){
 			gameState.getCurrentCharacter().setMaxMove(2);
-			System.out.println("settatoMaxMove=2");
+			
 			
 		}
 		
 		if(usingItemCardType==ItemCardType.ATTACK){
-			// settera un attributo da qualche parte a true
+			gameState.getCurrentCharacter().setCanAttack(true);
 		}
 		
 		if(usingItemCardType==ItemCardType.SEDATIVES){
-			//permette di non pescare
+			gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			
 		}
 		
-		if(usingItemCardType==ItemCardType.SPOTLIGHT){
-			// nell interfaccia oltre a usare la carta verra detto il settore da spottare
+		if(usingItemCardType==ItemCardType.SPOTLIGHT) {
+			for(Character characterToAdd : gameState.getMap().takeSector(sectorToSpotLight).getCharacterList())
+				
+			spottedPlayers.add(characterToAdd);
 		}
 		
 		if(usingItemCardType==ItemCardType.TELEPORT){
+			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(gameState.getCurrentCharacter());
+			gameState.getCurrentCharacter().setCurrentSector(gameState.getMap().takeSector("HUMAN_START"));
+			if(gameState.getTurn().getTurnState()==TurnState.HASMOVED)
+			gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			
+		
 		}
-	
+
 		if(usingItemCardType==ItemCardType.DEFENCE){
 			//messaggio non e possibile usarla  questo momento
 			
