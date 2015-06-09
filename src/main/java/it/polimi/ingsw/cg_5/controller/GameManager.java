@@ -74,10 +74,8 @@ public class GameManager implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(arg instanceof Character){
-			Character character = (Character) arg;
-			listOfMatch.get(0).getBroker().publish("Is the turn of player: " + character.getPlayerID());
-		}
+
+		
 	}
 	
 	

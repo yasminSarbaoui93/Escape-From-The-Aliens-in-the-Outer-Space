@@ -197,8 +197,6 @@ public class GameState extends Observable{
 			}
 			
 		}
-	this.setChanged();
-	notifyObservers(currentCharacter);
 	}
 
 
