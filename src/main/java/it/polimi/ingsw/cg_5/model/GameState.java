@@ -109,7 +109,7 @@ public class GameState extends Observable{
 	}
 	
 	
-	//GETTERS AND SETTERS
+	/*****************************GETTERS AND SETTERS**********************************/
 	
 	public EscapeHatchDeck getEscapeHatchDeck() {
 		return escapeHatchDeck;
@@ -197,7 +197,8 @@ public class GameState extends Observable{
 			}
 			
 		}
-		
+	this.setChanged();
+	notifyObservers(currentCharacter);
 	}
 
 

@@ -1,7 +1,6 @@
-package rmiconnection;
+package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
-
 
 import java.rmi.*;
 import java.rmi.server.*;
@@ -19,10 +18,15 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	@Override
 	public Integer SubscribeRequest(String choosenMap, int choosenMaxSize) throws RemoteException {
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize);
-		gameManager.MatchCreator();
 		System.out.println("Il giocatore con ID:" + yourId + "è stato aggiunto!");
 		System.out.println("Giochi partiti: " + gameManager.getListOfMatch());
 		return yourId;
+		
+	}
+	
+	@Override
+	public void startNewMatch() throws RemoteException {
+		this.gameManager.MatchCreator();
 	}
 
 	@Override

@@ -1,8 +1,9 @@
-package rmiconnection;
+package it.polimi.ingsw.cg_5.connection;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+
 import it.polimi.ingsw.cg_5.controller.*;
 
 public class RmiServer {

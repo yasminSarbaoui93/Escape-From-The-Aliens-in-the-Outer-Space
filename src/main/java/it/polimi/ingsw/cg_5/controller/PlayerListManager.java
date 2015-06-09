@@ -3,9 +3,10 @@ package it.polimi.ingsw.cg_5.controller;
 import java.util.ArrayList;
 
 
-
 public class PlayerListManager {
 private static int PlayerId=0;
+
+
 private ArrayList <WaitingList> WaitingLists= new ArrayList <WaitingList>();
 
 public ArrayList<WaitingList> getWaitingLists() {

@@ -3,12 +3,14 @@ package it.polimi.ingsw.cg_5.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
 import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 
-public class GameManager extends Observable{
-		private static int indexOfCurrentMatches=0;
+public class GameManager implements Observer{
+		private static Integer indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
 	
@@ -17,12 +19,18 @@ public class GameManager extends Observable{
 	 */
 	public void MatchCreator(){
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
+		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
 			if(waitingList.canStartNewGame()){
 				ArrayList <Integer> lista = waitingList.getPlayersID();
 				System.out.println(lista);
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap());
-				Match newMatch =new Match(newGameState ,indexOfCurrentMatches);
+				newGameState.addObserver(this);
+				Match newMatch =new Match(newGameState ,indexOfCurrentMatches, waitingList.getBroker());
+				
+				System.out.println(newMatch.getBroker().getSubscribers());
+				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
+				
 				listOfMatch.put(indexOfCurrentMatches,newMatch);
 				waitingListToRemove.add(waitingList);
 				System.out.println("Ho Creato un nuovo Match");
@@ -62,6 +70,14 @@ public class GameManager extends Observable{
 	
 		return false;
 		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof Character){
+			Character character = (Character) arg;
+			listOfMatch.get(0).getBroker().publish("Is the turn of player: " + character.getPlayerID());
+		}
 	}
 	
 	

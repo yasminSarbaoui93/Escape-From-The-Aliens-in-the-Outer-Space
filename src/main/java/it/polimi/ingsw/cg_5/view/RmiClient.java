@@ -1,12 +1,20 @@
-package rmiconnection;
+package it.polimi.ingsw.cg_5.view;
 
 
+import it.polimi.ingsw.cg_5.connection.RemoteMethods;
+import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 
-public class RmiClient {
+public class RmiClient implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String NAME = "room";
 	private final static String HOST="127.0.0.1"; 
 	private final static int PORT=1099;
@@ -26,6 +34,9 @@ public class RmiClient {
 	}
 	public Integer matchRequest(String stringa, Integer maxSize) throws RemoteException{
 		return remoteMethods1.SubscribeRequest(stringa, maxSize);
+	}
+	public void matchStart() throws RemoteException{
+		remoteMethods1.startNewMatch();
 	}
 	public String moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performMove(sector, yourId,gameNumber);
