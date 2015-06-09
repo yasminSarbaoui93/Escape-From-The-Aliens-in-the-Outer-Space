@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.GameState;
+import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 
@@ -23,7 +24,8 @@ public class EndTurn extends Action {
 	}
 	
 	public boolean checkAction(){
-		if(gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN) 
+		if((gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN && gameState.getCurrentCharacter().getItemPlayerCard().size()<4)||
+				gameState.getTurn().getTurnState()==TurnState.HASMOVED && gameState.getCurrentCharacter().getCurrentSector().getClass()==SafeSector.class) 
 			return true;
 		else
 		return false;
@@ -32,13 +34,5 @@ public class EndTurn extends Action {
 	}
 	
 	
-		public boolean playerCardSize(){
-			if(gameState.getCurrentCharacter().getItemPlayerCard().size()>3)
-			return false;
-			
-			else
-				return true;
-			
-		}
 
 }

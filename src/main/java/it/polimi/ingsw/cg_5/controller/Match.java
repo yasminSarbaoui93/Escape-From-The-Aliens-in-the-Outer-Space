@@ -49,14 +49,14 @@ public class Match {
 	 * @return true if the game is over.
 	 */
 	public boolean isGameOver(){
-		if(this.gameState.getNumberOfHumanAlive()!=0)
-			return false;
-		if(this.gameState.getRound()<40)
-			return false;
-		if(this.gameState.getNumberOfAliensAlive()!=0)
-			return false;
+		if(this.gameState.getNumberOfHumanAlive()==0)
+			return true;
+		if(this.gameState.getRound()==40)
+			return true;
+		if(this.gameState.getNumberOfAliensAlive()==0)
+			return true;
 		
-		return true;
+		return false;
 		
 	}
 	
