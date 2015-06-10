@@ -23,11 +23,11 @@ public class Map  {
 	String mapFile=FilePath.GALILEI.getFilePath();
 	String mapBordersFile= FilePath.GALILEI_CONFINI.getFilePath();
 	
-	if(choosenMap=="GALVANI"){
+	if(choosenMap.equals("GALVANI")){
 		mapFile=FilePath.GALVANI.getFilePath();
 		mapBordersFile=FilePath.GALVANI_CONFINI.getFilePath();
 	}
-	if(choosenMap=="FERMI"){
+	if(choosenMap.equals("FERMI")){
 		mapFile=FilePath.FERMI.getFilePath();
 		mapBordersFile=FilePath.FERMI_CONFINI.getFilePath();
 	}

@@ -33,7 +33,7 @@ public class GameManager implements Observer{
 				
 				System.out.println(newMatch.getBroker().getSubscribers());
 				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				
+				newGameState.getMap().drawMap();
 
 				listOfMatch.put(indexOfCurrentMatches,newMatch);
 				waitingListToRemove.add(waitingList);
