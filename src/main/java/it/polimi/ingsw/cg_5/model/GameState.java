@@ -17,7 +17,7 @@ public class GameState extends Observable{
 	private Character currentCharacter;
 	private Turn turn= new Turn();
 	private final int MAX_NUM_ROUND;
-
+	
 	
 	
 	
@@ -189,23 +189,23 @@ public class GameState extends Observable{
 	
 	
 	public void goToNextCharacter(){
+		
 		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1)
 			setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));
 		
 		else {
-			if(round>=MAX_NUM_ROUND)
-				System.out.println("IL MATCH E TERMINATO IN QUANTO RAGGIUNTO IL NUMERO MASSIMO DI ROUND = " +MAX_NUM_ROUND);
-			else{
 				setRound(round+1);
 				currentCharacter = getCharacterList().get(0);
 			}
 			
-		}
+		
+		
+		
 
 		
 		//System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
 
-	}
+}
 
 
 	public Turn getTurn() {
