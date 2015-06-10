@@ -10,15 +10,14 @@ import it.polimi.ingsw.cg_5.model.TurnState;
 import it.polimi.ingsw.cg_5.model.Character;
 
 public class UseItemCard extends Action {
-	ArrayList <Character> spottedPlayers;
-	String sectorToSpotLight;
-	ItemCardType usingItemCardType;
+	private ArrayList <Character> spottedPlayers;
+	private String sectorToSpotLight;
+	private ItemCardType usingItemCardType;
+	
 	public UseItemCard(GameState gameState,ItemCardType itemCardType,String sectorToSpotlight) {
 		super(gameState);
 		this.usingItemCardType=itemCardType;
 		this.sectorToSpotLight=sectorToSpotlight;
-		
-		
 	}
 
 	@Override
@@ -41,10 +40,13 @@ public class UseItemCard extends Action {
 			
 		}
 		
-		if(usingItemCardType==ItemCardType.SPOTLIGHT) {
+		if(usingItemCardType==ItemCardType.SPOTLIGHT)  {
+			if(gameState.getMap().takeSector(sectorToSpotLight) == null) throw new NullPointerException();
+			
 			for(Character characterToAdd : gameState.getMap().takeSector(sectorToSpotLight).getCharacterList())
 				
-			spottedPlayers.add(characterToAdd);
+				spottedPlayers.add(characterToAdd);
+			
 		}
 		
 		if(usingItemCardType==ItemCardType.TELEPORT){

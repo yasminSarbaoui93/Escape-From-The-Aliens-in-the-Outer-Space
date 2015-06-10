@@ -1,10 +1,20 @@
 package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 public class Move extends Action {
 	EscapeHatchCard escapeCard=null;
-	Sector destinationSector;
+	Sector destinationSector=null;
+	public Sector getDestinationSector() {
+		return destinationSector;
+	}
+
+	Character escapedCharacter;
+	public Character getEscapedCharacter() {
+		return escapedCharacter;
+	}
+
 	public Move(GameState gameState, Sector destinationSector) {
 		super(gameState);
 		this.destinationSector=destinationSector;
@@ -26,9 +36,15 @@ public class Move extends Action {
 			escapeCard=(EscapeHatchCard) gameState.getEscapeHatchDeck().removeCard();
 			
 			if(escapeCard.getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
-				gameState.getCharacterList().remove(gameState.getCurrentCharacter());
-				gameState.goToNextCharacter();
+			     escapedCharacter=gameState.getCurrentCharacter();
+				 gameState.goToNextCharacter();
+				 gameState.getCharacterList().remove(escapedCharacter);
+				 gameState.getTurn().setTurnState(TurnState.STARTED);
+				 
+				
 			}
+			
+			((EscapeSector) destinationSector).setAvailable(false);
 		}
 		
 		}
