@@ -19,6 +19,8 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 
+	//private View view; 
+
 	/**
 	 * 
 	 * @param name The name of the subscriber
@@ -26,6 +28,7 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	public Subscriber(String name) {
 		super();
 		this.name = name;
+		//view ) new View(name);
 	}
 
 	

@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 
 public class Broker implements BrokerInterface{
 
+	
+	
 	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
 	private String topic;
 	
