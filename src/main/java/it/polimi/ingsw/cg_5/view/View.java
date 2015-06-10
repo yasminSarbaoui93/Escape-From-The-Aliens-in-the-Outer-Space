@@ -65,9 +65,9 @@ public class View{
 				System.out.println(view.getRmiClient().drawCardRequest(yourId, 0));
 				System.out.println(view.getRmiClient().endTurnRequest(yourId, 0));
 	
-				in.close();
+				
 			}
-	
+			//in.close();
 	}
 
 

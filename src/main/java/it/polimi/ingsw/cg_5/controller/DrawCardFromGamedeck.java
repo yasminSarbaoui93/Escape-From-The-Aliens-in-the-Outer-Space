@@ -3,9 +3,7 @@ package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.GameCard;
-import it.polimi.ingsw.cg_5.model.GameCardType;
 import it.polimi.ingsw.cg_5.model.GameState;
-import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 public class DrawCardFromGamedeck extends Action {

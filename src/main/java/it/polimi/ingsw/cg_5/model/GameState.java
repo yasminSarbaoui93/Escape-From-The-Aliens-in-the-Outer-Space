@@ -90,15 +90,15 @@ public class GameState extends Observable{
 		Collections.shuffle(IDsofplayers);
 		for(int j=0; j<humanNumber; j++){//crea umani
 			Human human=new Human(humanList.remove(humanList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			human.setCurrentSector(map.getSectorByHuman());
+			human.setCurrentSector(map.takeSector("HUMAN_START"));
 			characterList.add(human);
-			map.getSectorByAlien().getCharacterList().add(human);
+			map.takeSector("HUMAN_START").getCharacterList().add(human);
 		}
 		for(int j=0; j<alienNumber; j++){
 			Alien alien=new Alien(alienList.remove(alienList.size()-1),IDsofplayers.remove(IDsofplayers.size()-1));
-			alien.setCurrentSector(map.getSectorByAlien());
+			alien.setCurrentSector(map.takeSector("ALIEN_START"));
 			characterList.add(alien);
-			map.getSectorByAlien().getCharacterList().add(alien);
+			map.takeSector("ALIEN_START").getCharacterList().add(alien);
 		}
 		Collections.shuffle(characterList);
 		return characterList;

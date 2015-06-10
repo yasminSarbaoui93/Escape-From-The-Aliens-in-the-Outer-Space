@@ -1,10 +1,5 @@
 package it.polimi.ingsw.cg_5.model;
 
-
-
-
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 public class MapTest {

@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.connection.Broker;
-import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
-import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
@@ -254,6 +252,7 @@ public class MainProvaGioco {
 	
 			
 		}
+		
 			
 		
 		
