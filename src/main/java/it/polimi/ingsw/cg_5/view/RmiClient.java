@@ -32,6 +32,9 @@ public class RmiClient implements Serializable {
 		//System.err.println("Connessione Fallita!");
 		}
 	}
+	
+	//CONTROLLER CLIENT
+	//METODI DA METTERE NEL CLIENT GENERICO CHE VERRANNO IMPLEMENTATI IN MANIERA DIVERSA A SECONDA SE IL CLIENT è SOCKET O RMI
 	public Integer matchRequest(String stringa, Integer maxSize) throws RemoteException{
 		return remoteMethods1.SubscribeRequest(stringa, maxSize);
 	}
