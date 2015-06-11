@@ -64,6 +64,21 @@ public class Broker implements BrokerInterface{
 			System.err.println("No subscribers!!");
 		}
 	}
+	
+	public void publishNumberGame(int numberGame){
+		if(!subscribers.isEmpty()){
+			for (SubscriberInterface sub : subscribers) {
+				try {
+					sub.updateNumberGame(numberGame);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}else{
+			System.err.println("No subscribers!!");
+		}
+	}
+	
 
 	
 	

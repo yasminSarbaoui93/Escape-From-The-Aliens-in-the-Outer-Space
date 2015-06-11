@@ -202,7 +202,7 @@ public class Map  {
 	}
 	
 	public Sector takeSector(String name) throws NullPointerException{
-		if(map.get(name) == null) throw new NullPointerException();
+		if(map.get(name) == null) throw new NullPointerException("The sector doesn't exist in this map. Try again..");
 		return map.get(name);
 	}
 

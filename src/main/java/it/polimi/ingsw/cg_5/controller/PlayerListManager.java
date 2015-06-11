@@ -23,7 +23,7 @@ public Integer addToChosenList(String choosenMap, int choosenMaxSize){
 		
 			WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize);
 			PlayerId++;
-			WaitingLists.add(newWaitingList);			
+			WaitingLists.add(newWaitingList);	
 		}
 	else if(!WaitingLists.isEmpty()) {	
 		for(WaitingList waitingList : WaitingLists){				

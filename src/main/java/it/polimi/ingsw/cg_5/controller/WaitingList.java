@@ -23,7 +23,7 @@ public class WaitingList {
 		this.playersID.add(playerID);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
-		this.broker = new Broker("Waiting List");
+		this.broker = new Broker(this.playersID.get(0).toString());
 		
 	}
 	

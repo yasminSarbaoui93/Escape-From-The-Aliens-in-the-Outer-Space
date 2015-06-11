@@ -20,6 +20,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize);
 		System.out.println("Il giocatore con ID:" + yourId + "è stato aggiunto!");
 		System.out.println("Giochi partiti: " + gameManager.getListOfMatch());
+		
 		return yourId;
 		
 	}
@@ -33,7 +34,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	public String performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
-		if(gameManager.canAct(numberGame, yourId)){
+		try{if(gameManager.canAct(numberGame, yourId)){
 			Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(), 
 					gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName));
 			if(move.checkAction()){
@@ -48,6 +49,11 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 		}
 		else {
 			return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+		}
+		}
+		catch(NullPointerException e){
+			return e.getMessage();
+			
 		}
 	}
 	

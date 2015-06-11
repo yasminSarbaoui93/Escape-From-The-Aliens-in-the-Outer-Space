@@ -45,7 +45,10 @@ public class Move extends Action {
 			}
 			
 			((EscapeSector) destinationSector).setAvailable(false);
+		
+		
 		}
+	
 		
 		}
 	

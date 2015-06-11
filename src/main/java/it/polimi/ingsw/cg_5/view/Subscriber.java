@@ -18,8 +18,8 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;
-
-	//private View view; 
+	private String brokerName;
+	private View view; 
 
 	/**
 	 * 
@@ -32,6 +32,26 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	}
 
 	
+	public void setBrokerName(String brokerName){
+		this.brokerName=brokerName;
+	}
+	
+	public String getBrokerName(){
+		return this.brokerName;
+	}
+	
+	public View getView() {
+		return view;
+	}
+
+
+
+	public void setView(View view) {
+		this.view = view;
+	}
+
+
+
 	public void connectToBroker(){
 		try {
 			
@@ -55,6 +75,12 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	public void dispatchMessage(String msg) {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 
+	}
+
+	@Override
+	public void updateNumberGame(int numberGame) {
+		this.view.setNumberGame(numberGame);
+		
 	}
 	
 
