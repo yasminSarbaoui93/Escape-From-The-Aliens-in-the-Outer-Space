@@ -51,12 +51,12 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	}
 
 
-
+/*  DA CANCELLARE
 	public void connectToBroker(){
 		try {
 			
 			
-			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 7777);
+			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 
 			BrokerInterface broker = (BrokerInterface) registry.lookup("Broker");
 
@@ -65,7 +65,7 @@ public class Subscriber implements SubscriberInterface, Serializable {
 		} catch (NotBoundException| RemoteException e) {
 			e.printStackTrace();
 		}
-	}
+	} */
 	
 	/**
 	 * @param msg is the message sent by the broker by invoking subscriber's remote interface
@@ -85,3 +85,4 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	
 
 }
+

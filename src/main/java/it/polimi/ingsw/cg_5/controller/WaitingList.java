@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.connection.Broker;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 
@@ -12,6 +14,7 @@ public class WaitingList {
 	private final String choosenMap;
 	private final int maxSize;
 	private Broker broker;
+	
 	//private final int  MAX_NUM_OF_PLAYERS=8;
 	
 
@@ -19,11 +22,12 @@ public class WaitingList {
 		return maxSize;
 	}
 	
-	public WaitingList(int playerID, String choosenMap, int maxSize) {
+
+	public WaitingList(int playerID, String choosenMap, int maxSize, Registry registry) {
 		this.playersID.add(playerID);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
-		this.broker = new Broker(this.playersID.get(0).toString());
+		this.broker = new Broker(this.playersID.get(0).toString(), registry);
 		
 	}
 	

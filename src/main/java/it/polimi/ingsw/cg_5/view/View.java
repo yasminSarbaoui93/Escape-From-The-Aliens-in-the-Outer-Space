@@ -58,11 +58,11 @@ public class View{
 		String stringa = in.nextLine();
 		System.out.println("Con quanti giocatori vuoi giocare al massimo?(max 8)");
 		Integer maxSize= Integer.parseInt(in.nextLine());
-		Integer yourId=view.getRmiClient().matchRequest(stringa, maxSize);
-		view.getSubscriber().connectToBroker();
+		Integer yourId=view.getRmiClient().matchRequest(stringa, maxSize, view.getSubscriber());
+	//	view.getSubscriber().connectToBroker();
 
-		System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarà:" + yourId  );	
-		view.getRmiClient().matchStart();
+		System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarÃ :" + yourId  );	
+	//	view.getRmiClient().matchStart();
 
 		
 			while(true){

@@ -1,10 +1,21 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import it.polimi.ingsw.cg_5.view.Subscriber;
+
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 
 public class PlayerListManager {
-private static int PlayerId=0;
+private int PlayerId=0;
+private Registry registry;
+
+public void setRegistry(Registry registry) throws RemoteException{
+	this.registry = registry;
+}
+
 
 
 private ArrayList <WaitingList> WaitingLists= new ArrayList <WaitingList>();
@@ -17,11 +28,14 @@ public ArrayList<WaitingList> getWaitingLists() {
  * If not, the method will create a new waiting list of a certain map and with the specified maximum number of players.
  * @param choosenMap
  * @param choosenMaxSize
+ * @throws RemoteException 
  */
-public Integer addToChosenList(String choosenMap, int choosenMaxSize){	
+public Integer addToChosenList(String choosenMap, int choosenMaxSize, Subscriber subscriber) throws RemoteException{	
+	
 	if(WaitingLists.isEmpty()){ 
 		
-			WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize);
+			WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize, registry);
+			
 			PlayerId++;
 			WaitingLists.add(newWaitingList);	
 		}
@@ -36,7 +50,7 @@ public Integer addToChosenList(String choosenMap, int choosenMaxSize){
 			}
 		}		
 		
-				WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize);
+				WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize, registry);
 				PlayerId++;
 				WaitingLists.add(newWaitingList);		
 				

@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import it.polimi.ingsw.cg_5.controller.*;
 
 public class RmiServer {
+	
 	GameManager gameManager=new GameManager();
 	private final Registry registry; 
 	private static final String NAME = "room";
@@ -15,6 +16,8 @@ public class RmiServer {
 		registry = LocateRegistry.createRegistry(1099);
 		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager);
 		
+		gameManager.getPlayerListManager().setRegistry(registry);
+		
 		registry.rebind(NAME, remoteMethods1);
 		System.out.println("Starting server, waiting for request...");
 		
@@ -22,7 +25,9 @@ public class RmiServer {
 
 	
 	public static void main(String args[]) throws Exception{
+	
 		new RmiServer();
+		
 		
 		
 	}

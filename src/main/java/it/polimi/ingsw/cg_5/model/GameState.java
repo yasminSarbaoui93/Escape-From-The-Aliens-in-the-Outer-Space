@@ -231,6 +231,7 @@ public class GameState extends Observable{
 				.getSectorName()).getReachableSectors(character.getMaxMove(), character.getCurrentSector()).toString();
 	}
 	
+	
 	/**This method takes the list of current players of a certin match, and it's called after an attack or after a human reaches the Escape Hatch Sector to check the number of Humans still alive in the current game.
 	 * @return list of humans still alive in the current game.
 	 */
