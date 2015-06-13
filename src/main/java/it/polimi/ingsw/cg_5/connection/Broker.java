@@ -1,39 +1,22 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
-public class Broker implements BrokerInterface {
+public class Broker{
 
 	
 	
 	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
 	private String topic;
-	private Registry registry;
 	public ArrayList<SubscriberInterface> getSubscribers() {
 		return subscribers;
 	}
 
-	public Broker(String topic, Registry registry){
+	public Broker(String topic){
 		this.topic = topic;
-		this.registry = registry;
-		try {
-			
-			
-			BrokerInterface stub = (BrokerInterface)UnicastRemoteObject.exportObject(this, 0);
-			this.registry.rebind("Broker", stub);
-		
-			System.out.println("Broker avviato, in attesa di subscribers...");
-		//	registry.unbind("Broker");// -> DA SPOSTARE NEL MOMENTO IN CUI IL MATCH VIENE CREATO !
-		//	UnicastRemoteObject.unexportObject(this, true);		
-		}
-		catch (RemoteException | NoSuchElementException e) {
-			e.printStackTrace();
-		}
+	
 	}
 	
 	public String getTopic() {
@@ -86,7 +69,7 @@ public class Broker implements BrokerInterface {
 	 * @param r is the Subcriber's remote interface that the broker can use to publish messages
 	 * The method updates the list of subscriber interfaces that are subscribed to the broker
 	 */
-	@Override
+	
 	public void subscribe(SubscriberInterface r) {
 		subscribers.add(r);
 	}

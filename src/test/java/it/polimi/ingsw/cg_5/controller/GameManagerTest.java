@@ -1,41 +1,44 @@
 package it.polimi.ingsw.cg_5.controller;
 
 
+import java.rmi.RemoteException;
+
 import it.polimi.ingsw.cg_5.model.TurnState;
+import it.polimi.ingsw.cg_5.view.Subscriber;
 
 import org.junit.Test;
 
 public class GameManagerTest {
 
 	@Test
-	public void test() {
+	public void test() throws RemoteException {
 GameManager prova = new GameManager();	
-		
+		Subscriber subscriber = new Subscriber("ANDREA");
 		for(int i=0; i<11 ; i++){
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("FERMI",3);
-		prova.getPlayerListManager().addToChosenList("GALVANI",4);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALVANI",4, subscriber);
 		}
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		
-		prova.getPlayerListManager().addToChosenList("FERMI",3);
-		prova.getPlayerListManager().addToChosenList("GALILEI",4);
-		prova.getPlayerListManager().addToChosenList("GALILEI",5);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",4, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",5, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		
 		
 		prova.MatchCreator();
-		prova.getPlayerListManager().addToChosenList("FERMI",3);
-		prova.getPlayerListManager().addToChosenList("GALILEI",4);
-		prova.getPlayerListManager().addToChosenList("GALILEI",5);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
-		prova.getPlayerListManager().addToChosenList("GALILEI",8);
+		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",4, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",5, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
+		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		prova.MatchCreator();
 		System.out.println(prova.getListOfMatch().get(1).getGameState().getMap().takeSector("L06").getCharacterList());
 		

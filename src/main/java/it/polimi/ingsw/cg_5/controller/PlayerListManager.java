@@ -1,20 +1,14 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.view.Subscriber;
+import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.User;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 
 public class PlayerListManager {
 private int PlayerId=0;
-private Registry registry;
-
-public void setRegistry(Registry registry) throws RemoteException{
-	this.registry = registry;
-}
 
 
 
@@ -30,11 +24,12 @@ public ArrayList<WaitingList> getWaitingLists() {
  * @param choosenMaxSize
  * @throws RemoteException 
  */
-public Integer addToChosenList(String choosenMap, int choosenMaxSize, Subscriber subscriber) throws RemoteException{	
-	
+public Integer addToChosenList(String choosenMap, int choosenMaxSize, SubscriberInterface subscriber) throws RemoteException{	
+	User newUser = new User(subscriber,PlayerId);
 	if(WaitingLists.isEmpty()){ 
 		
-			WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize, registry);
+			
+			WaitingList newWaitingList= new WaitingList(newUser,choosenMap,choosenMaxSize);
 			
 			PlayerId++;
 			WaitingLists.add(newWaitingList);	
@@ -44,17 +39,16 @@ public Integer addToChosenList(String choosenMap, int choosenMaxSize, Subscriber
 
 			if(waitingList.getSize()<waitingList.getMaxSize() && choosenMap.equals(waitingList.getChoosenMap())
 					&& choosenMaxSize >= waitingList.getMaxSize()){
-			waitingList.addToWaitingList(PlayerId);		
+			waitingList.addToWaitingList(newUser);		
 			PlayerId++;
 			return PlayerId-1; //SERVE PER TERMINARE QUI LA FUNZIONE, ALTRIMENTI SE TERMINA IL CICLO FOREACH CREO NUOVO GIOCO
 			}
 		}		
 		
-				WaitingList newWaitingList= new WaitingList(PlayerId,choosenMap,choosenMaxSize, registry);
+				WaitingList newWaitingList= new WaitingList(newUser,choosenMap,choosenMaxSize);
 				PlayerId++;
 				WaitingLists.add(newWaitingList);		
-				
-			
+						
 	}
 	return PlayerId-1;
 		

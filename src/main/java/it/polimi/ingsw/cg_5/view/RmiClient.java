@@ -2,9 +2,9 @@ package it.polimi.ingsw.cg_5.view;
 
 
 import it.polimi.ingsw.cg_5.connection.RemoteMethods;
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 
 import java.io.Serializable;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -35,12 +35,10 @@ public class RmiClient implements Serializable {
 	
 	//CONTROLLER CLIENT
 	//METODI DA METTERE NEL CLIENT GENERICO CHE VERRANNO IMPLEMENTATI IN MANIERA DIVERSA A SECONDA SE IL CLIENT è SOCKET O RMI
-	public Integer matchRequest(String stringa, Integer maxSize, Subscriber subscriber) throws RemoteException{
-		return remoteMethods1.SubscribeRequest(stringa, maxSize, subscriber);
+	public Integer matchRequest(String stringa, Integer maxSize, String name) throws RemoteException, NotBoundException{
+		return remoteMethods1.SubscribeRequest(stringa, maxSize, name);
 	}
-	public void matchStart() throws RemoteException{
-		remoteMethods1.startNewMatch();
-	}
+	
 	public String moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performMove(sector, yourId,gameNumber);
 	}

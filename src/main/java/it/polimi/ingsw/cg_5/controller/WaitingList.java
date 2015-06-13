@@ -1,19 +1,19 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.connection.Broker;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.Subscriber;
+import it.polimi.ingsw.cg_5.view.User;
+
 import java.util.ArrayList;
 
 
 
 
 public class WaitingList {
-	private ArrayList <Integer> playersID = new ArrayList <Integer> ();
+	private ArrayList <User> users = new ArrayList <User> ();
 	private final String choosenMap;
 	private final int maxSize;
-	private Broker broker;
 	
 	//private final int  MAX_NUM_OF_PLAYERS=8;
 	
@@ -23,28 +23,36 @@ public class WaitingList {
 	}
 	
 
-	public WaitingList(int playerID, String choosenMap, int maxSize, Registry registry) {
-		this.playersID.add(playerID);
+	public WaitingList(User newUser, String choosenMap, int maxSize) {
+		this.users.add(newUser);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
-		this.broker = new Broker(this.playersID.get(0).toString(), registry);
+			
+	}
+	public ArrayList<User> getUsers() {
+		return users;
+	}
+	public ArrayList<Integer> getPlayersID() {
+		ArrayList<Integer> PlayerIDList = new ArrayList<Integer> ();
+		for ( User user : this.users ){
+			PlayerIDList.add(user.getPlayerId());
+		}
+		return PlayerIDList ;
+		
+	}
+	public ArrayList<SubscriberInterface> getPlayersSubscriber() {
+		ArrayList<SubscriberInterface> PlayerSubscriberList = new ArrayList<SubscriberInterface> ();
+		for ( User user : this.users ){
+			PlayerSubscriberList.add(user.getUserSubscriber());
+		}
+		return PlayerSubscriberList ;
 		
 	}
 	
 	
-	
-	public Broker getBroker() {
-		return broker;
-	}
 
-
-	public ArrayList<Integer> getPlayersID() {
-		return playersID;
-	}
-	
-
-	public  void addToWaitingList(Integer PlayersID){
-		playersID.add(PlayersID);
+	public  void addToWaitingList(User newUser){
+		users.add(newUser);
 		
 	
 	}
@@ -53,14 +61,14 @@ public class WaitingList {
 		return choosenMap;
 	}
 	
-	public void removeFromWaitingList(Integer PlayersID){
+	public void removeFromWaitingList(User user){
 		//N.B. VERIFICARE CHE VENGA CHIAMATA LA REMOVE CHE RIMUOVE L'OGGETTO E NON L'INDICE, VISTO CHE CI POTREBBE ESERE
 		// AMBIGUITA' VISTO CHE GLI OGGETTI SONO INTEGER
-		playersID.remove(PlayersID);
+		users.remove(user);
 	}		
 	
 	public int getSize(){
-		return playersID.size();
+		return users.size();
 		}
 	
 	
@@ -75,7 +83,7 @@ public class WaitingList {
 
 	@Override
 	public String toString() {
-		return "WaitingList [playersID=" + playersID + ", choosenMap="
+		return "WaitingList [Users=" + users + ", choosenMap="
 				+ choosenMap + ", maxSize=" + maxSize + "]";
 	}
 	

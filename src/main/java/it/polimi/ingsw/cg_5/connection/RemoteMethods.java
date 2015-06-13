@@ -7,8 +7,7 @@ import java.rmi.*;
 
 public interface RemoteMethods extends Remote {
 	
-	Integer SubscribeRequest(String choosenMap, int choosenMaxSize)throws RemoteException;
-	void startNewMatch() throws RemoteException;
+	Integer SubscribeRequest(String choosenMap, int choosenMaxSize, String name)throws RemoteException,NotBoundException;
 	String performMove(String sectorName, Integer yourId , Integer numberGame )throws RemoteException;
 	String performAttack(Integer yourId ,Integer numberGame) throws RemoteException;
 	String performEndTurn(Integer yourId,Integer numberGame) throws RemoteException;

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
-import it.polimi.ingsw.cg_5.view.Subscriber;
 
-import java.io.ObjectInputStream.GetField;
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.*;
 
 public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMethods {
@@ -18,24 +18,26 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	}
 	
 	@Override
-	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, Subscriber subscriber) throws RemoteException {
+	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name) throws RemoteException, NotBoundException {
+		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+		
+		// CI POTREBBE ESSERE UN PROBLEMA SE DUE GIOCATORI FANNO RICHIESTA NELLO STESSO ISTANTE USANDO LO STESSO USER
+		//INOLTRE USANDO USER DOVREMO FAR SI CHE SIA UNIVOCO, INTRODUCENDO QUINDI LA REGISTRAZIONE DEGLI USER
+		SubscriberInterface subscriber = (SubscriberInterface) registry.lookup(name);
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
+		
+		
 		System.out.println("Il giocatore con ID:" + yourId + "è stato aggiunto!");
 		System.out.println("Giochi partiti: " + gameManager.getListOfMatch());
-		gameManager.getPlayerListManager().getWaitingLists().ge
+		
+		//SIAMO NEL SERVER
 		//fai qui la subscribe
-		//eseguo la connect to broker
-		//lancio il matchCreator
+		//lancio il matchCreator 
+		this.gameManager.MatchCreator();
 		return yourId;
 		
 	}
 	
-	
-	@Override
-	public void startNewMatch() throws RemoteException {
-		this.gameManager.MatchCreator();
-	}
-
 	@Override
 	public String performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());

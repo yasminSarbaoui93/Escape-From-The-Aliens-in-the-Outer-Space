@@ -16,8 +16,6 @@ public class RmiServer {
 		registry = LocateRegistry.createRegistry(1099);
 		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager);
 		
-		gameManager.getPlayerListManager().setRegistry(registry);
-		
 		registry.rebind(NAME, remoteMethods1);
 		System.out.println("Starting server, waiting for request...");
 		

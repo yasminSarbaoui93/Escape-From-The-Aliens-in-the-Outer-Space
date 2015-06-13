@@ -1,21 +1,24 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
+import it.polimi.ingsw.cg_5.connection.Broker;
+import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 
 
 
+
 public class GameManager implements Observer{
 	private static Integer indexOfCurrentMatches=0;
-
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
-	
+
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
 	 * 
@@ -26,13 +29,17 @@ public class GameManager implements Observer{
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
 			if(waitingList.canStartNewGame()){
 				ArrayList <Integer> lista = waitingList.getPlayersID();
-				System.out.println(lista);
+				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap());
 				newGameState.addObserver(this);
-
-				Match newMatch =new Match(newGameState ,indexOfCurrentMatches, waitingList.getBroker());
+				Broker matchBroker = new Broker(indexOfCurrentMatches.toString());
 				
-				System.out.println(newMatch.getBroker().getSubscribers());
+				for ( SubscriberInterface subscriber : waitingList.getPlayersSubscriber()){
+					matchBroker.subscribe(subscriber);
+				}				
+				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
+				
+				
 				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
 				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
 				
@@ -78,6 +85,7 @@ public class GameManager implements Observer{
 		return false;
 		
 	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {

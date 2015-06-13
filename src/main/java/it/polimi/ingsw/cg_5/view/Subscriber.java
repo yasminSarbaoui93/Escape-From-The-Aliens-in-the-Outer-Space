@@ -1,6 +1,5 @@
 package it.polimi.ingsw.cg_5.view;
 
-import it.polimi.ingsw.cg_5.connection.BrokerInterface;
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 
 import java.io.Serializable;
@@ -49,6 +48,7 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	public void setView(View view) {
 		this.view = view;
 	}
+	
 
 
 /*  DA CANCELLARE
@@ -58,8 +58,8 @@ public class Subscriber implements SubscriberInterface, Serializable {
 			
 			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 
-			BrokerInterface broker = (BrokerInterface) registry.lookup("Broker");
-
+		BrokerInterface broker = (BrokerInterface) registry.lookup("Broker");
+	
 			broker.subscribe((SubscriberInterface)UnicastRemoteObject.exportObject(this,0));
 			
 		} catch (NotBoundException| RemoteException e) {
