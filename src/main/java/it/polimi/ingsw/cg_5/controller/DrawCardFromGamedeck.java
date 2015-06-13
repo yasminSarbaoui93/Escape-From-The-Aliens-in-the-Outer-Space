@@ -34,7 +34,7 @@ public class DrawCardFromGamedeck extends Action {
 		
 		}
 		// pesca Carta e vari comportamenti in base alla carta pescata
-		drawnCard= (GameCard) gameState.getGameDeck().removeCard();
+		drawnCard= (GameCard) gameState.currentCharacterDrawsGameCard();
 		
 		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		

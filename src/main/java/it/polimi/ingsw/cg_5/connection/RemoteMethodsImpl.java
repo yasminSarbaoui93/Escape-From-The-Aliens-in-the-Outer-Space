@@ -69,9 +69,8 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 		if(gameManager.canAct(numberGame, yourId)){
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAction()){
-				System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter()+
-						"ha attaccato");
 				attack.execute();
+				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.");
 				return "Hai attaccato con successo!";
 			}
 			else{

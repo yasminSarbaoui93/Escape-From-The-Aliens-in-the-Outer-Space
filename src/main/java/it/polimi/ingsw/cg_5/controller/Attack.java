@@ -27,7 +27,6 @@ public class Attack extends Action {
 
 		// The attack can be done after the character moved to the new current sector. So if in the current sector there's only the current carachter
 		//the attack will not be succesful
-		
 		characterToKill.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere, altrimenti si suiciderebbe
 		characterToKill.remove(gameState.getCurrentCharacter());
@@ -57,8 +56,10 @@ public class Attack extends Action {
 	    	}
 
     	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
-		gameState.getCharacterList().removeAll(characterToKill);
-		gameState.getCurrentCharacter().getCurrentSector().getCharacterList().removeAll(characterToKill);
+		for(Character attackedCharacter : characterToKill){
+			gameState.removeCharacter(attackedCharacter);
+			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(attackedCharacter);
+		}
 	    	//System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
 	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
@@ -80,11 +81,11 @@ public class Attack extends Action {
 			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
 			 return true;
 			
-			if(gameState.getCurrentCharacter().getClass()==Alien.class){
+			 /*if(gameState.getCurrentCharacter() Alien.class){
 
 				if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED))
 					return true;
-			}
+			}*/
 		
 			return false;
 	

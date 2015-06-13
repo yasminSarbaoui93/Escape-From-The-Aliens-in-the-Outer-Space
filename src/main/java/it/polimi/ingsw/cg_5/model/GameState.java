@@ -17,6 +17,7 @@ public class GameState extends Observable{
 	private Character currentCharacter;
 	private Turn turn= new Turn();
 	private final int MAX_NUM_ROUND;
+	private final Integer matchIndex;
 	
 	
 	
@@ -27,7 +28,7 @@ public class GameState extends Observable{
 	 * @param IDsofplayers: list of all the players that joined the game (created by the controller)
 	 * @param choosenMap: map where the players will start the game
 	 */
-	public GameState(ArrayList <Integer> IDsofplayers , String choosenMap ){
+	public GameState(ArrayList <Integer> IDsofplayers , String choosenMap, Integer matchIndex ){
 		
 		map=new Map(choosenMap);
 		round=1;
@@ -38,7 +39,9 @@ public class GameState extends Observable{
 		this.MAX_NUM_ROUND = 39;
 		currentCharacter=getCharacterList().get(0);
 		turn.setTurnState(TurnState.STARTED);
+		this.matchIndex=matchIndex;
 	}
+	
 
 	
 	/**This method adds in a list, the enum values containing the players' names. This list is passed as a parameter when
@@ -111,10 +114,17 @@ public class GameState extends Observable{
 	
 	/*****************************GETTERS AND SETTERS**********************************/
 	
+	
 	public EscapeHatchDeck getEscapeHatchDeck() {
 		return escapeHatchDeck;
 	}
 	
+	public Integer getMatchIndex() {
+		return matchIndex;
+	}
+
+
+
 	public ArrayList<Character> getCharacterList() {
 		return characterList;
 	}
@@ -134,7 +144,7 @@ public class GameState extends Observable{
 	public void setRound(int round) {
 		this.round = round;
 		this.setChanged();
-		notifyObservers("\nThe turn of the last player's ended, it's starting the round number: "+round);
+		notifyObservers(this.matchIndex +" The turn of the last player's ended, it's starting the round number: "+round);
 	}
 
 
@@ -157,7 +167,7 @@ public class GameState extends Observable{
 		
 		characterList.remove(attackedCharacter);
 		this.setChanged();
-		notifyObservers(attackedCharacter +" AND I WAS ATTACKED.");
+		notifyObservers(this.matchIndex +" "+attackedCharacter +" AND I WAS ATTACKED.");
 
 	}
 	
@@ -177,6 +187,13 @@ public class GameState extends Observable{
 		this.setChanged();
 		notifyObservers();
 	}
+	
+	public void setCurrentSectorOfCurrentCharacter(Sector currentSector){
+		this.currentCharacter.setCurrentSector(currentSector);
+		this.setChanged();
+		notifyObservers(this.matchIndex +" The player with ID-"+getCurrentCharacter().getPlayerID()+" has moved.");
+	}
+	
 
 	
 	// rimescolo il mazzo
@@ -190,12 +207,16 @@ public class GameState extends Observable{
 	
 	public void goToNextCharacter(){
 		
-		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1)
+		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1){
 			setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));
-		
+			setChanged();
+			notifyObservers(this.matchIndex+" Is the turn of the Player: "+currentCharacter.getPlayerID());
+		}
 		else {
 				setRound(round+1);
 				currentCharacter = getCharacterList().get(0);
+				setChanged();
+				notifyObservers(this.matchIndex+" Is the turn of the Player: "+currentCharacter.getPlayerID());
 			}
 			
 		
@@ -223,7 +244,16 @@ public class GameState extends Observable{
 		else
 			System.out.println("You can hold only 3 item cards, so you must use one before drawing");
 		setChanged();
-		notifyObservers("The player "+currentCharacter.getPlayerID()+" drew an item card.");
+		notifyObservers(this.matchIndex+" The player "+currentCharacter.getPlayerID()+" drew an item card.");
+	}
+	
+	public Card currentCharacterDrawsGameCard(){
+		Card card = gameDeck.removeCard();
+		this.setChanged();
+		notifyObservers(this.matchIndex+" The Player "+currentCharacter.getPlayerID()+" drew a game card.");
+		return card;
+		
+		
 	}
 	
 	public String reachableSectorsOfTheCurrentCharacter(Character character){

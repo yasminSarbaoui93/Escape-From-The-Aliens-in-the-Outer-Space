@@ -6,7 +6,7 @@ public class Alien extends Character {
 	public Alien(String name,int playerID){
 		
 		super(name,playerID);
-		maxMove = 10;
+		maxMove = 2;
 		canAttack =true;
 	}
 	

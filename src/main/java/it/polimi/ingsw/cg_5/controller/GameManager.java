@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Scanner;
+
 import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.*;
@@ -30,7 +32,7 @@ public class GameManager implements Observer{
 			if(waitingList.canStartNewGame()){
 				ArrayList <Integer> lista = waitingList.getPlayersID();
 				System.out.println(lista); //da togliere poi
-				GameState newGameState=new GameState(lista,waitingList.getChoosenMap());
+				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
 				Broker matchBroker = new Broker(indexOfCurrentMatches.toString());
 				
@@ -98,7 +100,11 @@ public class GameManager implements Observer{
 		
 		if(arg instanceof String){
 			String message = (String) arg;
-			System.out.println(message);
+			Scanner in = new Scanner(message);
+			Integer gameNumber=Integer.parseInt(in.next());
+			this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+			in.close();
+			
 		}
 
 		

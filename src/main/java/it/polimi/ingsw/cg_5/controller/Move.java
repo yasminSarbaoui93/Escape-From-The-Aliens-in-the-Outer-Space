@@ -29,7 +29,7 @@ public class Move extends Action {
 		
 		gameState.getMap().takeSector(destinationSector.getSectorName()).getCharacterList()
 			.add(gameState.getCurrentCharacter());
-		gameState.getCurrentCharacter().setCurrentSector(destinationSector);
+		gameState.setCurrentSectorOfCurrentCharacter(destinationSector);
 		gameState.getTurn().setTurnState(TurnState.HASMOVED);
 		
 		if(destinationSector.getClass()==EscapeSector.class){
