@@ -17,7 +17,7 @@ public class UseItemCardTest {
 		for (int i=0 ; i<5; i++){
 			playersID.add(i);
 		}
-		GameState stateprova= new GameState(playersID,"GALLILEI");
+		GameState stateprova= new GameState(playersID,"GALLILEI",0);
 		
 		System.out.println("uso una carta presente nel mazzo");
 		for(int i =0;i<8;i++){

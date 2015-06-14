@@ -25,7 +25,7 @@ public class DrawCardFromGamedeckTest {
 		//nel test ho messo settore del player dangerous ed impostato turnstate a hasmove.
 		
 		
-		GameState stateprova= new GameState(playersID,"GALLILEI");
+		GameState stateprova= new GameState(playersID,"GALLILEI",0);
 		stateprova.getCurrentCharacter().setCurrentSector(new DangerousSector("L05"));
 		
 		DrawCardFromGamedeck pescaCarta=new DrawCardFromGamedeck(stateprova);

@@ -21,7 +21,7 @@ public class AttackTest {
 				playersID.add(i);
 			}
 			
-			GameState stateprova= new GameState(playersID,"GALILEI");
+			GameState stateprova= new GameState(playersID,"GALILEI",0);
 			//preparo le condizioni per far si che attacco vada buon fine nel caso i primo giocatore e' alieno
 			System.out.println(stateprova.getCurrentCharacter().getCurrentSector());
 			stateprova.getTurn().setTurnState(TurnState.HASMOVED);

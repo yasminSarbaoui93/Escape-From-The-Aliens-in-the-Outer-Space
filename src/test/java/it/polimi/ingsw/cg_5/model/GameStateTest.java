@@ -19,7 +19,7 @@ public class GameStateTest {
 		}
 		
 		//New GameState with Galilei map and 5 players identified by their IDs
-		GameState matchGalilei1= new GameState (playersID, "Galilei");
+		GameState matchGalilei1= new GameState (playersID, "Galilei",0);
 		System.out.println("The map used is " + matchGalilei1.getMap().getMapName());
 		Iterator <Character> iterator = matchGalilei1.getCharacterList().iterator();
 		

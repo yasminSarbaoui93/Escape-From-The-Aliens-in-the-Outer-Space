@@ -18,7 +18,7 @@ public class EndTurnTest {
 			playersID.add(i);
 		}
 		
-		GameState stateprova= new GameState(playersID,"GALILEI");
+		GameState stateprova= new GameState(playersID,"GALILEI",0);
 		EndTurn endTurn= new EndTurn(stateprova);
 		System.out.println(stateprova.getCurrentCharacter());
 		System.out.println(stateprova.getTurn().getTurnState());
