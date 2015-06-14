@@ -109,8 +109,7 @@ public class Map  {
 							    //System.out.println(teststring);
 								this.map.get(sectorName).addBorder(this.map.get(nomeConfine));
 								nomeConfine=in.next();
-								
-								
+							
 								
 							}				
 			}

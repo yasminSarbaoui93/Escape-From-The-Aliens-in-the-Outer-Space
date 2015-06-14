@@ -27,7 +27,7 @@ public class UseItemCardTest {
 		System.out.println(stateprova.getCurrentCharacter().getItemPlayerCard());
 		
 		String sectorToSpotlight=stateprova.getMap().takeSector("N08").getSectorName();
-		UseItemCard cartaAdrenalina= new UseItemCard(stateprova, ItemCardType.ADRENALINE, sectorToSpotlight);
+		UseItemCard cartaAdrenalina= new UseItemCard(stateprova, ItemCardType.ADRENALINE);
 		
 		
 		if(cartaAdrenalina.checkAction()){

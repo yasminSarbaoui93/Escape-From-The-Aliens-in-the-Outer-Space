@@ -10,14 +10,13 @@ import it.polimi.ingsw.cg_5.model.TurnState;
 import it.polimi.ingsw.cg_5.model.Character;
 
 public class UseItemCard extends Action {
-	private ArrayList <Character> spottedPlayers;
 	private String sectorToSpotLight;
-	private ItemCardType usingItemCardType;
+	protected ItemCardType usingItemCardType;
 	
-	public UseItemCard(GameState gameState,ItemCardType itemCardType,String sectorToSpotlight) {
+	public UseItemCard(GameState gameState,ItemCardType itemCardType) {
 		super(gameState);
 		this.usingItemCardType=itemCardType;
-		this.sectorToSpotLight=sectorToSpotlight;
+		
 	}
 
 	@Override
@@ -40,32 +39,17 @@ public class UseItemCard extends Action {
 			
 		}
 		
-		if(usingItemCardType==ItemCardType.SPOTLIGHT)  {
-			if(gameState.getMap().takeSector(sectorToSpotLight) == null) throw new NullPointerException();
-			
-			for(Character characterToAdd : gameState.getMap().takeSector(sectorToSpotLight).getCharacterList())
-				
-				spottedPlayers.add(characterToAdd);
-			
-		}
 		
 		if(usingItemCardType==ItemCardType.TELEPORT){
 			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(gameState.getCurrentCharacter());
 			gameState.getCurrentCharacter().setCurrentSector(gameState.getMap().takeSector("HUMAN_START"));
+			gameState.getMap().takeSector("HUMAN_START").getCharacterList().add(gameState.getCurrentCharacter());
 			if(gameState.getTurn().getTurnState()==TurnState.HASMOVED)
 			gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			
 		
 		}
 
-		if(usingItemCardType==ItemCardType.DEFENCE){
-			//messaggio non e possibile usarla  questo momento
-			
-		}
-		
-			
-		
-	
 	}
 	
 	/**Controls if the character can use the declared item card. If it's a Human, it can use the card only if it has it in the array list of possessed item cards;

@@ -2,7 +2,9 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import it.polimi.ingsw.cg_5.connection.Broker;
+import it.polimi.ingsw.cg_5.model.EscapeHatchType;
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
 import it.polimi.ingsw.cg_5.model.GameState;
@@ -19,11 +21,11 @@ public class MainProvaGioco {
 		
 		ArrayList<Integer> playersID = new ArrayList<Integer>();
 		Broker broker= new Broker("ciao");
-		for (int i=0 ; i<2; i++){
+		for (int i=0 ; i<4; i++){
 			playersID.add(i);
 		}
 		
-		GameState gameState = new GameState(playersID,"GALILEI");
+		GameState gameState = new GameState(playersID,"FERMI");
 		
 		Match match =new Match(gameState, 0,broker);
 		//match.getGameState().setRound(39);
@@ -87,33 +89,39 @@ public class MainProvaGioco {
 						}
 					}while(existingSector==false);
 					
-					
+					if(sectorToMove.getClass()!=EscapeSector.class){
 					Move move= new Move(gameState,sectorToMove);
 					if(move.checkAction()){
 						move.execute();
-						if(move.getDestinationSector().getClass()!=EscapeSector.class)
-						System.out.println("ti sei mosso con Successo IN "+gameState.getCurrentCharacter().getCurrentSector());
-						else
-							System.out.println("il Player"+move.getEscapedCharacter().getName()+" e' fuggito");
-						if(match.isGameOver()){
-							System.out.println("\n\n  il Gioco e' finito");
-							match.setMatchState(MatchState.ENDED);
-							turnRunning=false;
-						}
+						System.out.println("ti sei mosso correttamente in "+gameState.getCurrentCharacter().getCurrentSector());
 					}
 						else
 							System.out.println("comando Errato bro");
+					}
+					else{
+						EscapeMove escapeMove=new EscapeMove(gameState,sectorToMove);
+						if(escapeMove.checkAction()){
+							escapeMove.execute();
+							if(escapeMove.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+								System.out.println("il Giocatore"+gameState.getCurrentCharacter()+" è Fuggito\n Ora non sara piu utilizzabile");
+								turnRunning=false;
+							}
+							else
+								System.out.println("La scialuppa è distrutta");
+						}
 					
-				
-			}
-				
+					}
+					
+				}
 				if(comando.equals("ATTACK")){
 					System.out.println("\n Attacco in esecuzione ...");
 					Attack attack = new Attack(gameState);
 					if(attack.checkAction()==true){
 						attack.execute();
 						System.out.println("attacco eseguito!");
-						
+						if(!attack.getSafeCharacter().isEmpty()){
+							System.out.println(attack.getSafeCharacter()+"si e' Salvato usando Defence CArd");
+						}
 						if(attack.getCharacterToKill().size()==0)
 							System.out.println("attacco e' andato  a vuoto!");
 						else{
@@ -196,7 +204,7 @@ public class MainProvaGioco {
 					tipoCarta=ItemCardType.ATTACK;
 				if(comandoSpecifico.equals("SE"))
 					tipoCarta=ItemCardType.SEDATIVES;
-				if(comandoSpecifico.equalsIgnoreCase("SP")){
+				if(comandoSpecifico.equals("SP")){
 					tipoCarta=ItemCardType.SPOTLIGHT;
 					do{
 						try{
@@ -209,6 +217,7 @@ public class MainProvaGioco {
 							existingSector = false;
 						}
 					}while(existingSector==false);
+					
 				}
 				
 				if(comandoSpecifico.equals("TE"))
@@ -216,14 +225,26 @@ public class MainProvaGioco {
 				if(comandoSpecifico.equals("AD"))
 					tipoCarta=ItemCardType.ADRENALINE;
 				
-				UseItemCard useCard = new UseItemCard(gameState, tipoCarta,spotSector);
+				if(comandoSpecifico.equals("SP")){
+						UseSpotLight useSpotLight= new UseSpotLight(gameState, tipoCarta,spotSector);
+						if(useSpotLight.checkAction()){
+					System.out.println("i player presenti in "+spotSector+"sono "+gameState.getMap().takeSector(spotSector).getCharacterList());
+					useSpotLight.execute();
+					System.out.println("\n la Carta "+tipoCarta+" è stata usata con sucesso");
+				}else System.out.println("check ha dato false ");
+						
+				}else{
+					
+				
+				UseItemCard useCard = new UseItemCard(gameState, tipoCarta);
 				if(useCard.checkAction()){
+					
 					useCard.execute();
 					System.out.println("\n la Carta "+tipoCarta+" è stata usata con sucesso");
 				}else System.out.println("\n comando errato: motivi sei alieno non hai la carta");
 					
 				
-		        
+				} 
 				
 			}
 			// FINE USE CARD	
@@ -246,7 +267,7 @@ public class MainProvaGioco {
 					tipoCarta=ItemCardType.ATTACK;
 				if(comandoSpecifico.equals("SE"))
 					tipoCarta=ItemCardType.SEDATIVES;
-				if(comandoSpecifico.equalsIgnoreCase("SP"))
+				if(comandoSpecifico.equals("SP"))
 					tipoCarta=ItemCardType.SPOTLIGHT;
 				
 				if(comandoSpecifico.equals("TE"))

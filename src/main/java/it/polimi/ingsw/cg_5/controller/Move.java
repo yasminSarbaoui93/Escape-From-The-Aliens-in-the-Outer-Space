@@ -4,15 +4,10 @@ import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 
 public class Move extends Action {
-	EscapeHatchCard escapeCard=null;
-	Sector destinationSector=null;
+	
+	Sector destinationSector;
 	public Sector getDestinationSector() {
 		return destinationSector;
-	}
-
-	Character escapedCharacter;
-	public Character getEscapedCharacter() {
-		return escapedCharacter;
 	}
 
 	public Move(GameState gameState, Sector destinationSector) {
@@ -32,20 +27,7 @@ public class Move extends Action {
 		gameState.getCurrentCharacter().setCurrentSector(destinationSector);
 		gameState.getTurn().setTurnState(TurnState.HASMOVED);
 		
-		if(destinationSector.getClass()==EscapeSector.class){
-			escapeCard=(EscapeHatchCard) gameState.getEscapeHatchDeck().removeCard();
-			
-			if(escapeCard.getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
-			     escapedCharacter=gameState.getCurrentCharacter();
-				 gameState.goToNextCharacter();
-				 gameState.getCharacterList().remove(escapedCharacter);
-				 gameState.getTurn().setTurnState(TurnState.STARTED);
-				 
-				
-			}
-			
-			((EscapeSector) destinationSector).setAvailable(false);
-		}
+		
 		
 		}
 	
@@ -55,9 +37,10 @@ public class Move extends Action {
 	 */
 	public boolean checkAction(){
 		if(destinationSector.getClass()==EscapeSector.class){
+	
 			if(gameState.getCurrentCharacter().getClass()==Alien.class)
 				return false;
-			if(!((EscapeSector) destinationSector).isAvailable()){
+			if(!((EscapeSector) gameState.getMap().takeSector(destinationSector.getSectorName())).isAvailable()){
 				return false;
 				
 			}
