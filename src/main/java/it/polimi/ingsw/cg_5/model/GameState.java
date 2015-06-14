@@ -167,7 +167,7 @@ public class GameState extends Observable{
 		
 		characterList.remove(attackedCharacter);
 		this.setChanged();
-		notifyObservers(this.matchIndex +" "+attackedCharacter +" AND I WAS ATTACKED.");
+		notifyObservers(this.matchIndex +" "+attackedCharacter +" and i'm not in the game anymore.");
 
 	}
 	
@@ -180,6 +180,11 @@ public class GameState extends Observable{
 		return currentCharacter;
 	}
 	
+	public void destroyShallop(Sector destinationSector){
+		((EscapeSector)getMap().takeSector(destinationSector.getSectorName())).setAvailable(false);
+		this.setChanged();
+		notifyObservers(this.matchIndex+" The shallop "+ destinationSector+" were destroyed by the player "+ getCurrentCharacter().getPlayerID());
+	}
 	
 
 	public void setCurrentCharacter(Character currentCharacter) {

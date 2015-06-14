@@ -1,6 +1,9 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
+import it.polimi.ingsw.cg_5.model.EscapeHatchType;
+import it.polimi.ingsw.cg_5.model.EscapeSector;
+import it.polimi.ingsw.cg_5.model.Sector;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
@@ -42,28 +45,40 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	public String performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
-		try{if(gameManager.canAct(numberGame, yourId)){
-			Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(), 
-					gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName));
-			if(move.checkAction()){
-				System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter()+
-						"si è mosso con successo in" + sectorName);
-				move.execute();
-				return "Ti sei mosso con successo";
+
+		try{
+			if(gameManager.canAct(numberGame, yourId)){
+				Sector destinationSector=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName);
+				if(destinationSector.getClass() != EscapeSector.class){
+					Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(),destinationSector); 
+					if(move.checkAction()){
+						move.execute();
+						return "You moved onto the selected "+ destinationSector.getClass().toString() +" sector";
+					}else return "You cannot move onto that sector.";
+				}
+				else {
+					EscapeMove runAway = new EscapeMove(gameManager.getListOfMatch().get(numberGame).getGameState(), destinationSector);
+					if(runAway.checkAction()){
+						runAway.execute();
+						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+							return "Since you ran away, you won the match. CONGRATULATIONS!!!";
+						}
+						else{
+							return "You destroyed the shallop. Look for other escape hatch.";
+						}
+						
+					}else return "You cannot move onto that sector.";
+				
+				}
+				
 			}
-			else{
-				return " Non puoi muoverti in tal settore";
-			}
-		}
-		else {
-			return "Non è il tuo turno o non sei iscritto a nessun gioco!";
-		}
-		}
-		catch(NullPointerException e){
+			else
+				return "You don't belong to any game ore it's not your turn";
+		}catch(NullPointerException e){
 			return e.getMessage();
-			
 		}
 	}
+	
 	
 	public String performAttack(Integer yourId ,Integer numberGame) throws RemoteException {
 		if(gameManager.canAct(numberGame, yourId)){

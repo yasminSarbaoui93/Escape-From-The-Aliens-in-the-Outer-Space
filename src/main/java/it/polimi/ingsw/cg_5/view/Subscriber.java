@@ -3,12 +3,8 @@ package it.polimi.ingsw.cg_5.view;
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 
 import java.io.Serializable;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-
+import it.polimi.ingsw.cg_5.model.Character;
 
 public class Subscriber implements SubscriberInterface, Serializable {
 
@@ -80,6 +76,13 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	@Override
 	public void updateNumberGame(int numberGame) {
 		this.view.setNumberGame(numberGame);
+		
+	}
+
+
+	@Override
+	public void updateCharacter(Character character) throws RemoteException {
+		this.view.setCharacter(character);
 		
 	}
 	

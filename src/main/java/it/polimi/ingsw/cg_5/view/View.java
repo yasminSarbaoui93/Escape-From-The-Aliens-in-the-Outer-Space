@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg_5.view;
 
 
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
-
+import it.polimi.ingsw.cg_5.model.Character;
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -24,6 +24,7 @@ public class View implements Serializable{
 	private String name;
 	private Subscriber subscriber;
 	private int numberGame;
+	private Character character;
 		
 
 
@@ -54,6 +55,14 @@ public class View implements Serializable{
 	}
 	public RmiClient getRmiClient() {
 		return rmiClient;
+	}
+	
+	public void setCharacter(Character character){
+		this.character=character;
+	}
+	
+	public Character getCharacter(){
+		return this.character;
 	}
 	
 	

@@ -90,10 +90,11 @@ public class MainProvaGioco {
 					}while(existingSector==false);
 					
 					if(sectorToMove.getClass()!=EscapeSector.class){
-					Move move= new Move(gameState,sectorToMove);
-					if(move.checkAction()){
-						move.execute();
-						System.out.println("ti sei mosso correttamente in "+gameState.getCurrentCharacter().getCurrentSector());
+					
+						Move move= new Move(gameState,sectorToMove);
+						if(move.checkAction()){
+							move.execute();
+							System.out.println("ti sei mosso correttamente in "+gameState.getCurrentCharacter().getCurrentSector());
 					}
 						else
 							System.out.println("comando Errato bro");

@@ -18,9 +18,7 @@ public class EscapeSector extends Sector {
 		this.isAvailable = isAvailable;
 	}
 public String toString() {
-
-		
-		return " ESC  ";
+		return this.getSectorName();
 		
 	}
 	

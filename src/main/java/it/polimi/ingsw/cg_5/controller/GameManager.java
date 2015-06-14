@@ -1,7 +1,5 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -43,7 +41,7 @@ public class GameManager implements Observer{
 				
 				
 				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
+				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches, newMatch.getGameState().getCharacterList());
 				
 				newGameState.getMap().drawMap();
 
