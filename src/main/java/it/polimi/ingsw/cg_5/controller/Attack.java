@@ -11,7 +11,7 @@ public class Attack extends Action {
 	public ArrayList<Character> getCharacterToKill() {
 		return characterToKill;
 	}
-	ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
+	private ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
 	//che ha la carta difesa in mano
 
 	public ArrayList<Character> getSafeCharacter() {
@@ -54,12 +54,20 @@ public class Attack extends Action {
     	}
     	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);//scarto la carta difesa
 	    	}
-
+		//upGRade Alieno
+		if(gameState.getCurrentCharacter().getClass()==Alien.class){
+			for(Character character: characterToKill){
+				if(character.getClass()==Human.class)
+					gameState.getCurrentCharacter().setMaxMove(3); 
+			}
+		}
     	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
+
 		for(Character attackedCharacter : characterToKill){
 			gameState.removeCharacter(attackedCharacter);
 			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(attackedCharacter);
 		}
+
 	    	//System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
 	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
