@@ -14,7 +14,7 @@ public class Alien extends Character {
 	@Override
 	public String toString() {
 			
-		return "I'm "+name;	
+		return name;	
 	}
 
 	

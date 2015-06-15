@@ -1,9 +1,8 @@
 package it.polimi.ingsw.cg_5.view;
 
 
+import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.connection.RemoteMethods;
-import it.polimi.ingsw.cg_5.model.ItemCardType;
-
 import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -40,25 +39,25 @@ public class RmiClient implements Serializable {
 		return remoteMethods1.SubscribeRequest(stringa, maxSize, name);
 	}
 	
-	public String moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performMove(sector, yourId,gameNumber);
 	}
-	public String attackRequest(Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performAttack(yourId,gameNumber);
 	}
-	public String endTurnRequest(Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO endTurnRequest(Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performEndTurn(yourId,gameNumber);
 	}
-	public String drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performDrawCard(yourId, gameNumber);
 	}
-	public String useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performUseCard(itemCardType,yourId, gameNumber);
 	}
-	public String useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber,String sector) throws RemoteException {
+	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber,String sector) throws RemoteException {
 		return remoteMethods1.performSpotLightUse(itemCardType,yourId, gameNumber,sector);
 	}
-	public String bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.bluffSector(bluffSector,yourId, gameNumber);
 	}
 

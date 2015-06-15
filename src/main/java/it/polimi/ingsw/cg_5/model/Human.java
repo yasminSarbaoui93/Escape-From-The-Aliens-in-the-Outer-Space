@@ -15,7 +15,7 @@ public class Human extends Character {
 	@Override
 	public String toString() {
 			
-		return "I'm the Human "+name;	
+		return name;	
 	}
 	
 
