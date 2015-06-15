@@ -25,7 +25,7 @@ public class MainProvaGioco {
 			playersID.add(i);
 		}
 		
-		GameState gameState = new GameState(playersID, "FERMI",0);
+		GameState gameState = new GameState(playersID, "GALILEI",0);
 		
 		Match match =new Match(gameState, 0,broker);
 		//match.getGameState().setRound(39);

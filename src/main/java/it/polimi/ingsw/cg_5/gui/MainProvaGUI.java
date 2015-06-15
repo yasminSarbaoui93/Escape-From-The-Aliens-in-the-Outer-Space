@@ -12,6 +12,9 @@ public class MainProvaGUI {
 		
 		StartOptions startOptions=new StartOptions();
 		startOptions.setVisible(true);
+		
+		EscapeFromAlienGame escape = new EscapeFromAlienGame();
+		escape.setVisible(true);
 	}
 
 }
