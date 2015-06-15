@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_5.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,11 @@ import java.util.ArrayList;
 
 //Le  carte sedativo ,spotlight,defence corrisponderanno a metodi solo per l'umano.
 //occorrono costruttori diversi per alieno e umano perche hanno valori(maxmove canAttack) diversi al  momento  della  creazione--
-public abstract class Character {
+public abstract class Character implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int maxMove;
 	protected Sector currentSector;
 	protected final String name;

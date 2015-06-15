@@ -243,13 +243,15 @@ public class GameState extends Observable{
 		this.turn = turn;
 	}
 	
-	public void currentCaracterDrawsItemCard(){
-		if(getCurrentCharacter().getItemPlayerCard().size()<3)
-			getCurrentCharacter().getItemPlayerCard().add(getItemDeck().removeCard());
-		else
-			System.out.println("You can hold only 3 item cards, so you must use one before drawing");
+	public Card currentCharacterDrawsItemCard(){
+		//if(getCurrentCharacter().getItemPlayerCard().size()<3)
+			ItemCard DrawItemCard = getItemDeck().removeCard();
+			getCurrentCharacter().getItemPlayerCard().add(DrawItemCard);
+		//else
+		//	System.out.println("You can hold only 3 item cards, so you must use one before drawing");
 		setChanged();
 		notifyObservers(this.matchIndex+" The player "+currentCharacter.getPlayerID()+" drew an item card.");
+		return DrawItemCard;
 	}
 	
 	public Card currentCharacterDrawsGameCard(){

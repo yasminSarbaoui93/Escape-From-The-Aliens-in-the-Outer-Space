@@ -51,5 +51,8 @@ public class RmiClient implements Serializable {
 	public String drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException {
 		return remoteMethods1.performDrawCard(yourId, gameNumber);
 	}
+	public String bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException {
+		return remoteMethods1.bluffSector(bluffSector,yourId, gameNumber);
+	}
 
 }

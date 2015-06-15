@@ -40,9 +40,9 @@ public class GameStateTest {
 		System.out.println("STARTING THE ROUND NUMBER " + matchGalilei1.getRound()+"\n");
 		
 		System.out.println("It's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
 		System.out.println(matchGalilei1.getCurrentCharacter()+" and my item cards are\n"+matchGalilei1.getCurrentCharacter().getItemPlayerCard());
 		
 		//Change turn of the player
@@ -50,18 +50,18 @@ public class GameStateTest {
 		System.out.println("\nNow it's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
 		System.out.println(matchGalilei1.getCurrentCharacter());
 		
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
 		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
 		
 		//Change turn of the player
 		matchGalilei1.goToNextCharacter();
 		System.out.println("\nNow it's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
 		System.out.println(matchGalilei1.getCurrentCharacter());
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
-		matchGalilei1.currentCaracterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
+		matchGalilei1.currentCharacterDrawsItemCard();
 		System.out.println(matchGalilei1.getCurrentCharacter().getItemPlayerCard());
 
 		System.out.println("\n"+matchGalilei1.getCharacterList().get(2)+" and I have just been ATTACKED");

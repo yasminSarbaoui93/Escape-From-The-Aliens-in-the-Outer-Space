@@ -5,7 +5,7 @@ public class Human extends Character {
 		
 	public Human(String name, int playerID){
 		super(name,playerID);
-		maxMove = 11;
+		maxMove = 30;
 		canAttack =false;
 	//	this.currentSector = humanStart;
 	}

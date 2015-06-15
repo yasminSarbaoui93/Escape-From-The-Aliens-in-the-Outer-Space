@@ -12,4 +12,5 @@ public interface RemoteMethods extends Remote {
 	String performAttack(Integer yourId ,Integer numberGame) throws RemoteException;
 	String performEndTurn(Integer yourId,Integer numberGame) throws RemoteException;
 	String performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException;
+	String bluffSector(String bluffSector,Integer yourId ,Integer numberGame)  throws RemoteException;
 }

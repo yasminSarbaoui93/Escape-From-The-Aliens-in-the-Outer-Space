@@ -1,14 +1,11 @@
 package it.polimi.ingsw.cg_5.connection;
 
-import it.polimi.ingsw.cg_5.view.Subscriber;
-import it.polimi.ingsw.cg_5.model.Character;
+
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class Broker{
 
-	
-	
 	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
 	private String topic;
 	public ArrayList<SubscriberInterface> getSubscribers() {
@@ -49,7 +46,7 @@ public class Broker{
 		}
 	}
 	
-	public void publishNumberGame(int numberGame, ArrayList <Character> characterList){
+	public void publishNumberGame(int numberGame){
 		if(!subscribers.isEmpty()){
 			for (SubscriberInterface sub : subscribers) {
 				try {

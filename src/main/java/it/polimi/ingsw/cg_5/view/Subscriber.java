@@ -76,14 +76,14 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	@Override
 	public void updateNumberGame(int numberGame) {
 		this.view.setNumberGame(numberGame);
-		
+	
 	}
 
 
 	@Override
 	public void updateCharacter(Character character) throws RemoteException {
 		this.view.setCharacter(character);
-		
+		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
 	}
 	
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -10,6 +11,7 @@ import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
+import it.polimi.ingsw.cg_5.view.User;
 
 
 
@@ -21,9 +23,10 @@ public class GameManager implements Observer{
 
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
+	 * @throws RemoteException 
 	 * 
 	 */
-	public void MatchCreator(){
+	public void MatchCreator() throws RemoteException{
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
 		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
@@ -41,7 +44,14 @@ public class GameManager implements Observer{
 				
 				
 				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches, newMatch.getGameState().getCharacterList());
+				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
+				for(User user : waitingList.getUsers()){
+					for (Character character : newGameState.getCharacterList()){
+						if(user.getPlayerId()==character.getPlayerID()){
+							user.getUserSubscriber().updateCharacter(character);
+						}
+					}
+				}
 				
 				newGameState.getMap().drawMap();
 

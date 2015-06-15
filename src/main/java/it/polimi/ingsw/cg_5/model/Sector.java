@@ -1,12 +1,15 @@
 package it.polimi.ingsw.cg_5.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public abstract class Sector {
+public abstract class Sector implements Serializable {
 	
+
+	private static final long serialVersionUID = 1L;
 	private HashSet <Sector> bordersList= new HashSet<Sector>();
 	private ArrayList <Character> characterList = new ArrayList <Character> ();
 	private final String sectorName;

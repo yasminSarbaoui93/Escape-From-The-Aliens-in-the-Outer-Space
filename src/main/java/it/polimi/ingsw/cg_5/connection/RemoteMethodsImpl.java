@@ -1,9 +1,7 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
-import it.polimi.ingsw.cg_5.model.EscapeHatchType;
-import it.polimi.ingsw.cg_5.model.EscapeSector;
-import it.polimi.ingsw.cg_5.model.Sector;
+import it.polimi.ingsw.cg_5.model.*;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
@@ -43,8 +41,9 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	
 	@Override
 	public String performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
-		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-		System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+		// NON SERVONO, LE CANCELLIAMO??
+		//System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		//System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 
 		try{
 			if(gameManager.canAct(numberGame, yourId)){
@@ -61,6 +60,8 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 					if(runAway.checkAction()){
 						runAway.execute();
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
+									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 							return "Since you ran away, you won the match. CONGRATULATIONS!!!";
 						}
 						else{
@@ -112,17 +113,55 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	}
 	
 	public String performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException{
+		String message = new String ("");
 		if(gameManager.canAct(numberGame, yourId)){
 			DrawCardFromGamedeck drawCard = new DrawCardFromGamedeck(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(drawCard.checkAction()){		
 				drawCard.execute();
-				return "hai pescato con successo";
+				if(drawCard.getDrawnCard().isItemIcon()==true ){
+					Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
+				message = new String("The ItemIcon was true and you draw the Item Card: " + itemCard +"\n");
+				}
+				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
+							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getCurrentSector());
+				}
+				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.SILENCE ){
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish("Silence...");
+				
+				}
+				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_ANY_SECTOR ){
+					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.BLUFFING);
+					return message + "You draw the card :" + drawCard.getDrawnCard()+ " ... you may bluff a Sector!";	
+				}
+				return message + "You draw the card :" + drawCard.getDrawnCard();
 			}
 			else 
-				return "non puoi pescare";
+				return "You cannot draw";
 		}
-		else return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+		else return "You don't belong to any game ore it's not your turn!";
 		
+	}
+
+	@Override
+	public String bluffSector(String bluffSector, Integer yourId , Integer numberGame) throws RemoteException {
+		if(gameManager.canAct(numberGame, yourId)){
+			if(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState()==TurnState.BLUFFING){
+			try {
+			gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+					"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
+					+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector));
+			gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
+			return "Bluff Successful!";
+			}
+		catch(NullPointerException e){
+			return e.getMessage();
+		}
+			}
+			else return "You can't Bluff at the moment!";
+		}
+		else return "You don't belong to any game ore it's not your turn!"; 
 	}
 	
 
