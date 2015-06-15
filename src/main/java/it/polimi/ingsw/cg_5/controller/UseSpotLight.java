@@ -1,15 +1,22 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.model.GameState;
-import it.polimi.ingsw.cg_5.model.ItemCardType;
+import java.util.ArrayList;
+
+
+import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 public class UseSpotLight extends UseItemCard {
 	private String sectorToSpotlight;
+	ArrayList<Character> spottedPlayer = new ArrayList <Character>();
+	public ArrayList<Character> getSpottedPlayer() {
+		return spottedPlayer;
+	}
+
 	public UseSpotLight(GameState gameState, ItemCardType itemCardType,String sectorToSpotlight){
 		super(gameState, itemCardType);
 		this.sectorToSpotlight=sectorToSpotlight;
 	
-		// TODO Auto-generated constructor stub
 	}
 	
 	@ Override
@@ -17,6 +24,13 @@ public class UseSpotLight extends UseItemCard {
 		
 		if(usingItemCardType==ItemCardType.SPOTLIGHT)  {
 			if(gameState.getMap().takeSector(sectorToSpotlight) == null) throw new NullPointerException();
+			else{
+			spottedPlayer.addAll(gameState.getMap().takeSector(sectorToSpotlight).getCharacterList());
+			for(Sector sector : gameState.getMap().takeSector(sectorToSpotlight).getReachableSectors(1, gameState.getMap().takeSector(sectorToSpotlight)) ){
+				spottedPlayer.addAll(gameState.getMap().takeSector(sector.getSectorName()).getCharacterList());
+			}
+							
+			}
 		}
 	}
 

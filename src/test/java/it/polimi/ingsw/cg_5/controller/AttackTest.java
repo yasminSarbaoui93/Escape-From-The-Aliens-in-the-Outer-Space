@@ -32,10 +32,10 @@ public class AttackTest {
 				System.out.println("la check da dato true e quindi si attacca");
 				attacco.execute();
 				
-				if(attacco.getCharacterToKill().size()==0)
+				if(attacco.getPlayerToKill().size()==0)
 					System.out.println("attacco e' andato  a vuoto");
 				else
-					System.out.println("i players attaccati sono"+attacco.getCharacterToKill());
+					System.out.println("i players attaccati sono"+attacco.getPlayerToKill());
 				
 				System.out.println(stateprova.getTurn().getTurnState());
 			}else System.out.println("la check ha dato esito negativo");
@@ -43,16 +43,16 @@ public class AttackTest {
 			/*sposto il player in un settore e lo faccio attaccare a vuoto*/
 			System.out.println("\n ooooh");
 			stateprova.getTurn().setTurnState(TurnState.HASMOVED);
-			attacco.getCharacterToKill().clear();
+			attacco.getPlayerToKill().clear();
 			//risetto turno has moved
 			stateprova.getCurrentCharacter().setCurrentSector(stateprova.getMap().takeSector("J05"));
 			stateprova.getMap().takeSector("J05").getCharacterList().add(stateprova.getCurrentCharacter());
 			if(attacco.checkAction()){
 				attacco.execute();
-				if(attacco.getCharacterToKill().size()==0)
+				if(attacco.getPlayerToKill().size()==0)
 					System.out.println("attacco e' andato  a vuoto");
 				else
-					System.out.println("ho attaccato i player"+attacco.getCharacterToKill());
+					System.out.println("ho attaccato i player"+attacco.getPlayerToKill());
 				
 			}else System.out.println("check false");
 			

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.model.*;
 
@@ -68,8 +70,20 @@ public class Match {
 			return true;
 		if(this.gameState.getNumberOfAliensAlive()==0)
 			return true;
-		
-		return false;
+		//controllo se escapeHatch tutti rotti
+		ArrayList <EscapeSector> escapeSectorToCheck= new ArrayList <EscapeSector>() ;
+		for(Integer i=1 ; i<5 ; i++){
+			escapeSectorToCheck.add((EscapeSector)this.gameState.getMap().takeSector(i.toString()));
+		}
+		for(EscapeSector sector : escapeSectorToCheck){
+			if(sector.isAvailable()){
+			return false;
+			}
+			
+		}
+		// di base sarà return true, perchè tanto è obbligato a fare il ciclo foreach e se almeno uno non è rotto
+		//ritornerà false, altrimenti se tutti sono rotti ritornerà true, il gioco è finito
+		return true;
 		
 	}
 	

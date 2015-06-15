@@ -123,10 +123,10 @@ public class MainProvaGioco {
 						if(!attack.getSafeCharacter().isEmpty()){
 							System.out.println(attack.getSafeCharacter()+"si e' Salvato usando Defence CArd");
 						}
-						if(attack.getCharacterToKill().size()==0)
+						if(attack.getPlayerToKill().size()==0)
 							System.out.println("attacco e' andato  a vuoto!");
 						else{
-							System.out.println("sono stati uccisi"+attack.getCharacterToKill());
+							System.out.println("sono stati uccisi"+attack.getPlayerToKill());
 							if(match.isGameOver()){
 								System.out.println("\n\n  il Gioco e' finito");
 								match.setMatchState(MatchState.ENDED);
@@ -241,7 +241,7 @@ public class MainProvaGioco {
 				if(useCard.checkAction()){
 					
 					useCard.execute();
-					System.out.println("\n la Carta "+tipoCarta+" è stata usata con sucesso");
+					System.out.println("\n la Carta "+tipoCarta+" è stata usata con successo");
 				}else System.out.println("\n comando errato: motivi sei alieno non hai la carta");
 					
 				

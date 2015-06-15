@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
 import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
@@ -86,15 +87,28 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAction()){
 				attack.execute();
+				if(!attack.getPlayerToKill().isEmpty()){
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The players/s"+
+				attack.getPlayerToKill() +" was/were killed by the player with ID- " + 
+			  gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID() + "!");
+				}
+				if(!attack.getSafeCharacter().isEmpty()){
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+ 
+				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card");
+				}
 				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.");
-				return "Hai attaccato con successo!";
+				if(gameManager.getListOfMatch().get(numberGame).isGameOver()){
+					gameManager.getListOfMatch().get(numberGame).setMatchState(MatchState.ENDED);
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The match is ended!");
+					}
+				return "You attack!";
 			}
 			else{
-				return " Non puoi attaccare! Ti tocca pescare!";
+				return " You cannot attack! Maybe you are an Human or you haven't draw yet!";
 			}
 		}
 		else {
-			return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+			return "You don't belong to any game ore it's not your turn";
 		}
 	}
 	
@@ -106,7 +120,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 				return "hai finito il turno";
 			}
 			else 
-				return "non puoi finire il turno!";
+				return "You can't finish your turn!Maybe you've to do some stuff or you Item deck has more than 4 cards!";
 		}
 		else return "Non è il tuo turno o non sei iscritto a nessun gioco!";
 		
@@ -119,9 +133,14 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			if(drawCard.checkAction()){		
 				drawCard.execute();
 				if(drawCard.getDrawnCard().isItemIcon()==true ){
+					if(drawCard.checkItemDecks()){
 					Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
 				message = new String("The ItemIcon was true and you draw the Item Card: " + itemCard +"\n");
+					}
+				else {
+					message = new String("The ItemIcon was true but the ItemDeck is finish! \n");
 				}
+					}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
@@ -132,7 +151,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 				
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_ANY_SECTOR ){
-					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.BLUFFING);
+					//gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.BLUFFING);
 					return message + "You draw the card :" + drawCard.getDrawnCard()+ " ... you may bluff a Sector!";	
 				}
 				return message + "You draw the card :" + drawCard.getDrawnCard();
@@ -140,7 +159,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			else 
 				return "You cannot draw";
 		}
-		else return "You don't belong to any game ore it's not your turn!";
+		else return "You don't belong to any game or it's not your turn!";
 		
 	}
 
@@ -161,7 +180,71 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 			else return "You can't Bluff at the moment!";
 		}
-		else return "You don't belong to any game ore it's not your turn!"; 
+		else return "You don't belong to any game or it's not your turn!"; 
+	}
+
+	@Override
+	public String performUseCard(String itemCardType, Integer yourId,
+			Integer numberGame) throws RemoteException {
+		if(gameManager.canAct(numberGame, yourId)){
+			ItemCardType cardType= null;
+			if(itemCardType.equals("ATTACK"))
+				cardType=ItemCardType.ATTACK;
+			if(itemCardType.equals("SEDATIVES"))
+				cardType=ItemCardType.SEDATIVES;
+			if(itemCardType.equals("TELEPORT"))
+				cardType=ItemCardType.TELEPORT;
+			if(itemCardType.equals("ADRENALINE"))
+				cardType=ItemCardType.ADRENALINE;
+			UseItemCard itemCard = new UseItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),
+						cardType);
+			if(itemCard.checkAction()){
+				itemCard.execute();
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
+						+" use the Item Card " + itemCardType ) ;
+				return "You use the Item Card" + itemCardType ;
+			}
+			else{
+				return "You cannot use this card at the moment or you don't own this card!"; 
+			}
+			}
+			
+		 return "You don't belong to any game or it's not your turn!"; 
+		
+		
+	}
+
+	@Override
+	public String performSpotLightUse(String itemCardType, Integer yourId,
+			Integer numberGame, String sector) throws RemoteException {
+		
+		if(gameManager.canAct(numberGame, yourId)){
+			ItemCardType cardType= null;
+			if(itemCardType.equals("SPOTLIGHT")){
+				cardType=ItemCardType.SPOTLIGHT;
+			}
+			UseSpotLight useSpotLight= new UseSpotLight(gameManager.getListOfMatch().get(numberGame).getGameState(),
+					cardType,sector);
+			if(useSpotLight.checkAction()){
+				useSpotLight.execute();
+				if( !useSpotLight.getSpottedPlayer().isEmpty()){
+				for(Character character : useSpotLight.getSpottedPlayer()){
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The Player with ID -" + character.getPlayerID()
+						+ "is in the Sector: " + character.getCurrentSector());
+				}
+				}
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
+						+" use the Item Card " + itemCardType ) ;
+				return "You use the Item Card" + itemCardType ;
+			}
+			else{
+				return "You cannot use this card at the moment or you don't own this card!"; 
+			}
+		}
+		else return "You don't belong to any game or it's not your turn!"; 
+		
 	}
 	
 

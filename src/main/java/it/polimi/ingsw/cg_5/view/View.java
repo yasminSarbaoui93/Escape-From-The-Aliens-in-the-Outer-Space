@@ -113,25 +113,24 @@ public class View implements Serializable{
 				if(stringa.equals("ENDTURN")){
 				System.out.println(view.getRmiClient().endTurnRequest(yourId, view.getNumberGame()));
 				}
+				if(stringa.equals("USECARD")){
+				System.out.println("Which Item Card would you like to use?");
+					String itemCardType = in.nextLine();
+					if(!itemCardType.equals("SPOTLIGHT")){
+					System.out.println(view.getRmiClient().useCardRequest(itemCardType, yourId, view.getNumberGame()));
+					}
+					else{
+					System.out.println("Which sector would you like to Spot?");
+					String sector = in.nextLine();
+						System.out.println(view.getRmiClient().useSpotLightRequest(itemCardType, yourId, view.getNumberGame(),sector));
+					}
+				}
 				if(stringa.equals("BLUFF")){
 					System.out.println("WHERE YOU WANT TO BLUFF?");
 					String sector = in.nextLine();
 					System.out.println(view.getRmiClient().bluffRequest(sector,yourId, view.getNumberGame()));
 					}
-	/*
-				while(true){
-					System.out.println("Proviamo a muoverci: dimmi un settore!");
-					String sector=in.nextLine();
-					// PER ORA PASSIAMO 0 PERCHE' TESTO COL PRIMO GIOCO CHE VIENE CREATO NELLA LIST OF MATCH
-					// CI SERVE SUBSCRIBER PER NOTIFICARE A TUTTI I COINVOLTI IL GIOCO CREATO E L'ID DEL GIOCO!!
-					// CHE DOVRANNO SALVARE IN APPOSITO ATTRIBUTO DENTRO LA VIEW
-					System.out.println(view.getRmiClient().moveRequest(sector, yourId,view.getNumberGame()));
-					System.out.println(view.getRmiClient().attackRequest(yourId, view.getNumberGame()));
-					System.out.println(view.getRmiClient().drawCardRequest(yourId, view.getNumberGame()));
-					System.out.println(view.getRmiClient().endTurnRequest(yourId, view.getNumberGame()));
-						
-				}
-				*/
+
 				
 			}
 			in.close(); 

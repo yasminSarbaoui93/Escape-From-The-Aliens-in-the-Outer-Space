@@ -57,7 +57,9 @@ public class ItemDeck extends Deck {
 	@Override
 	public ItemCard removeCard() {
 
-		return itemDeck.remove(itemDeck.size()-1);
+	
+			return itemDeck.remove(itemDeck.size()-1);
+	
 		
 	}
 	

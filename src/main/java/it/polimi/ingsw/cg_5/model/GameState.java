@@ -205,7 +205,7 @@ public class GameState extends Observable{
 	public GameDeck setGameDeck(){
 		this.gameDeck=new GameDeck();
 		this.setChanged();
-		notifyObservers("The cards of the game deck are over. A new one has been created");
+		notifyObservers(this.matchIndex +" The cards of the game deck are over. Shuffle the old one!");
 		return this.gameDeck;
 	}
 	
@@ -244,11 +244,18 @@ public class GameState extends Observable{
 	}
 	
 	public Card currentCharacterDrawsItemCard(){
-		//if(getCurrentCharacter().getItemPlayerCard().size()<3)
-			ItemCard DrawItemCard = getItemDeck().removeCard();
+		ItemCard DrawItemCard ;
+		if (getItemDeck().getItemDeck().size()>0){
+			DrawItemCard = getItemDeck().removeCard();
 			getCurrentCharacter().getItemPlayerCard().add(DrawItemCard);
-		//else
-		//	System.out.println("You can hold only 3 item cards, so you must use one before drawing");
+		}
+		else{
+				getItemDeck().getItemDeck().addAll(getItemDeck().getUsedItemDeck());
+				getItemDeck().getUsedItemDeck().clear();
+				DrawItemCard = getItemDeck().removeCard();
+				getCurrentCharacter().getItemPlayerCard().add(DrawItemCard);
+		}
+		
 		setChanged();
 		notifyObservers(this.matchIndex+" The player "+currentCharacter.getPlayerID()+" drew an item card.");
 		return DrawItemCard;

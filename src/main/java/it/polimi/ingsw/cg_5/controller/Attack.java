@@ -8,8 +8,12 @@ import it.polimi.ingsw.cg_5.model.Character;
 public class Attack extends Action {
 	private ArrayList <Character> characterToKill = new ArrayList <Character> ();
 	
-	public ArrayList<Character> getCharacterToKill() {
-		return characterToKill;
+	public ArrayList<Integer> getPlayerToKill() {
+		ArrayList <Integer> playerIdToKill = new ArrayList <Integer> () ;
+		for(Character character : characterToKill){
+			playerIdToKill.add(character.getPlayerID());
+		}
+		return playerIdToKill;
 	}
 	private ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
 	//che ha la carta difesa in mano
