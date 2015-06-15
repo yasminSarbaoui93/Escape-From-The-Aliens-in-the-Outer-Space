@@ -2,12 +2,15 @@ package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,19 +64,23 @@ public class StartOptions extends JFrame {
 			
 			JPanel StartinPanel = new JPanel();
 			
-			JComboBox listMap = new JComboBox();
+			final JComboBox<String> listMap = new JComboBox<String>();
 			listMap.addItem("GALILEI");
 			listMap.addItem("FERMI");
 			listMap.addItem("GALVANI");
 			listMap.setBackground(Color.BLACK);
 			listMap.setForeground(Color.GREEN);
-			JComboBox listPlayerNumber = new JComboBox();
+			final JComboBox<String> listPlayerNumber = new JComboBox<String>();
 			listPlayerNumber.addItem("2");
+			listPlayerNumber.addItem("3");
 			listPlayerNumber.addItem("4");
+			listPlayerNumber.addItem("5");
+			listPlayerNumber.addItem("6");
 			listPlayerNumber.addItem("8");
+			listPlayerNumber.addItem("7");
 			listPlayerNumber.setBackground(Color.BLACK);
 			listPlayerNumber.setForeground(Color.GREEN);
-			JComboBox typeConnection = new JComboBox();
+			final JComboBox<String> typeConnection = new JComboBox<String>();
 			typeConnection.addItem("RMI");
 			typeConnection.setBackground(Color.BLACK);
 			typeConnection.setForeground(Color.GREEN);
@@ -93,9 +100,26 @@ public class StartOptions extends JFrame {
 			StartinPanel.add(listPlayerNumber);
 			StartinPanel.add(label3);
 			StartinPanel.add(typeConnection);
+			JButton startButton = new JButton("Start the Game");
 			add(StartinPanel);
+			
+			startButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					String  choosenMap= (String) listMap.getSelectedItem();
+					String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
+					String 	connessionType= (String) typeConnection.getSelectedItem();
+					
+					System.out.println(choosenMap+maxNumberPlayers+connessionType);
+				}
+				
+				
+			});
+			
+			
+			
+			StartinPanel.add(startButton);
 			layeredPane.setLayer(StartinPanel, LAYER_LOGIN);
-			StartinPanel.setBounds(420, 200,150, 200);
+			StartinPanel.setBounds(480, 200,150, 200);
 			
 			StartinPanel.setBackground(Color.black);
 	}
@@ -106,7 +130,7 @@ public class StartOptions extends JFrame {
 		//load the background image from the disk
 		try {
 
-			backgroundImage = ImageIO.read(new File("./src/main/java/provaSwing/Start.png"));
+			backgroundImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/Start.png"));
 
 		} catch (IOException e) {
 

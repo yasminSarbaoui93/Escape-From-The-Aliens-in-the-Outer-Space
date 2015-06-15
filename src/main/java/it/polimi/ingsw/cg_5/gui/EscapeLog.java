@@ -55,7 +55,7 @@ public class EscapeLog extends JFrame {
 		//load the background image from the disk
 		try {
 
-			backgroundImage = ImageIO.read(new File("./src/main/java/provaSwing/escape.jpg"));
+			backgroundImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/escape.jpg"));
 
 		} catch (IOException e) {
 
