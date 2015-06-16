@@ -117,12 +117,12 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(endTurn.checkAction()){		
 				endTurn.execute();
-				return "hai finito il turno";
+				return "You end your turn!";
 			}
 			else 
 				return "You can't finish your turn!Maybe you've to do some stuff or you Item deck has more than 4 cards!";
 		}
-		else return "Non è il tuo turno o non sei iscritto a nessun gioco!";
+		else return "You don't belong to any game ore it's not your turn!";
 		
 	}
 	
@@ -151,7 +151,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 				
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_ANY_SECTOR ){
-					//gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.BLUFFING);
+					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.BLUFFING);
 					return message + "You draw the card :" + drawCard.getDrawnCard()+ " ... you may bluff a Sector!";	
 				}
 				return message + "You draw the card :" + drawCard.getDrawnCard();
@@ -241,6 +241,39 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 			else{
 				return "You cannot use this card at the moment or you don't own this card!"; 
+			}
+		}
+		else return "You don't belong to any game or it's not your turn!"; 
+		
+	}
+
+	@Override
+	public String performDiscardCard(String itemCardType, Integer yourId,
+			Integer numberGame) throws RemoteException {
+		if(gameManager.canAct(numberGame, yourId)){
+			ItemCardType cardType= null;
+			if(itemCardType.equals("ATTACK"))
+				cardType=ItemCardType.ATTACK;
+			if(itemCardType.equals("SEDATIVES"))
+				cardType=ItemCardType.SEDATIVES;
+			if(itemCardType.equals("TELEPORT"))
+				cardType=ItemCardType.TELEPORT;
+			if(itemCardType.equals("ADRENALINE"))
+				cardType=ItemCardType.ADRENALINE;
+			if(itemCardType.equals("DEFENCE"))
+				cardType=ItemCardType.DEFENCE;
+			if(itemCardType.equals("SPOTLIGHT"))
+				cardType=ItemCardType.SPOTLIGHT;
+			DiscardItemCard discartCard = new DiscardItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),cardType);
+			if(discartCard.checkAction()){
+				discartCard.execute();
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
+						+" discard an Item Card of Type " + itemCardType ) ;
+				return "You succesfully discard a card of type:"+itemCardType +"!";
+			}
+			else{
+				return "You can't discard this Card!";
 			}
 		}
 		else return "You don't belong to any game or it's not your turn!"; 

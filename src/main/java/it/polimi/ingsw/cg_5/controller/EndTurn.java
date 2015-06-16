@@ -11,7 +11,6 @@ public class EndTurn extends Action {
 
 	public EndTurn(GameState gameState) {
 		super(gameState);
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)

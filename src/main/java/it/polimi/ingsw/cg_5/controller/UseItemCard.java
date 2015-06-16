@@ -35,6 +35,7 @@ public class UseItemCard extends Action {
 		}
 		
 		if(usingItemCardType==ItemCardType.SEDATIVES){
+			// DA SISTEMARE!
 			gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			
 		}

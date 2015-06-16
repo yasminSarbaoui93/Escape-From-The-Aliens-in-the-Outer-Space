@@ -126,9 +126,14 @@ public class View implements Serializable{
 					}
 				}
 				if(stringa.equals("BLUFF")){
-					System.out.println("WHERE YOU WANT TO BLUFF?");
+					System.out.println("Where you want to Bluff?");
 					String sector = in.nextLine();
 					System.out.println(view.getRmiClient().bluffRequest(sector,yourId, view.getNumberGame()));
+					}
+				if(stringa.equals("DISCARD")){
+					System.out.println("Whic card do you want to discard?");
+					String itemCardType = in.nextLine();
+					System.out.println(view.getRmiClient().discardRequest(itemCardType,yourId, view.getNumberGame()));
 					}
 
 				

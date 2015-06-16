@@ -16,16 +16,20 @@ public class DiscardItemCard extends Action {
 
 	@Override
 	public void execute() {
-		System.out.println("il current player ha rimosso una carta");
+		for(ItemCard playerItemCard : gameState.getCurrentCharacter().getItemPlayerCard()){
+			if(playerItemCard.getItemCardType().equals(discardItemType)){
+				gameState.getCurrentCharacter().getItemPlayerCard().remove(playerItemCard);
+				gameState.getItemDeck().getUsedItemDeck().add(playerItemCard);
+				return;
+			}
+		}
 
 	}
 
 	public boolean checkAction(){
-		if(gameState.getCurrentCharacter().getItemPlayerCard().size()>3){
+		if(gameState.getCurrentCharacter().getItemPlayerCard().size()>0){
 			for(ItemCard playerItemCard : gameState.getCurrentCharacter().getItemPlayerCard()){
 				if(playerItemCard.getItemCardType().equals(discardItemType)){
-					gameState.getCurrentCharacter().getItemPlayerCard().remove(playerItemCard);
-					gameState.getItemDeck().getUsedItemDeck().add(playerItemCard);
 					return true;
 				}
 			}

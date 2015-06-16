@@ -17,4 +17,5 @@ public interface RemoteMethods extends Remote {
 	String performUseCard(String itemCardType,Integer yourId,Integer numberGame)  throws RemoteException;
 	String performSpotLightUse(String itemCardType,Integer yourId,Integer numberGame,String sector)  throws RemoteException;
 	String bluffSector(String bluffSector,Integer yourId ,Integer numberGame)  throws RemoteException;
+	String performDiscardCard(String itemCardType,Integer yourId,Integer numberGame)  throws RemoteException;
 }

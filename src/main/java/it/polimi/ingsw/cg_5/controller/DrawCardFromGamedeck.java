@@ -29,14 +29,12 @@ public class DrawCardFromGamedeck extends Action {
 
 			gameState.setGameDeck();
 
-			//System.out.println("mazzo ricreato");
-
 		
 		}
 		// pesca Carta e vari comportamenti in base alla carta pescata
 		drawnCard= (GameCard) gameState.currentCharacterDrawsGameCard();
 		
-		//gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
+		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
 	
 		
