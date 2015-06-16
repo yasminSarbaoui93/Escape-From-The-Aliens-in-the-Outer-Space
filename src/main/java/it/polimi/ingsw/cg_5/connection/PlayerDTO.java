@@ -15,11 +15,15 @@ public class PlayerDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Character yourCharacter;
-	private ArrayList <Sector> reachableSectors = new ArrayList<Sector>();
+	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;
 	
 	public PlayerDTO(Character character){
 		this.yourCharacter = character;
+	}
+	public PlayerDTO(String messageToSend){
+		this.yourCharacter=null;
+		this.messagesToSend = messageToSend;
 	}
 	/*************************GETTERS AND SETTERS*********************************/
 	
@@ -38,8 +42,11 @@ public class PlayerDTO implements Serializable {
 		this.messagesToSend = message;
 	}
 
-	public ArrayList<Sector> getReachableSectors() {
-		reachableSectors.addAll(yourCharacter.getCurrentSector().getReachableSectors(yourCharacter.getMaxMove(), yourCharacter.getCurrentSector()));
+	public ArrayList<String> getReachableSectors() {
+		for(Sector sector : yourCharacter.getCurrentSector().getReachableSectors(yourCharacter.getMaxMove(),
+				yourCharacter.getCurrentSector())){
+		reachableSectors.add(sector.getSectorName());
+				}
 		return reachableSectors;
 	}
 	@Override

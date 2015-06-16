@@ -42,12 +42,12 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	
 	@Override
 	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
-		// NON SERVONO, LE CANCELLIAMO??
-		//System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-		//System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		
+		
 		try{
+			
 			if(gameManager.canAct(numberGame, yourId)){
+				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 				Sector destinationSector=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName);
 				if(destinationSector.getClass() != EscapeSector.class){
 					Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(),destinationSector); 
@@ -85,21 +85,22 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 				}
 				
 			}
-			else{				
-				playerDTO.setMessageToSend("You don't belong to any game ore it's not your turn");
+			else{			
+				PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game ore it's not your turn");	
 				return playerDTO;				
 			}
 				
 		}catch(NullPointerException e){
-			playerDTO.setMessageToSend(e.getMessage());
+			PlayerDTO playerDTO= new PlayerDTO("Impossibile to find your character");
 			return playerDTO;
 		}
 	}
 	
 	
 	public PlayerDTO performAttack(Integer yourId ,Integer numberGame) throws RemoteException {
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		
 		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAction()){
 				attack.execute();
@@ -126,14 +127,15 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 		}
 		else {
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn");
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn");
 			return playerDTO;
 		}
 	}
 	
 	public PlayerDTO performEndTurn(Integer yourId,Integer numberGame)  throws RemoteException{
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		
 		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(endTurn.checkAction()){		
 				endTurn.execute();
@@ -148,16 +150,16 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 		}
 
 		else{
-			playerDTO.setMessageToSend("It's not your turn or you didn't subscribe to any match yet");
+			PlayerDTO playerDTO = new PlayerDTO("It's not your turn or you didn't subscribe to any match yet");
 			return playerDTO;
 		}
 		
 	}
 	
 	public PlayerDTO performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException{
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		String message = new String ("");
 		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			DrawCardFromGamedeck drawCard = new DrawCardFromGamedeck(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(drawCard.checkAction()){		
 				drawCard.execute();
@@ -195,7 +197,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 		}
 		else{
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn!");
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO;
 		}
 		
@@ -203,8 +205,8 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 
 	@Override
 	public PlayerDTO bluffSector(String bluffSector, Integer yourId , Integer numberGame) throws RemoteException {
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-		if(gameManager.canAct(numberGame, yourId)){
+			if(gameManager.canAct(numberGame, yourId)){
+				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			if(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState()==TurnState.BLUFFING){
 			try {
 			gameManager.getListOfMatch().get(numberGame).getBroker().publish(
@@ -225,15 +227,15 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 		}
 		else{
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn!");
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO; 
 		}
 	}
 
 	@Override
 	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame) throws RemoteException {
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
 			if(itemCardType.equals("ATTACK"))
 				cardType=ItemCardType.ATTACK;
@@ -261,16 +263,18 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 				return playerDTO; 
 			}
 			}
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn!");
+		else{
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
+			
 		 return playerDTO; 
-		
+		}
 		
 	}
 
 	@Override
 	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector) throws RemoteException {
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-		if(gameManager.canAct(numberGame, yourId)){
+				if(gameManager.canAct(numberGame, yourId)){
+					PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
 			if(itemCardType.equals("SPOTLIGHT")){
 				cardType=ItemCardType.SPOTLIGHT;
@@ -299,7 +303,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 		}
 		else{
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn!");
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO; 
 		}
 		
@@ -308,8 +312,8 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	@Override
 	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId,
 			Integer numberGame) throws RemoteException {
-		PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
 			if(itemCardType.equals("ATTACK"))
 				cardType=ItemCardType.ATTACK;
@@ -340,7 +344,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 			}
 		}
 		else{
-			playerDTO.setMessageToSend("You don't belong to any game or it's not your turn!");
+			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO;
 		}
 	}
