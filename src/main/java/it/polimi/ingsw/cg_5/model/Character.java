@@ -33,8 +33,6 @@ public abstract class Character implements Serializable {
 		return itemPlayerCard;
 	}
 	
-
-	
 	
 	public int getPlayerID() {
 		return playerID;
