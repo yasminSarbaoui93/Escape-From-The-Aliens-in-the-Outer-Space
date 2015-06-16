@@ -8,10 +8,10 @@ public class MainProvaGUI {
 		
        EscapeLog escapeLog=new EscapeLog();
 		
-		escapeLog.setVisible(true);
+		//escapeLog.setVisible(true);
 		
 		StartOptions startOptions=new StartOptions();
-		startOptions.setVisible(true);
+		//startOptions.setVisible(true);
 		
 		EscapeFromAlienGame escape = new EscapeFromAlienGame();
 		escape.setVisible(true);
