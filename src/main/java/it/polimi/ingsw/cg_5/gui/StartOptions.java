@@ -30,7 +30,7 @@ public class StartOptions extends JFrame {
 	private JLayeredPane layeredPane;
 	
 	private final int LAYER_BACKGROUND = 1;
-	private final int LAYER_LOGIN = 10;
+	private final int LAYER_START_WINDOW = 10;
 	
 	public StartOptions() {
 
@@ -57,13 +57,17 @@ public class StartOptions extends JFrame {
 	private void initComponents() {
 		layeredPane = new JLayeredPane();
 		  setContentPane(layeredPane);
+		  
+		  //impostazione sfondo
 		  backgroundLabel = new JLabel(new ImageIcon(backgroundImage));
 			backgroundLabel.setBounds(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
 			add(backgroundLabel);
 			layeredPane.setLayer(backgroundLabel, LAYER_BACKGROUND);
 			
+			//inserisco un pannello   varie scelte del giocatore  inerenti alla nuova partita che vorra giocare
 			JPanel StartinPanel = new JPanel();
 			
+			// con JComboBox possiamo fare imenu a tendina
 			final JComboBox<String> listMap = new JComboBox<String>();
 			listMap.addItem("GALILEI");
 			listMap.addItem("FERMI");
@@ -76,8 +80,8 @@ public class StartOptions extends JFrame {
 			listPlayerNumber.addItem("4");
 			listPlayerNumber.addItem("5");
 			listPlayerNumber.addItem("6");
-			listPlayerNumber.addItem("8");
 			listPlayerNumber.addItem("7");
+			listPlayerNumber.addItem("8");
 			listPlayerNumber.setBackground(Color.BLACK);
 			listPlayerNumber.setForeground(Color.GREEN);
 			final JComboBox<String> typeConnection = new JComboBox<String>();
@@ -87,13 +91,14 @@ public class StartOptions extends JFrame {
 		
 
 
-			//JList list = new JList(listModel);
+		
 			JLabel label1 = new JLabel("Choose The Map");
 			JLabel label2 = new JLabel("Max Number of Players");
 			JLabel label3 = new JLabel("Choose type of Connection");
 			label1.setForeground(Color.white);
 			label2.setForeground(Color.white);
 			label3.setForeground(Color.white);
+			
 			StartinPanel.add(label1);
 			StartinPanel.add(listMap);
 			StartinPanel.add(label2);
@@ -103,12 +108,14 @@ public class StartOptions extends JFrame {
 			JButton startButton = new JButton("Start the Game");
 			add(StartinPanel);
 			
+			// alla press del bottone Start Game
+			
 			startButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					String  choosenMap= (String) listMap.getSelectedItem();
 					String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
 					String 	connessionType= (String) typeConnection.getSelectedItem();
-					
+					// dainserire logica comunicazione
 					System.out.println(choosenMap+maxNumberPlayers+connessionType);
 				}
 				
@@ -118,16 +125,16 @@ public class StartOptions extends JFrame {
 			
 			
 			StartinPanel.add(startButton);
-			layeredPane.setLayer(StartinPanel, LAYER_LOGIN);
-			StartinPanel.setBounds(480, 200,150, 200);
+			layeredPane.setLayer(StartinPanel, LAYER_START_WINDOW );
+			StartinPanel.setBounds(500, 200,150, 200);
 			
 			StartinPanel.setBackground(Color.black);
 	}
 
 
-
+   // caricamento dell'immagine background situato nello  stesso package del  codice gui
 	private void loadResources() {
-		//load the background image from the disk
+	
 		try {
 
 			backgroundImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/Start.png"));

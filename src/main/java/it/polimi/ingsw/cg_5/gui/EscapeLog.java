@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 
 public class EscapeLog extends JFrame {
+	
 	private static final int WINDOW_WIDTH = 700;
 	private static final int WINDOW_HEIGHT = 681;
 	
@@ -84,7 +85,7 @@ public class EscapeLog extends JFrame {
 		JLabel  label2= new JLabel("Enter password");
 		final JTextField userName = new JTextField(20);
 		final JTextField password = new JTextField(20);
-		//LoginButton Login = new LoginButton();
+		
 		JButton login= new JButton("Login");
 		login.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e){
