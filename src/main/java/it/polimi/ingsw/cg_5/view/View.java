@@ -20,7 +20,7 @@ public class View implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int PlayerID=101;
-	private RmiClient rmiClient;
+	private Client client;
 	private String name;
 	private Subscriber subscriber;
 	private int numberGame;
@@ -28,10 +28,10 @@ public class View implements Serializable{
 		
 
 
-	public View (String name) throws Exception{
+	public View (String name, Client client) throws Exception{
 		super();
 		this.name=name;
-		this.rmiClient= new RmiClient();
+		this.client = client;
 		subscriber = new Subscriber(name);
 		numberGame=0;
 		/// prova stub per ogni view
@@ -53,8 +53,8 @@ public class View implements Serializable{
 	public void setNumberGame(int numberGame){
 		this.numberGame = numberGame;
 	}
-	public RmiClient getRmiClient() {
-		return rmiClient;
+	public Client getClient() {
+		return this.client;
 	}
 	
 	public void setCharacter(Character character){
@@ -79,14 +79,25 @@ public class View implements Serializable{
 		System.out.println("Inserisci un nome utente: ");
 		Scanner in = new Scanner (System.in);
 		String nomeUtente = in.nextLine();
-		View view= new View(nomeUtente);
+		System.out.println("What type of connection would you like to use? RMI/SOCKET");
+		String connection = in.nextLine();
+		
+		Client client = null;
+		if(connection.toUpperCase().equals("RMI")){
+			client = new RmiClient();
+		}
+	//	else{
+		//	client = new SocketClient;
+		//}
+			
+		View view= new View(nomeUtente, client);
 		view.getSubscriber().setView(view);
-				
+		
 		System.out.println("Con che mappa vuoi giocare?");
 		String stringa = in.nextLine();
 		System.out.println("Con quanti giocatori vuoi giocare al massimo?(max 8)");
 		Integer maxSize= Integer.parseInt(in.nextLine());
-		Integer yourId=view.getRmiClient().matchRequest(stringa, maxSize, view.getName());
+		Integer yourId=view.getClient().matchRequest(stringa, maxSize, view.getName());
 	
 
 		System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarà :" + yourId  );	
@@ -102,38 +113,38 @@ public class View implements Serializable{
 				if(stringa.equals("MOVE")){
 				System.out.println("DOVE VUOI MUOVERTI?");
 				String sector = in.nextLine();
-				System.out.println(view.getRmiClient().moveRequest(sector, yourId,view.getNumberGame()));
+				System.out.println(view.getClient().moveRequest(sector, yourId,view.getNumberGame()));
 				}
 				if(stringa.equals("ATTACK")){
-				System.out.println(view.getRmiClient().attackRequest(yourId, view.getNumberGame()));
+				System.out.println(view.getClient().attackRequest(yourId, view.getNumberGame()));
 				}
 				if(stringa.equals("DRAW")){
-				System.out.println(view.getRmiClient().drawCardRequest(yourId, view.getNumberGame()));
+				System.out.println(view.getClient().drawCardRequest(yourId, view.getNumberGame()));
 				}
 				if(stringa.equals("ENDTURN")){
-				System.out.println(view.getRmiClient().endTurnRequest(yourId, view.getNumberGame()));
+				System.out.println(view.getClient().endTurnRequest(yourId, view.getNumberGame()));
 				}
 				if(stringa.equals("USECARD")){
 				System.out.println("Which Item Card would you like to use?");
 					String itemCardType = in.nextLine();
 					if(!itemCardType.equals("SPOTLIGHT")){
-					System.out.println(view.getRmiClient().useCardRequest(itemCardType, yourId, view.getNumberGame()));
+					System.out.println(view.getClient().useCardRequest(itemCardType, yourId, view.getNumberGame()));
 					}
 					else{
 					System.out.println("Which sector would you like to Spot?");
 					String sector = in.nextLine();
-						System.out.println(view.getRmiClient().useSpotLightRequest(itemCardType, yourId, view.getNumberGame(),sector));
+						System.out.println(view.getClient().useSpotLightRequest(itemCardType, yourId, view.getNumberGame(),sector));
 					}
 				}
 				if(stringa.equals("BLUFF")){
 					System.out.println("Where you want to Bluff?");
 					String sector = in.nextLine();
-					System.out.println(view.getRmiClient().bluffRequest(sector,yourId, view.getNumberGame()));
+					System.out.println(view.getClient().bluffRequest(sector,yourId, view.getNumberGame()));
 					}
 				if(stringa.equals("DISCARD")){
 					System.out.println("Whic card do you want to discard?");
 					String itemCardType = in.nextLine();
-					System.out.println(view.getRmiClient().discardRequest(itemCardType,yourId, view.getNumberGame()));
+					System.out.println(view.getClient().discardRequest(itemCardType,yourId, view.getNumberGame()));
 					}
 
 				

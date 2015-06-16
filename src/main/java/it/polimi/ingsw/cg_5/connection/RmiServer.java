@@ -5,7 +5,7 @@ import java.rmi.registry.Registry;
 
 import it.polimi.ingsw.cg_5.controller.*;
 
-public class RmiServer {
+public class RmiServer extends Server {
 	
 	GameManager gameManager=new GameManager();
 	private final Registry registry; 

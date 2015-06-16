@@ -31,10 +31,6 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 		
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
-		
-		//SIAMO NEL SERVER
-		//fai qui la subscribe
-		//lancio il matchCreator 
 		this.gameManager.MatchCreator();
 		return yourId;
 		
