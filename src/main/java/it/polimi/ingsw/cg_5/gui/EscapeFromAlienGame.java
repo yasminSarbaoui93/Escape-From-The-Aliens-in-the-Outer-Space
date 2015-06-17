@@ -99,7 +99,7 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			final JPanel Publish = new JPanel();
 			
-			Publish.setBounds(800,421, 294, 300);
+			Publish.setBounds(800,421, 294, 264);
 			Publish.setBackground(Color.WHITE);
 			
 			layeredPane.setLayer(Publish, 10);
@@ -113,6 +113,7 @@ public class EscapeFromAlienGame extends JFrame{
 			JButton useCardButton= new JButton("UseCard");
 			JButton endTurn= new JButton("endTurn");
 			JButton discard = new JButton("Discard");
+			JButton buttonFake = new JButton();
 						
 			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
 			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
@@ -130,9 +131,9 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(useCardButton);
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
-
+			
 			Publish.add(discard);
-
+			Publish.add(buttonFake);
 			layeredPane.setLayer(logPanel, 10);
 			
 
