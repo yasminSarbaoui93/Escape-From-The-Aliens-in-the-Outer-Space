@@ -64,17 +64,17 @@ public class EscapeFromAlienGame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		
-		loadResources();
+		loadResources(viewController);
 		initComponents();
 	
 	}
 	
 
 
-	private void loadResources() {
+	private void loadResources(ViewController viewController) {
 		//load the background image from the disk
 		try {
-
+			
 			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.jpg"));
 
 		} catch (IOException e) {
