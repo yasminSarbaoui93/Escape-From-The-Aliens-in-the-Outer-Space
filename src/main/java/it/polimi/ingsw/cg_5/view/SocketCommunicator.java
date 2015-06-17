@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_5.view;
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class SocketCommunicator implements Communicator{
 	
 	//Leggere input da socket
 	Scanner in;
-	
+	ObjectInputStream inObj;
 	//Scrivere su socket
 	PrintWriter out;
 	
@@ -32,13 +33,12 @@ public class SocketCommunicator implements Communicator{
 	@Override
 	public void send(String msg){
 		out.println(msg);
-		//makes sure that the message is updated/sent
 		out.flush();
 	}
 	
     @Override
 	public String receive(){
-		return in.nextLine();
+		return in.nextLine().toString();
 	}
 	
     @Override
@@ -51,6 +51,24 @@ public class SocketCommunicator implements Communicator{
         		socket = null;
         }
     }
+
+	@Override
+	public void sendDTO(PlayerDTO playerDTO) {
+		out.println(playerDTO);
+		out.flush();
+	}
+
+	@Override
+	public PlayerDTO receiveDTO() {
+		try {
+			return (PlayerDTO)inObj.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return playerDTO;
+	}
 	
 
 }

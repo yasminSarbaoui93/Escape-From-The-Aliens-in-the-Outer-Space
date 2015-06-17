@@ -7,10 +7,12 @@ public class RmiServer extends Server {
 
 	private final Registry registry; 
 	private static final String NAME = "room";
-	
+
 	public RmiServer ()  throws RemoteException {
+		super();
+			
 		registry = LocateRegistry.createRegistry(1099);
-		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager);
+		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager, gameRules);
 		
 		registry.rebind(NAME, remoteMethods1);
 		System.out.println("Starting server, waiting for request...");

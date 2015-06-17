@@ -43,15 +43,15 @@ public class GameManager implements Observer{
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
 				
 				
-				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
-				for(User user : waitingList.getUsers()){
+				//newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
+				//newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
+				/*for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
 						if(user.getPlayerId()==character.getPlayerID()){
 							user.getUserSubscriber().updateCharacter(character);
 						}
 					}
-				}
+				}*/
 				
 				newGameState.getMap().drawMap();
 

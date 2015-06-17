@@ -9,6 +9,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
+import org.junit.runners.ParentRunner;
+
 public class SocketClient implements Client {
 	
 	private String ip;
@@ -31,22 +33,21 @@ public class SocketClient implements Client {
 		
 		String command = "SUBSCRIBEREQUEST "+stringa +" "+maxSize+" "+name;
 		server.send(command);
+		System.out.println("sei stato aggiunto ad una waiting list con ID-"+server.receive());
 		
-		System.out.println(server.receive());
-		return Integer.parseInt(server.receive());
+		//si blocca in questo esattamente in questo punto dopo la print! non risce a fare la parseInt del messaggio ricevuto dal server WTF
+		Integer yourID = Integer.parseInt(server.receive());
+		return yourID;
 	}
 
 	
 	
-	
-	
-	
-	
-	
 	@Override
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+		String command = "MOVE "+sector+" "+yourId+" "+gameNumber;
+		server.send(command);
+		
+		return server.receiveDTO();
 	}
 
 	@Override
