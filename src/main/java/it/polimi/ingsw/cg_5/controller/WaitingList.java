@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg_5.controller;
 
 
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
-import it.polimi.ingsw.cg_5.view.Subscriber;
+import it.polimi.ingsw.cg_5.view.SubscriberRmi;
 import it.polimi.ingsw.cg_5.view.User;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-7package it.polimi.ingsw.cg_5.view;
+package it.polimi.ingsw.cg_5.view;
 
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;

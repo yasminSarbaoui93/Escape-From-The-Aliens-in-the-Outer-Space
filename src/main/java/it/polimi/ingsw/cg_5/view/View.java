@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.Character;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -22,7 +24,7 @@ public class View implements Serializable{
 	private int PlayerID=101;
 	private Client client;
 	private String name;
-	private Subscriber subscriber;
+	private SubscriberRmi subscriber;
 	private int numberGame;
 	private Character character;
 		
@@ -32,12 +34,12 @@ public class View implements Serializable{
 		super();
 		this.name=name;
 		this.client = client;
-		subscriber = new Subscriber(name);
+		subscriber = new SubscriberRmi(name);
 		numberGame=0;
 		/// prova stub per ogni view
-		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+	/*	Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 		SubscriberInterface stub = (SubscriberInterface)UnicastRemoteObject.exportObject(this.subscriber, 0);
-		registry.rebind(this.name, stub);
+		registry.rebind(this.name, stub);*/
 	}
 	
 	
@@ -69,7 +71,7 @@ public class View implements Serializable{
 	public int getPlayerID() {
 		return PlayerID;
 	}
-	public Subscriber getSubscriber() {
+	public SubscriberRmi getSubscriber() {
 		return subscriber;
 	}
 	
@@ -83,12 +85,19 @@ public class View implements Serializable{
 		String connection = in.nextLine();
 		
 		Client client = null;
-		if(connection.toUpperCase().equals("RMI")){
-			client = new RmiClient();
+		try{
+			if(connection.toUpperCase().equals("SOCKET")){
+				client = new SocketClient("127.0.0.1", 1337);
+			}
+			
+			if(connection.toUpperCase().equals("RMI")){
+				client = new RmiClient();
+			}
+		
+		}catch(IOException e){
+			System.out.println("Unhandled connection");
 		}
-	//	else{
-		//	client = new SocketClient;
-		//}
+		
 			
 		View view= new View(nomeUtente, client);
 		view.getSubscriber().setView(view);

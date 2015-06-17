@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg_5.connection;
 import it.polimi.ingsw.cg_5.controller.*;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
+import it.polimi.ingsw.cg_5.view.Subscriber;
+import it.polimi.ingsw.cg_5.view.SubscriberRmi;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
@@ -21,14 +23,13 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	
 	@Override
 	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name) throws RemoteException, NotBoundException {
-		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+		/*Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 		
 		// CI POTREBBE ESSERE UN PROBLEMA SE DUE GIOCATORI FANNO RICHIESTA NELLO STESSO ISTANTE USANDO LO STESSO USER
 		//INOLTRE USANDO USER DOVREMO FAR SI CHE SIA UNIVOCO, INTRODUCENDO QUINDI LA REGISTRAZIONE DEGLI USER
-		SubscriberInterface subscriber = (SubscriberInterface) registry.lookup(name);
+		SubscriberInterface subscriber = (SubscriberInterface) registry.lookup(name);*/
+		SubscriberInterface subscriber = new SubscriberRmi(name);
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
-		
-		
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
 		this.gameManager.MatchCreator();

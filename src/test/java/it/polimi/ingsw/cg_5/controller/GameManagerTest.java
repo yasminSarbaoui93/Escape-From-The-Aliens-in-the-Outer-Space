@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_5.controller;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.view.Subscriber;
+import it.polimi.ingsw.cg_5.view.SubscriberRmi;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class GameManagerTest {
 	@Test
 	public void test() throws RemoteException {
 GameManager prova = new GameManager();	
-		Subscriber subscriber = new Subscriber("ANDREA");
+		SubscriberRmi subscriber = new SubscriberRmi("ANDREA");
 		for(int i=0; i<11 ; i++){
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
