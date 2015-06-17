@@ -14,6 +14,8 @@ import it.polimi.ingsw.cg_5.model.Character;
 
 
 public class DtoPanel extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	final String defautString="Not Assigned Yet";
 	JLabel username = new JLabel("Username :");
 	JTextField name = new JTextField(10);
@@ -30,6 +32,7 @@ public class DtoPanel extends JPanel{
 	
 	 public DtoPanel() {
 		 setLayout( new GridLayout(5,2));
+		 
 		 add(username);
 		 add(name);
 		 add(playerID);
@@ -63,8 +66,10 @@ public class DtoPanel extends JPanel{
 	
 	
 	public void updateDtoPanel(Character character){
-		this.name.setText(character.getName()+"\n");
+		
 		this.sector.setText(character.getCurrentSector() +"\n");
+		this.ID.setText(character.getPlayerID() +"\n");
+		this.role.setText(character.getName() +"\n");
 		
 	}
 	
