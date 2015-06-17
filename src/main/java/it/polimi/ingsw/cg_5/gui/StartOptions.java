@@ -134,24 +134,8 @@ public class StartOptions extends JFrame {
 			// alla press del bottone Start Game
 			//final StartButtonListener listener = new StartButtonListener (this.viewController);
 			//startButton.addActionListener(listener);
-			startButton.addActionListener(new ButtonListener (this.viewController){
-				public void actionPerformed(ActionEvent e){
-					String userName = userLabel.getText();
-					String  choosenMap= (String) listMap.getSelectedItem();
-					String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
-					String 	connessionType= (String) typeConnection.getSelectedItem();
-					
-					try {
-						this.getViewController().ViewCreatorAndSubscribeRequest(userName, choosenMap,maxNumberPlayers,connessionType);
-					} catch (Exception e1) {
-					
-						
-					}
-				}
-				
-				
-				
-			});
+			startButton.addActionListener(new StartButtonListener (this.viewController,userLabel,
+					listMap,listPlayerNumber,typeConnection));
 			
 			
 			
