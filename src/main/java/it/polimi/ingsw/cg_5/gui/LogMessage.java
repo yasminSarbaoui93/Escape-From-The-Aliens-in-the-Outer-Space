@@ -10,21 +10,20 @@ import javax.swing.text.StyledDocument;
 
 public class LogMessage extends JScrollPane {
 	///VERIFICARE SE STATIC DA PROBLEMI
-	private   JTextPane textLog;
+	private static  JTextPane textLog=new JTextPane();
 	StyledDocument doc  = textLog.getStyledDocument();
 	
 	public LogMessage() {
-		super();
-		textLog= new JTextPane();
+		super(textLog,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		setBounds(800, 10, 280, 300);
 	}
 	
 	
 	
-	public void updateLogMessage(String updateMessage) throws BadLocationException{
+	public void updateLogMessage(String updateMessage, Color color) throws BadLocationException{
 		
 	javax.swing.text.Style style = textLog.addStyle("I'm a Style", null);
-    StyleConstants.setForeground(style, Color.green);
+    StyleConstants.setForeground(style, color);
     
 		doc.insertString(doc.getLength(), updateMessage+"\n",style);
 	

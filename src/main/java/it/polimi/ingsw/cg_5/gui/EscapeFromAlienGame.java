@@ -48,7 +48,6 @@ public class EscapeFromAlienGame extends JFrame{
 	
 	
 	
-	
 	public EscapeFromAlienGame(ViewController viewController) {
 		
 		this.viewController=viewController;
@@ -87,9 +86,6 @@ public class EscapeFromAlienGame extends JFrame{
 	private void initComponents() {
 		
 		
-		layeredPane.setLayer(dtoPanel, 10);
-		add(dtoPanel);
-		add(logPanel);
 		layeredPane = new JLayeredPane();
 		  setContentPane(layeredPane);
 		
@@ -138,7 +134,7 @@ public class EscapeFromAlienGame extends JFrame{
 				e2.printStackTrace();
 			}
 					try {
-						logPanel.updateLogMessage(result);
+						logPanel.updateLogMessage(result,Color.GREEN);
 					} catch (BadLocationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -154,7 +150,7 @@ public class EscapeFromAlienGame extends JFrame{
 					 System.out.println("You clicked the button Endturn");
 					
 					try {
-						logPanel.updateLogMessage("Endturn");
+						logPanel.updateLogMessage("Endturn",Color.GREEN);
 					} catch (BadLocationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -172,7 +168,7 @@ public class EscapeFromAlienGame extends JFrame{
 					 System.out.println("You clicked the button Attack");
 					
 					 try {
-						logPanel.updateLogMessage("attack");
+						logPanel.updateLogMessage("attack",Color.GREEN);
 					} catch (BadLocationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -187,7 +183,7 @@ public class EscapeFromAlienGame extends JFrame{
 					 System.out.println("You clicked the button drawCard");
 					
 					 try {
-						logPanel.updateLogMessage("drawCard");
+						logPanel.updateLogMessage("drawCard",Color.GREEN);
 					} catch (BadLocationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -205,7 +201,7 @@ public class EscapeFromAlienGame extends JFrame{
 					String sector= JOptionPane.showInputDialog("Sector to bluff");
 					System.out.println(sector);
 					try {
-						logPanel.updateLogMessage("bluff");
+						logPanel.updateLogMessage("bluff",Color.GREEN);
 					} catch (BadLocationException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -235,7 +231,9 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			//------------------------------------------------------------------------- PANNELLO DTO--------------------------------------------------------------------
 			
-			
+			layeredPane.setLayer(dtoPanel, 10);
+			add(dtoPanel);
+			add(logPanel);
 			
 			
 		
@@ -243,6 +241,12 @@ public class EscapeFromAlienGame extends JFrame{
 			
 	
 		
+	}
+
+
+
+	public LogMessage getLogPanel() {
+		return logPanel;
 	}
 
 

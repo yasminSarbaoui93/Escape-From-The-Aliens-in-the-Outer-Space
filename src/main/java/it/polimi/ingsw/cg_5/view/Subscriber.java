@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
@@ -74,7 +75,12 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	@Override
 	public void dispatchMessage(String msg) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
-		//this.getView().getViewController().getEscape().updateDocument(msg);
+		try {
+			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
