@@ -140,7 +140,7 @@ public class StartOptions extends JFrame {
 					String  choosenMap= (String) listMap.getSelectedItem();
 					String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
 					String 	connessionType= (String) typeConnection.getSelectedItem();
-
+					
 					try {
 						this.getViewController().ViewCreatorAndSubscribeRequest(userName, choosenMap,maxNumberPlayers,connessionType);
 					} catch (Exception e1) {

@@ -47,7 +47,9 @@ public class GameManager implements Observer{
 				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
+						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());
 						if(user.getPlayerId()==character.getPlayerID()){
+							
 							user.getUserSubscriber().updateCharacter(character);
 						}
 					}

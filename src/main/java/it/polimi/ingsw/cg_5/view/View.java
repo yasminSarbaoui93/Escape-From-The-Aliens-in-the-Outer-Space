@@ -37,6 +37,7 @@ public class View implements Serializable{
 		this.name=name;
 		this.rmiClient= new RmiClient();
 		subscriber = new Subscriber(name);
+		subscriber.setView(this);
 		numberGame=0;
 		/// prova stub per ogni view
 		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);

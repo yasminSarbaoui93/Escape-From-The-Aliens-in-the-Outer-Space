@@ -89,6 +89,9 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	public void updateCharacter(Character character) throws RemoteException {
 		this.view.setCharacter(character);
 		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
+		
+		
+		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(this.view.getCharacter());
 	}
 	
 

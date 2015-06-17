@@ -43,19 +43,16 @@ public class EscapeFromAlienGame extends JFrame{
 	private JLayeredPane layeredPane;
 	private ViewController viewController;
 	DtoPanel dtoPanel= new DtoPanel();
-	final JTextPane d=new JTextPane();
-	StyledDocument doc = d.getStyledDocument();
+	LogMessage logPanel = new LogMessage();
 	
-	public void updateDocument(String s) throws BadLocationException{
-		// TODO da VERIFICARE
-		javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-        StyleConstants.setForeground(style, Color.green);
-		this.doc.insertString(doc.getLength(), s, style);
-	}
+	
+	
 	
 	
 	public EscapeFromAlienGame(ViewController viewController) {
+		
 		this.viewController=viewController;
+		
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
 		
 		//title of the window 
@@ -89,6 +86,10 @@ public class EscapeFromAlienGame extends JFrame{
 	
 	private void initComponents() {
 		
+		
+		layeredPane.setLayer(dtoPanel, 10);
+		add(dtoPanel);
+		add(logPanel);
 		layeredPane = new JLayeredPane();
 		  setContentPane(layeredPane);
 		
@@ -103,12 +104,10 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.setBounds(800,500, 280, 150);
 			Publish.setBackground(Color.WHITE);
 			
-			d.setForeground(Color.RED);
 			layeredPane.setLayer(Publish, 10);
 			
 			
-			 final JPanel LogMessage = new JPanel();
-			 LogMessage.setBounds(300,500, 280, 150);
+			
 			JButton moveButton= new JButton("Move");
 			final JButton attackButton= new JButton("Attack");
 			JButton drawCard=new JButton("DrawCard");
@@ -126,25 +125,24 @@ public class EscapeFromAlienGame extends JFrame{
 			try {
 				PlayerDTO playerDTO =this.getViewController().getView().getRmiClient().moveRequest(sector,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
 				viewController.getView().setCharacter(playerDTO.getYourCharacter());
+				
+				if(playerDTO.getYourCharacter()!=null){
 				dtoPanel.updateDtoPanel(viewController.getView().getCharacter());
 				result= playerDTO.getMessageToSend();
+				}
+				else{
+					result= playerDTO.getMessageToSend();	
+				}
 			} catch (RemoteException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-					d.setForeground(Color.RED);
-					// provo a fare subscribe
-					//StyledDocument doc = d.getStyledDocument();
-						
-
-				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.BLACK);
-				        try {
-							doc.insertString(doc.getLength(), result+"\n",style);
-						} catch (BadLocationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					try {
+						logPanel.updateLogMessage(result);
+					} catch (BadLocationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				
 						
 					 
@@ -155,21 +153,12 @@ public class EscapeFromAlienGame extends JFrame{
 				 public void actionPerformed(ActionEvent e){
 					 System.out.println("You clicked the button Endturn");
 					
-					 
-					String sector= JOptionPane.showInputDialog("Sector where you want to move.");
-					System.out.println(sector);
-					d.setForeground(Color.RED);
-					 StyledDocument doc = d.getStyledDocument();
-						
-
-				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.green);
-				        try {
-							doc.insertString(doc.getLength(), "EndTurn\n",style);
-						} catch (BadLocationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					try {
+						logPanel.updateLogMessage("Endturn");
+					} catch (BadLocationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				
 						
 					 
@@ -181,20 +170,13 @@ public class EscapeFromAlienGame extends JFrame{
 			attackButton.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent e){
 					 System.out.println("You clicked the button Attack");
-					//JOptionPane.showMessageDialog(Publish, "A basic JOptionPane message dialog");
-					 d.setForeground(Color.green);
-					 StyledDocument doc = d.getStyledDocument();
-		
-
-				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.red);
-				        try {
-							doc.insertString(doc.getLength(), "attackeeeee",style);
-							
-						} catch (BadLocationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					
+					 try {
+						logPanel.updateLogMessage("attack");
+					} catch (BadLocationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 						
 					 
 				 }
@@ -204,19 +186,12 @@ public class EscapeFromAlienGame extends JFrame{
 				 public void actionPerformed(ActionEvent e){
 					 System.out.println("You clicked the button drawCard");
 					
-					 d.setForeground(Color.green);
-					 StyledDocument doc = d.getStyledDocument();
-		
-
-				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.red);
-				        try {
-							doc.insertString(doc.getLength(), "DrawCard",style);
-							
-						} catch (BadLocationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					 try {
+						logPanel.updateLogMessage("drawCard");
+					} catch (BadLocationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 						
 					 
 				 }
@@ -229,20 +204,13 @@ public class EscapeFromAlienGame extends JFrame{
 					 
 					String sector= JOptionPane.showInputDialog("Sector to bluff");
 					System.out.println(sector);
-					d.setForeground(Color.RED);
-					 StyledDocument doc = d.getStyledDocument();
-						
-
-				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.green);
-				        try {
-							doc.insertString(doc.getLength(), "bluff\n",style);
-						} catch (BadLocationException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				
-						
+					try {
+						logPanel.updateLogMessage("bluff");
+					} catch (BadLocationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+									
 					 
 				 }
 			});
@@ -257,32 +225,15 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
 			
-			
-			 //LogMessage.setBackground(Color.GRAY);
-			 
-			//JScrollBar fr = new JScrollBar(d);
 		
-			JScrollPane sp = new JScrollPane(d,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		           JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			sp.setSize(new Dimension(120, 120));
-			add(sp);
-			sp.setForeground(Color.GREEN);
-			sp.setBorder(BorderFactory.createLineBorder(Color.black));
-			sp.setBounds(800,10, 280, 300);
-			d.setBackground(Color.lightGray);
-			layeredPane.setLayer(d, 10);
+			
+			layeredPane.setLayer(logPanel, 10);
 			
 
 	
 			add(Publish);
 			
 			//------------------------------------------------------------------------- PANNELLO DTO--------------------------------------------------------------------
-			
-			layeredPane.setLayer(dtoPanel, 10);
-			add(dtoPanel);
-			
-			
-			
 			
 			
 			
@@ -292,6 +243,12 @@ public class EscapeFromAlienGame extends JFrame{
 			
 	
 		
+	}
+
+
+
+	public DtoPanel getDtoPanel() {
+		return dtoPanel;
 	}
 	
 	}
