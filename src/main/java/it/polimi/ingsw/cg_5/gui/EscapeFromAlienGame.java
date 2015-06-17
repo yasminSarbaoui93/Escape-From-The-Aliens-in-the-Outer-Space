@@ -53,10 +53,10 @@ public class EscapeFromAlienGame extends JFrame{
 		this.viewController=viewController;
 		
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
-		
+		this.setBackground(Color.BLACK);
 		//title of the window 
 		setTitle("EscapeFromAlien_Login");
-		
+	
 		//we don't want to let the user to resize the windows
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -105,114 +105,22 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			
 			JButton moveButton= new JButton("Move");
-			final JButton attackButton= new JButton("Attack");
+			JButton attackButton= new JButton("Attack");
 			JButton drawCard=new JButton("DrawCard");
 			JButton bluffButton= new JButton("Bluff Sector");
 			JButton useCardButton= new JButton("UseCard");
 			JButton endTurn= new JButton("endTurn");
-
-		
-			
-			moveButton.addActionListener(new ButtonListener(this.viewController){
-				 public void actionPerformed(ActionEvent e){ 
-					 String result=null;
-						String sector= JOptionPane.showInputDialog("Sector to move");
-						System.out.println(sector);
-			try {
-				PlayerDTO playerDTO =this.getViewController().getView().getRmiClient().moveRequest(sector,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
-				viewController.getView().setCharacter(playerDTO.getYourCharacter());
-				
-				if(playerDTO.getYourCharacter()!=null){
-				dtoPanel.updateDtoPanel(viewController.getView().getCharacter());
-				result= playerDTO.getMessageToSend();
-				}
-				else{
-					result= playerDTO.getMessageToSend();	
-				}
-			} catch (RemoteException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-					try {
-						logPanel.updateLogMessage(result,Color.GREEN);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+			JButton discard = new JButton("Discard");
 						
-					 
-				 }
-			});
-			
-			endTurn.addActionListener(new ActionListener(){
-				 public void actionPerformed(ActionEvent e){
-					 System.out.println("You clicked the button Endturn");
-					
-					try {
-						logPanel.updateLogMessage("Endturn",Color.GREEN);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-						
-					 
-				 }
-			});
-			
-			
-			
-			attackButton.addActionListener(new ActionListener(){
-				 public void actionPerformed(ActionEvent e){
-					 System.out.println("You clicked the button Attack");
-					
-					 try {
-						logPanel.updateLogMessage("attack",Color.GREEN);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-						
-					 
-				 }
-			});
-			
-			drawCard.addActionListener(new ActionListener(){
-				 public void actionPerformed(ActionEvent e){
-					 System.out.println("You clicked the button drawCard");
-					
-					 try {
-						logPanel.updateLogMessage("drawCard",Color.GREEN);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-						
-					 
-				 }
-			});
-			
-			bluffButton.addActionListener(new ActionListener(){
-				 public void actionPerformed(ActionEvent e){
-					 System.out.println("You clicked the button Bluff");
-					 
-					 
-					String sector= JOptionPane.showInputDialog("Sector to bluff");
-					System.out.println(sector);
-					try {
-						logPanel.updateLogMessage("bluff",Color.GREEN);
-					} catch (BadLocationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-									
-					 
-				 }
-			});
-			
-			
+			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
+			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
+			attackButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
+			drawCard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
+			bluffButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
+			useCardButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
+			discard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
 			Publish.setLayout( new GridLayout(4,2));
+			
 			Publish.add(moveButton);
 			Publish.add(attackButton);
 			Publish.add(drawCard);
@@ -220,9 +128,7 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(useCardButton);
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
-			
-		
-			
+			Publish.add(discard);
 			layeredPane.setLayer(logPanel, 10);
 			
 
