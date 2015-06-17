@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
@@ -15,7 +17,11 @@ public class LogMessage extends JScrollPane {
 	
 	public LogMessage() {
 		super(textLog,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		setBounds(800, 10, 280, 300);
+		setBounds(800, 0, 294, 300);
+		setBorder(BorderFactory.createLineBorder(Color.red));
+		setBackground(Color.gray);
+		textLog.setBackground(Color.DARK_GRAY);
+		
 	}
 	
 	

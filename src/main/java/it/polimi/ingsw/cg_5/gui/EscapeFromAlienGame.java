@@ -53,9 +53,9 @@ public class EscapeFromAlienGame extends JFrame{
 		this.viewController=viewController;
 		
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
-		
+		this.setBackground(Color.BLACK);
 		//title of the window 
-		setTitle("EscapeFromAlien_Login");
+		setTitle("EscapeFromAlien_Game");
 		
 		//we don't want to let the user to resize the windows
 		setResizable(false);
@@ -97,13 +97,13 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			final JPanel Publish = new JPanel();
 			
-			Publish.setBounds(800,500, 280, 150);
+			Publish.setBounds(800,421, 294, 300);
 			Publish.setBackground(Color.WHITE);
 			
 			layeredPane.setLayer(Publish, 10);
 			
 			
-			
+		
 			JButton moveButton= new JButton("Move");
 			final JButton attackButton= new JButton("Attack");
 			JButton drawCard=new JButton("DrawCard");
@@ -221,7 +221,7 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
 			
-		
+			
 			
 			layeredPane.setLayer(logPanel, 10);
 			
