@@ -1,9 +1,6 @@
 package it.polimi.ingsw.cg_5.connection;
 
-
-import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.SocketCommunicator;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +11,7 @@ public class SocketServer extends Server {
 	private ServerSocket serverSocket; 
 	
 	public SocketServer(int port) {
-		GameManager gameManager = new GameManager();
+		
 		try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server ready");

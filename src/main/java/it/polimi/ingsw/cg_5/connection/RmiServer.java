@@ -3,11 +3,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import it.polimi.ingsw.cg_5.controller.*;
-
 public class RmiServer extends Server {
-	
-	GameManager gameManager=new GameManager();
+
 	private final Registry registry; 
 	private static final String NAME = "room";
 	
