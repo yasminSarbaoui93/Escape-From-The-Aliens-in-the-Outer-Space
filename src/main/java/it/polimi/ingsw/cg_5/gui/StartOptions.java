@@ -1,11 +1,16 @@
 package it.polimi.ingsw.cg_5.gui;
 
+import it.polimi.ingsw.cg_5.view.View;
+import it.polimi.ingsw.cg_5.view.ViewController;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
@@ -16,11 +21,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class StartOptions extends JFrame {
 	
+	
+	private static final long serialVersionUID = 1L;
 	private static final int WINDOW_WIDTH = 800;
 	private static final int WINDOW_HEIGHT = 443;
 	
@@ -28,12 +37,25 @@ public class StartOptions extends JFrame {
 	private Image backgroundImage;
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
+	private ViewController viewController;
 	
+	
+
+
 	private final int LAYER_BACKGROUND = 1;
 	private final int LAYER_START_WINDOW = 10;
-	
-	public StartOptions() {
+	public ViewController getViewController() {
+		return viewController;
+	}
 
+
+
+	public void setViewController(ViewController viewController) {
+		this.viewController = viewController;
+	}
+	
+	public StartOptions(ViewController viewController) {
+		this.viewController=viewController;
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
 		
 		
@@ -65,7 +87,7 @@ public class StartOptions extends JFrame {
 			layeredPane.setLayer(backgroundLabel, LAYER_BACKGROUND);
 			
 			//inserisco un pannello   varie scelte del giocatore  inerenti alla nuova partita che vorra giocare
-			JPanel StartinPanel = new JPanel();
+			final JPanel StartinPanel = new JPanel();
 			
 			// con JComboBox possiamo fare imenu a tendina
 			final JComboBox<String> listMap = new JComboBox<String>();
@@ -91,7 +113,7 @@ public class StartOptions extends JFrame {
 		
 
 
-		
+			final JTextField userLabel = new JTextField (10) ;
 			JLabel label1 = new JLabel("Choose The Map");
 			JLabel label2 = new JLabel("Max Number of Players");
 			JLabel label3 = new JLabel("Choose type of Connection");
@@ -99,6 +121,7 @@ public class StartOptions extends JFrame {
 			label2.setForeground(Color.white);
 			label3.setForeground(Color.white);
 			
+			StartinPanel.add(userLabel);
 			StartinPanel.add(label1);
 			StartinPanel.add(listMap);
 			StartinPanel.add(label2);
@@ -109,15 +132,23 @@ public class StartOptions extends JFrame {
 			add(StartinPanel);
 			
 			// alla press del bottone Start Game
-			
-			startButton.addActionListener(new ActionListener(){
+			//final StartButtonListener listener = new StartButtonListener (this.viewController);
+			//startButton.addActionListener(listener);
+			startButton.addActionListener(new ButtonListener (this.viewController){
 				public void actionPerformed(ActionEvent e){
+					String userName = userLabel.getText();
 					String  choosenMap= (String) listMap.getSelectedItem();
 					String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
 					String 	connessionType= (String) typeConnection.getSelectedItem();
-					// dainserire logica comunicazione
-					System.out.println(choosenMap+maxNumberPlayers+connessionType);
+
+					try {
+						this.getViewController().ViewCreatorAndSubscribeRequest(userName, choosenMap,maxNumberPlayers,connessionType);
+					} catch (Exception e1) {
+					
+						
+					}
 				}
+				
 				
 				
 			});
@@ -126,7 +157,7 @@ public class StartOptions extends JFrame {
 			
 			StartinPanel.add(startButton);
 			layeredPane.setLayer(StartinPanel, LAYER_START_WINDOW );
-			StartinPanel.setBounds(500, 200,150, 200);
+			StartinPanel.setBounds(500, 180,150, 220);
 			
 			StartinPanel.setBackground(Color.black);
 	}

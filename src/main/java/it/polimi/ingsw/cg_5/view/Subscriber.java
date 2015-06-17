@@ -4,6 +4,9 @@ import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+
+import javax.swing.text.BadLocationException;
+
 import it.polimi.ingsw.cg_5.model.Character;
 
 public class Subscriber implements SubscriberInterface, Serializable {
@@ -66,10 +69,12 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	/**
 	 * @param msg is the message sent by the broker by invoking subscriber's remote interface
 	 * the method simply prints the message received by the broker
+	 
 	 */
 	@Override
-	public void dispatchMessage(String msg) {
+	public void dispatchMessage(String msg) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
+		//this.getView().getViewController().getEscape().updateDocument(msg);
 
 	}
 

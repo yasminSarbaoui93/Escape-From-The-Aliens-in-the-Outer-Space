@@ -10,11 +10,11 @@ public class MainProvaGUI {
 		
 		//escapeLog.setVisible(true);
 		
-		StartOptions startOptions=new StartOptions();
+		//StartOptions startOptions=new StartOptions();
 		//startOptions.setVisible(true);
 		
-		EscapeFromAlienGame escape = new EscapeFromAlienGame();
-		escape.setVisible(true);
+		//EscapeFromAlienGame escape = new EscapeFromAlienGame();
+		//escape.setVisible(true);
 	}
 
 }

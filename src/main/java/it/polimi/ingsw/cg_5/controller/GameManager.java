@@ -110,7 +110,12 @@ public class GameManager implements Observer{
 			String message = (String) arg;
 			Scanner in = new Scanner(message);
 			Integer gameNumber=Integer.parseInt(in.next());
-			this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+			try {
+				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				
+			}
 			in.close();
 			
 		}

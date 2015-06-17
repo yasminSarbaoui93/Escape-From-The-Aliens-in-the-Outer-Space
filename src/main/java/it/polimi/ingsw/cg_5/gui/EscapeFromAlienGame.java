@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg_5.gui;
 
+import it.polimi.ingsw.cg_5.connection.PlayerDTO;
+import it.polimi.ingsw.cg_5.view.ViewController;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
 import javax.jws.soap.SOAPBinding.Style;
@@ -37,10 +41,21 @@ public class EscapeFromAlienGame extends JFrame{
 	private Image mapImage;
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
+	private ViewController viewController;
+	DtoPanel dtoPanel= new DtoPanel();
+	final JTextPane d=new JTextPane();
+	StyledDocument doc = d.getStyledDocument();
+	
+	public void updateDocument(String s) throws BadLocationException{
+		// TODO da VERIFICARE
+		javax.swing.text.Style style = d.addStyle("I'm a Style", null);
+        StyleConstants.setForeground(style, Color.green);
+		this.doc.insertString(doc.getLength(), s, style);
+	}
 	
 	
-	public EscapeFromAlienGame() {
-
+	public EscapeFromAlienGame(ViewController viewController) {
+		this.viewController=viewController;
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
 		
 		//title of the window 
@@ -48,9 +63,7 @@ public class EscapeFromAlienGame extends JFrame{
 		
 		//we don't want to let the user to resize the windows
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		
 		loadResources();
@@ -89,7 +102,7 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			Publish.setBounds(800,500, 280, 150);
 			Publish.setBackground(Color.WHITE);
-			final JTextPane d=new JTextPane();
+			
 			d.setForeground(Color.RED);
 			layeredPane.setLayer(Publish, 10);
 			
@@ -105,21 +118,29 @@ public class EscapeFromAlienGame extends JFrame{
 
 		
 			
-			moveButton.addActionListener(new ActionListener(){
-				 public void actionPerformed(ActionEvent e){
-					 System.out.println("You clicked the button Move");
-					
-					 
-					String sector= JOptionPane.showInputDialog("Sector where you want to move.");
-					System.out.println(sector);
+			moveButton.addActionListener(new ButtonListener(this.viewController){
+				 public void actionPerformed(ActionEvent e){ 
+					 String result=null;
+						String sector= JOptionPane.showInputDialog("Sector to move");
+						System.out.println(sector);
+			try {
+				PlayerDTO playerDTO =this.getViewController().getView().getRmiClient().moveRequest(sector,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
+				viewController.getView().setCharacter(playerDTO.getYourCharacter());
+				dtoPanel.updateDtoPanel(viewController.getView().getCharacter());
+				result= playerDTO.getMessageToSend();
+			} catch (RemoteException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 					d.setForeground(Color.RED);
-					 StyledDocument doc = d.getStyledDocument();
+					// provo a fare subscribe
+					//StyledDocument doc = d.getStyledDocument();
 						
 
 				        javax.swing.text.Style style = d.addStyle("I'm a Style", null);
-				        StyleConstants.setForeground(style, Color.green);
+				        StyleConstants.setForeground(style, Color.BLACK);
 				        try {
-							doc.insertString(doc.getLength(), "move\n",style);
+							doc.insertString(doc.getLength(), result+"\n",style);
 						} catch (BadLocationException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -182,7 +203,7 @@ public class EscapeFromAlienGame extends JFrame{
 			drawCard.addActionListener(new ActionListener(){
 				 public void actionPerformed(ActionEvent e){
 					 System.out.println("You clicked the button drawCard");
-					//JOptionPane.showMessageDialog(Publish, "A basic JOptionPane message dialog");
+					
 					 d.setForeground(Color.green);
 					 StyledDocument doc = d.getStyledDocument();
 		
@@ -256,25 +277,21 @@ public class EscapeFromAlienGame extends JFrame{
 			add(Publish);
 			
 			//------------------------------------------------------------------------- PANNELLO DTO--------------------------------------------------------------------
-			JPanel dtoPanel = new JPanel();
-			JLabel username = new JLabel("Username");
-			JLabel name =      new JLabel("aaaaaaaaaaaaaaaaaaaa ");
-			JLabel playerType= new JLabel("Type of Character: ");
-			JLabel currentSector= new JLabel("Alive");
-			name.setLocation(10,10);
 			
-			dtoPanel.add(username);
-			dtoPanel.add(name);
-			dtoPanel.add(playerType);
-			dtoPanel.add(currentSector);
-			dtoPanel.setBounds(0, 0, 200, 100);
 			layeredPane.setLayer(dtoPanel, 10);
 			add(dtoPanel);
+			
+			
+			
+			
+			
+			
 			
 		
 			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
 			
-			
+	
 		
 	}
+	
 	}

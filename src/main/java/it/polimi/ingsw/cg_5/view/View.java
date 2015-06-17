@@ -3,6 +3,9 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.Character;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,9 +21,10 @@ public class View implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private ViewController viewController;
+		private static final long serialVersionUID = 1L;
 	private int PlayerID=101;
-	private RmiClient rmiClient;
+		private RmiClient rmiClient;
 	private String name;
 	private Subscriber subscriber;
 	private int numberGame;
@@ -39,10 +43,22 @@ public class View implements Serializable{
 		SubscriberInterface stub = (SubscriberInterface)UnicastRemoteObject.exportObject(this.subscriber, 0);
 		registry.rebind(this.name, stub);
 	}
+	public void setViewController(ViewController viewController) {
+		this.viewController = viewController;
+	}
+
+
 	
 	
+	public ViewController getViewController() {
+		return viewController;
+	}
 	public int getNumberGame(){
 		return this.numberGame;
+	}
+	
+	public void setPlayerID(int playerID) {
+		PlayerID = playerID;
 	}
 	
 	public String getName() {
@@ -141,6 +157,8 @@ public class View implements Serializable{
 			in.close(); 
 	}
 
+
+	
 
 	
 
