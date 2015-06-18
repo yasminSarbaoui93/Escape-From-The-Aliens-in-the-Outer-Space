@@ -21,12 +21,12 @@ import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 public class GameRules {
 
 	GameManager gameManager;
-	SubscriberInterface subscriber;
+	SubscriberInterfaceRmi subscriber;
 	
 	public GameRules (GameManager gameManager){
 		this.gameManager = gameManager;

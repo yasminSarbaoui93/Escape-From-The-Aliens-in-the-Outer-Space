@@ -1,16 +1,19 @@
-package it.polimi.ingsw.cg_5.view;
+package it.polimi.ingsw.cg_5.view.subscriber;
 
 
 import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 import javax.swing.text.BadLocationException;
 
 import it.polimi.ingsw.cg_5.model.Character;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.View;
 
-public class Subscriber implements SubscriberInterface, Serializable {
+public class SubscriberRmi implements SubscriberInterfaceRmi, Subscriber, Serializable {
 
 	/**
 	 * 
@@ -23,11 +26,14 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	/**
 	 * 
 	 * @param name The name of the subscriber
+	 * @throws RemoteException 
 	 */
-	public Subscriber(String name) {
+	public SubscriberRmi(String name) throws RemoteException {
 		super();
 		this.name = name;
-		//view ) new View(name);
+		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+		SubscriberInterfaceRmi stub = (SubscriberInterfaceRmi)UnicastRemoteObject.exportObject(this, 0);
+		registry.rebind(this.name, stub);
 	}
 
 	
@@ -44,8 +50,8 @@ public class Subscriber implements SubscriberInterface, Serializable {
 	}
 
 
-
-	public void setView(View view) {
+	
+	public void setView(View view) throws RemoteException{
 		this.view = view;
 	}
 	

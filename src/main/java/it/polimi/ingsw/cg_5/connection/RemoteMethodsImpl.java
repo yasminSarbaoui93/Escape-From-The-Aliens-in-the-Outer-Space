@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_5.connection;
 import it.polimi.ingsw.cg_5.controller.*;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
@@ -24,7 +24,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	@Override
 	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name) throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
-		SubscriberInterface subscriber = (SubscriberInterface) registry.lookup(name);
+		SubscriberInterfaceRmi subscriber = (SubscriberInterfaceRmi) registry.lookup(name);
 		//SubscriberInterface subscriber = new SubscriberRmi(name);
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
 		System.out.println("The player with ID:" + yourId + "joined the game");

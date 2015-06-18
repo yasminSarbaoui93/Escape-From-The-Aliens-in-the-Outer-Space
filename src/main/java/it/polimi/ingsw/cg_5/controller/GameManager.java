@@ -7,11 +7,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-import it.polimi.ingsw.cg_5.connection.Broker;
+import it.polimi.ingsw.cg_5.connection.GameRules;
+import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 
 
@@ -20,7 +21,7 @@ public class GameManager implements Observer{
 	private static Integer indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
-
+	private GameRules gameRules = new GameRules(this);
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
 	 * @throws RemoteException 
@@ -35,9 +36,9 @@ public class GameManager implements Observer{
 				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
-				Broker matchBroker = new Broker(indexOfCurrentMatches.toString());
+				BrokerRmi matchBroker = new BrokerRmi(indexOfCurrentMatches.toString());
 				
-				for ( SubscriberInterface subscriber : waitingList.getPlayersSubscriber()){
+				for ( SubscriberInterfaceRmi subscriber : waitingList.getPlayersSubscriber()){
 					matchBroker.subscribe(subscriber);
 				}				
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
@@ -129,6 +130,16 @@ public class GameManager implements Observer{
 
 		
 	}
+
+	public GameRules getGameRules() {
+		return gameRules;
+	}
+
+	public void setGameRules(GameRules gameRules) {
+		this.gameRules = gameRules;
+	}
+	
+	
 	
 	
 }

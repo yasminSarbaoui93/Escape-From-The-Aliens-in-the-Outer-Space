@@ -2,8 +2,7 @@ package it.polimi.ingsw.cg_5.controller;
 
 
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 import java.util.ArrayList;
 
@@ -40,8 +39,8 @@ public class WaitingList {
 		return PlayerIDList ;
 		
 	}
-	public ArrayList<SubscriberInterface> getPlayersSubscriber() {
-		ArrayList<SubscriberInterface> PlayerSubscriberList = new ArrayList<SubscriberInterface> ();
+	public ArrayList<SubscriberInterfaceRmi> getPlayersSubscriber() {
+		ArrayList<SubscriberInterfaceRmi> PlayerSubscriberList = new ArrayList<SubscriberInterfaceRmi> ();
 		for ( User user : this.users ){
 			PlayerSubscriberList.add(user.getUserSubscriber());
 		}

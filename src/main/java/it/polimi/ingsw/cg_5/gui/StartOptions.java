@@ -115,6 +115,7 @@ public class StartOptions extends JFrame {
 			listPlayerNumber.setBackground(Color.BLACK);
 			listPlayerNumber.setForeground(Color.GREEN);
 			final JComboBox<String> typeConnection = new JComboBox<String>();
+			typeConnection.addItem("SOCKET");
 			typeConnection.addItem("RMI");
 			typeConnection.setBackground(Color.BLACK);
 			typeConnection.setForeground(Color.GREEN);

@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import it.polimi.ingsw.cg_5.model.Character;
 import java.rmi.RemoteException;
 
-public interface SubscriberInterface extends Remote{
+public interface SubscriberInterfaceRmi extends Remote, Subscriber{
 	
 	public void dispatchMessage(String msg) throws RemoteException;
 	public void updateNumberGame(int numberGame) throws RemoteException;

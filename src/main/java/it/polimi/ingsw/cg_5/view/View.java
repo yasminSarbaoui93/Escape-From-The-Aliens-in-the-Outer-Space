@@ -2,7 +2,10 @@ package it.polimi.ingsw.cg_5.view;
 
 
 import it.polimi.ingsw.cg_5.model.Character;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
@@ -33,18 +36,16 @@ public class View implements Serializable{
 		
 
 
-	public View (String name, Client client) throws Exception{
+	public View (String name, Client client, Subscriber subscriber) throws Exception{
 		super();
 		this.name=name;
-
-		this.client= new RmiClient();
-		subscriber = new Subscriber(name);
-		subscriber.setView(this);
+		
+		this.client= client;
+		this.subscriber = subscriber; 
+	   // subscriber.setView(this);
 		numberGame=0;
 		/// prova stub per ogni view
-		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
-		SubscriberInterface stub = (SubscriberInterface)UnicastRemoteObject.exportObject(this.subscriber, 0);
-		registry.rebind(this.name, stub);
+		
 	}
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;
@@ -93,7 +94,7 @@ public class View implements Serializable{
 	}
 	
 	
-	public static void main (String args []) throws Exception{
+	/*public static void main (String args []) throws Exception{
 		
 		System.out.println("Inserisci un nome utente: ");
 		Scanner in = new Scanner (System.in);
@@ -116,7 +117,7 @@ public class View implements Serializable{
 		}
 		
 			
-		View view= new View(nomeUtente, client);
+		/*View view= new View(nomeUtente, client,);
 		//view.getSubscriber().setView(view);
 		
 		System.out.println("Con che mappa vuoi giocare?");
@@ -180,7 +181,7 @@ public class View implements Serializable{
 
 
 	
-
+*/
 	
 
 

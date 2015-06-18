@@ -6,17 +6,14 @@ import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.Communicator;
-import it.polimi.ingsw.cg_5.view.User;
 public class ClientHandler extends Thread {
 	
 	Communicator client;
 	GameManager gameManager;
-	//RulesOfTheGame rulesOfTheGame;
-	GameRules gameRules;
-	public ClientHandler(Communicator client, GameManager gameManager, GameRules gameRules){
+
+	public ClientHandler(Communicator client, GameManager gameManager){
 		this.client= client;
 		this.gameManager = gameManager;
-		this.gameRules = gameRules;
 	}
 	
 	@Override
@@ -35,7 +32,7 @@ public class ClientHandler extends Thread {
 				Integer maxSize = Integer.parseInt(in.next());
 				String name = in.next();
 				try {
-					Integer yourID = gameRules.SubscribeRequest(choosenMap, maxSize, name);
+					Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name);
 					client.send(yourID.toString());
 					
 				} catch (RemoteException e) {
@@ -53,7 +50,7 @@ public class ClientHandler extends Thread {
 				System.out.println(sectorName+yourId+numberGame);
 				
 				try {
-					playerDTO = gameRules.performMove(sectorName, yourId, numberGame);
+					playerDTO = gameManager.getGameRules().performMove(sectorName, yourId, numberGame);
 					client.sendDTO(playerDTO);
 				} catch (RemoteException e) {
 					e.printStackTrace();
@@ -69,7 +66,7 @@ public class ClientHandler extends Thread {
 				PlayerDTO playerDTO;
 				
 				try {
-					playerDTO = gameRules.performAttack(yourId, numberGame);
+					playerDTO = gameManager.getGameRules().performAttack(yourId, numberGame);
 					client.sendDTO(playerDTO);
 				} catch (RemoteException e) {
 					e.printStackTrace();

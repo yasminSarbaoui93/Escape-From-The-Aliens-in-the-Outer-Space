@@ -1,23 +1,23 @@
-package it.polimi.ingsw.cg_5.connection;
+package it.polimi.ingsw.cg_5.connection.broker;
 
 
 
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 
 
-public class Broker {
+public class BrokerRmi extends Broker {
 
-	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
+	private  ArrayList<SubscriberInterfaceRmi> subscribers = new ArrayList<SubscriberInterfaceRmi>();
 	private String topic;
-	public ArrayList<SubscriberInterface> getSubscribers() {
+	public ArrayList<SubscriberInterfaceRmi> getSubscribers() {
 		return subscribers;
 	}
 
-	public Broker(String topic){
+	public BrokerRmi(String topic){
 		this.topic = topic;
 	
 	}
@@ -40,7 +40,7 @@ public class Broker {
 	public void publish(String msg) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message on topic "+topic);
-			for (SubscriberInterface sub : subscribers) {
+			for (SubscriberInterfaceRmi sub : subscribers) {
 				
 					sub.dispatchMessage(msg);
 				
@@ -52,7 +52,7 @@ public class Broker {
 	
 	public void publishNumberGame(int numberGame){
 		if(!subscribers.isEmpty()){
-			for (SubscriberInterface sub : subscribers) {
+			for (SubscriberInterfaceRmi sub : subscribers) {
 				try {
 					sub.updateNumberGame(numberGame);
 					
@@ -73,7 +73,7 @@ public class Broker {
 	 * The method updates the list of subscriber interfaces that are subscribed to the broker
 	 */
 	
-	public void subscribe(SubscriberInterface r) {
+	public void subscribe(SubscriberInterfaceRmi r) {
 		subscribers.add(r);
 	}
 }

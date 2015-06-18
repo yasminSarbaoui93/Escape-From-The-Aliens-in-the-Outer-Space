@@ -1,5 +1,11 @@
 package it.polimi.ingsw.cg_5.view.subscriber;
 
-public class SubscriberSocket{
+import it.polimi.ingsw.cg_5.view.View;
+
+public class SubscriberSocket implements Subscriber{
+	
+	public void setView(View view){
+		
+	}
 
 }
