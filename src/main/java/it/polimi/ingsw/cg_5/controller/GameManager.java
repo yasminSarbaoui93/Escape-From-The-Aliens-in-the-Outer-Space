@@ -54,7 +54,7 @@ public class GameManager implements Observer{
 						}
 					}
 				}
-				
+				//
 				newMatch.getBroker().publish("The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
 						+"start to play!");
 				
