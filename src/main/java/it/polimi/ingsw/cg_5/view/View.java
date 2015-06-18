@@ -38,9 +38,9 @@ public class View implements Serializable{
 		subscriber = new SubscriberRmi(name);
 		numberGame=0;
 		/// prova stub per ogni view
-	/*	Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 		SubscriberInterface stub = (SubscriberInterface)UnicastRemoteObject.exportObject(this.subscriber, 0);
-		registry.rebind(this.name, stub);*/
+		registry.rebind(this.name, stub);
 	}
 	
 	
