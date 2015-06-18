@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -49,6 +51,7 @@ public class EscapeFromAlienGame extends JFrame{
 	LogMessage logPanel = new LogMessage();
 	
 	
+        
 	
 	
 	public EscapeFromAlienGame(ViewController viewController) {
@@ -106,6 +109,8 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			layeredPane.setLayer(backgroundLabel, 0);
 			
+			
+			//-----------------start comandPanel--------------//
 			final JPanel Publish = new JPanel();
 			Publish.setBorder(BorderFactory.createLineBorder(Color.blue));			
 			Publish.setBounds(800,421, 294, 264);
@@ -123,28 +128,29 @@ public class EscapeFromAlienGame extends JFrame{
 			JButton endTurn= new JButton("endTurn");
 			JButton discard = new JButton("Discard");
 			JButton buttonFake = new JButton();
-			
+			Color buttonBackGColor= Color.BLACK;
+			Color buttonColor = Color.ORANGE;
 			Border buttonBorder = new LineBorder(Color.blue, 1);
-			moveButton.setBackground(Color.BLACK);
-			moveButton.setForeground(Color.blue);
+			moveButton.setBackground(buttonBackGColor);
+			moveButton.setForeground(buttonColor);
 			moveButton.setBorder(buttonBorder);
-			drawCard.setBackground(Color.BLACK);
-			drawCard.setForeground(Color.blue);
+			drawCard.setBackground(buttonBackGColor);
+			drawCard.setForeground(buttonColor);
 			drawCard.setBorder(buttonBorder);
-			bluffButton.setBackground(Color.BLACK);
-			bluffButton.setForeground(Color.blue);
+			bluffButton.setBackground(buttonBackGColor);
+			bluffButton.setForeground(buttonColor);
 			bluffButton.setBorder(buttonBorder);
-			useCardButton.setBackground(Color.BLACK);
-			useCardButton.setForeground(Color.blue);
+			useCardButton.setBackground(buttonBackGColor);
+			useCardButton.setForeground(buttonColor);
 			useCardButton.setBorder(buttonBorder);
-			endTurn.setBackground(Color.BLACK);
-			endTurn.setForeground(Color.blue);
+			endTurn.setBackground(buttonBackGColor);
+			endTurn.setForeground(buttonColor);
 			endTurn.setBorder(buttonBorder);
-			discard.setBackground(Color.BLACK);
-			discard.setForeground(Color.blue);
+			discard.setBackground(buttonBackGColor);
+			discard.setForeground(buttonColor);
 			discard.setBorder(buttonBorder);
-			attackButton.setBackground(Color.BLACK);
-			attackButton.setForeground(Color.blue);
+			attackButton.setBackground(buttonBackGColor);
+			attackButton.setForeground(buttonColor);
 			attackButton.setBorder(buttonBorder);
 			
 			
@@ -165,14 +171,17 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(useCardButton);
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
-			
 			Publish.add(discard);
 			Publish.add(buttonFake);
+			add(Publish);
+			
+			//-----------------end comandPanel--------------//
+			
 			layeredPane.setLayer(logPanel, 10);
 			
 
 	
-			add(Publish);
+			
 			
 			//------------------------------------------------------------------------- PANNELLO DTO--------------------------------------------------------------------
 			
@@ -184,7 +193,7 @@ public class EscapeFromAlienGame extends JFrame{
 		
 			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
 			
-	
+			
 		
 	}
 
