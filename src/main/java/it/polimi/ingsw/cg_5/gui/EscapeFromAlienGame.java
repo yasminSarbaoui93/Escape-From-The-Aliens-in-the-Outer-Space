@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,6 +30,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -74,8 +77,14 @@ public class EscapeFromAlienGame extends JFrame{
 	private void loadResources(ViewController viewController) {
 		//load the background image from the disk
 		try {
-			
+			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALILEI");
 			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.jpg"));
+			if(viewController.getStartOptions().getListMap().getSelectedItem()=="FERMI"){
+				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/fermi.jpg"));
+			}
+			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALVANI"){
+				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.jpg"));
+			}
 
 		} catch (IOException e) {
 
@@ -98,7 +107,7 @@ public class EscapeFromAlienGame extends JFrame{
 			layeredPane.setLayer(backgroundLabel, 0);
 			
 			final JPanel Publish = new JPanel();
-			
+			Publish.setBorder(BorderFactory.createLineBorder(Color.blue));			
 			Publish.setBounds(800,421, 294, 264);
 			Publish.setBackground(Color.WHITE);
 			
@@ -114,7 +123,32 @@ public class EscapeFromAlienGame extends JFrame{
 			JButton endTurn= new JButton("endTurn");
 			JButton discard = new JButton("Discard");
 			JButton buttonFake = new JButton();
-						
+			
+			Border buttonBorder = new LineBorder(Color.blue, 1);
+			moveButton.setBackground(Color.BLACK);
+			moveButton.setForeground(Color.blue);
+			moveButton.setBorder(buttonBorder);
+			drawCard.setBackground(Color.BLACK);
+			drawCard.setForeground(Color.blue);
+			drawCard.setBorder(buttonBorder);
+			bluffButton.setBackground(Color.BLACK);
+			bluffButton.setForeground(Color.blue);
+			bluffButton.setBorder(buttonBorder);
+			useCardButton.setBackground(Color.BLACK);
+			useCardButton.setForeground(Color.blue);
+			useCardButton.setBorder(buttonBorder);
+			endTurn.setBackground(Color.BLACK);
+			endTurn.setForeground(Color.blue);
+			endTurn.setBorder(buttonBorder);
+			discard.setBackground(Color.BLACK);
+			discard.setForeground(Color.blue);
+			discard.setBorder(buttonBorder);
+			attackButton.setBackground(Color.BLACK);
+			attackButton.setForeground(Color.blue);
+			attackButton.setBorder(buttonBorder);
+			
+			
+			// adding listener
 			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
 			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
 			attackButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));

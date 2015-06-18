@@ -38,8 +38,15 @@ public class StartOptions extends JFrame {
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
 	private ViewController viewController;
+	private JLabel label1 = new JLabel("Choose The Map");
+	final JComboBox<String> listMap = new JComboBox<String>();
 	
-	
+
+
+
+	public JComboBox<String> getListMap() {
+		return listMap;
+	}
 
 
 	private final int LAYER_BACKGROUND = 1;
@@ -90,10 +97,11 @@ public class StartOptions extends JFrame {
 			final JPanel StartinPanel = new JPanel();
 			
 			// con JComboBox possiamo fare imenu a tendina
-			final JComboBox<String> listMap = new JComboBox<String>();
+			//listMap.addItem("FERMI");
+			listMap.addItem("GALVANI");
 			listMap.addItem("GALILEI");
 			listMap.addItem("FERMI");
-			listMap.addItem("GALVANI");
+			//listMap.addItem("GALVANI");
 			listMap.setBackground(Color.BLACK);
 			listMap.setForeground(Color.GREEN);
 			final JComboBox<String> listPlayerNumber = new JComboBox<String>();

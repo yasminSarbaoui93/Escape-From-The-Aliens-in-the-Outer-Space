@@ -6,6 +6,9 @@ import it.polimi.ingsw.cg_5.model.Human;
 
 public class ViewController {
 	private StartOptions startOptions;
+	public StartOptions getStartOptions() {
+		return startOptions;
+	}
 	private EscapeFromAlienGame escape;
 	private View view;
 	
