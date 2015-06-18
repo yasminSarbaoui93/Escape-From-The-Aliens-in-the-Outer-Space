@@ -99,6 +99,9 @@ public class EscapeFromAlienGame extends JFrame{
 	
 	private void initComponents() {
 		
+		///PROVA JBUTTON
+		
+		
 		
 		layeredPane = new JLayeredPane();
 		  setContentPane(layeredPane);
@@ -106,6 +109,19 @@ public class EscapeFromAlienGame extends JFrame{
 		  backgroundLabel = new JLabel(new ImageIcon(mapImage));
 			backgroundLabel.setBounds(0,0,801, 685);
 			add(backgroundLabel);
+			/////prova button
+			JButton prova = new JButton();
+			layeredPane.add(prova);
+			prova.setContentAreaFilled(false);
+			
+			prova.setOpaque(false);
+			prova.setBounds(287, 275, 24, 37);
+			prova.addActionListener(new ActionListener(){
+								public void actionPerformed(ActionEvent e) {
+					System.out.println("I05");
+					
+				}
+			});
 			
 			layeredPane.setLayer(backgroundLabel, 0);
 			

@@ -29,6 +29,7 @@ public class View implements Serializable{
 	private Subscriber subscriber;
 	private int numberGame;
 	private Character character;
+	//private MatchState matchState;
 		
 
 
