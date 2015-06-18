@@ -2,7 +2,7 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.cg_5.connection.Broker;
+import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
 import it.polimi.ingsw.cg_5.model.*;
 
 
@@ -10,7 +10,7 @@ public class Match {
 	private final Integer numberGame;
 	private GameState gameState;
 	private MatchState matchState;
-	private final Broker broker;
+	private final BrokerRmi broker;
 
 
 	public MatchState getMatchState() {
@@ -23,7 +23,7 @@ public class Match {
 	}
 
 
-	public Match(GameState gameState ,Integer numberGame, Broker broker){
+	public Match(GameState gameState ,Integer numberGame, BrokerRmi broker){
 		this.numberGame=numberGame;
 		this.gameState=gameState;
 		this.matchState=MatchState.RUNNING;
@@ -48,7 +48,7 @@ public class Match {
 	
 	
 
-	public Broker getBroker() {
+	public BrokerRmi getBroker() {
 		return broker;
 	}
 

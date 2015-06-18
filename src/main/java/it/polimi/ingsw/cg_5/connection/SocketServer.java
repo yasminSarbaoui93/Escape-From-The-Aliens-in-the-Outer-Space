@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.view.SocketCommunicator;
+import it.polimi.ingsw.cg_5.view.User;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

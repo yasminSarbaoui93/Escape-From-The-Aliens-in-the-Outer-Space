@@ -1,8 +1,9 @@
 package it.polimi.ingsw.cg_5.view;
 
 
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.model.Character;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,7 +26,7 @@ public class View implements Serializable{
 	private Client client;
 	private String name;
 	private SubscriberRmi subscriber;
-	private int numberGame;
+	private int numberGame = 0;
 	private Character character;
 		
 
@@ -100,7 +101,7 @@ public class View implements Serializable{
 		
 			
 		View view= new View(nomeUtente, client);
-		view.getSubscriber().setView(view);
+		//view.getSubscriber().setView(view);
 		
 		System.out.println("Con che mappa vuoi giocare?");
 		String stringa = in.nextLine();
@@ -109,7 +110,7 @@ public class View implements Serializable{
 		Integer yourId=view.getClient().matchRequest(stringa, maxSize, view.getName());
 	
 
-		System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarà :" + yourId  );	
+		//System.out.println("Sei stato aggiunto ad una Waiting List, il tuo Id per questa sessione sarà :" + yourId  );	
 
 
 		
@@ -120,12 +121,12 @@ public class View implements Serializable{
 				// CI SERVE SUBSCRIBER PER NOTIFICARE A TUTTI I COINVOLTI IL GIOCO CREATO E L'ID DEL GIOCO!!
 				// CHE DOVRANNO SALVARE IN APPOSITO ATTRIBUTO DENTRO LA VIEW
 				if(stringa.equals("MOVE")){
-				System.out.println("DOVE VUOI MUOVERTI?");
-				String sector = in.nextLine();
-				System.out.println(view.getClient().moveRequest(sector, yourId,view.getNumberGame()));
+					System.out.println("DOVE VUOI MUOVERTI?");
+					String sector = in.nextLine();
+					System.out.println(view.getClient().moveRequest(sector, yourId,view.getNumberGame()));
 				}
 				if(stringa.equals("ATTACK")){
-				System.out.println(view.getClient().attackRequest(yourId, view.getNumberGame()));
+					System.out.println(view.getClient().attackRequest(yourId, view.getNumberGame()));
 				}
 				if(stringa.equals("DRAW")){
 				System.out.println(view.getClient().drawCardRequest(yourId, view.getNumberGame()));

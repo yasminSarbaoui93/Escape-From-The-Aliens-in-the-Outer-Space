@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg_5.connection;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.Communicator;
+import it.polimi.ingsw.cg_5.view.User;
 public class ClientHandler extends Thread {
 	
 	Communicator client;
@@ -21,19 +23,19 @@ public class ClientHandler extends Thread {
 	public void run(){
 		String command;
 
-	
+		Scanner in;
 		do{
 			//command sent by the client.
 			command = client.receive();
-			Scanner in = new Scanner(command);
+			System.out.println(command);
+			in = new Scanner(command);
 			String stringToRead = in.next();
 			if(stringToRead.toUpperCase().equals("SUBSCRIBEREQUEST")){
-				Integer yourID;
 				String choosenMap = in.next();
 				Integer maxSize = Integer.parseInt(in.next());
 				String name = in.next();
 				try {
-					yourID = gameRules.SubscribeRequest(choosenMap, maxSize, name);
+					Integer yourID = gameRules.SubscribeRequest(choosenMap, maxSize, name);
 					client.send(yourID.toString());
 					
 				} catch (RemoteException e) {
@@ -47,20 +49,40 @@ public class ClientHandler extends Thread {
 				String sectorName = in.next();
 				Integer yourId = Integer.parseInt(in.next());
 				Integer numberGame = Integer.parseInt(in.next());
-				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+				PlayerDTO playerDTO;
+				System.out.println(sectorName+yourId+numberGame);
 				
 				try {
 					playerDTO = gameRules.performMove(sectorName, yourId, numberGame);
 					client.sendDTO(playerDTO);
 				} catch (RemoteException e) {
 					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
 				}
 			}
-			in.close();
+			
+			if(stringToRead.toUpperCase().equals("ATTACK")){
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				
+				try {
+					playerDTO = gameRules.performAttack(yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			//questa sarà la risposta del server al client
 			
 		}while(!command.toUpperCase().equals("QUIT"));
 		//client.close();
+		in.close();
 	}
 
 }

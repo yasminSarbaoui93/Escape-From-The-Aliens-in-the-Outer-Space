@@ -2,8 +2,13 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -15,19 +20,17 @@ public class SocketCommunicator implements Communicator{
 	
 	//Leggere input da socket
 	Scanner in;
-	ObjectInputStream inObj;
+	ObjectInput inObj;
+	ObjectOutput outObj;
 	//Scrivere su socket
 	PrintWriter out;
 	
-	public SocketCommunicator(Socket socket){
+	public SocketCommunicator(Socket socket) throws IOException{
 		this.socket=socket;
 		
-		try{
 		in = new Scanner(socket.getInputStream());
 		out = new PrintWriter(socket.getOutputStream());
-		}catch(IOException ex){
-			throw new AssertionError("Configuration problem occured", ex);
-		}
+
 	}
 	
 	@Override
@@ -38,7 +41,7 @@ public class SocketCommunicator implements Communicator{
 	
     @Override
 	public String receive(){
-		return in.nextLine().toString();
+		return in.nextLine();
 	}
 	
     @Override
@@ -53,20 +56,18 @@ public class SocketCommunicator implements Communicator{
     }
 
 	@Override
-	public void sendDTO(PlayerDTO playerDTO) {
-		out.println(playerDTO);
-		out.flush();
+	public void sendDTO(PlayerDTO playerDTO) throws IOException {
+	
+		outObj = new ObjectOutputStream(socket.getOutputStream());
+		outObj.writeObject(playerDTO);;
+		outObj.flush();
 	}
 
 	@Override
-	public PlayerDTO receiveDTO() {
-		try {
-			return (PlayerDTO)inObj.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public PlayerDTO receiveDTO() throws ClassNotFoundException, IOException {
+		inObj = new ObjectInputStream(socket.getInputStream());
+		Object object = inObj.readObject();
+		playerDTO = (PlayerDTO)object;
 		return playerDTO;
 	}
 	

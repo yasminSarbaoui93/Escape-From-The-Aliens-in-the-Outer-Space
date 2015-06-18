@@ -1,12 +1,12 @@
-package it.polimi.ingsw.cg_5.view;
-
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+package it.polimi.ingsw.cg_5.view.subscriber;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import it.polimi.ingsw.cg_5.model.Character;
 
-public class SubscriberRmi extends Subscriber implements SubscriberInterface, Serializable {
+import it.polimi.ingsw.cg_5.model.Character;
+import it.polimi.ingsw.cg_5.view.View;
+
+public class SubscriberRmi implements SubscriberInterface, Serializable {
 
 	/**
 	 * 

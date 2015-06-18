@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
 import it.polimi.ingsw.cg_5.view.User;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

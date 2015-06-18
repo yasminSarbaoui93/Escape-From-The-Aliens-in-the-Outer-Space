@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_5.view;
 
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 
 public class User {
 	private SubscriberInterface userSubscriber;

@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_5.controller;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.view.SubscriberRmi;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 
 import org.junit.Test;
 

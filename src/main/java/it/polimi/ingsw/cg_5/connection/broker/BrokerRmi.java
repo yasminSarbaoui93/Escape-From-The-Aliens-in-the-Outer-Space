@@ -1,10 +1,12 @@
-package it.polimi.ingsw.cg_5.connection;
+package it.polimi.ingsw.cg_5.connection.broker;
 
+
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Broker{
+public class BrokerRmi extends Broker{
 
 	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
 	private String topic;
@@ -12,7 +14,7 @@ public class Broker{
 		return subscribers;
 	}
 
-	public Broker(String topic){
+	public BrokerRmi(String topic){
 		this.topic = topic;
 	
 	}

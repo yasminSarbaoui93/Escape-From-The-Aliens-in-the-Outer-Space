@@ -7,11 +7,11 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-import it.polimi.ingsw.cg_5.connection.Broker;
-import it.polimi.ingsw.cg_5.connection.SubscriberInterface;
+import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 
 
 
@@ -35,7 +35,7 @@ public class GameManager implements Observer{
 				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
-				Broker matchBroker = new Broker(indexOfCurrentMatches.toString());
+				BrokerRmi matchBroker = new BrokerRmi(indexOfCurrentMatches.toString());
 				
 				for ( SubscriberInterface subscriber : waitingList.getPlayersSubscriber()){
 					matchBroker.subscribe(subscriber);

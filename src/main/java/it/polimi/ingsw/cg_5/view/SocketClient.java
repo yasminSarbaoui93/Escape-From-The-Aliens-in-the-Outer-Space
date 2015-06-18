@@ -33,26 +33,26 @@ public class SocketClient implements Client {
 		
 		String command = "SUBSCRIBEREQUEST "+stringa +" "+maxSize+" "+name;
 		server.send(command);
-		System.out.println("sei stato aggiunto ad una waiting list con ID-"+server.receive());
-		
-		//si blocca in questo esattamente in questo punto dopo la print! non risce a fare la parseInt del messaggio ricevuto dal server WTF
-		Integer yourID = Integer.parseInt(server.receive());
+		String yourId = server.receive();
+		Integer yourID = Integer.parseInt(yourId);
 		return yourID;
 	}
 
 	
 	
 	@Override
-	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
+	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
 		String command = "MOVE "+sector+" "+yourId+" "+gameNumber;
 		server.send(command);
-		
-		return server.receiveDTO();
+		PlayerDTO playerDTO;
+		playerDTO = server.receiveDTO();
+		return playerDTO;
 	}
 
 	@Override
 	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws RemoteException {
-
+		String command = "ATTACK"+yourId+" "+gameNumber;
+		server.send(command);
 		return null;
 	}
 
