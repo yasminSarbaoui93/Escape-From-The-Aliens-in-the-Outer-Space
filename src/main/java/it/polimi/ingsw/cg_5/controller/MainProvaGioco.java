@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_5.controller;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
+import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.model.EscapeHatchType;
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
@@ -20,7 +20,7 @@ public class MainProvaGioco {
 	public static void main(String[] args) {
 		
 		ArrayList<Integer> playersID = new ArrayList<Integer>();
-		BrokerRmi broker= new BrokerRmi("ciao");
+		Broker broker= new Broker("ciao");
 		for (int i=0 ; i<4; i++){
 			playersID.add(i);
 		}

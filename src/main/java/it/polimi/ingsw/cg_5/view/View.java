@@ -3,8 +3,6 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;
@@ -21,31 +19,49 @@ public class View implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private ViewController viewController;
+		private static final long serialVersionUID = 1L;
 	private int PlayerID=101;
 	private Client client;
+		//private RmiClient rmiClient;
+
 	private String name;
-	private SubscriberRmi subscriber;
+	private Subscriber subscriber;
 	private int numberGame = 0;
 	private Character character;
+	//private MatchState matchState;
 		
 
 
 	public View (String name, Client client) throws Exception{
 		super();
 		this.name=name;
-		this.client = client;
-		subscriber = new SubscriberRmi(name);
+
+		this.client= new RmiClient();
+		subscriber = new Subscriber(name);
+		subscriber.setView(this);
 		numberGame=0;
 		/// prova stub per ogni view
 		Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 		SubscriberInterface stub = (SubscriberInterface)UnicastRemoteObject.exportObject(this.subscriber, 0);
 		registry.rebind(this.name, stub);
 	}
+	public void setViewController(ViewController viewController) {
+		this.viewController = viewController;
+	}
+
+
 	
 	
+	public ViewController getViewController() {
+		return viewController;
+	}
 	public int getNumberGame(){
 		return this.numberGame;
+	}
+	
+	public void setPlayerID(int playerID) {
+		PlayerID = playerID;
 	}
 	
 	public String getName() {
@@ -72,7 +88,7 @@ public class View implements Serializable{
 	public int getPlayerID() {
 		return PlayerID;
 	}
-	public SubscriberRmi getSubscriber() {
+	public Subscriber getSubscriber() {
 		return subscriber;
 	}
 	
@@ -162,6 +178,8 @@ public class View implements Serializable{
 			in.close(); 
 	}
 
+
+	
 
 	
 

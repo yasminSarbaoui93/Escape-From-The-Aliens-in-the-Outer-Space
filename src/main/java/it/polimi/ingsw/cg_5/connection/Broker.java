@@ -1,4 +1,5 @@
-package it.polimi.ingsw.cg_5.connection.broker;
+package it.polimi.ingsw.cg_5.connection;
+
 
 
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
@@ -6,7 +7,9 @@ import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class BrokerRmi extends Broker{
+
+
+public class Broker {
 
 	private  ArrayList<SubscriberInterface> subscribers = new ArrayList<SubscriberInterface>();
 	private String topic;
@@ -14,7 +17,7 @@ public class BrokerRmi extends Broker{
 		return subscribers;
 	}
 
-	public BrokerRmi(String topic){
+	public Broker(String topic){
 		this.topic = topic;
 	
 	}
@@ -32,16 +35,15 @@ public class BrokerRmi extends Broker{
 	 * @param msg - message to be published to all the subscribers
 	 * This is not a remote method, however it calls the remote 
 	 * method dispatchMessage for each Subscriber.  
+	 * @throws RemoteException 
 	 */
-	public void publish(String msg){
+	public void publish(String msg) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message on topic "+topic);
 			for (SubscriberInterface sub : subscribers) {
-				try {
+				
 					sub.dispatchMessage(msg);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
+				
 			}
 		}else{
 			System.err.println("No subscribers!!");

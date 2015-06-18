@@ -23,7 +23,6 @@ import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
 
-
 public class GameRules {
 
 	GameManager gameManager;

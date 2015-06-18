@@ -1,12 +1,16 @@
-package it.polimi.ingsw.cg_5.view.subscriber;
+package it.polimi.ingsw.cg_5.view;
 
+
+import java.awt.Color;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import it.polimi.ingsw.cg_5.model.Character;
-import it.polimi.ingsw.cg_5.view.View;
+import javax.swing.text.BadLocationException;
 
-public class SubscriberRmi implements SubscriberInterface, Serializable {
+import it.polimi.ingsw.cg_5.model.Character;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterface;
+
+public class Subscriber implements SubscriberInterface, Serializable {
 
 	/**
 	 * 
@@ -20,7 +24,7 @@ public class SubscriberRmi implements SubscriberInterface, Serializable {
 	 * 
 	 * @param name The name of the subscriber
 	 */
-	public SubscriberRmi(String name) {
+	public Subscriber(String name) {
 		super();
 		this.name = name;
 		//view ) new View(name);
@@ -66,10 +70,17 @@ public class SubscriberRmi implements SubscriberInterface, Serializable {
 	/**
 	 * @param msg is the message sent by the broker by invoking subscriber's remote interface
 	 * the method simply prints the message received by the broker
+	 
 	 */
 	@Override
-	public void dispatchMessage(String msg) {
+	public void dispatchMessage(String msg) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
+		try {
+			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -84,6 +95,9 @@ public class SubscriberRmi implements SubscriberInterface, Serializable {
 	public void updateCharacter(Character character) throws RemoteException {
 		this.view.setCharacter(character);
 		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
+		
+		
+		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(this.view.getCharacter());
 	}
 	
 

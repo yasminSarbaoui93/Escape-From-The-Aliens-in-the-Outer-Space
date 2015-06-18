@@ -7,7 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
+import it.polimi.ingsw.cg_5.connection.Broker;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
@@ -35,7 +35,7 @@ public class GameManager implements Observer{
 				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
-				BrokerRmi matchBroker = new BrokerRmi(indexOfCurrentMatches.toString());
+				Broker matchBroker = new Broker(indexOfCurrentMatches.toString());
 				
 				for ( SubscriberInterface subscriber : waitingList.getPlayersSubscriber()){
 					matchBroker.subscribe(subscriber);
@@ -43,15 +43,22 @@ public class GameManager implements Observer{
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
 				
 				
-				//newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				//newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
-				/*for(User user : waitingList.getUsers()){
+				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
+				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
+				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
+						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());
 						if(user.getPlayerId()==character.getPlayerID()){
+							
 							user.getUserSubscriber().updateCharacter(character);
 						}
 					}
-				}*/
+
+				}
+				
+				newMatch.getBroker().publish("The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
+						+"start to play!");
+
 				
 				newGameState.getMap().drawMap();
 
@@ -110,7 +117,12 @@ public class GameManager implements Observer{
 			String message = (String) arg;
 			Scanner in = new Scanner(message);
 			Integer gameNumber=Integer.parseInt(in.next());
-			this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+			try {
+				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				
+			}
 			in.close();
 			
 		}
