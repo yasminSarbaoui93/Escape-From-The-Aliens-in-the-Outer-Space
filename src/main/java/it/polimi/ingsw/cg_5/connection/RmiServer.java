@@ -11,8 +11,8 @@ public class RmiServer extends Server {
 	private static final String NAME = "room";
 	private GameManager gameManager;
 	
-	public RmiServer (GameManager gameManager)  throws RemoteException {
-		this.gameManager=gameManager;
+	public RmiServer ()  throws RemoteException {
+		super();
 		registry = LocateRegistry.createRegistry(1099);
 		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager,gameManager.getGameRules());
 		

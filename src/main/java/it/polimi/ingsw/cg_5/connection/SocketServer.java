@@ -11,8 +11,8 @@ public class SocketServer extends Server {
 	private GameManager gameManager;
 	private ServerSocket serverSocket; 
 	
-	public SocketServer(int port, GameManager gameManager) {
-		this.gameManager = gameManager;
+	public SocketServer(int port) {
+		super();
 		try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server ready");

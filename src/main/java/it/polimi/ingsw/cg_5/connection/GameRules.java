@@ -33,6 +33,14 @@ public class GameRules {
 	}
 	
 
+	/**This method sends a request to the Specific server for joining a new game. If the game can start, it creates a new one;
+	 * else, it adds the player to a waiting list, giving back the univoque ID of the player.
+	 * @param choosenMap
+	 * @param choosenMaxSize
+	 * @param name
+	 * @return playerId, univoque id of the player.
+	 * @throws RemoteException
+	 */
 	public Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name) throws RemoteException {
 		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
@@ -44,6 +52,13 @@ public class GameRules {
 	}
 	
 	
+	/**
+	 * @param sectorName
+	 * @param yourId
+	 * @param numberGame
+	 * @return
+	 * @throws RemoteException
+	 */
 	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
 		
 		
@@ -169,7 +184,6 @@ public class GameRules {
 				if(drawCard.getDrawnCard().isItemIcon()==true ){
 					if(drawCard.checkItemDecks()){
 						Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
-						playerDTO.getYourCharacter().getItemPlayerCard().add((ItemCard)itemCard);
 						message = "The ItemIcon was true and you draw the Item Card: " + itemCard +"\n";
 					}
 					else {
@@ -238,6 +252,8 @@ public class GameRules {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
+			
+			//METODO ASSOCIATE CARD
 			if(itemCardType.equals("ATTACK"))
 				cardType=ItemCardType.ATTACK;
 			if(itemCardType.equals("SEDATIVES"))

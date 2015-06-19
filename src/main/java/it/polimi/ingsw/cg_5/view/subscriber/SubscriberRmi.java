@@ -13,7 +13,7 @@ import javax.swing.text.BadLocationException;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.View;
 
-public class SubscriberRmi implements SubscriberInterfaceRmi, Subscriber, Serializable {
+public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 
 	/**
 	 * 
