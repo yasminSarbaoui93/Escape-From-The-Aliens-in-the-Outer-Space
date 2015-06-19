@@ -17,7 +17,7 @@ public class PlayerDTO implements Serializable {
 	 */
 	private TurnState turnState;
 	private static final long serialVersionUID = 1L;
-	private final Character yourCharacter;
+	private Character yourCharacter;
 	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;
 	public PlayerDTO(Character character){
@@ -63,7 +63,9 @@ public class PlayerDTO implements Serializable {
 		this.turnState = turnState;
 	}
 	
-	
+	public void setYourCharacter(Character yourCharacter) {
+		this.yourCharacter = yourCharacter;
+	}
 	
 
 	

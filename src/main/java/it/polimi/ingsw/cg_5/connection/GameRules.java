@@ -56,7 +56,8 @@ public class GameRules {
 					Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(),destinationSector); 
 					if(move.checkAction()){
 						move.execute();
-						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+						playerDTO.setYourCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 						playerDTO.setMessageToSend("You moved onto the sector "+ destinationSector);
 						return playerDTO;
 					}else {
@@ -68,11 +69,14 @@ public class GameRules {
 					EscapeMove runAway = new EscapeMove(gameManager.getListOfMatch().get(numberGame).getGameState(), destinationSector);
 					if(runAway.checkAction()){
 						runAway.execute();
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+				
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
+							
 							return playerDTO;
 						}
 						else{
@@ -94,6 +98,7 @@ public class GameRules {
 			}
 				
 		}catch(NullPointerException e){
+			e.printStackTrace();
 			PlayerDTO playerDTO= new PlayerDTO("Impossibile to find your character");
 			return playerDTO;
 		}
@@ -107,6 +112,7 @@ public class GameRules {
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAction()){
 				attack.execute();
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				if(!attack.getPlayerToKill().isEmpty()){
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The players/s"+
 				attack.getPlayerToKill() +" was/were killed by the player with ID- " + 
@@ -142,7 +148,7 @@ public class GameRules {
 			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(endTurn.checkAction()){		
 				endTurn.execute();
-
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
 				return playerDTO;
 
@@ -166,6 +172,7 @@ public class GameRules {
 			DrawCardFromGamedeck drawCard = new DrawCardFromGamedeck(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(drawCard.checkAction()){		
 				drawCard.execute();
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				if(drawCard.getDrawnCard().isItemIcon()==true ){
 					if(drawCard.checkItemDecks()){
 						Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
@@ -215,6 +222,7 @@ public class GameRules {
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector));
 					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
+					playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 					playerDTO.setMessageToSend("You bluffed succesfully!");
 					return playerDTO;
 				}
@@ -250,7 +258,7 @@ public class GameRules {
 						cardType);
 			if(itemCard.checkAction()){
 				itemCard.execute();
-				
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				//CAZZATA PER RICORDARMI DI RIMUOVERE LA CARTA USATA DALL'ITEM DECK DEL PLAYER ATTUALE
 				playerDTO.getYourCharacter().getItemPlayerCard().remove(cardType);
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(

@@ -98,8 +98,7 @@ public class EscapeFromAlienGame extends JFrame{
 	}
 	
 	private void initComponents() {
-		
-		///PROVA JBUTTON
+	
 		
 		
 		
@@ -127,68 +126,24 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			
 			//-----------------start comandPanel--------------//
-			final JPanel Publish = new JPanel();
-			Publish.setBorder(BorderFactory.createLineBorder(Color.blue));			
-			Publish.setBounds(800,421, 294, 264);
-			Publish.setBackground(Color.WHITE);
+			ButtonPanel Publish = new ButtonPanel();
 			
 			layeredPane.setLayer(Publish, 10);
 			
 			
-		
-			JButton moveButton= new JButton("Move");
-			JButton attackButton= new JButton("Attack");
-			JButton drawCard=new JButton("DrawCard");
-			JButton bluffButton= new JButton("Bluff Sector");
-			JButton useCardButton= new JButton("UseCard");
-			JButton endTurn= new JButton("endTurn");
-			JButton discard = new JButton("Discard");
-			JButton buttonFake = new JButton();
-			Color buttonBackGColor= Color.BLACK;
-			Color buttonColor = Color.green;
-			Border buttonBorder = new LineBorder(Color.blue, 1);
-			moveButton.setBackground(buttonBackGColor);
-			moveButton.setForeground(buttonColor);
-			moveButton.setBorder(buttonBorder);
-			drawCard.setBackground(buttonBackGColor);
-			drawCard.setForeground(buttonColor);
-			drawCard.setBorder(buttonBorder);
-			bluffButton.setBackground(buttonBackGColor);
-			bluffButton.setForeground(buttonColor);
-			bluffButton.setBorder(buttonBorder);
-			useCardButton.setBackground(buttonBackGColor);
-			useCardButton.setForeground(buttonColor);
-			useCardButton.setBorder(buttonBorder);
-			endTurn.setBackground(buttonBackGColor);
-			endTurn.setForeground(buttonColor);
-			endTurn.setBorder(buttonBorder);
-			discard.setBackground(buttonBackGColor);
-			discard.setForeground(buttonColor);
-			discard.setBorder(buttonBorder);
-			attackButton.setBackground(buttonBackGColor);
-			attackButton.setForeground(buttonColor);
-			attackButton.setBorder(buttonBorder);
-			attackButton.setEnabled(false);
+			
 			
 			// adding listener
-			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
-			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
-			attackButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
-			drawCard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
-			bluffButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
-			useCardButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
-			discard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
+			Publish.getMoveButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
+			Publish.getEndTurn().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
+			Publish.getAttackButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
+			Publish.getDrawCard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
+			Publish.getBluffButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
+			Publish.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
+			Publish.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
 			Publish.setLayout( new GridLayout(4,2));
 			
-			Publish.add(moveButton);
-			Publish.add(attackButton);
-			Publish.add(drawCard);
-			Publish.add(bluffButton);	
-			Publish.add(useCardButton);
-			Publish.add(bluffButton);	
-			Publish.add(endTurn);
-			Publish.add(discard);
-			Publish.add(buttonFake);
+			
 			add(Publish);
 			
 			//-----------------end comandPanel--------------//
