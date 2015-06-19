@@ -23,8 +23,8 @@ public class LogMessage extends JScrollPane {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		setBounds(800, 0, 294, 300);
 		setBorder(BorderFactory.createLineBorder(Color.red));
-		setBackground(Color.gray);
-		textLog.setBackground(Color.DARK_GRAY);
+		setBackground(Color.black);
+		textLog.setBackground(Color.black);
 		
 	}
 	
