@@ -129,7 +129,7 @@ public class EscapeFromAlienGame extends JFrame{
 			JButton discard = new JButton("Discard");
 			JButton buttonFake = new JButton();
 			Color buttonBackGColor= Color.BLACK;
-			Color buttonColor = Color.ORANGE;
+			Color buttonColor = Color.green;
 			Border buttonBorder = new LineBorder(Color.blue, 1);
 			moveButton.setBackground(buttonBackGColor);
 			moveButton.setForeground(buttonColor);
@@ -152,7 +152,7 @@ public class EscapeFromAlienGame extends JFrame{
 			attackButton.setBackground(buttonBackGColor);
 			attackButton.setForeground(buttonColor);
 			attackButton.setBorder(buttonBorder);
-			
+			attackButton.setEnabled(false);
 			
 			// adding listener
 			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
