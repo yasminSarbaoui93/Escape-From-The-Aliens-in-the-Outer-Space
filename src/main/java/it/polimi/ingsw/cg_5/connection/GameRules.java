@@ -177,7 +177,7 @@ public class GameRules {
 				if(drawCard.getDrawnCard().isItemIcon()==true ){
 					if(drawCard.checkItemDecks()){
 						Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
-						playerDTO.getYourCharacter().getItemPlayerCard().add((ItemCard)itemCard);
+						
 						message = "The ItemIcon was true and you draw the Item Card: " + itemCard +"\n";
 					}
 					else {
