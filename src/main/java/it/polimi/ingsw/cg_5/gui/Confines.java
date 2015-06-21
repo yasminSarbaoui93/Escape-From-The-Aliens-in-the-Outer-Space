@@ -57,7 +57,7 @@ public class Confines {
 			oddrowlist.add(columnConfines);	
 				minValue=minValue +39;
 				maxValue=maxValue +39;
-			if(i>10){
+			if(i>9){
 				num=i.toString();
 			}
 			else num = "0"+i.toString();
@@ -70,7 +70,7 @@ public class Confines {
 			evenrowlist.add(columnConfines);	
 				minValue=minValue +39;
 				maxValue=maxValue +39;
-				if(i>10){
+				if(i>9){
 					num=i.toString();
 				}
 				else num = "0"+i.toString();

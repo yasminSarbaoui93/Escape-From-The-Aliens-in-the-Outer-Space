@@ -255,15 +255,7 @@ public class GameRules {
 	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame) throws RemoteException {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			ItemCardType cardType= null;
-			if(itemCardType.equals("ATTACK"))
-				cardType=ItemCardType.ATTACK;
-			if(itemCardType.equals("SEDATIVES"))
-				cardType=ItemCardType.SEDATIVES;
-			if(itemCardType.equals("TELEPORT"))
-				cardType=ItemCardType.TELEPORT;
-			if(itemCardType.equals("ADRENALINE"))
-				cardType=ItemCardType.ADRENALINE;
+			ItemCardType cardType= getTypeFromString(itemCardType);
 			UseItemCard itemCard = new UseItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),
 						cardType);
 			if(itemCard.checkAction()){
@@ -333,19 +325,8 @@ public class GameRules {
 			Integer numberGame) throws RemoteException {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			ItemCardType cardType= null;
-			if(itemCardType.equals("ATTACK"))
-				cardType=ItemCardType.ATTACK;
-			if(itemCardType.equals("SEDATIVES"))
-				cardType=ItemCardType.SEDATIVES;
-			if(itemCardType.equals("TELEPORT"))
-				cardType=ItemCardType.TELEPORT;
-			if(itemCardType.equals("ADRENALINE"))
-				cardType=ItemCardType.ADRENALINE;
-			if(itemCardType.equals("DEFENCE"))
-				cardType=ItemCardType.DEFENCE;
-			if(itemCardType.equals("SPOTLIGHT"))
-				cardType=ItemCardType.SPOTLIGHT;
+			ItemCardType cardType = getTypeFromString(itemCardType);
+			
 			DiscardItemCard discartCard = new DiscardItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),cardType);
 			if(discartCard.checkAction()){
 				discartCard.execute();
@@ -367,6 +348,22 @@ public class GameRules {
 			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO;
 		}
+	}
+	public ItemCardType getTypeFromString(String cardTypeName){
+		ItemCardType cardtypeback =null;
+		if(cardTypeName.equals("ATTACK"))
+			cardtypeback=ItemCardType.ATTACK;
+		if(cardTypeName.equals("SEDATIVES"))
+			cardtypeback=ItemCardType.SEDATIVES;
+		if(cardTypeName.equals("TELEPORT"))
+			cardtypeback=ItemCardType.TELEPORT;
+		if(cardTypeName.equals("ADRENALINE"))
+			cardtypeback=ItemCardType.ADRENALINE;
+		if(cardTypeName.equals("DEFENCE"))
+			cardtypeback=ItemCardType.DEFENCE;
+		if(cardTypeName.equals("SPOTLIGHT"))
+			cardtypeback=ItemCardType.SPOTLIGHT;
+		return cardtypeback;
 	}
 
 
