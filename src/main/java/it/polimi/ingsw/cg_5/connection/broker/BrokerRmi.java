@@ -50,12 +50,12 @@ public class BrokerRmi extends Broker {
 		}
 	}
 	
-	public void publishNumberGame(int numberGame){
+	public void publishNumberGame(int numberGame,int playerId){
 		if(!subscribers.isEmpty()){
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				try {
 					sub.updateNumberGame(numberGame);
-					
+					sub.updatecurrentPlayerId(playerId);
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}

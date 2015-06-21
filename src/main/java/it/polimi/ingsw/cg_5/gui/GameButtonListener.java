@@ -79,9 +79,13 @@ public class GameButtonListener implements ActionListener {
 		
 		
 		viewController.getView().setCharacter(playerDTO.getYourCharacter());
+		viewController.getView().setCurrentPlayerId(playerDTO.getCurrentCharacter());
 		
 		if(playerDTO.getYourCharacter()!=null){
 		viewController.getEscape().getDtoPanel().updateDtoPanel(viewController.getView().getCharacter());
+		viewController.getEscape().getDtoPanel().updateDtoPanelCurrentId(viewController.getView().getCurrentPlayerId());
+		
+
 		viewController.getEscape().getButtonPanel().buttonsSetter(playerDTO.getTurnState(), playerDTO);
 		result= playerDTO.getMessageToSend();
 		String sector = viewController.getView().getCharacter().getCurrentSector().toString();
@@ -97,7 +101,6 @@ public class GameButtonListener implements ActionListener {
 		else{
 			y=(int)this.confine.getYevenCoordinateFromLetter(row);
 		}
-		System.out.println("col " +col + " row "+ row +" x " +x + " y "+y);
 		this.viewController.getEscape().printPiece(x, y);
 		}
 		else{

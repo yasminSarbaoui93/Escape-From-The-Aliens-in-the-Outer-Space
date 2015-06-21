@@ -16,19 +16,15 @@ import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel{
 	
-	private GameButton moveButton= new GameButton("Move");
+	
 	private GameButton attackButton= new GameButton("Attack");
 	private GameButton drawCard=new GameButton("DrawCard");
-	private GameButton bluffButton= new GameButton("Bluff Sector");
+	
 	private GameButton useCardButton= new GameButton("UseCard");
 	private GameButton endTurn= new GameButton("endTurn");
 	private GameButton discard = new GameButton("Discard");
 	private GameButton buttonFake = new GameButton("");
 	
-	public GameButton getMoveButton() {
-		return moveButton;
-	}
-
 	public GameButton getAttackButton() {
 		return attackButton;
 	}
@@ -37,9 +33,7 @@ public class ButtonPanel extends JPanel{
 		return drawCard;
 	}
 
-	public GameButton getBluffButton() {
-		return bluffButton;
-	}
+
 
 	public GameButton getUseCardButton() {
 		return useCardButton;
@@ -61,12 +55,10 @@ public class ButtonPanel extends JPanel{
 		
 		setBorder(BorderFactory.createLineBorder(Color.blue));			
 		setBounds(800,421, 294, 264);
-		setBackground(Color.WHITE);
+		setBackground(Color.BLACK);
 		setLayout( new GridLayout(4,2));
-		add(moveButton);
 		add(attackButton);
-		add(drawCard);
-		add(bluffButton);	
+		add(drawCard);	
 		add(useCardButton);	
 		add(endTurn);
 	    add(discard);
@@ -75,9 +67,9 @@ public class ButtonPanel extends JPanel{
 	
 	public void buttonsSetter(TurnState turnState,PlayerDTO playerDTO){
 		
-		moveButton.setEnabled(false);
+	
 		attackButton.setEnabled(false);
-		bluffButton.setEnabled(false);
+		
 		drawCard.setEnabled(false);
 		endTurn.setEnabled(false);
 		discard.setEnabled(false);
@@ -90,7 +82,6 @@ public class ButtonPanel extends JPanel{
 	
 		
 		if(turnState==TurnState.STARTED ){
-			this.moveButton.setEnabled(true);
 			this.useCardButton.setEnabled(true);	
 		}
 		
@@ -109,8 +100,8 @@ public class ButtonPanel extends JPanel{
 		}
 		
 		if(turnState==TurnState.BLUFFING ){
-		bluffButton.setEnabled(true);
 		useCardButton.setEnabled(false);
+		endTurn.setEnabled(true);
 		}
 		
 		if(playerDTO.getYourCharacter().getItemPlayerCard().size()==4){

@@ -87,6 +87,7 @@ public class DtoPanel extends JPanel{
 		this.role.setText(character.getName() +"\n");
 		
 	}
-	
-	
+	public void updateDtoPanelCurrentId(int currentplayer){
+	this.currentPL.setText(currentplayer + "\n");
+	}
 }

@@ -131,6 +131,9 @@ public class EscapeFromAlienGame extends JFrame{
 		//load the background image from the disk
 		try {
 
+			circleImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/selected.png"));
+			alienImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/Outer_Space_Alien_32.png"));
+			humanImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/running37.png"));
 			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("GALILEI"));
 			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.png"));
 			
@@ -140,9 +143,6 @@ public class EscapeFromAlienGame extends JFrame{
 			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("GALVANI")){
 				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.png"));
 
-			circleImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/selected.png"));
-			alienImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/Outer_Space_Alien_32.png"));
-			humanImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/running37.png"));
 			
 
 			}
@@ -221,7 +221,7 @@ public class EscapeFromAlienGame extends JFrame{
 			add(logPanel);
 			add(messagePanel);
 			layeredPane.setLayer(messagePanel, 10);
-			messagePanel.setBounds(0, 500, 801, 100);
+			messagePanel.setBounds(0, 591, 801, 90);
 		
 			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
 			

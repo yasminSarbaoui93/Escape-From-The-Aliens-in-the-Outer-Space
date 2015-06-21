@@ -24,10 +24,11 @@ public class View implements Serializable{
 	 */
 	private ViewController viewController;
 		private static final long serialVersionUID = 1L;
-	private int PlayerID=101;
+	private int PlayerID=-1;
 	private Client client;
-		//private RmiClient rmiClient;
+	private int currentPlayerId=-1;
 
+	
 	private String name;
 	private Subscriber subscriber;
 	private int numberGame = 0;
@@ -46,6 +47,12 @@ public class View implements Serializable{
 		numberGame=0;
 		/// prova stub per ogni view
 		
+	}
+	public int getCurrentPlayerId() {
+		return currentPlayerId;
+	}
+	public void setCurrentPlayerId(int currentPlayerId) {
+		this.currentPlayerId = currentPlayerId;
 	}
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;

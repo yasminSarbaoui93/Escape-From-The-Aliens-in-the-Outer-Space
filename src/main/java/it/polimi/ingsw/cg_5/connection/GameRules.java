@@ -59,10 +59,12 @@ public class GameRules {
 						move.execute();
 						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.setYourCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+						playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 						playerDTO.setMessageToSend("You moved onto the sector "+ destinationSector);
 						return playerDTO;
 					}else {
 						playerDTO.setMessageToSend("You cannot move onto that sector.");
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						return playerDTO;
 					}
 				}
@@ -82,11 +84,13 @@ public class GameRules {
 						}
 						else{
 							playerDTO.setMessageToSend("You destroyed the shallop. Look for other escape hatch.");
+							playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 							return playerDTO;
 						}
 						
 					}else{
 						playerDTO.setMessageToSend("You cannot move onto that sector.");
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						return playerDTO;
 					}
 				
@@ -133,6 +137,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot attack! Maybe you are a Human or you haven't drawn yet");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -151,12 +156,14 @@ public class GameRules {
 				endTurn.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
+				playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				return playerDTO;
 
 			}
 			else 
 				playerDTO.setMessageToSend("You can't end your turn yet! Check if you have to do something else or if your item deck has more than 3 cards!");
-				return playerDTO;
+			playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());	
+			return playerDTO;
 		}
 
 		else{
@@ -204,6 +211,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot draw!!!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -234,6 +242,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You can't bluff at the moment!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -270,6 +279,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot use this card at the moment or you don't own this card!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO; 
 			}
 			}
@@ -308,6 +318,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You don't own this card or you cannot use it at the moment.");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO; 
 			}
 		}
@@ -347,6 +358,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You can't discard this Card!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 				
 			}

@@ -95,14 +95,17 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Subscriber, Serial
 		this.view.setNumberGame(numberGame);
 	
 	}
-
+	public void updatecurrentPlayerId(int playerId) {
+		this.view.setCurrentPlayerId(playerId);
+	
+	}
 
 	@Override
 	public void updateCharacter(Character character) throws RemoteException {
 		this.view.setCharacter(character);
 		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
 		
-		
+		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(this.view.getCurrentPlayerId());
 		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(this.view.getCharacter());
 	}
 	
