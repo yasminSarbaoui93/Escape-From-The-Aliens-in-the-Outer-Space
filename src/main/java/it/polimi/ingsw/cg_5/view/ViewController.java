@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_5.view;
 
+import java.io.IOException;
+
 import it.polimi.ingsw.cg_5.gui.EscapeFromAlienGame;
 import it.polimi.ingsw.cg_5.gui.StartOptions;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
@@ -19,6 +21,7 @@ public ViewController (){
 	startOptions= new StartOptions(this);
 	escape= new EscapeFromAlienGame(this);
 	startOptions.setVisible(true);
+	//escape.setVisible(true);
 	
 	
 	
@@ -44,7 +47,7 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 	
 	escape.setVisible(true);
 	startOptions.setVisible(false);
-	System.out.println(view.getCharacter());
+	
 }
 public EscapeFromAlienGame getEscape() {
 	return escape;

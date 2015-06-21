@@ -2,8 +2,10 @@ package it.polimi.ingsw.cg_5.gui;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.view.ViewController;
+import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.Human;
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,9 +16,11 @@ import javax.swing.text.BadLocationException;
 
 public class GameButtonListener implements ActionListener {
 	ViewController viewController;
+	Confines confine=new Confines();
 	DtoPanel dtoPanel;
-	LogMessage logPanel;
 	String actionType;
+	String sector;
+	LogMessage logPanel;
 	
 	public ViewController getViewController() {
 		return viewController;
@@ -28,13 +32,14 @@ public class GameButtonListener implements ActionListener {
 
 	
 
-	public GameButtonListener(ViewController viewController, DtoPanel dtoPanel,
-			LogMessage logPanel, String actionType) {
+	public GameButtonListener(ViewController viewController, DtoPanel dtoPanel,LogMessage logPanel,
+			 String actionType, String sector) {
 		super();
 		this.viewController = viewController;
 		this.dtoPanel = dtoPanel;
-		this.logPanel = logPanel;
+		this.logPanel=logPanel;
 		this.actionType=actionType;
+		this.sector=sector;
 	}
 
 	@Override
@@ -45,7 +50,6 @@ public class GameButtonListener implements ActionListener {
 				
 	try {
 		if(actionType.equals("MOVE")){
-		String sector= JOptionPane.showInputDialog("Sector to move");
 		playerDTO =this.getViewController().getView().getClient().moveRequest(sector,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
 		}
 		if(actionType.equals("DRAW")){
@@ -55,8 +59,8 @@ public class GameButtonListener implements ActionListener {
 			playerDTO =this.getViewController().getView().getClient().attackRequest(this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
 		}
 		if(actionType.equals("BLUFF")){
-			String bluff= JOptionPane.showInputDialog("Sector to Bluff");
-			playerDTO =this.getViewController().getView().getClient().bluffRequest(bluff,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
+			
+			playerDTO =this.getViewController().getView().getClient().bluffRequest(sector,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
 		}
 		if(actionType.equals("ENDTURN")){
 			playerDTO =this.getViewController().getView().getClient().endTurnRequest(this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
@@ -76,6 +80,21 @@ public class GameButtonListener implements ActionListener {
 		if(playerDTO.getYourCharacter()!=null){
 		dtoPanel.updateDtoPanel(viewController.getView().getCharacter());
 		result= playerDTO.getMessageToSend();
+		String sector = viewController.getView().getCharacter().getCurrentSector().toString();
+		char col= sector.charAt(0);
+		String colnum = sector.substring(0,1);
+		int colnumb = (int) colnum.charAt(0)-(int)'A'+1;
+		String row= sector.substring(1, 3);
+		int x=(int)this.confine.getXCoordinateFromLetter(col);
+		int y;
+		if(colnumb%2==1){
+		y=(int)this.confine.getYOddCoordinateFromLetter(row);
+		}
+		else{
+			y=(int)this.confine.getYevenCoordinateFromLetter(row);
+		}
+		System.out.println("col " +col + " row "+ row +" x " +x + " y "+y);
+		this.viewController.getEscape().printPiece(x, y);
 		}
 		else{
 			result= playerDTO.getMessageToSend();	

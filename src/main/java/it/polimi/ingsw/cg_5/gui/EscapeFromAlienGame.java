@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg_5.gui;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
+import it.polimi.ingsw.cg_5.model.Alien;
+import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.view.ViewController;
 
 import java.awt.BorderLayout;
@@ -9,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -44,17 +47,24 @@ public class EscapeFromAlienGame extends JFrame{
 	private static final int WINDOW_HEIGHT = 713;
 	
 	private Image mapImage;
+	private Image circleImage;
+	private Image alienImage;
+	private Image humanImage;
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
 	private ViewController viewController;
 	DtoPanel dtoPanel= new DtoPanel();
 	LogMessage logPanel = new LogMessage();
+	JLabel image ;
+	JLabel piece ;
+
+	
 	
 	
         
 	
 	
-	public EscapeFromAlienGame(ViewController viewController) {
+	public EscapeFromAlienGame(ViewController viewController)  {
 		
 		this.viewController=viewController;
 		
@@ -72,21 +82,52 @@ public class EscapeFromAlienGame extends JFrame{
 		
 		loadResources(viewController);
 		initComponents();
-	
+		
+		this.image = new JLabel(new ImageIcon(circleImage));
+		
+		 this.getLayeredPane().setLayer(image, 10000);
+		 add(image);
+		 image.setVisible(true);
+		 image.setBounds(100, 100, 60, 60);
+		 
+		 this.piece = new JLabel(new ImageIcon(humanImage));
+			
+		 this.getLayeredPane().setLayer(piece, 10000);
+		 add(piece);
+		 piece.setVisible(true);
+		 piece.setBounds(367, 262, 60, 60);
+		
 	}
 	
-
+	public void printCircle(int x, int y) {
+		this.image.setBounds(x, y, 60, 60);
+	 
+	}
+	public void printPiece(int x, int y) {
+		
+		
+		if(this.viewController.getView().getCharacter()!=null){
+		this.piece.setBounds(x, y, 60, 60);
+		if(this.viewController.getView().getCharacter().getClass()== Alien.class)
+			piece.setIcon(new ImageIcon(alienImage));
+		}
+	 
+	}
+	
 
 	private void loadResources(ViewController viewController) {
 		//load the background image from the disk
 		try {
+			circleImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/selected.png"));
+			alienImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/Outer_Space_Alien_32.png"));
+			humanImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/running37.png"));
 			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALILEI");
-			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.jpg"));
+			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.png"));
 			if(viewController.getStartOptions().getListMap().getSelectedItem()=="FERMI"){
-				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/fermi.jpg"));
+				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/fermi.png"));
 			}
 			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALVANI"){
-				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.jpg"));
+				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.png"));
 			}
 
 		} catch (IOException e) {
@@ -94,9 +135,14 @@ public class EscapeFromAlienGame extends JFrame{
 			e.printStackTrace();
 
 		}
+		
 
 	}
 	
+	public ViewController getViewController() {
+		return viewController;
+	}
+
 	private void initComponents() {
 		
 		///PROVA JBUTTON
@@ -107,21 +153,10 @@ public class EscapeFromAlienGame extends JFrame{
 		  setContentPane(layeredPane);
 		
 		  backgroundLabel = new JLabel(new ImageIcon(mapImage));
-			backgroundLabel.setBounds(0,0,801, 685);
+			backgroundLabel.setBounds(0,0,801, 591);
 			add(backgroundLabel);
 			/////prova button
-			JButton prova = new JButton();
-			layeredPane.add(prova);
-			prova.setContentAreaFilled(false);
 			
-			prova.setOpaque(false);
-			prova.setBounds(287, 275, 24, 37);
-			prova.addActionListener(new ActionListener(){
-								public void actionPerformed(ActionEvent e) {
-					System.out.println("I05");
-					
-				}
-			});
 			
 			layeredPane.setLayer(backgroundLabel, 0);
 			
@@ -143,7 +178,7 @@ public class EscapeFromAlienGame extends JFrame{
 			JButton useCardButton= new JButton("UseCard");
 			JButton endTurn= new JButton("endTurn");
 			JButton discard = new JButton("Discard");
-			JButton buttonFake = new JButton();
+			
 			Color buttonBackGColor= Color.BLACK;
 			Color buttonColor = Color.ORANGE;
 			Border buttonBorder = new LineBorder(Color.blue, 1);
@@ -168,16 +203,18 @@ public class EscapeFromAlienGame extends JFrame{
 			attackButton.setBackground(buttonBackGColor);
 			attackButton.setForeground(buttonColor);
 			attackButton.setBorder(buttonBorder);
+			Mouse mouse = new Mouse(this);
+			this.addMouseListener(mouse);
 			
 			
 			// adding listener
-			moveButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
-			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
-			attackButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
-			drawCard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
-			bluffButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
-			useCardButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
-			discard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
+			
+			endTurn.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN",""));
+			attackButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK",""));
+			drawCard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW",""));
+			
+			useCardButton.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD",""));
+			discard.addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD",""));
 			Publish.setLayout( new GridLayout(4,2));
 			
 			Publish.add(moveButton);
@@ -188,7 +225,7 @@ public class EscapeFromAlienGame extends JFrame{
 			Publish.add(bluffButton);	
 			Publish.add(endTurn);
 			Publish.add(discard);
-			Publish.add(buttonFake);
+			
 			add(Publish);
 			
 			//-----------------end comandPanel--------------//
