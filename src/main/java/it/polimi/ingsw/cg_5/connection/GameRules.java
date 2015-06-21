@@ -50,6 +50,7 @@ public class GameRules {
 		try{
 			
 			if(gameManager.canAct(numberGame, yourId)){
+				
 				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 				Sector destinationSector=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName);
 				if(destinationSector.getClass() != EscapeSector.class){

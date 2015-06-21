@@ -47,13 +47,20 @@ public class EscapeFromAlienGame extends JFrame{
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
 	private ViewController viewController;
-	DtoPanel dtoPanel= new DtoPanel();
-	LogMessage logPanel = new LogMessage();
-	
+	private DtoPanel dtoPanel= new DtoPanel();
+	private LogMessage logPanel = new LogMessage();
+	private ButtonPanel buttonPanel = new ButtonPanel();
+	private MessagePanel messagePanel= new MessagePanel();
 	
         
 	
 	
+	public ButtonPanel getButtonPanel() {
+		return buttonPanel;
+	}
+
+
+
 	public EscapeFromAlienGame(ViewController viewController) {
 		
 		this.viewController=viewController;
@@ -80,12 +87,13 @@ public class EscapeFromAlienGame extends JFrame{
 	private void loadResources(ViewController viewController) {
 		//load the background image from the disk
 		try {
-			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALILEI");
+			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("GALILEI"));
 			mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galilei.jpg"));
-			if(viewController.getStartOptions().getListMap().getSelectedItem()=="FERMI"){
+			
+			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("FERMI"))
 				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/fermi.jpg"));
-			}
-			if(viewController.getStartOptions().getListMap().getSelectedItem()=="GALVANI"){
+		
+			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("GALVANI")){
 				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.jpg"));
 			}
 
@@ -126,25 +134,25 @@ public class EscapeFromAlienGame extends JFrame{
 			
 			
 			//-----------------start comandPanel--------------//
-			ButtonPanel Publish = new ButtonPanel();
 			
-			layeredPane.setLayer(Publish, 10);
+			
+			layeredPane.setLayer(buttonPanel, 10);
 			
 			
 			
 			
 			// adding listener
-			Publish.getMoveButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
-			Publish.getEndTurn().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
-			Publish.getAttackButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
-			Publish.getDrawCard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
-			Publish.getBluffButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
-			Publish.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
-			Publish.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
-			Publish.setLayout( new GridLayout(4,2));
+			buttonPanel.getMoveButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"MOVE"));
+			buttonPanel.getEndTurn().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN"));
+			buttonPanel.getAttackButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK"));
+			buttonPanel.getDrawCard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW"));
+			buttonPanel.getBluffButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"BLUFF"));
+			buttonPanel.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD"));
+			buttonPanel.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD"));
 			
 			
-			add(Publish);
+			
+			add(buttonPanel);
 			
 			//-----------------end comandPanel--------------//
 			
@@ -159,8 +167,9 @@ public class EscapeFromAlienGame extends JFrame{
 			layeredPane.setLayer(dtoPanel, 10);
 			add(dtoPanel);
 			add(logPanel);
-			
-			
+			add(messagePanel);
+			layeredPane.setLayer(messagePanel, 10);
+			messagePanel.setBounds(0, 500, 801, 100);
 		
 			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
 			
@@ -174,6 +183,7 @@ public class EscapeFromAlienGame extends JFrame{
 		return logPanel;
 	}
 
+	
 
 
 	public DtoPanel getDtoPanel() {

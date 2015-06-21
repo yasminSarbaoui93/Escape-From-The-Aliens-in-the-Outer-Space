@@ -20,6 +20,7 @@ public class PlayerDTO implements Serializable {
 	private Character yourCharacter;
 	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;
+	private int currentCharacter;
 	public PlayerDTO(Character character){
 		this.yourCharacter = character;
 	}

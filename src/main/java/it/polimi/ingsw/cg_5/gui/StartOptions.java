@@ -43,6 +43,10 @@ public class StartOptions extends JFrame {
 	
 
 
+	
+	
+
+
 
 	public JComboBox<String> getListMap() {
 		return listMap;

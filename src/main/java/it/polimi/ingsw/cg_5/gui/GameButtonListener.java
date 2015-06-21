@@ -14,8 +14,6 @@ import javax.swing.text.BadLocationException;
 
 public class GameButtonListener implements ActionListener {
 	ViewController viewController;
-	DtoPanel dtoPanel;
-	LogMessage logPanel;
 	String actionType;
 	
 	public ViewController getViewController() {
@@ -32,8 +30,6 @@ public class GameButtonListener implements ActionListener {
 			LogMessage logPanel, String actionType) {
 		super();
 		this.viewController = viewController;
-		this.dtoPanel = dtoPanel;
-		this.logPanel = logPanel;
 		this.actionType=actionType;
 	}
 
@@ -74,7 +70,8 @@ public class GameButtonListener implements ActionListener {
 		viewController.getView().setCharacter(playerDTO.getYourCharacter());
 		
 		if(playerDTO.getYourCharacter()!=null){
-		dtoPanel.updateDtoPanel(viewController.getView().getCharacter());
+		viewController.getEscape().getDtoPanel().updateDtoPanel(viewController.getView().getCharacter());
+		viewController.getEscape().getButtonPanel().buttonsSetter(playerDTO.getTurnState(), playerDTO);
 		result= playerDTO.getMessageToSend();
 		}
 		else{
@@ -91,7 +88,7 @@ public class GameButtonListener implements ActionListener {
 		e1.printStackTrace();
 	}
 			try {
-				logPanel.updateLogMessage(result,Color.GREEN);
+				viewController.getEscape().getLogPanel().updateLogMessage(result,Color.GREEN);
 			} catch (BadLocationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

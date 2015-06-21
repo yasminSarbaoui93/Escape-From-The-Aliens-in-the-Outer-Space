@@ -17,7 +17,6 @@ public class ViewController {
 
 public ViewController (){
 	startOptions= new StartOptions(this);
-	escape= new EscapeFromAlienGame(this);
 	startOptions.setVisible(true);
 	
 	
@@ -36,6 +35,7 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 		subscriber = new SubscriberRmi(userName);
 		
 	}	
+	escape= new EscapeFromAlienGame(this);
 	this.view= new View(userName, client, subscriber);
 	view.getSubscriber().setView(this.view);
 	this.view.setViewController(this);

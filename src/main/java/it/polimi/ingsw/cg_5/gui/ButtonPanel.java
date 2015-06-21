@@ -3,9 +3,12 @@ package it.polimi.ingsw.cg_5.gui;
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.Human;
+import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.TurnState;
+import it.polimi.ingsw.cg_5.model.Character;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -59,7 +62,7 @@ public class ButtonPanel extends JPanel{
 		setBorder(BorderFactory.createLineBorder(Color.blue));			
 		setBounds(800,421, 294, 264);
 		setBackground(Color.WHITE);
-		
+		setLayout( new GridLayout(4,2));
 		add(moveButton);
 		add(attackButton);
 		add(drawCard);
@@ -71,6 +74,7 @@ public class ButtonPanel extends JPanel{
 	}
 	
 	public void buttonsSetter(TurnState turnState,PlayerDTO playerDTO){
+		
 		moveButton.setEnabled(false);
 		attackButton.setEnabled(false);
 		bluffButton.setEnabled(false);
@@ -79,6 +83,7 @@ public class ButtonPanel extends JPanel{
 		discard.setEnabled(false);
 		buttonFake.setEnabled(false);
 		useCardButton.setEnabled(false);
+		
 		
 		if(playerDTO.getYourCharacter().getClass()==Human.class)
 			useCardButton.setEnabled(true);
@@ -94,13 +99,26 @@ public class ButtonPanel extends JPanel{
 			if(playerDTO.getYourCharacter().isCanAttack())
 				attackButton.setEnabled(true);
 		}
+		if(turnState==TurnState.HASMOVED&& playerDTO.getYourCharacter().getCurrentSector().getClass()==SafeSector.class){
+			if(playerDTO.getYourCharacter().isCanAttack())
+				attackButton.setEnabled(true);
+			    endTurn.setEnabled(true);
+		}
 		if(turnState==TurnState.HASATTACKORDRAWN){
 			endTurn.setEnabled(true);
 		}
 		
-		if(turnState==TurnState.BLUFFING )
+		if(turnState==TurnState.BLUFFING ){
 		bluffButton.setEnabled(true);
+		useCardButton.setEnabled(false);
+		}
 		
+		if(playerDTO.getYourCharacter().getItemPlayerCard().size()==4){
+			discard.setEnabled(true);
+		}
+		
+			
 	}
+	
 	
 }
