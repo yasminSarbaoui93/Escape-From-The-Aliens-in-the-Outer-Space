@@ -213,6 +213,9 @@ public class GameState extends Observable{
 	
 	
 	public void goToNextCharacter(){
+		if(currentCharacter.getClass()==Human.class){
+			((Human) currentCharacter).setHumanBack();
+		}
 		
 		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1){
 			setCurrentCharacter(getCharacterList().get(getCharacterList().indexOf(getCurrentCharacter())+1));

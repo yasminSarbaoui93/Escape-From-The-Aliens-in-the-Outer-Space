@@ -19,6 +19,7 @@ public class EndTurn extends Action {
 	 */
 	@Override
 	public void execute() {
+		
 		gameState.goToNextCharacter();
 		gameState.getTurn().setTurnState(TurnState.STARTED);
 	}

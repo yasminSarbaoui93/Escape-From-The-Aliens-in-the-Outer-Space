@@ -54,9 +54,9 @@ public class ButtonPanel extends JPanel{
 	public ButtonPanel(){
 		
 		setBorder(BorderFactory.createLineBorder(Color.blue));			
-		setBounds(800,421, 294, 264);
+		setBounds(800,421, 294, 172);
 		setBackground(Color.BLACK);
-		setLayout( new GridLayout(4,2));
+		setLayout( new GridLayout(3,2));
 		add(attackButton);
 		add(drawCard);	
 		add(useCardButton);	
