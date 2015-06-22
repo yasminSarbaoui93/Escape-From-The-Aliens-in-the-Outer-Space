@@ -261,8 +261,7 @@ public class GameRules {
 			if(itemCard.checkAction()){
 				itemCard.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
-				//CAZZATA PER RICORDARMI DI RIMUOVERE LA CARTA USATA DALL'ITEM DECK DEL PLAYER ATTUALE
-				playerDTO.getYourCharacter().getItemPlayerCard().remove(cardType);
+							
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" use the Item Card " + itemCardType ) ;
