@@ -21,7 +21,7 @@ import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 
 public class GameManager implements Observer{
-	private static GameManager instance;
+	private static GameManager instance=null;
 	private static Integer indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();

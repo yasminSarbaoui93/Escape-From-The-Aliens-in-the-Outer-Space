@@ -11,13 +11,14 @@ import java.net.Socket;
 
 public class SocketServer extends Server {
 
-	private static SocketServer instance;
+	private static SocketServer instance=null;
 	private BrokerThread brokerThread;
 	
 	private ServerSocket serverSocket; 
 	private ServerSocket brokerSocket;
-	private SocketServer(int port)  {
+	protected SocketServer(int port)  {
 		super();
+		instance = new SocketServer(7777);
 		try {
 			System.out.println("debug1");
             this.serverSocket = new ServerSocket(port); //prova a spostare broker thread in game manager !
@@ -46,9 +47,7 @@ public class SocketServer extends Server {
 	}
 	
 	public static SocketServer getInstance() throws IOException{
-		if(instance == null){
-			instance = new SocketServer(7777);
-		}return instance;
+		return instance;
 	}
 	
 	public BrokerThread getBrokerThread(){
