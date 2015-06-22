@@ -13,13 +13,12 @@ public class SubscriberThread extends Thread {
 	private BufferedReader in; //gets the message that arrive from the printwriter
 	private final String address = "127.0.0.1";
 	private String name;
-	private final int port = 1039;
+	private final int port = 3333; //porta in cui si mette in ascolto il socket
 	
 	public SubscriberThread (String name){
 		this.name = name;
 		try {
 			subscribe();
-			System.out.println("a");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -31,9 +30,9 @@ public class SubscriberThread extends Thread {
 	public void run(){
 		System.out.println("prova a fare receive number game");
 		
-		
+		//anche se entra in questo ciclo while non riceve i messaggi della dispatch
 		while(true){
-			receive();
+			receive(); //QUI CONTINUA A RICEVERE MESSAGGI NULL
 		//	Integer numberGame = receiveNumberGame();
 			//System.out.println("number Game is: "+numberGame);
 			try {
@@ -44,11 +43,12 @@ public class SubscriberThread extends Thread {
 		}
 	}
 	
-	private String receive(){
+	private String receive(){ //QUI IL SUBSCRIBER NON RICEVE IL MESSAGGIO
 		String msg = null;
 		try {
 			if(in.ready()){
 			msg = in.readLine();
+			System.out.println(msg);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

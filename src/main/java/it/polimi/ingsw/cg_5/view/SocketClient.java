@@ -26,6 +26,13 @@ public class SocketClient implements Client {
 		
 	}
 	
+	private PlayerDTO receivePlayerDTO(String command) throws ClassNotFoundException, IOException{
+		server.send(command);
+		PlayerDTO playerDTO;
+		playerDTO = server.receiveDTO();
+		return playerDTO;
+	}
+	
 
 
 	@Override
@@ -43,53 +50,49 @@ public class SocketClient implements Client {
 	@Override
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
 		String command = "MOVE "+sector+" "+yourId+" "+gameNumber;
-		server.send(command);
-		PlayerDTO playerDTO;
-		playerDTO = server.receiveDTO();
-		return playerDTO;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws RemoteException {
-		String command = "ATTACK"+yourId+" "+gameNumber;
-		server.send(command);
-		return null;
+	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "ATTACK "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO endTurnRequest(Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+	public PlayerDTO endTurnRequest(Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "END_TURN "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+	public PlayerDTO drawCardRequest(Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "DRAW "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "USE_CARD "+itemCardType+" "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber, String sector) throws RemoteException {
-		
-		return null;
+	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber, String sector) throws ClassNotFoundException, IOException {
+		String command = "SPOT "+itemCardType+" "+yourId+" "+gameNumber+" "+sector;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "BLUFF "+bluffSector+" "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 	@Override
-	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException {
-
-		return null;
+	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+		String command = "DISCARD "+itemCardType+" "+yourId+" "+gameNumber;
+		return receivePlayerDTO(command);
 	}
 
 }

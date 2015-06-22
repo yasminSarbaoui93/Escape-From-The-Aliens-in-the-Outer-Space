@@ -4,9 +4,9 @@ package it.polimi.ingsw.cg_5.connection.broker;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-public class BrokerSocket extends Thread implements Broker{
+public class BrokerSocket /*extends Thread */implements Broker{
 	
-	private final int portNumber = 1039;
+	private final int portNumber = 3333;
 	private boolean listening = true;
 	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
 	private String topic;
@@ -14,7 +14,7 @@ public class BrokerSocket extends Thread implements Broker{
 	
 	public BrokerSocket(String topic){
 		this.topic = topic;
-		this.start();
+		//this.start();
 	}
 	
 	@Override
@@ -22,7 +22,7 @@ public class BrokerSocket extends Thread implements Broker{
 		this.topic = topic;
 	}
 	
-	@Override
+	/*@Override
 	public void run() {
 		try(ServerSocket brokerSocket = new ServerSocket(portNumber)){ //QUESTO PEZZO DA SPOSTARE NEL BROKER THREAD ! CREA UN THREAD CHE SI METTE IN ASCOLTO SULLA PORTA E ACCETTA CONNESSIONI MA L'ERRORE CHE FACCIO è CHE NON ASSOCIO I BTHREAD AI RISPETTIVI SUBTHREAD E NON ASSOCIO IL BTHREAD AL BROKER SOCKET
 			while(listening){
@@ -36,7 +36,7 @@ public class BrokerSocket extends Thread implements Broker{
 			System.err.println("Cannot listen on port: "+portNumber);
 			System.exit(-1);
 		}
-	}
+	}*/
 	
 	@Override
 	public void publish(String msg){
@@ -67,7 +67,7 @@ public class BrokerSocket extends Thread implements Broker{
 	public void subscribe(PubSubCommunication o) {
 		BrokerThread r = (BrokerThread)o;
 		subscribers.add(r);
-		
+		System.out.println(subscribers.size());
 	}
 	
 
