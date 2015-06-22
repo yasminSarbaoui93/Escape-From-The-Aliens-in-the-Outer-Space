@@ -79,7 +79,7 @@ public class GameButtonListener implements ActionListener {
 		
 		
 		viewController.getView().setCharacter(playerDTO.getYourCharacter());
-		viewController.getView().setCurrentPlayerId(playerDTO.getCurrentCharacter());
+		
 		
 		if(playerDTO.getYourCharacter()!=null){
 		viewController.getEscape().getDtoPanel().updateDtoPanel(viewController.getView().getCharacter());

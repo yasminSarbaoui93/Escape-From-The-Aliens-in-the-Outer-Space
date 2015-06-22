@@ -79,7 +79,8 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	}
 	public void updatecurrentPlayerId(int playerId) {
 		this.view.setCurrentPlayerId(playerId);
-	
+		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(this.view.getCurrentPlayerId());
+
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
 
 		
-		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(this.view.getCurrentPlayerId());
+		//this.view.getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(this.view.getCurrentPlayerId());
 		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(this.view.getCharacter());
 
 	}

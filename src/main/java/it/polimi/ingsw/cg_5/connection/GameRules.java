@@ -93,7 +93,6 @@ public class GameRules {
 						move.execute();
 						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.setYourCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-						playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 						playerDTO.setMessageToSend("You moved onto the sector "+ destinationSector);
 						return playerDTO;
 					}else {
@@ -190,6 +189,7 @@ public class GameRules {
 				endTurn.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
+				gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				return playerDTO;
 

@@ -37,6 +37,7 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 		
 	}	
 	escape= new EscapeFromAlienGame(this);
+	escape.getDtoPanel().updateNameDtoPanel(userName);
 	this.view= new View(userName, client, subscriber);
 	view.getSubscriber().setView(this.view);
 	

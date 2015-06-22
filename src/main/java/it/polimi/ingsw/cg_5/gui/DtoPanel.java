@@ -77,7 +77,9 @@ public class DtoPanel extends JPanel{
 	public Component add(Component comp) {
 				return super.add(comp);
 	}
-	
+	public void updateNameDtoPanel(String playerName){
+		this.name.setText(playerName +"\n");
+	}
 	
 	public void updateDtoPanel(Character character){
 		

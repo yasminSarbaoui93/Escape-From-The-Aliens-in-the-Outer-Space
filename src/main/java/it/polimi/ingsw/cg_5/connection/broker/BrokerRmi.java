@@ -66,6 +66,7 @@ public class BrokerRmi implements Broker {
 				try {
 					sub.updateNumberGame(numberGame);
 					sub.updatecurrentPlayerId(playerId);
+				
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
