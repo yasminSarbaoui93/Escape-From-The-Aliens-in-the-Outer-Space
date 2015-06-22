@@ -13,7 +13,7 @@ public class SubscriberThread extends Thread {
 	private BufferedReader in; //gets the message that arrive from the printwriter
 	private final String address = "127.0.0.1";
 	private String name;
-	private final int port = 3333; //porta in cui si mette in ascolto il socket
+	private final int port = 1040; //porta in cui si mette in ascolto il socket
 	
 	public SubscriberThread (String name){
 		this.name = name;

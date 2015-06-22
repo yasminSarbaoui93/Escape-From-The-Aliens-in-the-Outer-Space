@@ -24,7 +24,7 @@ public class SocketServer extends Server {
 		try {
             this.serverSocket = new ServerSocket(7777); 
             System.out.println("Server ready");
-            this.brokerSocket = new ServerSocket(3333);
+            this.brokerSocket = new ServerSocket(1040);
             do {
                 Socket socket = serverSocket.accept();
                 new ClientHandler(new SocketCommunicator(socket)).start();

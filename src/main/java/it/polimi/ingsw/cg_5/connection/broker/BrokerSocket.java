@@ -3,18 +3,19 @@ package it.polimi.ingsw.cg_5.connection.broker;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
-public class BrokerSocket /*extends Thread */implements Broker{
+public class BrokerSocket extends Thread implements Broker{
 	
-	private final int portNumber = 3333;
+	private final int portNumber = 1040;
 	private boolean listening = true;
-	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
+	private ArrayList<PubSubCommunication> subscribers = new ArrayList<PubSubCommunication>();
 	private String topic;
 	
 	
 	public BrokerSocket(String topic){
 		this.topic = topic;
-		//this.start();
+		this.start();
 	}
 	
 	@Override
@@ -39,10 +40,10 @@ public class BrokerSocket /*extends Thread */implements Broker{
 	}*/
 	
 	@Override
-	public void publish(String msg){
+	public void publish(String msg) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
-			for (BrokerThread sub : subscribers) {
+			for (PubSubCommunication sub : subscribers) {
 				sub.dispatchMessage(msg);
 			}
 		}else{
@@ -51,10 +52,10 @@ public class BrokerSocket /*extends Thread */implements Broker{
 	}
 	
 	@Override
-	public void publishNumberGame(Integer numberGame, int playerId){
+	public void publishNumberGame(Integer numberGame, int playerId) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
-			for (BrokerThread sub : subscribers) {
+			for (PubSubCommunication sub : subscribers) {
 				sub.updateNumberGame(numberGame);
 			}
 		}else{
