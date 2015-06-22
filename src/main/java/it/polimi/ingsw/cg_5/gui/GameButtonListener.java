@@ -70,8 +70,14 @@ public class GameButtonListener implements ActionListener {
 		}
 		if(actionType.equals("USECARD")){
 			String card= JOptionPane.showInputDialog("Card to use");
+			if (card.equals("SPOTLIGHT")){
+				String sector =JOptionPane.showInputDialog("Sector to spot");
+				playerDTO =this.getViewController().getView().getClient().useSpotLightRequest(card,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame(),sector);
+					}
+			else{
 			playerDTO =this.getViewController().getView().getClient().useCardRequest(card,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
-		}
+			}
+			}
 		if(actionType.equals("DISCARD")){
 			String discard= JOptionPane.showInputDialog("Card to discard");
 			playerDTO =this.getViewController().getView().getClient().discardRequest(discard,this.getViewController().getView().getPlayerID(), this.getViewController().getView().getNumberGame());
@@ -88,6 +94,7 @@ public class GameButtonListener implements ActionListener {
 
 		viewController.getEscape().getButtonPanel().buttonsSetter(playerDTO.getTurnState(), playerDTO);
 		result= playerDTO.getMessageToSend();
+		//sposto la pedina nel giusto settore!
 		String sector = viewController.getView().getCharacter().getCurrentSector().toString();
 		char col= sector.charAt(0);
 		String colnum = sector.substring(0,1);

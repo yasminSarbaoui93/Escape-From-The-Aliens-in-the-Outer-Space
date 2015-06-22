@@ -61,10 +61,16 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	 
 	 */
 	@Override
-	public void dispatchMessage(String msg) throws RemoteException  {
+	public void dispatchMessage(String msg, Boolean chat) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 		try {
+			if(chat==false){
 			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
+			}
+			else{
+				
+				this.getView().getViewController().getEscape().getMessagePanel().updateChatMessage(msg);
+			}
 		}catch (BadLocationException e) {
 			
 			e.printStackTrace();

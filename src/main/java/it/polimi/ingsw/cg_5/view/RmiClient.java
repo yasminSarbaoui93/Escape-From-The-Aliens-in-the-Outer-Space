@@ -73,4 +73,11 @@ public class RmiClient implements Serializable, Client {
 		return remoteMethods1.performDiscardCard(itemCardType,yourId, gameNumber);
 	}
 
+	@Override
+	public Void sendmessageRequest(String message, Integer yourId,
+			Integer gameNumber) throws RemoteException {
+		remoteMethods1.performSendMessage(message, yourId, gameNumber);
+		return null;
+	}
+
 }

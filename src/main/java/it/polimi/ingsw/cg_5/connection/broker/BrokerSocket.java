@@ -39,11 +39,11 @@ public class BrokerSocket /*extends Thread */implements Broker{
 	}*/
 	
 	@Override
-	public void publish(String msg){
+	public void publish(String msg, Boolean chat){
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
 			for (BrokerThread sub : subscribers) {
-				sub.dispatchMessage(msg);
+				sub.dispatchMessage(msg,chat);
 			}
 		}else{
 			System.err.println("No subscribers!!");

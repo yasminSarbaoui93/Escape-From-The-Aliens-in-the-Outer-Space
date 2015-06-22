@@ -22,6 +22,7 @@ public class LogMessage extends JScrollPane {
 		setBounds(800, 0, 294, 300);
 		setBorder(BorderFactory.createLineBorder(Color.blue));
 		setBackground(Color.black);
+		textLog.setEditable(false);
 		textLog.setBackground(Color.black);
 		getVerticalScrollBar().setBackground(Color.BLACK);
 		getHorizontalScrollBar().setBackground(Color.BLACK);

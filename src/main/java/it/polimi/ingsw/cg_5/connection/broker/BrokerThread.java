@@ -40,7 +40,7 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 		
 	}
 	@Override
-	public void dispatchMessage(String msg){
+	public void dispatchMessage(String msg,Boolean chat){
 		buffer.add(msg);
 		synchronized(buffer){
 			buffer.notify();

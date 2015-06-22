@@ -28,5 +28,5 @@ public interface Client {
 	
 	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 
-	
+	public Void sendmessageRequest(String message,Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 }

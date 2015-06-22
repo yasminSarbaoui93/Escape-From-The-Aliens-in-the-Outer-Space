@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import it.polimi.ingsw.cg_5.controller.*;
+
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.rmi.*;
@@ -62,6 +63,13 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId,
 			Integer numberGame) throws RemoteException {
 		return gameManager.getGameRules().performDiscardCard(itemCardType, yourId, numberGame);
+	}
+
+	@Override
+	public void performSendMessage(String message, Integer yourId,
+			Integer gameNumber) throws RemoteException {
+		gameManager.getListOfMatch().get(gameNumber).getBroker().publish(message,true);
+		
 	}
 	
 

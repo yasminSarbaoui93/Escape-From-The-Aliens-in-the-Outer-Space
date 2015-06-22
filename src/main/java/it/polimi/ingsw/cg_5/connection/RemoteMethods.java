@@ -18,4 +18,5 @@ public interface RemoteMethods extends Remote {
 	PlayerDTO performSpotLightUse(String itemCardType,Integer yourId,Integer numberGame,String sector)  throws RemoteException;
 	PlayerDTO bluffSector(String bluffSector,Integer yourId ,Integer numberGame)  throws RemoteException;
 	PlayerDTO performDiscardCard(String itemCardType,Integer yourId,Integer numberGame)  throws RemoteException;
+	void performSendMessage(String message, Integer yourId,Integer gameNumber)throws RemoteException;
 }

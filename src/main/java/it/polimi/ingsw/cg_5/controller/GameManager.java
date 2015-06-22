@@ -68,7 +68,7 @@ public class GameManager implements Observer{
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
 				
 				
-				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
+				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches,false);
 				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches,newMatch.getGameState().getCurrentCharacter().getPlayerID());
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
@@ -82,7 +82,7 @@ public class GameManager implements Observer{
 				}
 				
 				newMatch.getBroker().publish("The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
-						+"start to play!");
+						+"start to play!",false);
 
 				
 				newGameState.getMap().drawMap();
@@ -143,7 +143,7 @@ public class GameManager implements Observer{
 			Scanner in = new Scanner(message);
 			Integer gameNumber=Integer.parseInt(in.next());
 			try {
-				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
+				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine(),false);
 			} catch (RemoteException e) {
 				//e.getMessage();
 				

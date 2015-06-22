@@ -226,12 +226,6 @@ public class GameState extends Observable{
 				notifyObservers(this.matchIndex+" Is the turn of the Player: "+currentCharacter.getPlayerID());
 			}
 			
-		
-		
-		
-
-		
-		//System.out.println("It's the turn of the player with the ID-"+currentCharacter.getPlayerID());
 
 }
 

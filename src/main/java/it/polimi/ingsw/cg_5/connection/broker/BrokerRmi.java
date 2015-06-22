@@ -42,13 +42,17 @@ public class BrokerRmi implements Broker {
 	 */
 	
 	@Override
-	public void publish(String msg){
+	public void publish(String msg, Boolean chat){
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message on topic "+topic);
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				
 					try {
-						sub.dispatchMessage(msg);
+						
+						sub.dispatchMessage(msg,chat);
+					
+						
+						
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

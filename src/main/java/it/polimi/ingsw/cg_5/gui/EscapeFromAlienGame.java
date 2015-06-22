@@ -17,6 +17,13 @@ public class EscapeFromAlienGame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public MessagePanel getMessagePanel() {
+		return messagePanel;
+	}
+
+
+
+
 	private static final int WINDOW_WIDTH = 1100;
 	private static final int WINDOW_HEIGHT = 713;
 	
@@ -34,12 +41,7 @@ public class EscapeFromAlienGame extends JFrame{
 	LogMessage logPanel = new LogMessage();
 	JLabel image ;
 	JLabel piece ;
-
-	
-	
-
-	
-        
+     
 	
 	
 		public ButtonPanel getButtonPanel() {
@@ -174,7 +176,7 @@ public class EscapeFromAlienGame extends JFrame{
 			buttonPanel.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD",""));
 			buttonPanel.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD",""));
 			
-
+			messagePanel.getSendMessage().addActionListener(new MessageListener(this.viewController,messagePanel));
 			
 			
 			add(buttonPanel);

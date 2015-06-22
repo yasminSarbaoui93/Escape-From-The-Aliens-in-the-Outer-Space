@@ -109,7 +109,7 @@ public class GameRules {
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
-									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter(),false);
 				
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
 							
@@ -154,16 +154,16 @@ public class GameRules {
 				if(!attack.getPlayerToKill().isEmpty()){
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The players/s"+
 				attack.getPlayerToKill() +" was/were killed by the player with ID- " + 
-			  gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID() + "!");
+			  gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID() + "!",false);
 				}
 				if(!attack.getSafeCharacter().isEmpty()){
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+ 
-				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card");
+				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card",false);
 				}
-				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.");
+				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.",false);
 				if(gameManager.getListOfMatch().get(numberGame).isGameOver()){
 					gameManager.getListOfMatch().get(numberGame).setMatchState(MatchState.ENDED);
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The match is ended!");
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The match is ended!",false);
 					}
 				playerDTO.setMessageToSend("You've attacked!!");
 				return playerDTO;
@@ -228,10 +228,10 @@ public class GameRules {
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getCurrentSector());
+							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getCurrentSector(),false);
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.SILENCE ){
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish("Silence...");
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish("Silence...",false);
 				
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_ANY_SECTOR ){
@@ -263,7 +263,7 @@ public class GameRules {
 				try {
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector));
+							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector),false);
 					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 					playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 					playerDTO.setMessageToSend("You bluffed succesfully!");
@@ -296,10 +296,10 @@ public class GameRules {
 			if(itemCard.checkAction()){
 				itemCard.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
-							
+				playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());			
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" use the Item Card " + itemCardType ) ;
+						+" use the Item Card " + itemCardType,false ) ;
 				playerDTO.setMessageToSend("You've used the item card: "+itemCardType);
 				return playerDTO;
 			}
@@ -331,14 +331,14 @@ public class GameRules {
 				if( !useSpotLight.getSpottedPlayer().isEmpty()){
 				for(Character character : useSpotLight.getSpottedPlayer()){
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The Player with ID -" + character.getPlayerID()
-						+ "is in the Sector: " + character.getCurrentSector());
+						+ "is in the Sector: " + character.getCurrentSector(),false);
 				}
 				}
 				
 				//RIMUOVERE LA CARTA DALL ITEM DECK DEL YOURCHARACTER
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" use the Item Card " + itemCardType ) ;
+						+" use the Item Card " + itemCardType,false ) ;
 				playerDTO.setMessageToSend("You've used the Item Card" + itemCardType);
 				return playerDTO;
 			}
@@ -366,7 +366,7 @@ public class GameRules {
 				discartCard.execute();
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" discard an Item Card of Type " + itemCardType ) ;
+						+" discard an Item Card of Type " + itemCardType ,false) ;
 				playerDTO.setMessageToSend("You succesfully discard a card of type:"+itemCardType +"!");
 				return playerDTO;
 				

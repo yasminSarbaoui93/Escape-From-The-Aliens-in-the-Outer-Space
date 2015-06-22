@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_5.gui;
 
+import it.polimi.ingsw.cg_5.view.ViewController;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -12,20 +14,27 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyleConstants;
 
 
 
 public class MessagePanel extends JPanel {
 	
 	
+	
+
+
 	private JPanel southPanel = new JPanel();
 	private JTextField messageBox = new JTextField(30);
-	private GameButton sendMessage = new GameButton("Send Message");//ci sara la action listener
+	private JButton sendMessage = new JButton("Send Message");//ci sara la action listener
 	
-	JTextArea chatBox = new JTextArea();
+	private JTextArea chatBox = new JTextArea();
+	
 	GridBagConstraints left = new GridBagConstraints();
 	 GridBagConstraints right = new GridBagConstraints();
 	public MessagePanel(){
+		
 		
 		setLayout(new BorderLayout());
 		southPanel.setBackground(Color.black);
@@ -51,9 +60,25 @@ public class MessagePanel extends JPanel {
         southPanel.add(sendMessage, right);
         add(BorderLayout.SOUTH, southPanel);
         setBorder(BorderFactory.createLineBorder(Color.blue));
+        this.chatBox.setForeground(Color.GREEN);
+        
+        
 	}
+	
+	
 
-	public GameButton getSendMessage() {
+	public void updateChatMessage(String chatMessage) {
+		
+	    this.chatBox.append(chatMessage);
+	    
+			
+		
+		}
+	
+	public JTextField getMessageBox() {
+		return messageBox;
+	}
+	public JButton getSendMessage() {
 		return sendMessage;
 	}
 }

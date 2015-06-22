@@ -95,4 +95,12 @@ public class SocketClient implements Client {
 		return receivePlayerDTO(command);
 	}
 
+	@Override
+	public Void sendmessageRequest(String message, Integer yourId,
+			Integer gameNumber) throws RemoteException, ClassNotFoundException,
+			IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
