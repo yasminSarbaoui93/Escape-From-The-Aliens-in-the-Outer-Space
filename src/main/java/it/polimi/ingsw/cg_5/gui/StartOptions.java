@@ -34,6 +34,10 @@ public class StartOptions extends JFrame {
 	
 
 
+	
+	
+
+
 
 	public JComboBox<String> getListMap() {
 		return listMap;
@@ -88,11 +92,13 @@ public class StartOptions extends JFrame {
 			final JPanel StartinPanel = new JPanel();
 			
 			// con JComboBox possiamo fare imenu a tendina
-			//listMap.addItem("FERMI");
-			listMap.addItem("GALVANI");
 			listMap.addItem("GALILEI");
+			listMap.addItem("GALVANI");
+			
+			
+		
 			listMap.addItem("FERMI");
-			//listMap.addItem("GALVANI");
+			
 			listMap.setBackground(Color.BLACK);
 			listMap.setForeground(Color.GREEN);
 			final JComboBox<String> listPlayerNumber = new JComboBox<String>();
@@ -106,8 +112,9 @@ public class StartOptions extends JFrame {
 			listPlayerNumber.setBackground(Color.BLACK);
 			listPlayerNumber.setForeground(Color.GREEN);
 			final JComboBox<String> typeConnection = new JComboBox<String>();
-			typeConnection.addItem("SOCKET");
 			typeConnection.addItem("RMI");
+			typeConnection.addItem("SOCKET");
+			
 			typeConnection.setBackground(Color.BLACK);
 			typeConnection.setForeground(Color.GREEN);
 		

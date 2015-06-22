@@ -55,7 +55,7 @@ public class UseItemCard extends Action {
 	 */
 	
 	public boolean checkAction(){
-		if(gameState.getCurrentCharacter().getClass() == Alien.class){
+		if(gameState.getCurrentCharacter().getClass() == Alien.class|| gameState.getTurn().getTurnState()==TurnState.BLUFFING){
 			return false;
 		}
 		else{

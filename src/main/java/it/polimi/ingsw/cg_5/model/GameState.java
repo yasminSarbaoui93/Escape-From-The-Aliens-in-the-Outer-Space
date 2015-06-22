@@ -18,6 +18,8 @@ public class GameState extends Observable{
 	private Turn turn= new Turn();
 	private final int MAX_NUM_ROUND;
 	private final Integer matchIndex;
+	private ArrayList<Character> winners;
+	private ArrayList<Character> losers;
 	
 	
 	

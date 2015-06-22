@@ -11,10 +11,9 @@ public interface SubscriberInterfaceRmi extends Remote, Subscriber, PubSubCommun
 	
 	@Override
 	public void dispatchMessage(String msg) throws RemoteException;
-	
-	@Override
+
 	public void updateNumberGame(Integer numberGame) throws RemoteException;
-	
-	@Override
-	public void updateCharacter(Character character) throws IllegalArgumentException, RemoteException;
+	public void updateCharacter(Character character) throws RemoteException;
+	public void updatecurrentPlayerId(int playerId) throws RemoteException;
+
 }

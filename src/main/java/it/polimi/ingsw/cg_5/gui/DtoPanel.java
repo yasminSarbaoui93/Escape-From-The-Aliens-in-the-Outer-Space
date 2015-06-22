@@ -26,12 +26,27 @@ public class DtoPanel extends JPanel{
 	JTextField sector =new  JTextField(10);
 	JLabel currentPlayer= new JLabel("Current Player");
 	JTextField currentPL =new  JTextField(10);
-	
+	private final Color backGround_color= Color.black;
+	private final Color foreGround_color= Color.GREEN;
 	
 	
 	 public DtoPanel() {
 		 setLayout( new GridLayout(5,2));
-		 
+		 username.setForeground(foreGround_color);
+		 name.setForeground(foreGround_color);
+		 name.setBackground(backGround_color);
+		 playerID.setForeground(foreGround_color);
+		 ID.setForeground(foreGround_color);
+		 ID.setBackground(backGround_color);
+		 characterName.setForeground(foreGround_color);
+		 role.setForeground(foreGround_color);
+		 role.setBackground(backGround_color);
+		 currentSector.setForeground(foreGround_color);
+		 sector.setForeground(foreGround_color);
+		 sector.setBackground(backGround_color);
+		 currentPlayer.setForeground(foreGround_color);
+		 currentPL.setForeground(foreGround_color);
+		 currentPL.setBackground(backGround_color);
 		 add(username);
 		 add(name);
 		 add(playerID);
@@ -53,8 +68,8 @@ public class DtoPanel extends JPanel{
 		 currentPL.setEditable(false);
 		 currentPL.setText(defautString);
 		 setBounds(800, 301, 294, 120);
-		 setBackground(Color.WHITE);
-		 setBorder(BorderFactory.createLineBorder(Color.red));
+		 setBackground(backGround_color);
+		 setBorder(BorderFactory.createLineBorder(Color.blue));
 		 
 	}
 	
@@ -71,6 +86,7 @@ public class DtoPanel extends JPanel{
 		this.role.setText(character.getName() +"\n");
 		
 	}
-	
-	
+	public void updateDtoPanelCurrentId(int currentplayer){
+	this.currentPL.setText(currentplayer + "\n");
+	}
 }

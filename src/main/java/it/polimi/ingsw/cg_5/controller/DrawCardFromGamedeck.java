@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.DangerousSector;
 import it.polimi.ingsw.cg_5.model.GameCard;
+import it.polimi.ingsw.cg_5.model.GameCardType;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
@@ -33,7 +34,7 @@ public class DrawCardFromGamedeck extends Action {
 		}
 		// pesca Carta e vari comportamenti in base alla carta pescata
 		drawnCard= (GameCard) gameState.currentCharacterDrawsGameCard();
-		
+
 		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
 	

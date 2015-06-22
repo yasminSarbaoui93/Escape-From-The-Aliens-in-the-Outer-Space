@@ -1,15 +1,12 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import it.polimi.ingsw.cg_5.connection.broker.BrokerThread;
 import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.controller.Attack;
 import it.polimi.ingsw.cg_5.controller.DiscardItemCard;
@@ -87,17 +84,21 @@ public class GameRules {
 		try{
 			
 			if(gameManager.canAct(numberGame, yourId)){
+				
 				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 				Sector destinationSector=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName);
 				if(destinationSector.getClass() != EscapeSector.class){
 					Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(),destinationSector); 
 					if(move.checkAction()){
 						move.execute();
-						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+						playerDTO.setYourCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+						playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 						playerDTO.setMessageToSend("You moved onto the sector "+ destinationSector);
 						return playerDTO;
 					}else {
 						playerDTO.setMessageToSend("You cannot move onto that sector.");
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						return playerDTO;
 					}
 				}
@@ -105,20 +106,25 @@ public class GameRules {
 					EscapeMove runAway = new EscapeMove(gameManager.getListOfMatch().get(numberGame).getGameState(), destinationSector);
 					if(runAway.checkAction()){
 						runAway.execute();
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+				
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
+							
 							return playerDTO;
 						}
 						else{
 							playerDTO.setMessageToSend("You destroyed the shallop. Look for other escape hatch.");
+							playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 							return playerDTO;
 						}
 						
 					}else{
 						playerDTO.setMessageToSend("You cannot move onto that sector.");
+						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						return playerDTO;
 					}
 				
@@ -131,6 +137,7 @@ public class GameRules {
 			}
 				
 		}catch(NullPointerException e){
+			e.printStackTrace();
 			PlayerDTO playerDTO= new PlayerDTO("Impossibile to find your character");
 			return playerDTO;
 		}
@@ -144,6 +151,7 @@ public class GameRules {
 			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(attack.checkAction()){
 				attack.execute();
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				if(!attack.getPlayerToKill().isEmpty()){
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The players/s"+
 				attack.getPlayerToKill() +" was/were killed by the player with ID- " + 
@@ -163,6 +171,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot attack! Maybe you are a Human or you haven't drawn yet");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -179,14 +188,16 @@ public class GameRules {
 			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(endTurn.checkAction()){		
 				endTurn.execute();
-
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
+				playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				return playerDTO;
 
 			}
 			else 
 				playerDTO.setMessageToSend("You can't end your turn yet! Check if you have to do something else or if your item deck has more than 3 cards!");
-				return playerDTO;
+			playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());	
+			return playerDTO;
 		}
 
 		else{
@@ -203,9 +214,11 @@ public class GameRules {
 			DrawCardFromGamedeck drawCard = new DrawCardFromGamedeck(gameManager.getListOfMatch().get(numberGame).getGameState());
 			if(drawCard.checkAction()){		
 				drawCard.execute();
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				if(drawCard.getDrawnCard().isItemIcon()==true ){
 					if(drawCard.checkItemDecks()){
 						Card itemCard= gameManager.getListOfMatch().get(numberGame).getGameState().currentCharacterDrawsItemCard();
+
 						message = "The ItemIcon was true and you draw the Item Card: " + itemCard +"\n";
 					}
 					else {
@@ -232,6 +245,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot draw!!!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -251,6 +265,7 @@ public class GameRules {
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector));
 					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
+					playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 					playerDTO.setMessageToSend("You bluffed succesfully!");
 					return playerDTO;
 				}
@@ -261,6 +276,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You can't bluff at the moment!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 			}
 		}
@@ -273,24 +289,14 @@ public class GameRules {
 	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame) throws RemoteException {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			ItemCardType cardType= null;
-			
-			//METODO ASSOCIATE CARD
-			if(itemCardType.equals("ATTACK"))
-				cardType=ItemCardType.ATTACK;
-			if(itemCardType.equals("SEDATIVES"))
-				cardType=ItemCardType.SEDATIVES;
-			if(itemCardType.equals("TELEPORT"))
-				cardType=ItemCardType.TELEPORT;
-			if(itemCardType.equals("ADRENALINE"))
-				cardType=ItemCardType.ADRENALINE;
+
+			ItemCardType cardType = getTypeFromString(itemCardType);
 			UseItemCard itemCard = new UseItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),
 						cardType);
 			if(itemCard.checkAction()){
 				itemCard.execute();
-				
-				//CAZZATA PER RICORDARMI DI RIMUOVERE LA CARTA USATA DALL'ITEM DECK DEL PLAYER ATTUALE
-				playerDTO.getYourCharacter().getItemPlayerCard().remove(cardType);
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+							
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" use the Item Card " + itemCardType ) ;
@@ -299,6 +305,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You cannot use this card at the moment or you don't own this card!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO; 
 			}
 			}
@@ -337,6 +344,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You don't own this card or you cannot use it at the moment.");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO; 
 			}
 		}
@@ -351,19 +359,8 @@ public class GameRules {
 			Integer numberGame) throws RemoteException {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			ItemCardType cardType= null;
-			if(itemCardType.equals("ATTACK"))
-				cardType=ItemCardType.ATTACK;
-			if(itemCardType.equals("SEDATIVES"))
-				cardType=ItemCardType.SEDATIVES;
-			if(itemCardType.equals("TELEPORT"))
-				cardType=ItemCardType.TELEPORT;
-			if(itemCardType.equals("ADRENALINE"))
-				cardType=ItemCardType.ADRENALINE;
-			if(itemCardType.equals("DEFENCE"))
-				cardType=ItemCardType.DEFENCE;
-			if(itemCardType.equals("SPOTLIGHT"))
-				cardType=ItemCardType.SPOTLIGHT;
+			ItemCardType cardType = getTypeFromString(itemCardType);
+			
 			DiscardItemCard discartCard = new DiscardItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),cardType);
 			if(discartCard.checkAction()){
 				discartCard.execute();
@@ -376,6 +373,7 @@ public class GameRules {
 			}
 			else{
 				playerDTO.setMessageToSend("You can't discard this Card!");
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO;
 				
 			}
@@ -384,6 +382,22 @@ public class GameRules {
 			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			return playerDTO;
 		}
+	}
+	public ItemCardType getTypeFromString(String cardTypeName){
+		ItemCardType cardtypeback =null;
+		if(cardTypeName.equals("ATTACK"))
+			cardtypeback=ItemCardType.ATTACK;
+		if(cardTypeName.equals("SEDATIVES"))
+			cardtypeback=ItemCardType.SEDATIVES;
+		if(cardTypeName.equals("TELEPORT"))
+			cardtypeback=ItemCardType.TELEPORT;
+		if(cardTypeName.equals("ADRENALINE"))
+			cardtypeback=ItemCardType.ADRENALINE;
+		if(cardTypeName.equals("DEFENCE"))
+			cardtypeback=ItemCardType.DEFENCE;
+		if(cardTypeName.equals("SPOTLIGHT"))
+			cardtypeback=ItemCardType.SPOTLIGHT;
+		return cardtypeback;
 	}
 
 

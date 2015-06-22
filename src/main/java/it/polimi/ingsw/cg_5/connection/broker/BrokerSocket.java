@@ -51,7 +51,7 @@ public class BrokerSocket extends Thread implements Broker{
 	}
 	
 	@Override
-	public void publishNumberGame(Integer numberGame){
+	public void publishNumberGame(Integer numberGame, int playerId){
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
 			for (BrokerThread sub : subscribers) {

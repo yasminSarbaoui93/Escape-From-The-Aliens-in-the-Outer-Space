@@ -69,7 +69,7 @@ public class GameManager implements Observer{
 				
 				
 				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches);
-				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches);
+				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches,newMatch.getGameState().getCurrentCharacter().getPlayerID());
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
 						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());

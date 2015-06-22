@@ -2,8 +2,10 @@ package it.polimi.ingsw.cg_5.connection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.Sector;
+import it.polimi.ingsw.cg_5.model.TurnState;
 
 
 //Those are all the attributes that will be sent by the server to the client
@@ -13,10 +15,12 @@ public class PlayerDTO implements Serializable {
 	/**
 	 * 
 	 */
+	private TurnState turnState;
 	private static final long serialVersionUID = 1L;
-	private final Character yourCharacter;
+	private Character yourCharacter;
 	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;
+	private int currentCharacter;
 	
 	public PlayerDTO(Character character){
 		this.yourCharacter = character;
@@ -25,9 +29,12 @@ public class PlayerDTO implements Serializable {
 		this.yourCharacter=null;
 		this.messagesToSend = messageToSend;
 	}
+	
 	/*************************GETTERS AND SETTERS*********************************/
 	
-
+	public void setCurrentCharacter(int currentCharacter) {
+		this.currentCharacter = currentCharacter;
+	}
 	
 	public Character getYourCharacter() {
 		return yourCharacter;
@@ -53,8 +60,19 @@ public class PlayerDTO implements Serializable {
 	public String toString() {
 		return yourCharacter+", "+messagesToSend;
 	}
+	public TurnState getTurnState() {
+		return turnState;
+	}
+	public void setTurnState(TurnState turnState) {
+		this.turnState = turnState;
+	}
 	
-	
+	public void setYourCharacter(Character yourCharacter) {
+		this.yourCharacter = yourCharacter;
+	}
+	public int getCurrentCharacter() {
+		return currentCharacter;
+	}
 	
 
 	
