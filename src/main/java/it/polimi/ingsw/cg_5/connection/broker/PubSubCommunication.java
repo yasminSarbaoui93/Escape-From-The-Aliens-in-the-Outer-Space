@@ -1,20 +1,11 @@
-package it.polimi.ingsw.cg_5.view.subscriber;
+package it.polimi.ingsw.cg_5.connection.broker;
 
-import java.rmi.Remote;
-
-import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.model.Character;
 
 import java.rmi.RemoteException;
 
-public interface SubscriberInterfaceRmi extends Remote, Subscriber, PubSubCommunication{
-	
-	@Override
+public interface PubSubCommunication {
 	public void dispatchMessage(String msg) throws RemoteException;
-	
-	@Override
 	public void updateNumberGame(Integer numberGame) throws RemoteException;
-	
-	@Override
 	public void updateCharacter(Character character) throws IllegalArgumentException, RemoteException;
 }

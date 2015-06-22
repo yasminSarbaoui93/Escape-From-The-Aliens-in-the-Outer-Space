@@ -117,8 +117,8 @@ public class View implements Serializable{
 		}
 		
 			
-		/*View view= new View(nomeUtente, client,);
-		//view.getSubscriber().setView(view);
+		View view= new View(nomeUtente, client,subscriber);
+		view.getSubscriber().setView(view);
 		
 		System.out.println("Con che mappa vuoi giocare?");
 		String stringa = in.nextLine();
@@ -181,8 +181,8 @@ public class View implements Serializable{
 
 
 	
-*/
-	
 
+	
+*/
 
 }

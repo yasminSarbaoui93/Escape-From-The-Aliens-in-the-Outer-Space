@@ -23,8 +23,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	private String brokerName;
 	private View view; 
 
-	/**
-	 * 
+	/**Creates a new subscribere that makes the rebind on the same registry of the broker with its name.	 * 
 	 * @param name The name of the subscriber
 	 * @throws RemoteException 
 	 */
@@ -55,23 +54,6 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 		this.view = view;
 	}
 	
-
-
-/*  DA CANCELLARE
-	public void connectToBroker(){
-		try {
-			
-			
-			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
-
-		BrokerInterface broker = (BrokerInterface) registry.lookup("Broker");
-	
-			broker.subscribe((SubscriberInterface)UnicastRemoteObject.exportObject(this,0));
-			
-		} catch (NotBoundException| RemoteException e) {
-			e.printStackTrace();
-		}
-	} */
 	
 	/**
 	 * @param msg is the message sent by the broker by invoking subscriber's remote interface
@@ -83,15 +65,15 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 		try {
 			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
+		}catch (BadLocationException e) {
+			
 			e.printStackTrace();
 		}
 
 	}
 
 	@Override
-	public void updateNumberGame(int numberGame) {
+	public void updateNumberGame(Integer numberGame) throws RemoteException {
 		this.view.setNumberGame(numberGame);
 	
 	}
@@ -101,9 +83,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	public void updateCharacter(Character character) throws RemoteException {
 		this.view.setCharacter(character);
 		System.out.println("Your character for this game will be: "+ this.view.getCharacter());
-		
-		
-		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(this.view.getCharacter());
+		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanel(character);
 	}
 	
 

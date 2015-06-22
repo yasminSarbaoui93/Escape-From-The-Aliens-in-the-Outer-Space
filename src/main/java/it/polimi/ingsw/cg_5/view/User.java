@@ -1,22 +1,22 @@
 package it.polimi.ingsw.cg_5.view;
 
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
+import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 
 public class User {
-	private SubscriberInterfaceRmi userSubscriber;
+	private PubSubCommunication userSubscriber;
 	private Integer PlayerId;
 
-	public User(SubscriberInterfaceRmi userSubscriber, Integer playerId) {
+	public User(PubSubCommunication userSubscriber, Integer playerId) {
 		super();
 		this.userSubscriber = userSubscriber;
 		PlayerId = playerId;
 	}
 
-	public SubscriberInterfaceRmi getUserSubscriber() {
+	public PubSubCommunication getUserSubscriber() {
 		return userSubscriber;
 	}
 
-	public void setUserSubscriber(SubscriberInterfaceRmi userSubscriber) {
+	public void setUserSubscriber(PubSubCommunication userSubscriber) {
 		this.userSubscriber = userSubscriber;
 	}
 

@@ -11,6 +11,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketCommunicator implements Communicator{
@@ -40,7 +41,7 @@ public class SocketCommunicator implements Communicator{
 	}
 	
     @Override
-	public String receive(){
+	public String receive() throws NoSuchElementException{
 		return in.nextLine();
 	}
 	

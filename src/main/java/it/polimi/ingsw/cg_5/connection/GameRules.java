@@ -1,7 +1,16 @@
 package it.polimi.ingsw.cg_5.connection;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
+import it.polimi.ingsw.cg_5.connection.broker.BrokerThread;
+import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.controller.Attack;
 import it.polimi.ingsw.cg_5.controller.DiscardItemCard;
 import it.polimi.ingsw.cg_5.controller.DrawCardFromGamedeck;
@@ -17,36 +26,49 @@ import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.EscapeHatchType;
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
-import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
-
 public class GameRules {
 
 	GameManager gameManager;
-	SubscriberInterfaceRmi subscriber;
-	
-	public GameRules (GameManager gameManager){
+	PubSubCommunication subscriber;
+
+	public GameRules (GameManager gameManager) {
 		this.gameManager = gameManager;
 	}
 	
-
+	
 	/**This method sends a request to the Specific server for joining a new game. If the game can start, it creates a new one;
 	 * else, it adds the player to a waiting list, giving back the univoque ID of the player.
 	 * @param choosenMap
 	 * @param choosenMaxSize
 	 * @param name
 	 * @return playerId, univoque id of the player.
-	 * @throws RemoteException
+	 * @throws NotBoundException 
+	 * @throws IOException, RemoteException 
+	 * @throws UnknownHostException 
 	 */
-	public Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name) throws RemoteException {
+	public Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException, RemoteException {
+		if(connectionType.toUpperCase().equals("RMI")){
+			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
+			subscriber = (SubscriberInterfaceRmi)registry.lookup(name);
+		}
 		
+		else{
+			
+			
+			subscriber =SocketServer.getInstance().getBrokerThread();
+			//devo fare la get thel brokerThread creato nel server !!! e passarlo in ingresso al metodo
+			
+		}
+		//ULTIMO PROBLEMA DA RISOLVERE: IL SUBSCRIBER SOCKET DEVE ESSERE PASSATO IN QUALCHE MODO ! PER IL RESTO ORA FUNZIONA
+		//subscriber = new SubscriberSocket(name);
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
-		this.gameManager.MatchCreator();
+		this.gameManager.MatchCreator(connectionType);
 		return yourId;
 		
 	}

@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg_5.view;
 
+import it.polimi.ingsw.cg_5.connection.SocketServer;
 import it.polimi.ingsw.cg_5.gui.EscapeFromAlienGame;
 import it.polimi.ingsw.cg_5.gui.StartOptions;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberSocket;
+import it.polimi.ingsw.cg_5.view.subscriber.SubscriberThread;
 public class ViewController {
 	private StartOptions startOptions;
 	public StartOptions getStartOptions() {
@@ -27,8 +29,8 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 	Client client;
 	Subscriber subscriber;
 	if(connectionType.toUpperCase().equals("SOCKET")){
-		client = new SocketClient("127.0.0.1", 1337);
-		subscriber = new SubscriberSocket();
+		client = new SocketClient("127.0.0.1", 7777);
+		subscriber = new SubscriberSocket(userName);
 	}
 	
 	else{
@@ -38,8 +40,9 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 	}	
 	this.view= new View(userName, client, subscriber);
 	view.getSubscriber().setView(this.view);
+	
 	this.view.setViewController(this);
-	this.view.setPlayerID(view.getClient().matchRequest(choosenMap, Integer.parseInt(maxNumberPlayers), userName));
+	this.view.setPlayerID(view.getClient().matchRequest(choosenMap, Integer.parseInt(maxNumberPlayers), userName, connectionType));
 	
 	
 	escape.setVisible(true);

@@ -1,45 +1,31 @@
 package it.polimi.ingsw.cg_5.gui;
 
-import it.polimi.ingsw.cg_5.connection.PlayerDTO;
-import it.polimi.ingsw.cg_5.view.ViewController;
 
-import java.awt.BorderLayout;
+import it.polimi.ingsw.cg_5.view.ViewController;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.io.File;
 import java.io.IOException;
-import java.rmi.RemoteException;
-
 import javax.imageio.ImageIO;
-import javax.jws.soap.SOAPBinding.Style;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 public class EscapeFromAlienGame extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int WINDOW_WIDTH = 1100;
 	private static final int WINDOW_HEIGHT = 713;
 	

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_5.controller;
 
 
+import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,8 @@ public class WaitingList {
 		return PlayerIDList ;
 		
 	}
-	public ArrayList<SubscriberInterfaceRmi> getPlayersSubscriber() {
-		ArrayList<SubscriberInterfaceRmi> PlayerSubscriberList = new ArrayList<SubscriberInterfaceRmi> ();
+	public ArrayList<PubSubCommunication> getPlayersSubscriber() {
+		ArrayList<PubSubCommunication> PlayerSubscriberList = new ArrayList<PubSubCommunication> ();
 		for ( User user : this.users ){
 			PlayerSubscriberList.add(user.getUserSubscriber());
 		}

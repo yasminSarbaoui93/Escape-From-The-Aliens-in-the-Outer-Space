@@ -14,7 +14,7 @@ public class RmiServer extends Server {
 	public RmiServer ()  throws RemoteException {
 		super();
 		registry = LocateRegistry.createRegistry(1099);
-		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager,gameManager.getGameRules());
+		RemoteMethodsImpl remoteMethods1 = new RemoteMethodsImpl(gameManager);
 		
 		registry.rebind(NAME, remoteMethods1);
 		System.out.println("Starting server, waiting for request...");

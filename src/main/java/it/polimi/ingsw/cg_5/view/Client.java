@@ -3,13 +3,14 @@ package it.polimi.ingsw.cg_5.view;
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public interface Client {
 
 	
-	public Integer matchRequest(String stringa, Integer maxSize, String name) throws RemoteException, NotBoundException;
+	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws RemoteException, NotBoundException, UnknownHostException, IOException;
 	
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	

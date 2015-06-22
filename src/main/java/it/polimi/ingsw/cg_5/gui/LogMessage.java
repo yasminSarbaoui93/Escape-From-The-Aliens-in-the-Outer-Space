@@ -1,9 +1,6 @@
 package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.AdjustmentListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -13,6 +10,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 public class LogMessage extends JScrollPane {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	///VERIFICARE SE STATIC DA PROBLEMI
 	private static  JTextPane textLog=new JTextPane();
 	StyledDocument doc  = textLog.getStyledDocument();

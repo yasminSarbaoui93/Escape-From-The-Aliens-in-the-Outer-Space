@@ -8,7 +8,10 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import it.polimi.ingsw.cg_5.connection.GameRules;
+import it.polimi.ingsw.cg_5.connection.broker.Broker;
 import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
+import it.polimi.ingsw.cg_5.connection.broker.BrokerSocket;
+import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
@@ -18,16 +21,32 @@ import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
 
 
 public class GameManager implements Observer{
+	private static GameManager instance;
 	private static Integer indexOfCurrentMatches=0;
 	private HashMap <Integer , Match> listOfMatch= new HashMap <Integer, Match> () ;
 	private PlayerListManager playerListManager =new PlayerListManager();
 	private GameRules gameRules = new GameRules(this);
+		
+
+	private GameManager(){
+		
+	}
+	
+	public static GameManager getInstance(){
+		if(instance == null){
+			instance = new GameManager();
+		}return instance;
+	}
+	
+	
+	
+	
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
 	 * @throws RemoteException 
 	 * 
 	 */
-	public void MatchCreator() throws RemoteException{
+	public void MatchCreator(String connectionType) throws RemoteException{
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
 		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
@@ -36,10 +55,15 @@ public class GameManager implements Observer{
 				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
-				BrokerRmi matchBroker = new BrokerRmi(indexOfCurrentMatches.toString());
-				
-				for ( SubscriberInterfaceRmi subscriber : waitingList.getPlayersSubscriber()){
-					matchBroker.subscribe(subscriber);
+				Broker matchBroker;
+				if(connectionType.toUpperCase().equals("RMI"))
+					matchBroker = new BrokerRmi(indexOfCurrentMatches.toString());
+				else{
+					matchBroker = new BrokerSocket(indexOfCurrentMatches.toString());
+				}
+				//FUNZIONA SOLO SU RMI IN QUANTO LA SUBSCRIBE è FATTA DA SUBSCRIBER E NON DA BROKER
+				for ( PubSubCommunication subscriber : waitingList.getPlayersSubscriber()){
+						matchBroker.subscribe(subscriber);
 				}				
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
 				
@@ -121,7 +145,7 @@ public class GameManager implements Observer{
 			try {
 				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine());
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
+				//e.getMessage();
 				
 			}
 			in.close();

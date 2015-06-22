@@ -9,23 +9,27 @@ import java.util.ArrayList;
 
 
 
-public class BrokerRmi extends Broker {
+public class BrokerRmi implements Broker {
 
 	private  ArrayList<SubscriberInterfaceRmi> subscribers = new ArrayList<SubscriberInterfaceRmi>();
 	private String topic;
-	public ArrayList<SubscriberInterfaceRmi> getSubscribers() {
-		return subscribers;
-	}
+	
+	
 
 	public BrokerRmi(String topic){
 		this.topic = topic;
 	
 	}
 	
+	public ArrayList<SubscriberInterfaceRmi> getSubscribers() {
+		return subscribers;
+	}
+	
 	public String getTopic() {
 		return topic;
 	}
 
+	@Override
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
@@ -35,14 +39,20 @@ public class BrokerRmi extends Broker {
 	 * @param msg - message to be published to all the subscribers
 	 * This is not a remote method, however it calls the remote 
 	 * method dispatchMessage for each Subscriber.  
-	 * @throws RemoteException 
 	 */
-	public void publish(String msg) throws RemoteException{
+	
+	@Override
+	public void publish(String msg){
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message on topic "+topic);
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				
-					sub.dispatchMessage(msg);
+					try {
+						sub.dispatchMessage(msg);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				
 			}
 		}else{
@@ -50,7 +60,7 @@ public class BrokerRmi extends Broker {
 		}
 	}
 	
-	public void publishNumberGame(int numberGame){
+	public void publishNumberGame(Integer numberGame){
 		if(!subscribers.isEmpty()){
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				try {
@@ -72,8 +82,9 @@ public class BrokerRmi extends Broker {
 	 * @param r is the Subcriber's remote interface that the broker can use to publish messages
 	 * The method updates the list of subscriber interfaces that are subscribed to the broker
 	 */
-	
-	public void subscribe(SubscriberInterfaceRmi r) {
+	@Override
+	public void subscribe(PubSubCommunication o) {
+		SubscriberInterfaceRmi r = (SubscriberInterfaceRmi)o;
 		subscribers.add(r);
 	}
 }

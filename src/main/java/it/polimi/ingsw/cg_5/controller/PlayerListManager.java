@@ -1,8 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
-
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public ArrayList<WaitingList> getWaitingLists() {
  * @param choosenMaxSize
  * @throws RemoteException 
  */
-public Integer addToChosenList(String choosenMap, int choosenMaxSize, SubscriberInterfaceRmi subscriber) throws RemoteException{	
+public Integer addToChosenList(String choosenMap, int choosenMaxSize, PubSubCommunication subscriber) throws RemoteException{	
 	User newUser = new User(subscriber,PlayerId);
 	if(WaitingLists.isEmpty()){ 
 		

@@ -1,13 +1,10 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import java.util.ArrayList;
-
 import it.polimi.ingsw.cg_5.model.Alien;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.ItemCard;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.model.Character;
 
 public class UseItemCard extends Action {
 	private String sectorToSpotLight;

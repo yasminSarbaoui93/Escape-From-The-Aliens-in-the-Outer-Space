@@ -3,7 +3,10 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.connection.RemoteMethods;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -34,8 +37,8 @@ public class RmiClient implements Serializable, Client {
 	}
 	
 	@Override
-	public Integer matchRequest(String stringa, Integer maxSize, String name) throws RemoteException, NotBoundException{
-		return remoteMethods1.SubscribeRequest(stringa, maxSize, name);
+	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException{
+		return remoteMethods1.SubscribeRequest(stringa, maxSize, name, connectionType);
 	}
 	@Override
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {

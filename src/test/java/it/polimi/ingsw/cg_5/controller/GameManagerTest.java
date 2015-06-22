@@ -12,7 +12,7 @@ public class GameManagerTest {
 
 	@Test
 	public void test() throws RemoteException {
-GameManager prova = new GameManager();	
+GameManager prova = GameManager.getInstance();	
 		SubscriberRmi subscriber = new SubscriberRmi("ANDREA");
 		for(int i=0; i<11 ; i++){
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);

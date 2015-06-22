@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg_5.connection;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -11,9 +13,9 @@ public class ClientHandler extends Thread {
 	Communicator client;
 	GameManager gameManager;
 
-	public ClientHandler(Communicator client, GameManager gameManager){
+	public ClientHandler(Communicator client){
 		this.client= client;
-		this.gameManager = gameManager;
+		this.gameManager = GameManager.getInstance();
 	}
 	
 	@Override
@@ -31,12 +33,19 @@ public class ClientHandler extends Thread {
 				String choosenMap = in.next();
 				Integer maxSize = Integer.parseInt(in.next());
 				String name = in.next();
+				String connectionType = in.next();
 				try {
-					Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name);
+					Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name, connectionType);
 					client.send(yourID.toString());
 					
 				} catch (RemoteException e) {
 				
+					e.printStackTrace();
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (NotBoundException e) {
 					e.printStackTrace();
 				}
 			}

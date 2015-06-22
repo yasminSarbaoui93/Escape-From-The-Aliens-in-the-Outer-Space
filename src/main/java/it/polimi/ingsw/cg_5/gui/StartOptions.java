@@ -1,29 +1,20 @@
 package it.polimi.ingsw.cg_5.gui;
 
-import it.polimi.ingsw.cg_5.view.View;
 import it.polimi.ingsw.cg_5.view.ViewController;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class StartOptions extends JFrame {

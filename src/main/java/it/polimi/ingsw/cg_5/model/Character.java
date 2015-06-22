@@ -3,6 +3,8 @@ package it.polimi.ingsw.cg_5.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.lang.model.type.UnionType;
+
 
 
 //umano emula le azioni dell  alieno quando usa la carta attacck e adrenaline per cui il metodo equivarrà per entrambi

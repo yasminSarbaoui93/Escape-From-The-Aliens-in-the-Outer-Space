@@ -29,9 +29,9 @@ public class SocketClient implements Client {
 
 
 	@Override
-	public Integer matchRequest(String stringa, Integer maxSize, String name) throws RemoteException, NotBoundException {
+	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws RemoteException, NotBoundException {
 		
-		String command = "SUBSCRIBEREQUEST "+stringa +" "+maxSize+" "+name;
+		String command = "SUBSCRIBEREQUEST "+stringa +" "+maxSize+" "+name+" "+connectionType;
 		server.send(command);
 		String yourId = server.receive();
 		Integer yourID = Integer.parseInt(yourId);
