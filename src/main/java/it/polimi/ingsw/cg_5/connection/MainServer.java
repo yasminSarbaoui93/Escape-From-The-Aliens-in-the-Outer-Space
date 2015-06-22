@@ -9,7 +9,8 @@ public class MainServer {
 
 	public static void main(String [] args) throws IOException{
 		Server server1 = new RmiServer();
-		Server server2 = SocketServer.getInstance();
+		SocketServer.getInstance().run();
+
 	//	Server server2 = new SocketServer(6527);
 	}
 	

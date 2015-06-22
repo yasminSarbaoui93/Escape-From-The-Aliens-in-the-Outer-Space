@@ -36,6 +36,7 @@ public class ClientHandler extends Thread {
 				String connectionType = in.next();
 				try {
 					Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name, connectionType);
+					System.out.println("ID GIOCATORE LATO SERVER "+yourID);
 					client.send(yourID.toString());
 					
 				} catch (RemoteException e) {
