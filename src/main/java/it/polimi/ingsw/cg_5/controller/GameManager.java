@@ -61,7 +61,7 @@ public class GameManager implements Observer{
 				else{
 					matchBroker = new BrokerSocket(indexOfCurrentMatches.toString());
 				}
-				//FUNZIONA SOLO SU RMI IN QUANTO LA SUBSCRIBE è FATTA DA SUBSCRIBER E NON DA BROKER
+				
 				for ( PubSubCommunication subscriber : waitingList.getPlayersSubscriber()){
 						matchBroker.subscribe(subscriber);
 				}				

@@ -14,19 +14,19 @@ public interface Client {
 	
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO attackRequest(Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO endTurnRequest(Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO endTurnRequest(Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO drawCardRequest(Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber,String sector) throws RemoteException;
+	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber,String sector) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
-	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException;
+	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 
 	
 }

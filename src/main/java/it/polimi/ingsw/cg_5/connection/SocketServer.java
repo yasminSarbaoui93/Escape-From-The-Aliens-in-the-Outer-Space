@@ -11,43 +11,47 @@ import java.net.Socket;
 
 public class SocketServer extends Server {
 
+
 	private static SocketServer instance=null;
+
 	private BrokerThread brokerThread;
 	
 	private ServerSocket serverSocket; 
 	private ServerSocket brokerSocket;
-	protected SocketServer(int port)  {
+
+	protected SocketServer()  {
+
 		super();
-		instance = new SocketServer(7777);
+
+	}
+	
+	public void run(){
+
 		try {
-			System.out.println("debug1");
-            this.serverSocket = new ServerSocket(port); //prova a spostare broker thread in game manager !
+            this.serverSocket = new ServerSocket(7777); 
             System.out.println("Server ready");
-            this.brokerSocket = new ServerSocket(1039);
-            System.out.println("debug2");
+            this.brokerSocket = new ServerSocket(3333);
             do {
-            	System.out.println("debug3");
                 Socket socket = serverSocket.accept();
-                System.out.println("debug4");
                 new ClientHandler(new SocketCommunicator(socket)).start();
-                System.out.println("debug5");
                 
                 Socket broker = brokerSocket.accept();
-                System.out.println("debug6");
                 this.brokerThread = new BrokerThread(broker);
-                System.out.println("debug7");
                 brokerThread.start();
-                System.out.println("debug8");
             }while (isStopped());
-            serverSocket.close();
-            brokerSocket.close();
+            	serverSocket.close();
+            	brokerSocket.close();
        } catch (IOException ex) {
             throw new AssertionError("I/O Error occured!", ex);
         }
 	}
 	
 	public static SocketServer getInstance() throws IOException{
-		return instance;
+
+		if(instance == null){
+			instance = new SocketServer();
+		}return instance;
+
 	}
 	
 	public BrokerThread getBrokerThread(){

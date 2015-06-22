@@ -19,14 +19,6 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException {
 		Integer yourId = gameManager.getGameRules().SubscribeRequest(choosenMap, choosenMaxSize, name, connectionType);
 		return yourId;
-		/*Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
-		SubscriberInterfaceRmi subscriber = (SubscriberInterfaceRmi) registry.lookup(name);
-		//SubscriberInterface subscriber = new SubscriberRmi(name);
-		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);//PROBLEMS of remote exception
-		System.out.println("The player with ID:" + yourId + "joined the game");
-		System.out.println("Matches started: " + gameManager.getListOfMatch());
-		this.gameManager.MatchCreator();
-		return yourId;*/
 		
 	}
 	

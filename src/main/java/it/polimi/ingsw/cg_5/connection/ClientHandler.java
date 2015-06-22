@@ -36,6 +36,7 @@ public class ClientHandler extends Thread {
 				String connectionType = in.next();
 				try {
 					Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name, connectionType);
+					System.out.println("ID GIOCATORE LATO SERVER "+yourID);
 					client.send(yourID.toString());
 					
 				} catch (RemoteException e) {
@@ -84,9 +85,105 @@ public class ClientHandler extends Thread {
 				}
 			}
 			
+			if(stringToRead.toUpperCase().equals("END_TURN")){
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				
+				try {
+					playerDTO = gameManager.getGameRules().performEndTurn(yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(stringToRead.toUpperCase().equals("DRAW")){
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				
+				try {
+					playerDTO = gameManager.getGameRules().performDrawCard(yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			if(stringToRead.toUpperCase().equals("USE_CARD")){
+				String itemCardType = in.next();
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				
+				try {
+					playerDTO = gameManager.getGameRules().performUseCard(itemCardType, yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(stringToRead.toUpperCase().equals("SPOT")){
+				String itemCardType = in.next();
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				String sector = in.next();
+				PlayerDTO playerDTO;
+				
+				try{
+					playerDTO = gameManager.getGameRules().performSpotLightUse(itemCardType, yourId, numberGame, sector);
+					client.sendDTO(playerDTO);
+				} catch(RemoteException e1){
+					e1.printStackTrace();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+			}
+			
+			if(stringToRead.toUpperCase().equals("BLUFF")){
+				String bluffSector = in.next();
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				try{
+					playerDTO = gameManager.getGameRules().bluffSector(bluffSector, yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch(RemoteException e1){
+					e1.printStackTrace();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+				
+			}
+			
+			if(stringToRead.toUpperCase().equals("DISCARD")){
+				String itemCardType = in.next();
+				Integer yourId = Integer.parseInt(in.next());
+				Integer numberGame = Integer.parseInt(in.next());
+				PlayerDTO playerDTO;
+				try{
+					playerDTO = gameManager.getGameRules().performDiscardCard(itemCardType, yourId, numberGame);
+					client.sendDTO(playerDTO);
+				} catch(RemoteException e1){
+					e1.printStackTrace();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+			}
+			
 			//questa sarà la risposta del server al client
 			
-		}while(!command.toUpperCase().equals("QUIT"));
+		}while(!command.toUpperCase().equals("QUIT")); 
 		//client.close();
 		in.close();
 	}
