@@ -20,9 +20,9 @@ public class SocketServer extends Server {
 		super();
 		try {
 			System.out.println("debug1");
-            serverSocket = new ServerSocket(port); //prova a spostare broker thread in game manager !
+            this.serverSocket = new ServerSocket(port); //prova a spostare broker thread in game manager !
             System.out.println("Server ready");
-            brokerSocket = new ServerSocket(1039);
+            this.brokerSocket = new ServerSocket(1039);
             System.out.println("debug2");
             do {
             	System.out.println("debug3");
