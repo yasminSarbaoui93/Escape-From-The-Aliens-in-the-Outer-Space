@@ -43,7 +43,7 @@ public class SocketClient implements Client {
 
 
 	@Override
-	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws RemoteException, NotBoundException {
+	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) {
 		
 		String command = "SUBSCRIBEREQUEST "+stringa +" "+maxSize+" "+name+" "+connectionType;
 		server.send(command);
@@ -55,7 +55,7 @@ public class SocketClient implements Client {
 	
 	
 	@Override
-	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
+	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException{
 		String command = "MOVE "+yourId+" "+gameNumber+" "+sector;
 		return receivePlayerDTO(command);
 	}
@@ -103,10 +103,10 @@ public class SocketClient implements Client {
 	}
 
 	@Override
-	public Void sendmessageRequest(String message, Integer yourId,Integer gameNumber) throws RemoteException, ClassNotFoundException,IOException {
+	public void sendmessageRequest(String message, Integer yourId,Integer gameNumber) throws ClassNotFoundException,IOException {
 		String command = "CHAT "+yourId+" "+gameNumber+" "+message;
 		server.send(command);
-		return null;
+
 	}
 
 }

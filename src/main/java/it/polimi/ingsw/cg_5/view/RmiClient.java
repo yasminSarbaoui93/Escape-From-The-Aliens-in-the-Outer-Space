@@ -40,7 +40,7 @@ public class RmiClient implements Serializable, Client {
 	}
 	
 	@Override
-	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException{
+	public Integer matchRequest(String stringa, Integer maxSize, String name, String connectionType) throws NotBoundException, RemoteException, UnknownHostException, IOException{
 		return remoteMethods1.SubscribeRequest(stringa, maxSize, name, connectionType);
 	}
 	@Override
@@ -77,9 +77,8 @@ public class RmiClient implements Serializable, Client {
 	}
 
 	@Override
-	public Void sendmessageRequest(String message, Integer yourId, Integer gameNumber) throws RemoteException {
+	public void sendmessageRequest(String message, Integer yourId, Integer gameNumber) throws RemoteException {
 		remoteMethods1.performSendMessage(message, yourId, gameNumber);
-		return null;
 	}
 
 }
