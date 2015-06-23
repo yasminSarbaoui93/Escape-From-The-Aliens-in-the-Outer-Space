@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
+
 import it.polimi.ingsw.cg_5.connection.GameRules;
 import it.polimi.ingsw.cg_5.connection.broker.Broker;
 import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
@@ -58,16 +59,20 @@ public class GameManager implements Observer{
 						matchBroker.subscribe(subscriber);
 				}				
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
-				
-				
-				newMatch.getBroker().publish(false, " You've been added to the game number "+indexOfCurrentMatches);
+				newMatch.getBroker().publish(false, "You've been added to the game number "+indexOfCurrentMatches);
 				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches,newMatch.getGameState().getCurrentCharacter().getPlayerID());
+				
+				
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
 						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());
 						if(user.getPlayerId()==character.getPlayerID()){
 							
-							user.getUserSubscriber().updateCharacter(character);
+							try {
+								user.getUserSubscriber().updateCharacter(character);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 

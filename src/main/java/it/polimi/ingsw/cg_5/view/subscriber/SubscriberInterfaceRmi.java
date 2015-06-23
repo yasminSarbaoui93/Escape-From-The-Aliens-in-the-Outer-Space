@@ -19,6 +19,6 @@ public interface SubscriberInterfaceRmi extends Remote, Subscriber, PubSubCommun
 	public void updateCharacter(Character character) throws RemoteException;
 	
 	@Override
-	public void updatecurrentPlayerId(int playerId) throws RemoteException;
+	public void updatecurrentPlayerId(Integer playerId) throws RemoteException;
 
 }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_5.connection;
 
 
 import it.polimi.ingsw.cg_5.connection.broker.BrokerThread;
-import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.SocketCommunicator;
 
 import java.io.IOException;

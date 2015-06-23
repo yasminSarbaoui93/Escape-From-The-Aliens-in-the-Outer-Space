@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
+
 import java.io.Serializable;
 
 
@@ -18,14 +19,14 @@ public class View implements Serializable{
 	 */
 	private ViewController viewController;
 	private static final long serialVersionUID = 1L;
-	private int PlayerID=-1;
+	private Integer PlayerID=-1;
 	private Client client;
-	private int currentPlayerId=-1;
+	private Integer currentPlayerId=-1;
 
 	
 	private String name;
 	private Subscriber subscriber;
-	private int numberGame = 0;
+	private Integer numberGame=null;
 	private Character character;
 	//private MatchState matchState;
 		
@@ -47,10 +48,10 @@ public class View implements Serializable{
 		/// prova stub per ogni view
 		
 	}
-	public int getCurrentPlayerId() {
+	public Integer getCurrentPlayerId() {
 		return currentPlayerId;
 	}
-	public void setCurrentPlayerId(int currentPlayerId) {
+	public void setCurrentPlayerId(Integer currentPlayerId) {
 		this.currentPlayerId = currentPlayerId;
 	}
 	public void setViewController(ViewController viewController) {
@@ -60,11 +61,11 @@ public class View implements Serializable{
 	public ViewController getViewController() {
 		return viewController;
 	}
-	public int getNumberGame(){
+	public Integer getNumberGame(){
 		return this.numberGame;
 	}
 	
-	public void setPlayerID(int playerID) {
+	public void setPlayerID(Integer playerID) {
 		PlayerID = playerID;
 	}
 	
@@ -73,7 +74,7 @@ public class View implements Serializable{
 	}
 
 
-	public void setNumberGame(int numberGame){
+	public void setNumberGame(Integer numberGame){
 		this.numberGame = numberGame;
 	}
 	public Client getClient() {
@@ -89,7 +90,7 @@ public class View implements Serializable{
 	}
 	
 	
-	public int getPlayerID() {
+	public Integer getPlayerID() {
 		return PlayerID;
 	}
 	public Subscriber getSubscriber() {

@@ -20,12 +20,12 @@ public interface Communicator {
 	 * @return the message sent by the server or the client
 	 * @throws NoSuchElementException
 	 */
-	String receive() throws NoSuchElementException;
+	String receive();
 	/**Receives the object DTO
 	 * @return PlayerDTO
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	PlayerDTO receiveDTO() throws ClassNotFoundException, IOException;
+	PlayerDTO receiveDTO() throws Exception;
 	void close();
 }

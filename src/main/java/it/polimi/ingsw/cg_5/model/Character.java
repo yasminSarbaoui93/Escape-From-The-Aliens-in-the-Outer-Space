@@ -15,11 +15,11 @@ public abstract class Character implements Serializable {
 	protected int maxMove;
 	protected Sector currentSector;
 	protected final String name;
-	private final int playerID;
+	private final Integer playerID;
 	protected boolean canAttack;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
 	
-	public Character(String name, int playerID){
+	public Character(String name, Integer playerID){
 		this.name=name; 
 		this.playerID=playerID;
 	}
@@ -28,7 +28,7 @@ public abstract class Character implements Serializable {
 	}
 	
 	
-	public int getPlayerID() {
+	public Integer getPlayerID() {
 		return playerID;
 	}
 

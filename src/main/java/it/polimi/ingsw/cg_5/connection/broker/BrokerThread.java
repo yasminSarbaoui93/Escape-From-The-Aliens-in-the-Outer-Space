@@ -4,7 +4,6 @@ import it.polimi.ingsw.cg_5.model.Character;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class BrokerThread extends Thread implements PubSubCommunication {
@@ -23,7 +22,7 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	public void run(){		
 		String msg = buffer.poll();
 		System.out.println("PROVA A VEDERE SE LA PUBLISH FUNZIONA1" +msg);
-		if(msg!=null){
+		/*if(msg!=null){
 			send(msg);
 		System.out.println("PROVA A VEDERE SE LA PUBLISH FUNZIONA" +msg);}
 		else{
@@ -32,7 +31,7 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 					buffer.wait();
 				}catch (InterruptedException e) {}
 			}
-		}		
+		}	*/	
 	}
 	
 	/* (non-Javadoc)
@@ -50,11 +49,22 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	@Override
 	public void updateNumberGame(Integer numberGame){
 		buffer.add(numberGame.toString());
-		send("false "+numberGame.toString());
+		send("NUMBERGAME "+numberGame.toString());
 		synchronized(buffer){
 			buffer.notify();
 			System.out.println("number game nel buffer" + numberGame);
 		}
+	}
+	
+	@Override
+	public void updatecurrentPlayerId(Integer playerId) {
+		buffer.add(playerId.toString());
+		send("PLAYERID "+playerId.toString());
+		synchronized(buffer){
+			buffer.notify();
+			System.out.println("player id nel buffer" + playerId);
+		}
+		
 	}
 	
 	private void send(String msg){
@@ -74,12 +84,8 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	}
 	@Override
 	public void updateCharacter(Character character) {
-		
+		//da completare
 	}
-	@Override
-	public void updatecurrentPlayerId(int playerId) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

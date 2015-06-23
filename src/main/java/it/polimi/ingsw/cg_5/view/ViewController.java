@@ -44,6 +44,7 @@ public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, S
 	this.view.setViewController(this);
 	this.view.setPlayerID(view.getClient().matchRequest(choosenMap, Integer.parseInt(maxNumberPlayers), userName, connectionType));
 	
+	System.out.println("VIEW CONTROLLER, player id: "+view.getPlayerID()+"NUMERO GIOCO: "+view.getNumberGame());
 	
 	escape.setVisible(true);
 	startOptions.setVisible(false);

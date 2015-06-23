@@ -3,10 +3,9 @@ package it.polimi.ingsw.cg_5.connection.broker;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 public class BrokerSocket extends Thread implements Broker{
-	
-	private final int portNumber = 1040;
-	private boolean listening = true;
+
 	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
+
 	private String topic;
 	
 	
@@ -20,22 +19,10 @@ public class BrokerSocket extends Thread implements Broker{
 		this.topic = topic;
 	}
 	
-	/*@Override
-	public void run() {
-		try(ServerSocket brokerSocket = new ServerSocket(portNumber)){ //QUESTO PEZZO DA SPOSTARE NEL BROKER THREAD ! CREA UN THREAD CHE SI METTE IN ASCOLTO SULLA PORTA E ACCETTA CONNESSIONI MA L'ERRORE CHE FACCIO è CHE NON ASSOCIO I BTHREAD AI RISPETTIVI SUBTHREAD E NON ASSOCIO IL BTHREAD AL BROKER SOCKET
-			while(listening){
-				
-				brokerSocket.accept();// rimane in attesa che un client esterno si sottoscriva 
-			//	BrokerThread brokerThread = new BrokerThread(brokerSocket.accept());
-			//	brokerThread.start();
-			//	System.out.println("Adding new subscriber");
-			}
-		}catch(IOException e){
-			System.err.println("Cannot listen on port: "+portNumber);
-			System.exit(-1);
-		}
-	}*/
-	
+	public String getTopic() {
+		return topic;
+	}
+
 	@Override
 	public void publish(Boolean chat, String msg)throws RemoteException{
 
@@ -51,7 +38,7 @@ public class BrokerSocket extends Thread implements Broker{
 	}
 	
 	@Override
-	public void publishNumberGame(Integer numberGame, int playerId) throws RemoteException{
+	public void publishNumberGame(Integer numberGame, Integer playerId) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
 			for (BrokerThread sub : subscribers) {

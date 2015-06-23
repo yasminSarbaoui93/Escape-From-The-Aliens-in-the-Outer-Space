@@ -60,8 +60,8 @@ public class BrokerRmi implements Broker {
 			System.err.println("No subscribers!!");
 		}
 	}
-	@Override
-	public void publishNumberGame(Integer numberGame,int playerId){
+
+	public void publishNumberGame(Integer numberGame,Integer playerId){
 		if(!subscribers.isEmpty()){
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				try {

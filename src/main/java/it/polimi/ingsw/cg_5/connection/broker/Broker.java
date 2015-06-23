@@ -20,7 +20,7 @@ public interface Broker{
 	 * @param playerId
 	 * @throws RemoteException
 	 */
-	void publishNumberGame(Integer numberGame, int playerId) throws RemoteException;
+	void publishNumberGame(Integer numberGame, Integer playerId) throws RemoteException;
 	
 	/**Associates all the subscribers to the right broker, in this case putting them into an Array List of subscribers (or BrokerThreads).
 	 * @param o
