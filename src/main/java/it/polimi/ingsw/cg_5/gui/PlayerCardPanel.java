@@ -63,13 +63,20 @@ public class PlayerCardPanel extends JPanel{
 		
 	}
 	
+	private void resetSpots(){
+		spot1.setText("");
+		spot2.setText("");
+		spot3.setText("");
+		spot4.setText("");
+	}
 	
 	
 	
 	public void updatePlayerCards(Character character){
 		int cardNumberToUp= character.getItemPlayerCard().size();
-				if(cardNumberToUp==0)
-					spot1.setText("");
+
+				this.resetSpots();
+				
 				if(cardNumberToUp!=0){
 				this.spot1.setText(character.getItemPlayerCard().get(cardNumberToUp-1).toString());
 				cardNumberToUp=cardNumberToUp-1;
