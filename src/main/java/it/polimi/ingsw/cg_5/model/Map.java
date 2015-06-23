@@ -11,7 +11,8 @@ import it.polimi.ingsw.cg_5.model.Sector;;
 public class Map  {
 	protected HashMap <String, Sector> map = new HashMap <String,Sector>();	
 	private String choosenMap;
-	
+	private Sector humanStart;
+	private Sector alienStart;
 	public Map(String choosenMap) { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
@@ -57,10 +58,12 @@ public class Map  {
 					if (sectorType.equals("ALIEN_SECTOR")) {
 						AlienStart settore=new AlienStart(sectorName);
 						this.addSector(sectorName , settore); 
+						this.alienStart=settore;
 						}
 					if (sectorType.equals("HUMAN_SECTOR")) {
 						HumanStart settore=new HumanStart(sectorName);
 						this.addSector(sectorName , settore); 
+						this.humanStart=settore;
 						}
 				
 				}
@@ -78,8 +81,8 @@ public class Map  {
 	this.AddBorders(mapBordersFile);
 	
 	}
-	
-	
+
+
 
 	/**
 	 * Method that adds all the confines of all the sectors to create the map. It reads the confines from a text file
@@ -213,7 +216,16 @@ public class Map  {
 	public String getMapName(){
 		return choosenMap;
 	}
+	
+	public Sector getHumanStart() {
+		return humanStart;
+	}
 
+
+
+	public Sector getAlienStart() {
+		return alienStart;
+	}
 
 	@Override
 	public String toString() {

@@ -25,6 +25,8 @@ public class EndTurn extends Action {
 	}
 	
 	public boolean checkAction(){
+		if(gameState.getTurn().getTurnState()==TurnState.STARTED)
+			return false;
 		if((gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN && gameState.getCurrentCharacter().getItemPlayerCard().size()<4)||
 				gameState.getTurn().getTurnState()==TurnState.HASMOVED && gameState.getCurrentCharacter().getCurrentSector().getClass()==SafeSector.class
 				|| gameState.getCurrentCharacter().getCurrentSector().getClass()==EscapeSector.class) 
