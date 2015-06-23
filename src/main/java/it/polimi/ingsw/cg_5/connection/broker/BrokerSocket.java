@@ -37,12 +37,12 @@ public class BrokerSocket extends Thread implements Broker{
 	}*/
 	
 	@Override
-	public void publish(String msg, Boolean chat)throws RemoteException{
+	public void publish(Boolean chat, String msg)throws RemoteException{
 
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
 			for (BrokerThread sub : subscribers) {
-				sub.dispatchMessage(msg,chat);
+				sub.dispatchMessage(chat, msg);
 
 			}
 		}else{

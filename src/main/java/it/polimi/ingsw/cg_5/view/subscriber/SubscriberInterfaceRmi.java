@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 public interface SubscriberInterfaceRmi extends Remote, Subscriber, PubSubCommunication{
 	
 	@Override
-	public void dispatchMessage(String msg, Boolean chat) throws RemoteException;
+	public void dispatchMessage(Boolean chat,String msg) throws RemoteException;
 
 	@Override
 	public void updateNumberGame(Integer numberGame) throws RemoteException;

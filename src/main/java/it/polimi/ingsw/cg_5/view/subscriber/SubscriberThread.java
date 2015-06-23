@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -35,18 +33,20 @@ public class SubscriberThread extends Thread {
 	//Il thread rimane in ascolto dei msg che gli arrivan dal broker
 	@Override
 	public void run(){
-		System.out.println("prova a fare receive number game");
-		System.out.println("Aggiunto al gioco numero: "+receiveNumberGame());
+		//System.out.println("prova a fare receive number game");
+		//System.out.println("Aggiunto al gioco numero: "+receiveNumberGame());
 		//anche se entra in questo ciclo while non riceve i messaggi della dispatch
-		receiveNumberGame();
+	//	receiveNumberGame();
 		while(true){
 			
 			try {
 				receive();
 			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} //QUI CONTINUA A RICEVERE MESSAGGI NULL
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		//	Integer numberGame = receiveNumberGame();
 			//System.out.println("number Game is: "+numberGame);
 			try {
@@ -57,20 +57,37 @@ public class SubscriberThread extends Thread {
 		}
 	}
 	
-	private String receive() throws BadLocationException{ //QUI IL SUBSCRIBER NON RICEVE IL MESSAGGIO
+	private String receive() throws BadLocationException, IOException{ //QUI IL SUBSCRIBER NON RICEVE IL MESSAGGIO
 		String msg = null;
-		try {
+		Scanner inMsg;
+		
 			if(in.ready()){
 			msg = in.readLine();
 			System.out.println(msg);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			
+			
+	
+		inMsg = new Scanner(msg);
 		if(msg !=null){
-			this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
-			System.out.println("Thread "+name+" received the message: "+msg);
+			String prova= inMsg.next();
+		
+			if(!prova.toUpperCase().equals("FALSE")){
+				
+				String messaggio = inMsg.nextLine();
+				this.subscriber.getView().getViewController().getEscape().getMessagePanel().updateChatMessage(messaggio);
+				
+				System.out.println("Thread "+name+" received the chat message: "+messaggio);
+			}
+		
+			else{
+				String messaggio = inMsg.nextLine();
+				this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messaggio+"\n",Color.RED);
+				System.out.println("Thread "+name+" received the message: "+messaggio);
+			}
 		}
+			
+		inMsg.close();
+			}
 		return msg;
 	}
 	

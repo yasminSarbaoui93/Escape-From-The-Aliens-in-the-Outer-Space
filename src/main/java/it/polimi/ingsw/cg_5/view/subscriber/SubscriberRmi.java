@@ -61,7 +61,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	 
 	 */
 	@Override
-	public void dispatchMessage(String msg, Boolean chat) throws RemoteException  {
+	public void dispatchMessage(Boolean chat, String msg) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 		try {
 			if(chat==false){

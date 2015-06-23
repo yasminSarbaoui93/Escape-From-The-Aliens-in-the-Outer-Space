@@ -9,23 +9,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class BrokerThread extends Thread implements PubSubCommunication {
 
-	private Socket socket; //socket verso lo specifico subscriber
-	private PrintWriter out;//Message that the broker sends to the subscriber
-	private ConcurrentLinkedQueue<String> buffer; //Queue of messages for each subscriber
+	private Socket socket; 
+	private PrintWriter out;
+	private ConcurrentLinkedQueue<String> buffer;
 	
-	//Ogni broker thread è riferito ad uno specifico subscriber
 	public BrokerThread(Socket socket) throws IOException{
 		this.socket = socket;
 		buffer = new ConcurrentLinkedQueue<String>();	
-		//sends the message directly to the channel to which the socket is associated
 		this.out = new PrintWriter(socket.getOutputStream());
-		
-	
 	}
+	
 	@Override 
-	public void run(){
-		
-		
+	public void run(){		
 		String msg = buffer.poll();
 		System.out.println("PROVA A VEDERE SE LA PUBLISH FUNZIONA1" +msg);
 		if(msg!=null){
@@ -35,17 +30,19 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 			synchronized(buffer){
 				try {
 					buffer.wait();
-				} catch (InterruptedException e) {
-				}
+				}catch (InterruptedException e) {}
 			}
-		}
-		
+		}		
 	}
+	
+	/* (non-Javadoc)
+	 * @see it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication#dispatchMessage(java.lang.String, java.lang.Boolean)
+	 *Adds the message to the buffer that is sleeping and wakes up the buffer to poll the message.
+	 */
 	@Override
-	public void dispatchMessage(String msg,Boolean chat){
-
-		buffer.add(msg);
-		send(msg);
+	public void dispatchMessage(Boolean chat, String msg){
+		buffer.add(chat.toString()+msg);
+		send(chat.toString()+" "+msg);
 		synchronized(buffer){
 			buffer.notify();
 		}
@@ -53,7 +50,7 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	@Override
 	public void updateNumberGame(Integer numberGame){
 		buffer.add(numberGame.toString());
-		send(numberGame.toString());
+		send("false "+numberGame.toString());
 		synchronized(buffer){
 			buffer.notify();
 			System.out.println("number game nel buffer" + numberGame);

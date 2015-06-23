@@ -58,6 +58,7 @@ public class ClientHandler extends Thread {
 				}
 			}
 			
+			else{
 			Integer yourId = Integer.parseInt(in.next());
 			Integer numberGame = Integer.parseInt(in.next());			
 			if(stringToRead.toUpperCase().equals("MOVE")){
@@ -161,6 +162,16 @@ public class ClientHandler extends Thread {
 				}catch(IOException e){
 					e.printStackTrace();
 				}
+			}
+			
+			if(stringToRead.toUpperCase().equals("CHAT")){
+				String message = in.nextLine();
+				try {
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
 			}
 		
 		}while(!command.toUpperCase().equals("QUIT")); 

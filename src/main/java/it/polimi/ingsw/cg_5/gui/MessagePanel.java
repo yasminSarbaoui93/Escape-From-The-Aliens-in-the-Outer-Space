@@ -25,6 +25,10 @@ public class MessagePanel extends JPanel {
 	
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel southPanel = new JPanel();
 	private JTextField messageBox = new JTextField(30);
 	private JButton sendMessage = new JButton("Send Message");//ci sara la action listener

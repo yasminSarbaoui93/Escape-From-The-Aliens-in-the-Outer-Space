@@ -34,22 +34,19 @@ public class BrokerRmi implements Broker {
 		this.topic = topic;
 	}
 
-	/**
-	 * 
-	 * @param msg - message to be published to all the subscribers
-	 * This is not a remote method, however it calls the remote 
+	/** This is not a remote method, however it calls the remote 
 	 * method dispatchMessage for each Subscriber.  
 	 */
 	
 	@Override
-	public void publish(String msg, Boolean chat){
+	public void publish(Boolean chat,String msg){
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message on topic "+topic);
 			for (SubscriberInterfaceRmi sub : subscribers) {
 				
 					try {
 						
-						sub.dispatchMessage(msg,chat);
+						sub.dispatchMessage(chat, msg);
 					
 						
 						

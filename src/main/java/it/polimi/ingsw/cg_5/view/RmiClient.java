@@ -24,6 +24,9 @@ public class RmiClient implements Serializable, Client {
 	private RemoteMethods remoteMethods1;
 
 	
+	/**Gets the registry created by the Rmi server and makes the lookup of the remothe methods put in it.
+	 * @throws Exception
+	 */
 	public RmiClient () throws Exception{		
 		try{
 			Registry registry = LocateRegistry.getRegistry(HOST,PORT);
@@ -74,8 +77,7 @@ public class RmiClient implements Serializable, Client {
 	}
 
 	@Override
-	public Void sendmessageRequest(String message, Integer yourId,
-			Integer gameNumber) throws RemoteException {
+	public Void sendmessageRequest(String message, Integer yourId, Integer gameNumber) throws RemoteException {
 		remoteMethods1.performSendMessage(message, yourId, gameNumber);
 		return null;
 	}

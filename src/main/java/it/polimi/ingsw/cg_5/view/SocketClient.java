@@ -103,10 +103,9 @@ public class SocketClient implements Client {
 	}
 
 	@Override
-	public Void sendmessageRequest(String message, Integer yourId,
-			Integer gameNumber) throws RemoteException, ClassNotFoundException,
-			IOException {
-		// TODO Auto-generated method stub
+	public Void sendmessageRequest(String message, Integer yourId,Integer gameNumber) throws RemoteException, ClassNotFoundException,IOException {
+		String command = "CHAT "+yourId+" "+gameNumber+" "+message;
+		server.send(command);
 		return null;
 	}
 

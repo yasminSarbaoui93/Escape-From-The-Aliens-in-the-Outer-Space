@@ -68,7 +68,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	@Override
 	public void performSendMessage(String message, Integer yourId,
 			Integer gameNumber) throws RemoteException {
-		gameManager.getListOfMatch().get(gameNumber).getBroker().publish(message,true);
+		gameManager.getGameRules().performSendMessage(message, yourId, gameNumber);//getListOfMatch().get(gameNumber).getBroker().publish(message,true);
 		
 	}
 	
