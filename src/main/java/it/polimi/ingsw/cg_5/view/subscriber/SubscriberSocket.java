@@ -11,7 +11,7 @@ public class SubscriberSocket implements Subscriber{
 	public SubscriberSocket(String name){
 		super();
 		this.name = name;		
-		subscriberThread = new SubscriberThread(name);
+		subscriberThread = new SubscriberThread(name, this);
 		subscriberThread.start();
 	}
 	

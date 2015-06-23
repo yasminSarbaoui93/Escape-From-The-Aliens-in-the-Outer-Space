@@ -3,15 +3,7 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
-
-import java.io.IOException;
 import java.io.Serializable;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 
 
 
@@ -101,7 +93,7 @@ public class View implements Serializable{
 	}
 	
 	
-	/*public static void main (String args []) throws Exception{
+/*	public static void main (String args []) throws Exception{
 		
 		System.out.println("Inserisci un nome utente: ");
 		Scanner in = new Scanner (System.in);
@@ -186,10 +178,10 @@ public class View implements Serializable{
 			in.close(); 
 	}
 
-
-	
-
-	
 */
+	
+
+	
+
 
 }
