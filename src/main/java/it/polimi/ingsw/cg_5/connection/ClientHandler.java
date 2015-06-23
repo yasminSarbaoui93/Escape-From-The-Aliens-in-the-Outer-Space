@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
-
 import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.Communicator;
 public class ClientHandler extends Thread {
@@ -18,13 +17,19 @@ public class ClientHandler extends Thread {
 		this.gameManager = GameManager.getInstance();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 * It receives a string command by the client. The first string refers to the kind of action the client wants to execute, while the others
+	 * are the parameters needed to be sent as input of the methods that actually make the controls and change the game state.
+	 * This run keeps on analizing the input messages until the string command isn't equal to QUIT.
+	 */
 	@Override
 	public void run(){
 		String command;
 
 		Scanner in;
 		do{
-			//command sent by the client.
+			
 			command = client.receive();
 			System.out.println(command);
 			in = new Scanner(command);
@@ -57,8 +62,7 @@ public class ClientHandler extends Thread {
 				Integer yourId = Integer.parseInt(in.next());
 				Integer numberGame = Integer.parseInt(in.next());
 				PlayerDTO playerDTO;
-				System.out.println(sectorName+yourId+numberGame);
-				
+			
 				try {
 					playerDTO = gameManager.getGameRules().performMove(sectorName, yourId, numberGame);
 					client.sendDTO(playerDTO);
