@@ -8,4 +8,5 @@ public interface PubSubCommunication {
 	public void dispatchMessage(String msg) throws RemoteException;
 	public void updateNumberGame(Integer numberGame) throws RemoteException;
 	public void updateCharacter(Character character) throws IllegalArgumentException, RemoteException;
+	public void updatecurrentPlayerId(int playerId) throws RemoteException;
 }

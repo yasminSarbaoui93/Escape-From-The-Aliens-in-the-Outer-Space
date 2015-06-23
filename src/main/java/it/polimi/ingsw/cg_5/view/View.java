@@ -101,7 +101,7 @@ public class View implements Serializable{
 	}
 	
 	
-	/*public static void main (String args []) throws Exception{
+/*	public static void main (String args []) throws Exception{
 		
 		System.out.println("Inserisci un nome utente: ");
 		Scanner in = new Scanner (System.in);
@@ -186,10 +186,10 @@ public class View implements Serializable{
 			in.close(); 
 	}
 
-
-	
-
-	
 */
+	
+
+	
+
 
 }

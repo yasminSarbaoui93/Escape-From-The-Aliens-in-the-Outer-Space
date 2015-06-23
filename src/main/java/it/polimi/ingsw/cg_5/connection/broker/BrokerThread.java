@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class BrokerThread extends Thread implements PubSubCommunication {
@@ -20,6 +21,7 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 		buffer = new ConcurrentLinkedQueue<String>();	
 		//sends the message directly to the channel to which the socket is associated
 		this.out = new PrintWriter(socket.getOutputStream());
+		
 	
 	}
 	@Override 
@@ -27,8 +29,10 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 		
 		
 		String msg = buffer.poll();
-		if(msg!=null)
+		System.out.println("PROVA A VEDERE SE LA PUBLISH FUNZIONA1" +msg);
+		if(msg!=null){
 			send(msg);
+		System.out.println("PROVA A VEDERE SE LA PUBLISH FUNZIONA" +msg);}
 		else{
 			synchronized(buffer){
 				try {
@@ -41,7 +45,8 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	}
 	@Override
 	public void dispatchMessage(String msg){
-		buffer.add(msg);
+		buffer.add("aaaa");
+		send(msg);
 		synchronized(buffer){
 			buffer.notify();
 		}
@@ -49,8 +54,10 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	@Override
 	public void updateNumberGame(Integer numberGame){
 		buffer.add(numberGame.toString());
+		send(numberGame.toString());
 		synchronized(buffer){
 			buffer.notify();
+			System.out.println("number game nel buffer" + numberGame);
 		}
 	}
 	
@@ -71,6 +78,11 @@ public class BrokerThread extends Thread implements PubSubCommunication {
 	}
 	@Override
 	public void updateCharacter(Character character) {
+		
+	}
+	@Override
+	public void updatecurrentPlayerId(int playerId) throws RemoteException {
+		// TODO Auto-generated method stub
 		
 	}
 

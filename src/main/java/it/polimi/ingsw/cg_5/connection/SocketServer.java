@@ -31,7 +31,7 @@ public class SocketServer extends Server {
                 
                 Socket broker = brokerSocket.accept();
                 this.brokerThread = new BrokerThread(broker);
-                brokerThread.start();
+             //   brokerThread.start();
             }while (isStopped());
             	serverSocket.close();
             	brokerSocket.close();

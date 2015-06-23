@@ -9,7 +9,7 @@ public class BrokerSocket extends Thread implements Broker{
 	
 	private final int portNumber = 1040;
 	private boolean listening = true;
-	private ArrayList<PubSubCommunication> subscribers = new ArrayList<PubSubCommunication>();
+	private ArrayList<BrokerThread> subscribers = new ArrayList<BrokerThread>();
 	private String topic;
 	
 	
@@ -43,8 +43,9 @@ public class BrokerSocket extends Thread implements Broker{
 	public void publish(String msg) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
-			for (PubSubCommunication sub : subscribers) {
+			for (BrokerThread sub : subscribers) {
 				sub.dispatchMessage(msg);
+				
 			}
 		}else{
 			System.err.println("No subscribers!!");
@@ -55,8 +56,9 @@ public class BrokerSocket extends Thread implements Broker{
 	public void publishNumberGame(Integer numberGame, int playerId) throws RemoteException{
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
-			for (PubSubCommunication sub : subscribers) {
+			for (BrokerThread sub : subscribers) {
 				sub.updateNumberGame(numberGame);
+				sub.updatecurrentPlayerId(playerId);
 			}
 		}else{
 			System.err.println("No subscribers!!");
@@ -68,6 +70,7 @@ public class BrokerSocket extends Thread implements Broker{
 	public void subscribe(PubSubCommunication o) {
 		BrokerThread r = (BrokerThread)o;
 		subscribers.add(r);
+		r.start();
 		System.out.println(subscribers.size());
 	}
 	
