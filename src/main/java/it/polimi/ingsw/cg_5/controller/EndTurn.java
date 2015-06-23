@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_5.controller;
 
+import java.util.Timer;
+
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.SafeSector;
@@ -22,6 +24,7 @@ public class EndTurn extends Action {
 		
 		gameState.goToNextCharacter();
 		gameState.getTurn().setTurnState(TurnState.STARTED);
+		
 	}
 	
 	public boolean checkAction(){

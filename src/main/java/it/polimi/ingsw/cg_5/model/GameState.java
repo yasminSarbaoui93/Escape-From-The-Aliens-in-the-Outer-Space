@@ -1,9 +1,12 @@
 package it.polimi.ingsw.cg_5.model;
 
 
+import it.polimi.ingsw.cg_5.controller.taskTimer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
+import java.util.Timer;
 
 public class GameState extends Observable{
 	//tutti gli attributi del gioco che potrebbero essere utili per rappresentare una partita
@@ -20,10 +23,23 @@ public class GameState extends Observable{
 	private final Integer matchIndex;
 	private ArrayList<Character> winners;
 	private ArrayList<Character> losers;
+	private Timer timer = new Timer();
 	
 	
 	
 	
+	public Timer getTimer() {
+		return timer;
+	}
+
+
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+
+
 	/**
 	 * Costructor of a basic Game state; the map initalized is based on the string passed as a parameter.
 	 * All the decks are initialized and the characters are assigned casually to each player
@@ -229,7 +245,12 @@ public class GameState extends Observable{
 				notifyObservers(this.matchIndex+" Is the turn of the Player: "+currentCharacter.getPlayerID());
 			}
 			
-
+		this.getTimer().cancel();
+		this.getTimer().purge();
+		taskTimer task= new taskTimer(this);
+		this.setTimer(new Timer());
+		this.getTimer().schedule(task, 15*1000);
+		
 }
 
 
