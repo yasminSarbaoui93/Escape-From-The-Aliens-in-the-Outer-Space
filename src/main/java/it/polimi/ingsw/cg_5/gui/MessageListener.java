@@ -6,10 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**classe che implementa actionlistener ma che ha altri parametri utilizzare per aggiornare lo stato dei pannelli di gioco
+ * @author Andrea
+ *
+ */
 public class MessageListener implements ActionListener {
-	String message;
-	ViewController viewController;
-	MessagePanel panel;
+	private String message;
+	private ViewController viewController;
+	private MessagePanel panel;
 	
 	public MessageListener(ViewController viewController, MessagePanel panel) {
 		super();
@@ -17,6 +21,11 @@ public class MessageListener implements ActionListener {
 		this.viewController = viewController;
 	}
 
+	/* (non-Javadoc)
+	 * schiatto il bottone di send il messaggio viene inviato al server che provvederà a inoltrarlo in broadcast tramite
+	 * la publish
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {

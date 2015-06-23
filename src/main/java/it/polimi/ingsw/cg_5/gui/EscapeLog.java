@@ -20,6 +20,10 @@ import javax.swing.JTextField;
 
 
 
+/** classe che estende Jframe che contiene la schermata di login, che al momento non utilizziamo
+ * @author Andrea
+ *
+ */
 public class EscapeLog extends JFrame {
 	
 	private static final int WINDOW_WIDTH = 700;

@@ -17,6 +17,10 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/** schermata di inizio gioco, permette di inserire la username e le configurazioni di gioco preferite
+ * @author Andrea
+ *
+ */
 public class StartOptions extends JFrame {
 	
 	
@@ -31,12 +35,6 @@ public class StartOptions extends JFrame {
 	private ViewController viewController;
 	private JLabel label1 = new JLabel("Choose The Map");
 	final JComboBox<String> listMap = new JComboBox<String>();
-	
-
-
-	
-	
-
 
 
 	public JComboBox<String> getListMap() {
@@ -78,6 +76,9 @@ public class StartOptions extends JFrame {
 	
 	
 	
+	/** metodo che si occupa di caricare tutti i componenti che sono utilizzati nella schermata
+	 * 
+	 */
 	private void initComponents() {
 		layeredPane = new JLayeredPane();
 		  setContentPane(layeredPane);
@@ -154,7 +155,10 @@ public class StartOptions extends JFrame {
 	}
 
 
-   // caricamento dell'immagine background situato nello  stesso package del  codice gui
+   
+	/** caricamento della immagine di sfondo della schermata
+	 * 
+	 */
 	private void loadResources() {
 	
 		try {

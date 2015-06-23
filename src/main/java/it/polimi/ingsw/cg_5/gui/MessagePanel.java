@@ -19,6 +19,10 @@ import javax.swing.text.StyleConstants;
 
 
 
+/** pannello utilizzato nella jframe principale per inserire la chat
+ * @author Andrea
+ *
+ */
 public class MessagePanel extends JPanel {
 	
 	
@@ -31,8 +35,8 @@ public class MessagePanel extends JPanel {
 	
 	private JTextArea chatBox = new JTextArea();
 	
-	GridBagConstraints left = new GridBagConstraints();
-	 GridBagConstraints right = new GridBagConstraints();
+	private GridBagConstraints left = new GridBagConstraints();
+	private  GridBagConstraints right = new GridBagConstraints();
 	public MessagePanel(){
 		
 		
@@ -67,6 +71,9 @@ public class MessagePanel extends JPanel {
 	
 	
 
+	/** metodo utilizzato per inserire un messaggio nel box della chat
+	 * @param chatMessage
+	 */
 	public void updateChatMessage(String chatMessage) {
 		
 	    this.chatBox.append(chatMessage);

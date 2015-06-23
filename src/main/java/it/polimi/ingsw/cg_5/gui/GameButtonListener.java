@@ -14,6 +14,11 @@ import java.rmi.RemoteException;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 
+/** classe che implementa actionListener, ci serve per "ascoltare" i nostri game button ma avendo dei parametri aggiuntivi
+ * che servono  per aggiornare direttamente i pannelli della schermata
+ * @author Andrea
+ *
+ */
 public class GameButtonListener implements ActionListener {
 	ViewController viewController;
 
@@ -45,6 +50,12 @@ public class GameButtonListener implements ActionListener {
 		this.sector=sector;
 	}
 
+	/* (non-Javadoc)
+	 * data l'azione di ingresso chiama il metodo del client che permette di comunicare al server l'azione scelta dal
+	 * giocatore, si occupa inoltre di stampare la pedina nel giusto settore se ci si è mossi, utilizzando i metodi
+	 * della classe confines che dati lettera e numero ti restituiscono le coordinate
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 

@@ -65,6 +65,10 @@ public class ButtonPanel extends JPanel{
 		add(buttonFake);
 	}
 	
+	/** Metodo che in base al turnState abilita/disabilita i button che è possibile premere
+	 * @param turnState
+	 * @param playerDTO
+	 */
 	public void buttonsSetter(TurnState turnState,PlayerDTO playerDTO){
 		
 	

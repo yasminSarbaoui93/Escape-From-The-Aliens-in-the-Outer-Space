@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+/** è la schermata principale del gioco, contiene tutti i pannelli di interesse e la stampa mappa utilizzata
+ * @author Andrea
+ *
+ */
 public class EscapeFromAlienGame extends JFrame{
 	
 	/**
@@ -87,10 +91,18 @@ public class EscapeFromAlienGame extends JFrame{
 		
 	}
 	
+	/** metodo utilizzato per stampare il cerchio che identifica la selezione di un settore, date le coordinate
+	 * @param x
+	 * @param y
+	 */
 	public void printCircle(int x, int y) {
 		this.image.setBounds(x, y, 60, 60);
 	 
 	}
+	/** metodo che date le coordinate stampa nella schermata la pedina nel settore attuale in cui si trova
+	 * @param x
+	 * @param y
+	 */
 	public void printPiece(int x, int y) {
 		
 		
@@ -103,6 +115,9 @@ public class EscapeFromAlienGame extends JFrame{
 	}
 	
 
+	/** metodo utilizzato per caricare tutte le immagini che verranno poi utilizzate in questo frame
+	 * @param viewController
+	 */
 	private void loadResources(ViewController viewController) {
 		//load the background image from the disk
 		try {
@@ -136,6 +151,10 @@ public class EscapeFromAlienGame extends JFrame{
 		return viewController;
 	}
 
+	
+	/** inizializzazione di tutti i componenti riguardanti questo jframe
+	 * 
+	 */
 	private void initComponents() {
 	
 		

@@ -2,6 +2,18 @@ package it.polimi.ingsw.cg_5.gui;
 
 import java.util.ArrayList;
 
+/** Classe che contiene tre liste che associano le cordinate min e max sulla schermata con la giusta/lettera numero
+ * che identificano la riga/colonna esatta, la classe verrà utilizzata sia per riconoscere il settore dopo aver cliccato 
+ * in un punto grazie alle coordinate,ma anche viceversa dato un settore per trovare le coordinate in cui stampare diverse
+ * immagini
+ * Si noti che le liste per le righe sono due, in quanto si avranno valori diversi in base alla colonna del settore
+ * @author Andrea
+ *
+ */
+/**
+ * @author Andrea
+ *
+ */
 public class Confines {
 	private ArrayList <LineConfines> columnlist = new ArrayList <LineConfines> () ;
 	private ArrayList <LineConfines> oddrowlist = new ArrayList <LineConfines> () ;
@@ -41,6 +53,9 @@ public class Confines {
 	}
 
 
+	/**Nel costruttore inizializziamo le tre liste tramite cicli for
+	 * 
+	 */
 	public Confines(){
 		for(int i= 0; i<23 ; i++){
 			LineConfines columnConfines = new LineConfines(letter,minValue,maxValue);
@@ -78,6 +93,12 @@ public class Confines {
 		
 
 		}
+	
+	/** metodo che data una colonna restituisce il punto centrale del settore, in modo da stampare le immagine centrate
+	 * rispetto alla colonna
+	 * @param col
+	 * @return
+	 */
 	public double getXCoordinateFromLetter(char col){
 		double ret=0;
 		for(LineConfines column : columnlist){
@@ -86,6 +107,12 @@ public class Confines {
 		}
 		return ret;		
 	}
+	/**metodo che data una riga restituisce il punto centrale del settore, in modo da stampare le immagine centrate
+	 * rispetto alla riga,  la differenza è che per le righe abbiamo due possibili valori, in base a se la colonna del settore
+	 * e pari oppure dispari
+	 * @param letter
+	 * @return
+	 */
 	public double getYOddCoordinateFromLetter(String letter){
 		double ret=0;
 		for(LineConfines column : oddrowlist){

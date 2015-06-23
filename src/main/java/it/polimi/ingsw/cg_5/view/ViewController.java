@@ -5,6 +5,10 @@ import it.polimi.ingsw.cg_5.gui.StartOptions;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberSocket;
+/**classe che raggruppa tutti gli elementi caratterizzanti il client, dalla view alle schermate di gioco
+ * @author Andrea
+ *
+ */
 public class ViewController {
 	private StartOptions startOptions;
 	public StartOptions getStartOptions() {
@@ -23,6 +27,14 @@ public ViewController (){
 	
 	
 }
+/** metodo chiamato quando viene premuto il tasto start, che si occupa di creare un client per la view che matchi
+ * con la connectiontype desiderate e inoltre invia la richiesta di partecipazione a un gioco al server
+ * @param userName
+ * @param choosenMap
+ * @param maxNumberPlayers
+ * @param connectionType
+ * @throws Exception
+ */
 public void ViewCreatorAndSubscribeRequest(String userName, String choosenMap, String maxNumberPlayers, String connectionType) throws Exception{
 	Client client;
 	Subscriber subscriber;

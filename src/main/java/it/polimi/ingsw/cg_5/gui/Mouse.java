@@ -21,6 +21,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 
+/**classe che implementa mouselistener e ci permette di utilizzare il mouse per eseguire alcune azioni
+ * @author Andrea
+ *
+ */
 public class Mouse implements MouseListener {
 	JLabel Label = new JLabel("Coordinates");
 	Confines confine = new Confines();
@@ -41,6 +45,12 @@ public class Mouse implements MouseListener {
 	
 
 	
+	/* (non-Javadoc)
+	 * metodo che decide che cosa fare dopo aver premuto uno dei tasti del mouse, nel caso venga premuto il tasto sinistro
+	 * verrà disegnato un cerchio intorno al settore selezionato, se viene premuto il tasto destro si aprirà un menù a 
+	 * tendina con le scelte che sarà possibile fre
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */ 
 	public void mouseClicked(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e)){
 			 JMenuItem moveItem;
@@ -61,6 +71,11 @@ public class Mouse implements MouseListener {
 		}
 		}
 	
+		/** metodo che dato un evento di click del mouse va a stampare il cerchio sopra citato facendo in modo che sia
+		 * centrato nel settore in cui si è cliccato
+		 * @param e
+		 * @return
+		 */
 		public String printPosition(MouseEvent e){
 			char column= '/';
 			String row = "0";

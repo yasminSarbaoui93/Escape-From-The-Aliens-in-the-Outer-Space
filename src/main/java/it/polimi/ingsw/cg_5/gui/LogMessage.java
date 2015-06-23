@@ -9,6 +9,10 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+/** classe che contiene il pannello dove appariranno i messaggi di log
+ * @author Andrea
+ *
+ */
 public class LogMessage extends JScrollPane {
 
 	private static  JTextPane textLog=new JTextPane();
@@ -33,6 +37,13 @@ public class LogMessage extends JScrollPane {
 
 
 
+	/** classe che aggiunge un messaggio al pannello di log, la particolarità è che è possibile scegliere il colore
+	 * con cui inserire il messaggio, questo risulta particolarmente utile per distinguere i messaggi di publish, da quelli
+	 * di risposta del server
+	 * @param updateMessage
+	 * @param color
+	 * @throws BadLocationException
+	 */
 	public void updateLogMessage(String updateMessage, Color color) throws BadLocationException{
 		
 	javax.swing.text.Style style = textLog.addStyle("I'm a Style", null);

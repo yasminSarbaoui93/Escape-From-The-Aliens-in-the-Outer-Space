@@ -8,6 +8,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+/** metodo che in seguito al click del bottone di start prende le configurazioni di gioco  e la username scelte per
+ * inoltrare un messaggio di partecipazione a un gioco direttamente al server
+ * @author Andrea
+ *
+ */
 public class StartButtonListener implements ActionListener {
 	private ViewController viewController;
 	JTextField userLabel= new JTextField();
