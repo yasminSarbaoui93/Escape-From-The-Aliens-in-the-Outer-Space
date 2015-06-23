@@ -57,11 +57,11 @@ public class Mouse implements MouseListener {
 			    JPopupMenu rightMenu= new JPopupMenu();
 			    rightMenu.setBackground(Color.BLACK);
 			        moveItem= new JMenuItem("Move Here");
-			        moveItem.addActionListener(new GameButtonListener(this.escape.getViewController(),this.escape.getDtoPanel(),this.escape.logPanel,
+			        moveItem.addActionListener(new GameButtonListener(this.escape.getViewController(),this.escape.getDtoPanel(),this.escape.getLogPanel(),
 			        		"MOVE",printPosition(e)));
 			        rightMenu.add(moveItem);
 			       JMenuItem bluffItem= new JMenuItem("Bluff");
-			       bluffItem.addActionListener((new GameButtonListener(this.escape.getViewController(),this.escape.getDtoPanel(),this.escape.logPanel,
+			       bluffItem.addActionListener((new GameButtonListener(this.escape.getViewController(),this.escape.getDtoPanel(),this.escape.getLogPanel(),
 			        		"BLUFF",printPosition(e))));
 			       rightMenu.add(bluffItem);
 			        rightMenu.show(e.getComponent(), e.getX(), e.getY());

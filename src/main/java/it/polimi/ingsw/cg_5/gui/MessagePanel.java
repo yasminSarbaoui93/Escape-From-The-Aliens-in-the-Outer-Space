@@ -48,7 +48,9 @@ public class MessagePanel extends JPanel {
 	    messageBox.setBackground(Color.darkGray);
 	    messageBox.setForeground(Color.green);
 	    chatBox.setBackground(Color.black);
-	    add(new JScrollPane(chatBox), BorderLayout.CENTER);
+	    JScrollPane chatBar=new JScrollPane(chatBox,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    chatBar.getVerticalScrollBar().setBackground(Color.BLACK);
+	    add(chatBar, BorderLayout.CENTER);
 	    
 	    // grandezze degli elementi
 	    left.anchor = GridBagConstraints.LINE_START;

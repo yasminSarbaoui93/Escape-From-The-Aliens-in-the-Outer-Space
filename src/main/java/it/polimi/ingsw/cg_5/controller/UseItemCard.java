@@ -55,6 +55,10 @@ public class UseItemCard extends Action {
 	 */
 	
 	public boolean checkAction(){
+		
+		if(usingItemCardType==ItemCardType.SEDATIVES && gameState.getTurn().getTurnState()==TurnState.STARTED)
+			return false;
+		
 		if(gameState.getCurrentCharacter().getClass() == Alien.class|| gameState.getTurn().getTurnState()==TurnState.BLUFFING){
 			return false;
 		}

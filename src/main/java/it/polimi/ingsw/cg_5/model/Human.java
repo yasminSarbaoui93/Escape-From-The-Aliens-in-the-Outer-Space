@@ -11,7 +11,10 @@ public class Human extends Character {
 	}
 	
 	
-
+	public void setHumanBack(){
+		maxMove=1;
+		canAttack=false;
+	}
 	@Override
 	public String toString() {
 			

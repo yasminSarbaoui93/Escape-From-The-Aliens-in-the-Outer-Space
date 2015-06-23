@@ -41,19 +41,24 @@ public class EscapeFromAlienGame extends JFrame{
 
 	private ButtonPanel buttonPanel = new ButtonPanel();
 	private MessagePanel messagePanel= new MessagePanel();
-	DtoPanel dtoPanel= new DtoPanel();
-	LogMessage logPanel = new LogMessage();
-	JLabel image ;
-	JLabel piece ;
-     
+
+    private DtoPanel dtoPanel= new DtoPanel();
+    private LogMessage logPanel = new LogMessage();
+	private JLabel image ;
+	private JLabel piece ;
+	private PlayerCardPanel playerCardPanel= new PlayerCardPanel();
 	
 	
-		public ButtonPanel getButtonPanel() {
-		return buttonPanel;
-	}
+
+	
+        
+	
+	
 
 
 
+
+	
 
 	public EscapeFromAlienGame(ViewController viewController)  {
 
@@ -217,7 +222,8 @@ public class EscapeFromAlienGame extends JFrame{
 			add(messagePanel);
 			layeredPane.setLayer(messagePanel, 10);
 			messagePanel.setBounds(0, 591, 801, 90);
-		
+			add(playerCardPanel);
+			layeredPane.setLayer(playerCardPanel, 10);
 			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
 			
 			
@@ -230,8 +236,12 @@ public class EscapeFromAlienGame extends JFrame{
 		return logPanel;
 	}
 
-	
-
+	public ButtonPanel getButtonPanel() {
+		return buttonPanel;
+	}
+	public PlayerCardPanel getPlayerCardPanel() {
+		return playerCardPanel;
+	}
 
 	public DtoPanel getDtoPanel() {
 		return dtoPanel;
