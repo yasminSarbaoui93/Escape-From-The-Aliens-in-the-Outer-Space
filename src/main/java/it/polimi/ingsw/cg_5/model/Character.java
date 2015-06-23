@@ -7,12 +7,6 @@ import javax.lang.model.type.UnionType;
 
 
 
-//umano emula le azioni dell  alieno quando usa la carta attacck e adrenaline per cui il metodo equivarrà per entrambi
-
-//umano emula le azioni dell  alieno quando usa la carta attack e adrenaline per cui il metodo equivarrà per entrambi
-
-//Le  carte sedativo ,spotlight,defence corrisponderanno a metodi solo per l'umano.
-//occorrono costruttori diversi per alieno e umano perche hanno valori(maxmove canAttack) diversi al  momento  della  creazione--
 public abstract class Character implements Serializable {
 	/**
 	 * 
@@ -24,8 +18,6 @@ public abstract class Character implements Serializable {
 	private final int playerID;
 	protected boolean canAttack;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
-	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
-	// quando il character viene ucciso
 	
 	public Character(String name, int playerID){
 		this.name=name; 
@@ -74,10 +66,5 @@ public abstract class Character implements Serializable {
 	public void setCanAttack(boolean canAttack) {
 		this.canAttack = canAttack;
 	}
-	
-	
-
-
-		
 	
 }

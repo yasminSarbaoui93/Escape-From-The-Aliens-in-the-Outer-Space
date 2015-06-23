@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
-
 import it.polimi.ingsw.cg_5.connection.GameRules;
 import it.polimi.ingsw.cg_5.connection.broker.Broker;
 import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
@@ -15,9 +14,6 @@ import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
-
-
 
 
 public class GameManager implements Observer{
@@ -37,10 +33,6 @@ public class GameManager implements Observer{
 			instance = new GameManager();
 		}return instance;
 	}
-	
-	
-	
-	
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
 	 * @throws RemoteException 
@@ -132,7 +124,6 @@ public class GameManager implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 
-		//This updates all the arguments of the type character that are returned from the methods attackCharacter or setCurrentCharacter of the model.
 		if(arg instanceof Character){
 			Character character = (Character) arg;
 			System.out.println(character);

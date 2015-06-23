@@ -23,6 +23,7 @@ public class EndTurn extends Action {
 		gameState.getTurn().setTurnState(TurnState.STARTED);
 	}
 	
+	@Override
 	public boolean checkAction(){
 		if((gameState.getTurn().getTurnState()==TurnState.HASATTACKORDRAWN && gameState.getCurrentCharacter().getItemPlayerCard().size()<4)||
 				gameState.getTurn().getTurnState()==TurnState.HASMOVED && gameState.getCurrentCharacter().getCurrentSector().getClass()==SafeSector.class

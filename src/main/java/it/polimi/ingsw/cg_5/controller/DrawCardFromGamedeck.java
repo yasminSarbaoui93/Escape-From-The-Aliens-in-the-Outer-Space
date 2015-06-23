@@ -32,15 +32,16 @@ public class DrawCardFromGamedeck extends Action {
 
 		
 		}
-		// pesca Carta e vari comportamenti in base alla carta pescata
 		drawnCard= (GameCard) gameState.currentCharacterDrawsGameCard();
-
 		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
-	
-		
 	}
-	//  il  giocatore puo' pescare solo se si e gia mossi e se si e in un Dangerous Sector
+	
+	/* (non-Javadoc)
+	 * @see it.polimi.ingsw.cg_5.controller.Action#checkAction()
+	 * The player can draw only if he already moved and he's on a dangerous sector
+	 */
+	@Override
 	public boolean checkAction(){
 		if(gameState.getTurn().getTurnState()==TurnState.HASMOVED&&
 				gameState.getCurrentCharacter().getCurrentSector().getClass()==DangerousSector.class)
@@ -50,7 +51,10 @@ public class DrawCardFromGamedeck extends Action {
 		
 	}
 	
-	// controllo che nn siano vuoti itemdeck e useditemDeck
+	
+	/**Checks if the item deck and used item deck are not empty
+	 * @return
+	 */
 	public boolean checkItemDecks(){
 		if(!gameState.getItemDeck().getItemDeck().isEmpty()|| !gameState.getItemDeck().getUsedItemDeck().isEmpty())
 		return true;

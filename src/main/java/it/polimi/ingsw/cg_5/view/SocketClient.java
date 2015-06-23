@@ -26,6 +26,13 @@ public class SocketClient implements Client {
 		
 	}
 	
+	/**Sends the command with the parameters to be given as input to the methods that perform the  specific action required
+	 * and receives as server response the playerDTO updated with the new state of the current player.
+	 * @param command
+	 * @return PlayerDTO
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	private PlayerDTO receivePlayerDTO(String command) throws ClassNotFoundException, IOException{
 		server.send(command);
 		PlayerDTO playerDTO;
@@ -49,7 +56,7 @@ public class SocketClient implements Client {
 	
 	@Override
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
-		String command = "MOVE "+sector+" "+yourId+" "+gameNumber;
+		String command = "MOVE "+yourId+" "+gameNumber+" "+sector;
 		return receivePlayerDTO(command);
 	}
 
@@ -73,25 +80,25 @@ public class SocketClient implements Client {
 
 	@Override
 	public PlayerDTO useCardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
-		String command = "USE_CARD "+itemCardType+" "+yourId+" "+gameNumber;
+		String command = "USE_CARD "+yourId+" "+gameNumber+" "+itemCardType;
 		return receivePlayerDTO(command);
 	}
 
 	@Override
 	public PlayerDTO useSpotLightRequest(String itemCardType, Integer yourId, Integer gameNumber, String sector) throws ClassNotFoundException, IOException {
-		String command = "SPOT "+itemCardType+" "+yourId+" "+gameNumber+" "+sector;
+		String command = "SPOT "+yourId+" "+gameNumber+" "+sector+" "+itemCardType;
 		return receivePlayerDTO(command);
 	}
 
 	@Override
 	public PlayerDTO bluffRequest(String bluffSector, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
-		String command = "BLUFF "+bluffSector+" "+yourId+" "+gameNumber;
+		String command = "BLUFF "+yourId+" "+gameNumber+" "+bluffSector;
 		return receivePlayerDTO(command);
 	}
 
 	@Override
 	public PlayerDTO discardRequest(String itemCardType, Integer yourId, Integer gameNumber) throws ClassNotFoundException, IOException {
-		String command = "DISCARD "+itemCardType+" "+yourId+" "+gameNumber;
+		String command = "DISCARD "+yourId+" "+gameNumber+" "+itemCardType;
 		return receivePlayerDTO(command);
 	}
 

@@ -7,15 +7,17 @@ import java.io.Serializable;
 
 
 
-//Classe che si interfaccia con l'utente per ricevere il comando
-
+/**Class that interfaces with the user to get the commands
+ * @author Yasmin
+ *
+ */
 public class View implements Serializable{
 
 	/**
 	 * 
 	 */
 	private ViewController viewController;
-		private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private int PlayerID=-1;
 	private Client client;
 	private int currentPlayerId=-1;
@@ -29,10 +31,15 @@ public class View implements Serializable{
 		
 
 
+	/**Constructor of the view that has at attributes the name of the user, the client that will interface with the connection (rmi or socket) and the subscriber that will get the message thrown by the broker.
+	 * @param name
+	 * @param client
+	 * @param subscriber
+	 * @throws Exception
+	 */
 	public View (String name, Client client, Subscriber subscriber) throws Exception{
 		super();
 		this.name=name;
-		
 		this.client= client;
 		this.subscriber = subscriber; 
 	   // subscriber.setView(this);
@@ -50,9 +57,6 @@ public class View implements Serializable{
 		this.viewController = viewController;
 	}
 
-
-	
-	
 	public ViewController getViewController() {
 		return viewController;
 	}

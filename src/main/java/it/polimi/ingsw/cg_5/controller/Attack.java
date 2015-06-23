@@ -16,7 +16,6 @@ public class Attack extends Action {
 		return playerIdToKill;
 	}
 	private ArrayList<Character> safeCharacter=new ArrayList<Character>();//questo safecharacter è un eventuale player
-	//che ha la carta difesa in mano
 
 	public ArrayList<Character> getSafeCharacter() {
 		return safeCharacter;
@@ -26,13 +25,14 @@ public class Attack extends Action {
 	super(gameState);
 	}
 	
+	/* (non-Javadoc)
+	 * @see it.polimi.ingsw.cg_5.controller.Action#execute()
+	 * The attack can be done after the character moved onto the new current sector. So if in the current sector there's only the current character, the attack will be done but not succesfully.
+	 */
 	@Override
 	public void execute() {
 
-		// The attack can be done after the character moved to the new current sector. So if in the current sector there's only the current carachter
-		//the attack will not be succesful
 		characterToKill.addAll(gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
-		//essendo il player che attacck nella sua posizione lo dobbiamo rimuovere, altrimenti si suiciderebbe
 		characterToKill.remove(gameState.getCurrentCharacter());
 		
 		ItemCard defenceCard = null;
@@ -46,8 +46,6 @@ public class Attack extends Action {
 	    	
 	    }
 
-	
-		//If the list of safe players is not empty, this means that they've used the defence card, so this has to be put in the used item deck
 		if(!safeCharacter.isEmpty()){
     		safeCharacter.get(0).getItemPlayerCard().remove(defenceCard);
 
@@ -58,23 +56,17 @@ public class Attack extends Action {
     	}
     	gameState.getItemDeck().getUsedItemDeck().add(defenceCard);//scarto la carta difesa
 	    	}
-		//upGRade Alieno
 		if(gameState.getCurrentCharacter().getClass()==Alien.class){
 			for(Character character: characterToKill){
 				if(character.getClass()==Human.class)
 					gameState.getCurrentCharacter().setMaxMove(3); 
 			}
 		}
-    	//rimuove dalla lista dei giocatori i player attaccati senza la defence card
-
 		for(Character attackedCharacter : characterToKill){
 			gameState.removeCharacter(attackedCharacter);
 			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(attackedCharacter);
 		}
-
-	    	//System.out.println("\n i player rimasti nel settore sono"+gameState.getCurrentCharacter().getCurrentSector().getCharacterList());
-	    	/*System.out.println(gameState.getMap().takeSector(gameState
-	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
+   	
 	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);	
 	    
 	    // una volta eseguito attacco lo stato del canAttack dello umano deve tornare a false
@@ -87,25 +79,18 @@ public class Attack extends Action {
 	 * while if the character is an alien, he can always attack if he already moved to the sector where he wants to attack.
 	 * @return True if the character can attack; false if the character is not allowd to attack.
 	 */
+	@Override
 	public boolean checkAction(){
 
 			//if(gameState.getCurrentCharacter().getClass()==Human.class){
 			if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED) && gameState.getCurrentCharacter().isCanAttack())
-			 return true;
-			
-			 /*if(gameState.getCurrentCharacter() Alien.class){
-
-				if(gameState.getTurn().getTurnState().equals(TurnState.HASMOVED))
-					return true;
-			}*/
+				return true;
 		
 			return false;
-	
-			
-		}
-		
-		
 	}
+		
+		
+}
 	
 
 

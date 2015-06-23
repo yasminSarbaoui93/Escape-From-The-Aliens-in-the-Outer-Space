@@ -34,6 +34,7 @@ public class Move extends Action {
 	  * If the turn is on the state "STARTED" and the selected sector is reachable, then the character can move there.
 	 * @return
 	 */
+	@Override
 	public boolean checkAction(){
 		if(destinationSector.getClass()==EscapeSector.class){
 	

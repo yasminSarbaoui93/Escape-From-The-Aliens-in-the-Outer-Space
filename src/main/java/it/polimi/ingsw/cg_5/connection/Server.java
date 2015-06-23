@@ -7,7 +7,6 @@ public abstract class Server {
 	
 		public Server(){
 		gameManager = GameManager.getInstance();
-	//capisce in automatico se la connessione sara di tipo rmi o socket a seconda di quelli che arriva in ingresso
-	}
+		}
 
 }

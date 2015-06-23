@@ -18,7 +18,6 @@ public class EscapeMove extends Move {
 	
 	public EscapeMove(GameState gameState, Sector destinationSector) {
 		super(gameState, destinationSector);
-		// TODO Auto-generated constructor stub
 	}
 	
 
