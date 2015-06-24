@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_5.gui;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.model.DangerousSector;
+import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.TurnState;
@@ -99,9 +100,10 @@ public class ButtonPanel extends JPanel{
 				attackButton.setEnabled(true);
 			    endTurn.setEnabled(true);
 		}
-		if(turnState==TurnState.HASATTACKORDRAWN){
+		if(turnState==TurnState.HASATTACKORDRAWN||playerDTO.getYourCharacter().getCurrentSector().getClass()==EscapeSector.class){
 			endTurn.setEnabled(true);
 		}
+		
 		
 		if(turnState==TurnState.BLUFFING ){
 		useCardButton.setEnabled(false);
