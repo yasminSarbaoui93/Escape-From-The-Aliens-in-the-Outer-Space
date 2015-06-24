@@ -21,8 +21,8 @@ public class GameState extends Observable{
 	private Turn turn= new Turn();
 	private final int MAX_NUM_ROUND;
 	private final Integer matchIndex;
-	private ArrayList<Character> winners;
-	private ArrayList<Character> losers;
+	private ArrayList<Character> winners=new ArrayList <Character>();
+	private ArrayList<Character> losers=new ArrayList <Character>();
 	private Timer timer = new Timer();
 	
 	
@@ -194,6 +194,18 @@ public class GameState extends Observable{
 	}
 
 
+	public ArrayList<Character> getWinners() {
+		return winners;
+	}
+
+
+
+	public ArrayList<Character> getLosers() {
+		return losers;
+	}
+
+
+
 	public Character getCurrentCharacter() {
 		return currentCharacter;
 	}
@@ -245,11 +257,7 @@ public class GameState extends Observable{
 				notifyObservers(this.matchIndex+" Is the turn of the Player: "+currentCharacter.getPlayerID());
 			}
 			
-		this.getTimer().cancel();
-		this.getTimer().purge();
-		taskTimer task= new taskTimer(this);
-		this.setTimer(new Timer());
-		this.getTimer().schedule(task, 15*1000);
+		
 		
 }
 

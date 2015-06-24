@@ -184,14 +184,27 @@ public class GameRules {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState());
+			EndTurn endTurn = new EndTurn(gameManager.getListOfMatch().get(numberGame).getGameState(),gameManager.getListOfMatch().get(numberGame));
 			if(endTurn.checkAction()){		
 				endTurn.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
-				gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
-				playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
-				return playerDTO;
+				
+				
+				if(gameManager.getListOfMatch().get(numberGame).getMatchState()!=(MatchState.ENDED)){
+					gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
+					playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
+					return playerDTO;
+					}
+				
+				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==(MatchState.ENDED)){
+					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
+							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+					this.gameManager.getListOfMatch().remove(numberGame);
+					playerDTO.setMessageToSend("You won the game!");
+					return playerDTO;
+				}
+				
 
 			}
 			else 

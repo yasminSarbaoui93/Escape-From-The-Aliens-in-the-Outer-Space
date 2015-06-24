@@ -64,12 +64,15 @@ public class Match {
 	 * @return true if the game is over.
 	 */
 	public boolean isGameOver(){
-		if(this.gameState.getNumberOfHumanAlive()==0)
+		if(this.gameState.getNumberOfHumanAlive()==0){
 			return true;
-		if(this.gameState.getRound()==40)
+		}
+		if(this.gameState.getRound()==40){
 			return true;
-		if(this.gameState.getNumberOfAliensAlive()==0)
+		}
+		if(this.gameState.getNumberOfAliensAlive()==0){
 			return true;
+		}
 		//controllo se escapeHatch tutti rotti
 		ArrayList <EscapeSector> escapeSectorToCheck= new ArrayList <EscapeSector>() ;
 		for(Integer i=1 ; i<5 ; i++){

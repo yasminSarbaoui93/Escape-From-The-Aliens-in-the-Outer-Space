@@ -252,7 +252,7 @@ public class MainProvaGioco {
 				
 			if(comando.equals("ENDTURN")){
 				
-				EndTurn endTurn= new EndTurn(gameState);
+				EndTurn endTurn= new EndTurn(gameState,match);
 				if(endTurn.checkAction()){
 					endTurn.execute();
 				turnRunning=false;	

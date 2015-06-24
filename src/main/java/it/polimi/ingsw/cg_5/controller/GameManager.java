@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
+import java.util.Timer;
 
 import it.polimi.ingsw.cg_5.connection.GameRules;
 import it.polimi.ingsw.cg_5.connection.broker.Broker;
@@ -83,7 +84,11 @@ public class GameManager implements Observer{
 				
 				newMatch.getBroker().publish("The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
 						+"start to play!",false);
-
+				newGameState.getTimer().cancel();
+				newGameState.getTimer().purge();
+				taskTimer task= new taskTimer(newMatch);
+				newGameState.setTimer(new Timer());
+				newGameState.getTimer().schedule(task, 15*1000);
 				
 				newGameState.getMap().drawMap();
 
