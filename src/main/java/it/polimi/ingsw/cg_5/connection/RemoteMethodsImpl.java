@@ -13,7 +13,7 @@ public class RemoteMethodsImpl extends UnicastRemoteObject implements RemoteMeth
 	protected RemoteMethodsImpl() throws RemoteException {	}
 	private static final long serialVersionUID = 1L;
 	public RemoteMethodsImpl(GameManager gameManager) throws RemoteException{
-		this.gameManager= GameManager.getInstance();;
+		this.gameManager= GameManager.getInstance();
 	}
 	
 	@Override

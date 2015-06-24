@@ -32,7 +32,7 @@ public interface Client {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws Exception;
+	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException, ClassNotFoundException, IOException;
 	
 	/**Method on the client side to forward the request for performing an attack on the current sector.
 	 * @param yourId

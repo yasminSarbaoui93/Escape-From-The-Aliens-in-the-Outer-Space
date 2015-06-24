@@ -60,8 +60,7 @@ public class GameRules {
 			//devo fare la get thel brokerThread creato nel server !!! e passarlo in ingresso al metodo
 			
 		}
-		//ULTIMO PROBLEMA DA RISOLVERE: IL SUBSCRIBER SOCKET DEVE ESSERE PASSATO IN QUALCHE MODO ! PER IL RESTO ORA FUNZIONA
-		//subscriber = new SubscriberSocket(name);
+		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
@@ -82,7 +81,12 @@ public class GameRules {
 		
 		
 		try{
-			
+			System.out.println("set "+sectorName+"id"+yourId+" numgic "+numberGame);
+			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getNumberGame()==numberGame);
+			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
+			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==yourId);
+			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID().getClass());
+			System.out.println(yourId.getClass());
 			if(gameManager.canAct(numberGame, yourId)){
 				
 				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());

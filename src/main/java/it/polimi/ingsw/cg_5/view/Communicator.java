@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_5.view;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.NoSuchElementException;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
@@ -26,6 +27,6 @@ public interface Communicator {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	PlayerDTO receiveDTO() throws Exception;
+	PlayerDTO receiveDTO() throws ClassNotFoundException, IOException;
 	void close();
 }

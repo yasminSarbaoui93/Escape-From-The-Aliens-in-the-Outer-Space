@@ -45,6 +45,7 @@ public class RmiClient implements Serializable, Client {
 	}
 	@Override
 	public PlayerDTO moveRequest(String sector, Integer yourId, Integer gameNumber) throws RemoteException {
+		System.out.println("RMICLIENT ID "+yourId+" NUMERO GIOCO "+gameNumber+sector);
 		return remoteMethods1.performMove(sector, yourId,gameNumber);
 	}
 	@Override
