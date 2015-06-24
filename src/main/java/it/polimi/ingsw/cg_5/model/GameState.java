@@ -239,10 +239,10 @@ public class GameState extends Observable{
 		return this.gameDeck;
 	}
 	
-	
+	//TOGLIERE COMMENTO POI
 	public void goToNextCharacter(){
 		if(currentCharacter.getClass()==Human.class){
-			((Human) currentCharacter).setHumanBack();
+			//((Human) currentCharacter).setHumanBack();
 		}
 		
 		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1){

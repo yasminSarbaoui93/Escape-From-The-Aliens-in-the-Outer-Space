@@ -110,7 +110,7 @@ public class GameRules {
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter(),false);
-				
+							
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
 							
 							return playerDTO;
@@ -160,10 +160,15 @@ public class GameRules {
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+ 
 				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card",false);
 				}
+			
 				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.",false);
-				if(gameManager.getListOfMatch().get(numberGame).isGameOver()){
-					gameManager.getListOfMatch().get(numberGame).setMatchState(MatchState.ENDED);
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The match is ended!",false);
+				/// qua 
+				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
+					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
+							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+					playerDTO.setMessageToSend("Game Over");
+					this.gameManager.getListOfMatch().remove(numberGame);
+					return playerDTO;
 					}
 				playerDTO.setMessageToSend("You've attacked!!");
 				return playerDTO;
@@ -197,13 +202,13 @@ public class GameRules {
 					return playerDTO;
 					}
 				
-				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==(MatchState.ENDED)){
+				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
 					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
 							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+					playerDTO.setMessageToSend("Game Over");
 					this.gameManager.getListOfMatch().remove(numberGame);
-					playerDTO.setMessageToSend("You won the game!");
 					return playerDTO;
-				}
+					}
 				
 
 			}

@@ -30,9 +30,6 @@ private Match match;
 		
 		if(match.isGameOver()){
 			System.out.println("aaa");
-			for(Character character: match.getGameState().getCharacterList()){
-			match.getGameState().getWinners().add(character);
-			}
 			match.setMatchState(MatchState.ENDED);
 			System.out.println(match.getGameState());
 			}
@@ -43,7 +40,7 @@ private Match match;
 			this.gameState.getTimer().purge();
 			taskTimer task= new taskTimer(this.match);
 			this.gameState.setTimer(new Timer());
-			this.gameState.getTimer().schedule(task, 15*1000);
+			this.gameState.getTimer().schedule(task, 120*1000);
 			}
 	}
 	

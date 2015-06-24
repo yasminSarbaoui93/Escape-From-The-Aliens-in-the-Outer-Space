@@ -37,6 +37,8 @@ public class EscapeMove extends Move {
 		
 		if(escapeCard.getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 			escapedCharacter=gameState.getCurrentCharacter();
+			//aggiungo ai vincitori
+			gameState.getWinners().add(escapedCharacter);
 			gameState.goToNextCharacter();
 			gameState.getCharacterList().remove(escapedCharacter);
 			gameState.getTurn().setTurnState(TurnState.STARTED);	

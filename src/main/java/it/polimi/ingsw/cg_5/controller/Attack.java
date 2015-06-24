@@ -69,6 +69,7 @@ public class Attack extends Action {
 
 		for(Character attackedCharacter : characterToKill){
 			gameState.removeCharacter(attackedCharacter);
+			gameState.getLosers().add(attackedCharacter);
 			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(attackedCharacter);
 		}
 
@@ -77,9 +78,6 @@ public class Attack extends Action {
 	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
 	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);	
 	    
-	    // una volta eseguito attacco lo stato del canAttack dello umano deve tornare a false
-	    if(gameState.getCurrentCharacter().getClass()==Human.class)
-	    gameState.getCurrentCharacter().setCanAttack(false);
 	    }
 		
 		

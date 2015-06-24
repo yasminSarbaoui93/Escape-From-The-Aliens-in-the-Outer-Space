@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_5.model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -13,6 +14,11 @@ public class Map  {
 	private String choosenMap;
 	private Sector humanStart;
 	private Sector alienStart;
+	private ArrayList<EscapeSector> escapeHatchList=new ArrayList<EscapeSector>();
+	
+
+
+
 	public Map(String choosenMap) { 
 	//metodo che crea la mappa leggendo dal file specificato nella chiamata(lo si implementerà più avanti,
 	//per ora chiamiamo il file della mappa Galilei. 
@@ -54,6 +60,7 @@ public class Map  {
 					if (sectorType.equals("ESCAPE_HATCH")) {
 						EscapeSector settore=new EscapeSector(sectorName);
 						this.addSector(sectorName , settore); 
+						escapeHatchList.add(settore);
 						}
 					if (sectorType.equals("ALIEN_SECTOR")) {
 						AlienStart settore=new AlienStart(sectorName);
@@ -220,7 +227,9 @@ public class Map  {
 	public Sector getHumanStart() {
 		return humanStart;
 	}
-
+	public ArrayList<EscapeSector> getEscapeHatchList() {
+		return escapeHatchList;
+	}
 
 
 	public Sector getAlienStart() {

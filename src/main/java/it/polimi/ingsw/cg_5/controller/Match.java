@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.cg_5.connection.broker.Broker;
 import it.polimi.ingsw.cg_5.model.*;
+import it.polimi.ingsw.cg_5.model.Character;
 
 
 public class Match {
@@ -11,7 +12,7 @@ public class Match {
 	private GameState gameState;
 	private MatchState matchState;
 	private final Broker broker;
-
+	
 
 	public MatchState getMatchState() {
 		return matchState;
@@ -65,28 +66,41 @@ public class Match {
 	 */
 	public boolean isGameOver(){
 		if(this.gameState.getNumberOfHumanAlive()==0){
+			gameState.getWinners().addAll(gameState.getCharacterList());
 			return true;
 		}
 		if(this.gameState.getRound()==40){
+			for(Character character : gameState.getCharacterList()){
+				if(character.getClass()==Alien.class){
+				gameState.getWinners().add(character);
+				}else gameState.getLosers().add(character);
+			}
 			return true;
 		}
 		if(this.gameState.getNumberOfAliensAlive()==0){
+			gameState.getWinners().addAll(gameState.getCharacterList());
 			return true;
 		}
 		//controllo se escapeHatch tutti rotti
-		ArrayList <EscapeSector> escapeSectorToCheck= new ArrayList <EscapeSector>() ;
-		for(Integer i=1 ; i<5 ; i++){
-			escapeSectorToCheck.add((EscapeSector)this.gameState.getMap().takeSector(i.toString()));
-		}
-		for(EscapeSector sector : escapeSectorToCheck){
+		for(EscapeSector sector : gameState.getMap().getEscapeHatchList()){
 			if(sector.isAvailable()){
 			return false;
+			}	
 			}
+		//se siamo arrivati a sto punto vuol dire che tutti gi escape sono rotti quindi gli alieni rimasti --> vincitori
+		for(Character character : gameState.getCharacterList()){
+			 if(character.getClass()==Alien.class){
+			 gameState.getWinners().add(character);
+				}
+				else gameState.getLosers().add(character);
+				}
+			return true;
+		
 			
-		}
+		
 		// di base sarà return true, perchè tanto è obbligato a fare il ciclo foreach e se almeno uno non è rotto
 		//ritornerà false, altrimenti se tutti sono rotti ritornerà true, il gioco è finito
-		return true;
+		
 		
 	}
 	
