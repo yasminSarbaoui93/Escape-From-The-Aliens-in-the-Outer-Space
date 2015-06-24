@@ -9,7 +9,7 @@ public interface Broker{
 	 * @param chat boolean to check if it's a chat message a command message.
 	 * @throws RemoteException
 	 */
-	void publish(Boolean chat, String msg)throws RemoteException;
+	void publish(Boolean chat, String msg);
 	/**Changes the topic of the Broker to the number of the game that it is associated to.
 	 * @param topic
 	 */
@@ -20,7 +20,7 @@ public interface Broker{
 	 * @param playerId
 	 * @throws RemoteException
 	 */
-	void publishNumberGame(Integer numberGame, Integer playerId) throws RemoteException;
+	void publishNumberGame(Integer numberGame, Integer playerId);
 	
 	/**Associates all the subscribers to the right broker, in this case putting them into an Array List of subscribers (or BrokerThreads).
 	 * @param o

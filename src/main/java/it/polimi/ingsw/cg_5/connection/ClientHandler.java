@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+
 import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.Communicator;
 public class ClientHandler extends Thread {
@@ -168,7 +169,7 @@ public class ClientHandler extends Thread {
 				String message = in.nextLine();
 				try {
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
-				} catch (RemoteException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

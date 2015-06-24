@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -36,10 +36,11 @@ public class GameManager implements Observer{
 	}
 	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
+	 * @throws Exception 
 	 * @throws RemoteException 
 	 * 
 	 */
-	public void MatchCreator(String connectionType) throws RemoteException{
+	public void MatchCreator(String connectionType){
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
 		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
@@ -70,6 +71,7 @@ public class GameManager implements Observer{
 							
 							try {
 								user.getUserSubscriber().updateCharacter(character);
+								System.out.println(character+" CAPIRE SE INVIA CHARACTER GIUSTO");
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -117,7 +119,7 @@ public class GameManager implements Observer{
 	 */
 	public boolean canAct(Integer numberGame,Integer playerID){
 		if(this.listOfMatch.containsKey(numberGame)){
-				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
+				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID().equals(playerID))
 					return true;		
 			}
 	
@@ -140,9 +142,8 @@ public class GameManager implements Observer{
 			Integer gameNumber=Integer.parseInt(in.next());
 			try {
 				this.listOfMatch.get(gameNumber).getBroker().publish(false, in.nextLine());
-			} catch (RemoteException e) {
-				//e.getMessage();
-				
+			}catch (Exception e) {
+				e.printStackTrace();
 			}
 			in.close();
 			

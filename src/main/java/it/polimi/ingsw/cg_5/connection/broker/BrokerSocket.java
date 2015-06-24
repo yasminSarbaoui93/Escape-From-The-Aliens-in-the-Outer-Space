@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_5.connection.broker;
 
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
 public class BrokerSocket extends Thread implements Broker{
 
@@ -24,7 +24,7 @@ public class BrokerSocket extends Thread implements Broker{
 	}
 
 	@Override
-	public void publish(Boolean chat, String msg)throws RemoteException{
+	public void publish(Boolean chat, String msg){
 
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
@@ -38,12 +38,17 @@ public class BrokerSocket extends Thread implements Broker{
 	}
 	
 	@Override
-	public void publishNumberGame(Integer numberGame, Integer playerId) throws RemoteException{
+	public void publishNumberGame(Integer numberGame, Integer playerId) {
 		if(!subscribers.isEmpty()){
 			System.out.println("Publishing message");
 			for (BrokerThread sub : subscribers) {
-				sub.updateNumberGame(numberGame);
-				sub.updatecurrentPlayerId(playerId);
+				try {
+					sub.updateNumberGame(numberGame);
+					sub.updatecurrentPlayerId(playerId);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
 			}
 		}else{
 			System.err.println("No subscribers!!");
@@ -55,7 +60,7 @@ public class BrokerSocket extends Thread implements Broker{
 	public void subscribe(PubSubCommunication o) {
 		BrokerThread r = (BrokerThread)o;
 		subscribers.add(r);
-		r.start();
+	//	r.start();
 		System.out.println(subscribers.size());
 	}
 	

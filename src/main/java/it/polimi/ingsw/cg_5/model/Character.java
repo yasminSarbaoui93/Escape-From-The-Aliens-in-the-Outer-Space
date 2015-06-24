@@ -3,15 +3,15 @@ package it.polimi.ingsw.cg_5.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.lang.model.type.UnionType;
-
 
 
 public abstract class Character implements Serializable {
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4139877974107622536L;
 	protected int maxMove;
 	protected Sector currentSector;
 	protected final String name;
@@ -35,6 +35,10 @@ public abstract class Character implements Serializable {
 
 	public Sector getCurrentSector(){
 		return currentSector;
+	}
+	
+	public void setSectorByName(String sectorName){
+		
 	}
 	
 	

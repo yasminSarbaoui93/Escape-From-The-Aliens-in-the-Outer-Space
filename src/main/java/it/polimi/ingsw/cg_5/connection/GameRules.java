@@ -75,18 +75,13 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return the player's data transfer object with all the updated informations of the character (such as the current sector and the rispective server answer message).
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
+	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) {
 		
 		
 		try{
-			System.out.println("set "+sectorName+"id"+yourId+" numgic "+numberGame);
-			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getNumberGame()==numberGame);
-			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
-			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==yourId);
-			System.out.println(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID().getClass());
-			System.out.println(yourId.getClass());
+			
 			if(gameManager.canAct(numberGame, yourId)){
 				
 				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -151,9 +146,9 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return playerDTO updated with the turn state as Has Attacked
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performAttack(Integer yourId ,Integer numberGame) throws RemoteException {
+	public PlayerDTO performAttack(Integer yourId ,Integer numberGame) {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -194,9 +189,9 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return Player DTO with the message updated.
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performEndTurn(Integer yourId,Integer numberGame)  throws RemoteException{
+	public PlayerDTO performEndTurn(Integer yourId,Integer numberGame) {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -205,6 +200,7 @@ public class GameRules {
 				endTurn.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
+				//QUESTA PUBLISH PLAYER ID NON ARRIVA
 				gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 				return playerDTO;
@@ -228,9 +224,9 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return playerDTO updated with the messages and the cards owned.
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException{
+	public PlayerDTO performDrawCard(Integer yourId,Integer numberGame){
 		String message = new String ("");
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -284,9 +280,9 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return playerDTO with messages updated
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO bluffSector(String bluffSector, Integer yourId , Integer numberGame) throws RemoteException {
+	public PlayerDTO bluffSector(String bluffSector, Integer yourId , Integer numberGame)  {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			if(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState()==TurnState.BLUFFING){
@@ -321,9 +317,9 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return playerDTO with message updated and the remaining item cards that the player owns
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame) throws RemoteException {
+	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame)  {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 
@@ -360,9 +356,9 @@ public class GameRules {
 	 * @param numberGame
 	 * @param sector
 	 * @return PlayerDTO with the messages and the player's deck updated.
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
-	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector) throws RemoteException {
+	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector){
 				if(gameManager.canAct(numberGame, yourId)){
 					PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
@@ -405,10 +401,10 @@ public class GameRules {
 	 * @param yourId
 	 * @param numberGame
 	 * @return
-	 * @throws RemoteException
+	 * @throws Exception 
 	 */
 	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId,
-			Integer numberGame) throws RemoteException {
+			Integer numberGame) {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType = getTypeFromString(itemCardType);
@@ -436,7 +432,7 @@ public class GameRules {
 		}
 	}
 	
-	public void performSendMessage(String message, Integer yourId, Integer numberGame) throws RemoteException{
+	public void performSendMessage(String message, Integer yourId, Integer numberGame) {
 		gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
 	}
 	/**Associates the input string to a specific item card.
