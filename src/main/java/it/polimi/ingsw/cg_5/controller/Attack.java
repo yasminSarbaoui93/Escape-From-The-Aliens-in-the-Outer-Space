@@ -7,7 +7,7 @@ import it.polimi.ingsw.cg_5.model.Character;
 
 public class Attack extends Action {
 	private ArrayList <Character> characterToKill = new ArrayList <Character> ();
-	
+	private Match match;
 	public ArrayList<Integer> getPlayerToKill() {
 		ArrayList <Integer> playerIdToKill = new ArrayList <Integer> () ;
 		for(Character character : characterToKill){
@@ -22,8 +22,9 @@ public class Attack extends Action {
 		return safeCharacter;
 	}
 
-	public Attack (GameState gameState){
+	public Attack (GameState gameState,Match match){
 	super(gameState);
+	this.match=match;
 	}
 	
 	@Override
@@ -77,6 +78,12 @@ public class Attack extends Action {
 	    	/*System.out.println(gameState.getMap().takeSector(gameState
 	    			.getCurrentCharacter().getCurrentSector().getSectorName()).getCharacterList());*/    	
 	    gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);	
+	    
+	    if(match.isGameOver()){
+			System.out.println("aaa");
+			match.setMatchState(MatchState.ENDED);
+			System.out.println(match.getGameState());
+			}
 	    
 	    }
 		

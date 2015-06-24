@@ -100,7 +100,7 @@ public class MainProvaGioco {
 							System.out.println("comando Errato bro");
 					}
 					else{
-						EscapeMove escapeMove=new EscapeMove(gameState,sectorToMove);
+						EscapeMove escapeMove=new EscapeMove(gameState,sectorToMove ,match);
 						if(escapeMove.checkAction()){
 							escapeMove.execute();
 							if(escapeMove.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
@@ -116,7 +116,7 @@ public class MainProvaGioco {
 				}
 				if(comando.equals("ATTACK")){
 					System.out.println("\n Attacco in esecuzione ...");
-					Attack attack = new Attack(gameState);
+					Attack attack = new Attack(gameState,match);
 					if(attack.checkAction()==true){
 						attack.execute();
 						System.out.println("attacco eseguito!");

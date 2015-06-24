@@ -102,15 +102,22 @@ public class GameRules {
 					}
 				}
 				else {
-					EscapeMove runAway = new EscapeMove(gameManager.getListOfMatch().get(numberGame).getGameState(), destinationSector);
+					EscapeMove runAway = new EscapeMove(gameManager.getListOfMatch().get(numberGame).getGameState(), destinationSector,gameManager.getListOfMatch().get(numberGame));
 					if(runAway.checkAction()){
 						runAway.execute();
 						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+							
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter(),false);
-							
+							if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
+								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
+										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+								playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");
+								this.gameManager.getListOfMatch().remove(numberGame);
+								return playerDTO;
+								}
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
 							
 							return playerDTO;
@@ -147,7 +154,7 @@ public class GameRules {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
-			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState());
+			Attack attack = new Attack(gameManager.getListOfMatch().get(numberGame).getGameState(),gameManager.getListOfMatch().get(numberGame));
 			if(attack.checkAction()){
 				attack.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
@@ -195,7 +202,7 @@ public class GameRules {
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
 				
-				
+				// qua
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()!=(MatchState.ENDED)){
 					gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 					playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());

@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg_5.model.Character;
 
 public class EscapeMove extends Move {
 	EscapeHatchCard escapeCard=null;
+	private Match match;
     public EscapeHatchCard getEscapeCard() {
 		return escapeCard;
 	}
@@ -16,8 +17,9 @@ public class EscapeMove extends Move {
 
 	Character escapedCharacter;
 	
-	public EscapeMove(GameState gameState, Sector destinationSector) {
+	public EscapeMove(GameState gameState, Sector destinationSector,Match match) {
 		super(gameState, destinationSector);
+		this.match=match;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -41,11 +43,16 @@ public class EscapeMove extends Move {
 			gameState.getWinners().add(escapedCharacter);
 			gameState.goToNextCharacter();
 			gameState.getCharacterList().remove(escapedCharacter);
-			gameState.getTurn().setTurnState(TurnState.STARTED);	
+			gameState.getTurn().setTurnState(TurnState.STARTED);
+			
 
 		}
 		gameState.destroyShallop(destinationSector);
 			
-			
+		 if(match.isGameOver()){
+				System.out.println("aaa");
+				match.setMatchState(MatchState.ENDED);
+				System.out.println(match.getGameState());
+				}
 	}
 }
