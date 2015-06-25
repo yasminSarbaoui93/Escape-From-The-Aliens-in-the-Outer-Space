@@ -85,7 +85,7 @@ public class GameManager implements Observer{
 				newGameState.getTimer().purge();
 				taskTimer task= new taskTimer(newMatch);
 				newGameState.setTimer(new Timer());
-				newGameState.getTimer().schedule(task, 12*1000);
+				newGameState.getTimer().schedule(task, 120*1000);
 
 				
 				newGameState.getMap().drawMap();

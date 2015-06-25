@@ -39,7 +39,7 @@ private Match match;
 			this.gameState.getTimer().purge();
 			taskTimer task= new taskTimer(this.match);
 			this.gameState.setTimer(new Timer());
-			this.gameState.getTimer().schedule(task, 12*1000);
+			this.gameState.getTimer().schedule(task, 120*1000);
 			}
 	}
 	

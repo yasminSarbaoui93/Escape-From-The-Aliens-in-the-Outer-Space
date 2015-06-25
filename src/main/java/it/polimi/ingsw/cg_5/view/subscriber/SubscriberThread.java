@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
 import it.polimi.ingsw.cg_5.model.Character;
 
 import javax.swing.text.BadLocationException;
@@ -77,7 +78,7 @@ public class SubscriberThread extends Thread {
 					
 					if(messageReceived.toUpperCase().equals("FALSE")){
 						messageToPrint = inMsg.nextLine();
-						this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messageToPrint+"\n",Color.RED);
+						this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messageToPrint,Color.RED);
 						System.out.println("Thread "+name+" received the message: "+messageToPrint);
 
 					}
@@ -92,25 +93,33 @@ public class SubscriberThread extends Thread {
 						messageToPrint = inMsg.next();
 						System.out.println("PROVA PLAYER ID SUB THREAD: " +messageToPrint);
 						Integer playerId = Integer.parseInt(messageToPrint);
-						subscriber.getView().setPlayerID(playerId);
+						subscriber.getView().setCurrentPlayerId(playerId);
 						subscriber.getView().getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(playerId);
 				
 					}
 					
 					if(messageReceived.toUpperCase().equals("TRUE")){		
 						messageToPrint = inMsg.nextLine();
-						this.subscriber.getView().getViewController().getEscape().getMessagePanel().updateChatMessage(messageToPrint);
+						this.subscriber.getView().getViewController().getEscape().getMessagePanel().updateChatMessage(messageToPrint+"\n");
 						System.out.println("Thread "+name+" received the chat message: "+messageToPrint);
-						inMsg.close();
-						return messageToPrint;
+
 					} 
 					
 				if(messageReceived.toUpperCase().equals("CHARACTER")){
+					try {
+						synchronized(inObj){
+						inObj.wait(10);}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 						receiveCharacter();			
 				}
 								
 			}
+				inMsg.close();	
 		}
+			
+
 		}  catch (IOException e) {
 			e.printStackTrace();
 		} catch (BadLocationException e) {
@@ -126,7 +135,12 @@ public class SubscriberThread extends Thread {
 	private Character receiveCharacter(){
 		Character character = null;
 		Object object =null;
+		
+			
+
+
 		try {
+			
 		object = inObj.readObject();
 		character = (Character)object;
 		subscriber.getView().setCharacter(character);

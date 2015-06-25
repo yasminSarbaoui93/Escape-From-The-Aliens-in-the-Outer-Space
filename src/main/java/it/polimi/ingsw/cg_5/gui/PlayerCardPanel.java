@@ -2,14 +2,11 @@ package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import it.polimi.ingsw.cg_5.model.Character;
-import it.polimi.ingsw.cg_5.model.ItemCard;
 
 public class PlayerCardPanel extends JPanel{
 	

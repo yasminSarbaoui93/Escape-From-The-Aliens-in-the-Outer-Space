@@ -76,6 +76,9 @@ public class BrokerThread /*extends Thread */implements PubSubCommunication {
 		//out.wait();}
 		//out.wait(5);
 		//Character playerDTO = new PlayerDTO(character);
+		synchronized(outObj){
+			outObj.wait(5);
+		}
 		sendCharacter(character);
 		
 		//synchronized(out){

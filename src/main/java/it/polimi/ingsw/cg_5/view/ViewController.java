@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg_5.gui.StartOptions;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberSocket;
-/**classe che raggruppa tutti gli elementi caratterizzanti il client, dalla view alle schermate di gioco
+/**Class that collects all the elements caratterizing the client, going from the view to the game screan.
  * @author Andrea
  *
  */
@@ -22,13 +22,10 @@ public class ViewController {
 public ViewController (){
 	startOptions= new StartOptions(this);
 	startOptions.setVisible(true);
-	//escape.setVisible(true);
-	
-	
 	
 }
-/** metodo chiamato quando viene premuto il tasto start, che si occupa di creare un client per la view che matchi
- * con la connectiontype desiderate e inoltre invia la richiesta di partecipazione a un gioco al server
+/**Method called when a client clicks on the start button. This creates a client associated to the view that matches the
+ * connectionType choosen. Moreover it sends the request to join a new game to the server.
  * @param userName
  * @param choosenMap
  * @param maxNumberPlayers

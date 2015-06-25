@@ -9,7 +9,7 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-/** classe che contiene il pannello dove appariranno i messaggi di log
+/**Cointains the panel where the log messages will be printed.
  * @author Andrea
  *
  */

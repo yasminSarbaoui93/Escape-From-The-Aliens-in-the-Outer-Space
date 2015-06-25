@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_5.view;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.NoSuchElementException;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;

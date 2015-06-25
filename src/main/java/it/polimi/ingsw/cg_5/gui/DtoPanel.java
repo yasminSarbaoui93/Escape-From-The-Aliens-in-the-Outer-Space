@@ -12,8 +12,7 @@ import javax.swing.JTextField;
 import it.polimi.ingsw.cg_5.model.Character;
 
 
-/** è il pannello che mostra le informazioni che riguardano il giocatore e il gioco e che vanno aggiornate più volte nel 
- * corso del gioco
+/**Panel that shows all the informations of the player and the game, uploaded more times during the game. 
  * @author Andrea
  *
  */
@@ -86,8 +85,7 @@ public class DtoPanel extends JPanel{
 		this.name.setText(playerName +"\n");
 	}
 	
-	/** metodo che viene chiamato ogni qualvolta viene cambiato lo stato delle informazioni contenute nel pannello,per
-	 * aggiornare all-ultimo valore corretto
+	/**Method called any time the state of the informations in the panel changes, to upload the right values.
 	 * @param character
 	 */
 	public void updateDtoPanel(Character character){

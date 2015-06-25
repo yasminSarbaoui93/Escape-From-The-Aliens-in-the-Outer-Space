@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-/** è la schermata principale del gioco, contiene tutti i pannelli di interesse e la stampa mappa utilizzata
+/**Main screan of the game. It cointains all the needed panels and prints the right map.
  * @author Andrea
  *
  */
@@ -96,7 +96,7 @@ public class EscapeFromAlienGame extends JFrame{
 		
 	}
 	
-	/** metodo utilizzato per stampare il cerchio che identifica la selezione di un settore, date le coordinate
+	/**Prints the circle that identifies the selection of a sector, given the coordinates.
 	 * @param x
 	 * @param y
 	 */
@@ -104,7 +104,7 @@ public class EscapeFromAlienGame extends JFrame{
 		this.image.setBounds(x, y, 60, 60);
 	 
 	}
-	/** metodo che date le coordinate stampa nella schermata la pedina nel settore attuale in cui si trova
+	/**Given the coordinates, it prints on the screan the piece on the current sector.
 	 * @param x
 	 * @param y
 	 */
@@ -120,11 +120,10 @@ public class EscapeFromAlienGame extends JFrame{
 	}
 	
 
-	/** metodo utilizzato per caricare tutte le immagini che verranno poi utilizzate in questo frame
+	/**Used to upload all the images that will be used on this frame.
 	 * @param viewController
 	 */
 	private void loadResources(ViewController viewController) {
-		//load the background image from the disk
 		try {
 
 			circleImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/selected.png"));
@@ -138,9 +137,6 @@ public class EscapeFromAlienGame extends JFrame{
 		
 			if(viewController.getStartOptions().getListMap().getSelectedItem().equals("GALVANI")){
 				mapImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/galvani.png"));
-
-			
-
 			}
 
 		} catch (IOException e) {
@@ -157,79 +153,50 @@ public class EscapeFromAlienGame extends JFrame{
 	}
 
 	
-	/** inizializzazione di tutti i componenti riguardanti questo jframe
+	/**Initialization of all the components concenrning this jFrame
 	 * 
 	 */
 	private void initComponents() {
 	
-		
-		
-		
 		layeredPane = new JLayeredPane();
-		  setContentPane(layeredPane);
+		setContentPane(layeredPane);		
+		backgroundLabel = new JLabel(new ImageIcon(mapImage));
+		backgroundLabel.setBounds(0,0,801, 591);
+		add(backgroundLabel);
+		layeredPane.setLayer(backgroundLabel, 0);
+			
+		/*************************START COMMAND PANEL********************************/			
+			
+		layeredPane.setLayer(buttonPanel, 10);
+		Mouse mouse = new Mouse(this);
+		this.addMouseListener(mouse);
+
+		/****************************ADDING LISTENER*********************************/
 		
-		  backgroundLabel = new JLabel(new ImageIcon(mapImage));
-			backgroundLabel.setBounds(0,0,801, 591);
-			add(backgroundLabel);
-			/////prova button
-			
-			
-			layeredPane.setLayer(backgroundLabel, 0);
-			
-			
-			//-----------------start comandPanel--------------//
-			
+		buttonPanel.getEndTurn().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN",""));
+		buttonPanel.getAttackButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK",""));
+		buttonPanel.getDrawCard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW",""));
+		buttonPanel.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD",""));
+		buttonPanel.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD",""));	
+		messagePanel.getSendMessage().addActionListener(new MessageListener(this.viewController,messagePanel));
+		add(buttonPanel);
 
-			layeredPane.setLayer(buttonPanel, 10);
+		/***************************END COMMAND PANEL*******************************/
 			
+		layeredPane.setLayer(logPanel, 10);
 			
-
-			
-			Mouse mouse = new Mouse(this);
-			this.addMouseListener(mouse);
-
-			
-			
-			// adding listener
-
-			
-			buttonPanel.getEndTurn().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ENDTURN",""));
-			buttonPanel.getAttackButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"ATTACK",""));
-			buttonPanel.getDrawCard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DRAW",""));
-			
-			buttonPanel.getUseCardButton().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"USECARD",""));
-			buttonPanel.getDiscard().addActionListener(new GameButtonListener(this.viewController,this.dtoPanel,this.logPanel,"DISCARD",""));
-			
-			messagePanel.getSendMessage().addActionListener(new MessageListener(this.viewController,messagePanel));
-			
-			
-			add(buttonPanel);
-
-			
-			//-----------------end comandPanel--------------//
-			
-			layeredPane.setLayer(logPanel, 10);
-			
-
+		/*******************************DTO PANEL***********************************/
 	
-			
-			
-			//------------------------------------------------------------------------- PANNELLO DTO--------------------------------------------------------------------
-			
-			layeredPane.setLayer(dtoPanel, 10);
-			add(dtoPanel);
-			add(logPanel);
-			add(messagePanel);
-			layeredPane.setLayer(messagePanel, 10);
-			messagePanel.setBounds(0, 591, 801, 90);
-			add(playerCardPanel);
-			layeredPane.setLayer(playerCardPanel, 10);
-			//------------------------------------------------------------------------FINE PANNELLO DTO---------------------------------------------------------------
-			
-			
+		layeredPane.setLayer(dtoPanel, 10);
+		add(dtoPanel);
+		add(logPanel);
+		add(messagePanel);
+		layeredPane.setLayer(messagePanel, 10);
+		messagePanel.setBounds(0, 591, 801, 90);
+		add(playerCardPanel);
+		layeredPane.setLayer(playerCardPanel, 10);
 		
 	}
-
 
 
 	public LogMessage getLogPanel() {
@@ -247,4 +214,4 @@ public class EscapeFromAlienGame extends JFrame{
 		return dtoPanel;
 	}
 	
-	}
+}

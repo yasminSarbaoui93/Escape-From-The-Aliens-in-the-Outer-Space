@@ -21,7 +21,7 @@ public class View implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer PlayerID=-1;
 	private Client client;
-	private Integer currentPlayerId=-1;
+	private Integer currentPlayerId=-2;
 
 	
 	private String name;

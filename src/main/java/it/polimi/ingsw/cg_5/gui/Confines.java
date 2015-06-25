@@ -2,18 +2,14 @@ package it.polimi.ingsw.cg_5.gui;
 
 import java.util.ArrayList;
 
-/** Classe che contiene tre liste che associano le cordinate min e max sulla schermata con la giusta/lettera numero
- * che identificano la riga/colonna esatta, la classe verrà utilizzata sia per riconoscere il settore dopo aver cliccato 
- * in un punto grazie alle coordinate,ma anche viceversa dato un settore per trovare le coordinate in cui stampare diverse
- * immagini
- * Si noti che le liste per le righe sono due, in quanto si avranno valori diversi in base alla colonna del settore
+/**Class that cointains three lists that associate the coordinates min and max on the screan with the right combination letter-number that
+ * identify the rigt line and column. The class is used both to recognize the sector after a botton gets pushed
+ * and to find the coordinates where to print an image after a sector is given.
+ * For the lines there are two lists since there are different values based on the column of the sector. 
  * @author Andrea
  *
  */
-/**
- * @author Andrea
- *
- */
+
 public class Confines {
 	private ArrayList <LineConfines> columnlist = new ArrayList <LineConfines> () ;
 	private ArrayList <LineConfines> oddrowlist = new ArrayList <LineConfines> () ;
@@ -53,8 +49,8 @@ public class Confines {
 	}
 
 
-	/**Nel costruttore inizializziamo le tre liste tramite cicli for
-	 * 
+	/**
+	 * In the confines constructor the three lists are inizialized.
 	 */
 	public Confines(){
 		for(int i= 0; i<23 ; i++){
@@ -94,8 +90,7 @@ public class Confines {
 
 		}
 	
-	/** metodo che data una colonna restituisce il punto centrale del settore, in modo da stampare le immagine centrate
-	 * rispetto alla colonna
+	/**Given a column, it returns the central point of the sector, so that it's possible to print the images in the center of the sector.
 	 * @param col
 	 * @return
 	 */
@@ -107,9 +102,8 @@ public class Confines {
 		}
 		return ret;		
 	}
-	/**metodo che data una riga restituisce il punto centrale del settore, in modo da stampare le immagine centrate
-	 * rispetto alla riga,  la differenza è che per le righe abbiamo due possibili valori, in base a se la colonna del settore
-	 * e pari oppure dispari
+	/**Method that takes as input the letter of a line and return the central point of the sector, so that it's possible to print the
+	 * images at the center of the line. For the lines there are two possibke values based on the value of the column.
 	 * @param letter
 	 * @return
 	 */

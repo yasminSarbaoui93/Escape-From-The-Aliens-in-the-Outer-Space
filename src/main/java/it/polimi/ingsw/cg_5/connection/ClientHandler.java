@@ -34,8 +34,11 @@ public class ClientHandler extends Thread {
 			
 			command = client.receive();
 			System.out.println(command);
+			System.out.println("chat non funziona" );
 			in = new Scanner(command);
+			if(in.hasNext()){
 			String stringToRead = in.next();
+			
 			PlayerDTO playerDTO;
 			if(stringToRead.toUpperCase().equals("SUBSCRIBEREQUEST")){
 				String choosenMap = in.next();
@@ -168,13 +171,16 @@ public class ClientHandler extends Thread {
 			if(stringToRead.toUpperCase().equals("CHAT")){
 				String message = in.nextLine();
 				try {
+					playerDTO = new PlayerDTO("you sent a chat message");
 					gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
+					client.sendDTO(playerDTO);
+				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			}
-		
+			}
 		}while(!command.toUpperCase().equals("QUIT")); 
 		client.close();
 		in.close();

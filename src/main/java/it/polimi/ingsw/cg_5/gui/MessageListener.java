@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg_5.view.ViewController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**classe che implementa actionlistener ma che ha altri parametri utilizzare per aggiornare lo stato dei pannelli di gioco
+/**Class that implements the action listener and has other parameters used to update the game panels state
  * @author Andrea
  *
  */
@@ -21,8 +21,8 @@ public class MessageListener implements ActionListener {
 	}
 
 	/* (non-Javadoc)
-	 * schiatto il bottone di send il messaggio viene inviato al server che provvederà a inoltrarlo in broadcast tramite
-	 * la publish
+	 * Once pushed the send button, the message is forwarded to the server that will provide to send it broadcast using
+	 * the broker.
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override

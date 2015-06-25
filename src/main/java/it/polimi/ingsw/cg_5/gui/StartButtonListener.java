@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-/** metodo che in seguito al click del bottone di start prende le configurazioni di gioco  e la username scelte per
- * inoltrare un messaggio di partecipazione a un gioco direttamente al server
+/**After the click of the start button, it takes the game configurations and the choosen username to forwardd a message of game joining
+ * to the server.
  * @author Andrea
  *
  */
@@ -44,25 +44,13 @@ public class StartButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			String userName = userLabel.getText();
-			
-			
-
 			String  maxNumberPlayers= (String) listPlayerNumber.getSelectedItem();
 			String 	connessionType= (String) typeConnection.getSelectedItem();
-			
-	
-		
-			 
 				try {
 					this.getViewController().ViewCreatorAndSubscribeRequest(userName, (String) viewController.getStartOptions().getListMap().getSelectedItem(),maxNumberPlayers,connessionType);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-			
-			
-				
-			
-		
 	}
 
 }
