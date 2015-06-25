@@ -23,7 +23,7 @@ public class PlayerDTO implements Serializable {
 	private Character yourCharacter;
 	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;
-	private int currentCharacter;
+	private Integer currentCharacter;
 	
 	public PlayerDTO(Character character){
 		this.yourCharacter = character;
@@ -35,7 +35,7 @@ public class PlayerDTO implements Serializable {
 	
 	/*************************GETTERS AND SETTERS*********************************/
 	
-	public void setCurrentCharacter(int currentCharacter) {
+	public void setCurrentCharacter(Integer currentCharacter) {
 		this.currentCharacter = currentCharacter;
 	}
 	
@@ -73,7 +73,7 @@ public class PlayerDTO implements Serializable {
 	public void setYourCharacter(Character yourCharacter) {
 		this.yourCharacter = yourCharacter;
 	}
-	public int getCurrentCharacter() {
+	public Integer getCurrentCharacter() {
 		return currentCharacter;
 	}
 	
