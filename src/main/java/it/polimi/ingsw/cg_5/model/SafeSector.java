@@ -11,9 +11,5 @@ public class SafeSector extends Sector {
 		return super.toString()+"(S)";
 	}
 
-	public boolean isSafeSector(Sector a){
-		return a.getClass() == SafeSector.class;
-	}
-	
 
 }

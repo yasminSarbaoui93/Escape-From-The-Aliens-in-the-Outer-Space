@@ -64,6 +64,13 @@ public class CharacterTest {
 		assertEquals(galileiMap.map.get("M03"), soldierSector = soldier.getCurrentSector());
 		System.out.println("The soldier's current sector is: "+soldierSector);
 		
+		// test setBack
+		soldier.setCanAttack(true);
+		soldier.setMaxMove(100);
+		soldier.setHumanBack();
+		assertEquals(1, soldier.getMaxMove());
+		assertEquals(false,soldier.isCanAttack());
+		
 		System.out.println("The psychologist's name is: "+psychologist.getName());
 	}
 

@@ -14,7 +14,7 @@ public  class EscapeHatchCard implements Card {
 		return this.escapeHatchType.equals(EscapeHatchType.RED_SHALLOP);
 	}
 	
-	public boolean isGreen(EscapeHatchType colourCard){
+	public boolean isGreen(){
 		return this.escapeHatchType.equals(EscapeHatchType.GREEN_SHALLOP);
 	}
 

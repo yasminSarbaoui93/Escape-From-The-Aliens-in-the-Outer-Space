@@ -1,5 +1,4 @@
 package it.polimi.ingsw.cg_5.model;
-
 public enum FilePath {
 		GALVANI("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galvani"), 
 		GALVANI_CONFINI("./src/main/java/it/polimi/ingsw/cg_5/model/Mappa_Galvani_Confini") , 

@@ -13,6 +13,7 @@ public class ItemDeckTest {
 	public void test() {
 		ItemDeck itemDeck = new ItemDeck();
 		
+		assertEquals(12, itemDeck.getSize());
 		//Creation of an arrayList where to put used cards (that players decide not to use or to use)
 	
 		

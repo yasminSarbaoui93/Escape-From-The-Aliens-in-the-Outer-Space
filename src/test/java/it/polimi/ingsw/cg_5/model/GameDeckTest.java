@@ -2,6 +2,8 @@ package it.polimi.ingsw.cg_5.model;
 
 //import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class GameDeckTest {
@@ -20,6 +22,10 @@ public class GameDeckTest {
 			System.out.println("Drawn Card: "+card);
 		}
 		
+		//prova carte
+		GameCard game = new GameCard(true, GameCardType.NOISE_YOUR_SECTOR);
+		assertEquals(true,game.isItemIcon());
+		assertEquals(GameCardType.NOISE_YOUR_SECTOR,game.getGameCardType());
 		
 		System.out.println("\n"+gameDeck);
 		

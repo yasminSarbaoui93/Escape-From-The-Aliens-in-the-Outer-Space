@@ -102,9 +102,11 @@ public void getReachableSectorsTest(){
 		comparisonSector3.add(map1.map.get("M10"));
 		comparisonSector3.add(map1.map.get("L09"));
 		
-		
-		
-		
+		//test escape set available
+		EscapeSector escape = new EscapeSector("prova");
+		escape.setAvailable(false);
+		assertEquals(false, escape.isAvailable());
+	
 		assertEquals(reachableSector3 = map1.takeSector("M09").getReachableSectors(1, map1.takeSector("M09")), comparisonSector3 );
 		System.out.println("Reachable sectors for maxMove = 3 are: "+reachableSector3);
 		
