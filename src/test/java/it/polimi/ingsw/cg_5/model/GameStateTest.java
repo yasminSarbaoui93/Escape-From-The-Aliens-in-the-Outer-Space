@@ -20,8 +20,20 @@ public class GameStateTest {
 		
 		//New GameState with Galilei map and 5 players identified by their IDs
 		GameState matchGalilei1= new GameState (playersID, "Galilei",0);
+		Integer m=0;
+		assertEquals(matchGalilei1.getMatchIndex(),m);
+	
 		System.out.println("The map used is " + matchGalilei1.getMap().getMapName());
 		Iterator <Character> iterator = matchGalilei1.getCharacterList().iterator();
+		
+		//test escapehatchdeck
+		EscapeHatchDeck escapedeck= new EscapeHatchDeck();
+		matchGalilei1.setEscapeHatchDeck(escapedeck);
+		assertEquals(escapedeck, matchGalilei1.getEscapeHatchDeck());
+		//test winners
+		Human human = new Human("andrea", 100);
+		matchGalilei1.getWinners().add(human);
+		//assertEquals(human,matchGalilei1.getWinners());
 		
 		ArrayList <Character> listOfCharacters = matchGalilei1.getCharacterList();
 		System.out.println(listOfCharacters+"\n");
@@ -40,10 +52,18 @@ public class GameStateTest {
 		System.out.println("STARTING THE ROUND NUMBER " + matchGalilei1.getRound()+"\n");
 		
 		System.out.println("It's the turn of the player with ID-"+matchGalilei1.getCurrentCharacter().getPlayerID());
+		ItemCard card=(ItemCard)matchGalilei1.currentCharacterDrawsItemCard();
+		assertEquals(card,matchGalilei1.getCurrentCharacter().getItemPlayerCard().get(0));
 		matchGalilei1.currentCharacterDrawsItemCard();
 		matchGalilei1.currentCharacterDrawsItemCard();
-		matchGalilei1.currentCharacterDrawsItemCard();
+		
 		System.out.println(matchGalilei1.getCurrentCharacter()+" and my item cards are\n"+matchGalilei1.getCurrentCharacter().getItemPlayerCard());
+		
+		
+		//test destroy shallop
+		matchGalilei1.destroyShallop(matchGalilei1.getMap().takeSector("V02"));
+		EscapeSector escape=(EscapeSector)matchGalilei1.getMap().takeSector("V02");
+		assertEquals(false,escape.isAvailable());
 		
 		//Change turn of the player
 		matchGalilei1.goToNextCharacter();;
@@ -81,6 +101,8 @@ public class GameStateTest {
 		for(int i=0; i<183; i++){
 			matchGalilei1.goToNextCharacter();
 		}
+		
+		
 
 	}
 	

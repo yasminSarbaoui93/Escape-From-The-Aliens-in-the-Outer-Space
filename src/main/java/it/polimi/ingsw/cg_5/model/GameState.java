@@ -165,12 +165,6 @@ public class GameState extends Observable{
 		this.setChanged();
 		notifyObservers(this.matchIndex +" The turn of the last player's ended, it's starting the round number: "+round);
 	}
-
-
-	public void setCharacterList(ArrayList<Character> characterList) {
-		this.characterList = characterList;
-	}
-		
 	
 
 	public ItemDeck getItemDeck() {
@@ -231,7 +225,6 @@ public class GameState extends Observable{
 	}
 	
 
-	
 	// rimescolo il mazzo
 	public GameDeck setGameDeck(){
 		this.gameDeck=new GameDeck();
