@@ -1,7 +1,5 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import it.polimi.ingsw.cg_5.model.GameState;
