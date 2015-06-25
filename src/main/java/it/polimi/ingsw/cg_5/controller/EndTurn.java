@@ -29,9 +29,8 @@ private Match match;
 		gameState.getTurn().setTurnState(TurnState.STARTED);
 		
 		if(match.isGameOver()){
-			System.out.println("aaa");
 			match.setMatchState(MatchState.ENDED);
-			System.out.println(match.getGameState());
+			
 			}
 			
 		

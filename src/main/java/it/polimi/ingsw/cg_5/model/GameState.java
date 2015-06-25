@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg_5.controller.taskTimer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Timer;
 
@@ -21,8 +22,8 @@ public class GameState extends Observable{
 	private Turn turn= new Turn();
 	private final int MAX_NUM_ROUND;
 	private final Integer matchIndex;
-	private ArrayList<Character> winners=new ArrayList <Character>();
-	private ArrayList<Character> losers=new ArrayList <Character>();
+	private HashSet<Character> winners=new HashSet <Character>();
+	private HashSet<Character> losers=new HashSet <Character>();
 	private Timer timer = new Timer();
 	
 	
@@ -194,13 +195,13 @@ public class GameState extends Observable{
 	}
 
 
-	public ArrayList<Character> getWinners() {
+	public HashSet<Character> getWinners() {
 		return winners;
 	}
 
 
 
-	public ArrayList<Character> getLosers() {
+	public HashSet<Character> getLosers() {
 		return losers;
 	}
 

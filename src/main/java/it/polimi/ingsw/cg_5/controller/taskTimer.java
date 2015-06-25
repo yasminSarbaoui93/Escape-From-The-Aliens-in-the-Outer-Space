@@ -26,10 +26,24 @@ public class taskTimer extends TimerTask {
 		e1.printStackTrace();
 	}
 	Character timerCharacter=this.match.getGameState().getCurrentCharacter();
+	this.match.getGameState().removeCharacter(timerCharacter);
+	if(match.isGameOver()){
+		match.setMatchState(MatchState.ENDED);
+		try {
+			this.match.getBroker().publish("The game is ended after a player abandoned the game", false);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	if(match.getMatchState()!=MatchState.ENDED){
 		endTurn.execute();
+	}
 	
-	this.match.getGameState().removeCharacter(timerCharacter);
+	
+	else {
+		endTurn.execute();
+	}
 	try {
 		this.match.getBroker().publishNumberGame(this.match.getNumberGame(), this.match.getGameState().getCurrentCharacter().getPlayerID());
 	} catch (RemoteException e) {
@@ -39,4 +53,4 @@ public class taskTimer extends TimerTask {
 	}
 	}
 
-}
+

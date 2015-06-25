@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashSet;
 
 import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.controller.Attack;
@@ -18,11 +19,13 @@ import it.polimi.ingsw.cg_5.controller.MatchState;
 import it.polimi.ingsw.cg_5.controller.Move;
 import it.polimi.ingsw.cg_5.controller.UseItemCard;
 import it.polimi.ingsw.cg_5.controller.UseSpotLight;
+import it.polimi.ingsw.cg_5.model.Alien;
 import it.polimi.ingsw.cg_5.model.Card;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.EscapeHatchType;
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
+import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
@@ -112,6 +115,14 @@ public class GameRules {
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter(),false);
 							if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
+								HashSet<Character> removeAlien=gameManager.getListOfMatch().get(numberGame).getGameState().getWinners();
+								for(Character character :removeAlien ){
+									if(character.getClass()==Alien.class){
+										gameManager.getListOfMatch().get(numberGame).getGameState().getWinners().remove(character);
+										gameManager.getListOfMatch().get(numberGame).getGameState().getLosers().add(character);
+									}
+									
+								}
 								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
 										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
 								playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");

@@ -2,7 +2,9 @@ package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.EscapeHatchCard;
 import it.polimi.ingsw.cg_5.model.EscapeHatchType;
+import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameState;
+import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 import it.polimi.ingsw.cg_5.model.Character;
@@ -39,20 +41,43 @@ public class EscapeMove extends Move {
 		
 		if(escapeCard.getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 			escapedCharacter=gameState.getCurrentCharacter();
+			
 			//aggiungo ai vincitori
+			boolean checkEnd= false;
+			for(Character character : gameState.getCharacterList()){
+				if(character.getClass()==Human.class&& !character.equals(escapedCharacter)){
+					checkEnd=true;
+				}
+			}
 			gameState.getWinners().add(escapedCharacter);
+			if(checkEnd){
 			gameState.goToNextCharacter();
+			}
+			
 			gameState.getCharacterList().remove(escapedCharacter);
 			gameState.getTurn().setTurnState(TurnState.STARTED);
 			
 
 		}
 		gameState.destroyShallop(destinationSector);
+		boolean checkEndedHatch= true;
+		if(escapeCard.getEscapeHatchType()==EscapeHatchType.RED_SHALLOP){
+			for(EscapeSector sector : gameState.getMap().getEscapeHatchList()){
+				if(sector.isAvailable()){
+					checkEndedHatch=false;
+				}	
+				}
+			if(checkEndedHatch){
+				gameState.getCharacterList().remove(escapedCharacter);
+			}
+			
+		}
+		
 			
 		 if(match.isGameOver()){
-				System.out.println("aaa");
+				
 				match.setMatchState(MatchState.ENDED);
-				System.out.println(match.getGameState());
+				
 				}
 	}
 }
