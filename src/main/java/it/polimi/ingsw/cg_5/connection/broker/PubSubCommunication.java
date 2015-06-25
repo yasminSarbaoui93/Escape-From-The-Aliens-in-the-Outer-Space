@@ -5,8 +5,17 @@ import it.polimi.ingsw.cg_5.model.Character;
 import java.rmi.RemoteException;
 
 public interface PubSubCommunication {
-	public void dispatchMessage(String msg,Boolean chat) throws RemoteException;
-	public void updateNumberGame(Integer numberGame) throws RemoteException;
-	public void updateCharacter(Character character) throws IllegalArgumentException, RemoteException;
-	public void updatecurrentPlayerId(int playerId) throws RemoteException;
+	/**Sends the message given by the broker to the right subscriber (or Broker Thread)
+	 * @param msg message to be sent
+	 * @param chat boolean to check if the message belongs to the chat or to the game.
+	 * @throws RemoteException
+	 */
+	public void dispatchMessage(Boolean chat, String msg) throws Exception;
+	/**Once created the match, this is the first message to be sent and it's an information about the ID of the game to which the players belong.
+	 * @param numberGame
+	 * @throws RemoteException
+	 */
+	public void updateNumberGame(Integer numberGame)throws Exception;
+	public void updateCharacter(Character character) throws Exception ;
+	public void updatecurrentPlayerId(Integer playerId)throws Exception;
 }

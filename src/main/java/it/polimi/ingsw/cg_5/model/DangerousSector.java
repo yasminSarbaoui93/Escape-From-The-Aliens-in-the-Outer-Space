@@ -6,7 +6,6 @@ public class DangerousSector extends Sector {
 	}
 	
 	public String toString() {
-		// TODO Auto-generated method stub
 		return super.toString()+ "(D)";
 	}
 }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_5.connection;
 
 
 import it.polimi.ingsw.cg_5.connection.broker.BrokerThread;
-import it.polimi.ingsw.cg_5.controller.GameManager;
 import it.polimi.ingsw.cg_5.view.SocketCommunicator;
 
 import java.io.IOException;
@@ -25,6 +24,10 @@ public class SocketServer extends Server {
 
 	}
 	
+	/**Creates a ServerSocket for the connection Client-Server, and accaepts all the connection that arrive. Doing the accept, it creates a socket that listens to the input messages and that will be passed to the client handler.
+	 * It also creates a server socket for the publisher subscribe connection, that listens to the connection requests and accept them.
+	 * 
+	 */
 	public void run(){
 
 		try {
@@ -46,6 +49,10 @@ public class SocketServer extends Server {
         }
 	}
 	
+	/**The socket server is singleton
+	 * @return the instance of the Socket Server
+	 * @throws IOException
+	 */
 	public static SocketServer getInstance() throws IOException{
 
 		if(instance == null){

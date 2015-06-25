@@ -2,14 +2,10 @@ package it.polimi.ingsw.cg_5.gui;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.view.ViewController;
-import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.Human;
 import java.awt.Color;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
@@ -124,14 +120,8 @@ public class GameButtonListener implements ActionListener {
 		else{
 			result= playerDTO.getMessageToSend();	
 		}
-	} catch (RemoteException e2) {
-		// TODO Auto-generated catch block
-		e2.printStackTrace();
-	} catch (ClassNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
+	
+	} catch (Exception e1) {
 		e1.printStackTrace();
 	}
 			try {

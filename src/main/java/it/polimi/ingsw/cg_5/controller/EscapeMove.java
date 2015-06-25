@@ -22,7 +22,7 @@ public class EscapeMove extends Move {
 	public EscapeMove(GameState gameState, Sector destinationSector,Match match) {
 		super(gameState, destinationSector);
 		this.match=match;
-		// TODO Auto-generated constructor stub
+
 	}
 	
 

@@ -7,24 +7,18 @@ import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 public class UseItemCard extends Action {
-	private String sectorToSpotLight;
 	protected ItemCardType usingItemCardType;
 	
 	public UseItemCard(GameState gameState,ItemCardType itemCardType) {
 		super(gameState);
-		this.usingItemCardType=itemCardType;
-		
+		this.usingItemCardType=itemCardType;		
 	}
 
 	@Override
 	public void execute() throws NullPointerException{
 		
-
-		
 		if(usingItemCardType==ItemCardType.ADRENALINE){
-			gameState.getCurrentCharacter().setMaxMove(2);
-			
-			
+			gameState.getCurrentCharacter().setMaxMove(2);			
 		}
 		
 		if(usingItemCardType==ItemCardType.ATTACK){
@@ -32,7 +26,6 @@ public class UseItemCard extends Action {
 		}
 		
 		if(usingItemCardType==ItemCardType.SEDATIVES){
-			// DA SISTEMARE!
 			gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			
 		}

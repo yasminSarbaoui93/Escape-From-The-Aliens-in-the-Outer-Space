@@ -3,36 +3,45 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.subscriber.Subscriber;
+
 import java.io.Serializable;
 
 
 
-//Classe che si interfaccia con l'utente per ricevere il comando
-
+/**Class that interfaces with the user to get the commands
+ * @author Yasmin
+ *
+ */
 public class View implements Serializable{
 
 	/**
 	 * 
 	 */
 	private ViewController viewController;
-		private static final long serialVersionUID = 1L;
-	private int PlayerID=-1;
+	private static final long serialVersionUID = 1L;
+	private Integer PlayerID=-1;
 	private Client client;
-	private int currentPlayerId=-1;
+	private Integer currentPlayerId=-1;
 
 	
 	private String name;
 	private Subscriber subscriber;
 	private int numberGame = -1;
+
 	private Character character;
 	//private MatchState matchState;
 		
 
 
+	/**Constructor of the view that has at attributes the name of the user, the client that will interface with the connection (rmi or socket) and the subscriber that will get the message thrown by the broker.
+	 * @param name
+	 * @param client
+	 * @param subscriber
+	 * @throws Exception
+	 */
 	public View (String name, Client client, Subscriber subscriber) throws Exception{
 		super();
 		this.name=name;
-		
 		this.client= client;
 		this.subscriber = subscriber; 
 	   // subscriber.setView(this);
@@ -40,27 +49,24 @@ public class View implements Serializable{
 		/// prova stub per ogni view
 		
 	}
-	public int getCurrentPlayerId() {
+	public Integer getCurrentPlayerId() {
 		return currentPlayerId;
 	}
-	public void setCurrentPlayerId(int currentPlayerId) {
+	public void setCurrentPlayerId(Integer currentPlayerId) {
 		this.currentPlayerId = currentPlayerId;
 	}
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;
 	}
 
-
-	
-	
 	public ViewController getViewController() {
 		return viewController;
 	}
-	public int getNumberGame(){
+	public Integer getNumberGame(){
 		return this.numberGame;
 	}
 	
-	public void setPlayerID(int playerID) {
+	public void setPlayerID(Integer playerID) {
 		PlayerID = playerID;
 	}
 	
@@ -69,7 +75,7 @@ public class View implements Serializable{
 	}
 
 
-	public void setNumberGame(int numberGame){
+	public void setNumberGame(Integer numberGame){
 		this.numberGame = numberGame;
 	}
 	public Client getClient() {
@@ -85,7 +91,7 @@ public class View implements Serializable{
 	}
 	
 	
-	public int getPlayerID() {
+	public Integer getPlayerID() {
 		return PlayerID;
 	}
 	public Subscriber getSubscriber() {

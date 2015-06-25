@@ -61,7 +61,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	 
 	 */
 	@Override
-	public void dispatchMessage(String msg, Boolean chat) throws RemoteException  {
+	public void dispatchMessage(Boolean chat, String msg) throws RemoteException  {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 		try {
 			if(chat==false){
@@ -81,9 +81,11 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 	@Override
 	public void updateNumberGame(Integer numberGame) throws RemoteException {
 		this.view.setNumberGame(numberGame);
+		System.out.println(this.view.getNumberGame()+"abc");
 	
 	}
-	public void updatecurrentPlayerId(int playerId) {
+	@Override
+	public void updatecurrentPlayerId(Integer playerId) {
 		this.view.setCurrentPlayerId(playerId);
 		this.view.getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(this.view.getCurrentPlayerId());
 

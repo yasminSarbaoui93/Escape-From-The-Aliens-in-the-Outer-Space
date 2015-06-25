@@ -14,10 +14,13 @@ public GameState getGameState() {
 	return gameState;
 }
 
-/**Abstract method that verifies all the conditions necessary to execute the specific action
+/**Abstract method that verifies all the conditions necessary to execute the specific action and goes to change the current state of the game.
  * 
  */
 public abstract void execute();
+/**Boolean method to control if the specific action can be done or not.
+ * @return true if the command can be executed.
+ */
 public abstract boolean checkAction();
 
 }

@@ -4,51 +4,55 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import it.polimi.ingsw.cg_5.model.Character;
 
 import javax.swing.text.BadLocationException;
 
 public class SubscriberThread extends Thread {
 	private Socket subSocket;
-	//Scanner in;
 	private BufferedReader in; //gets the message that arrive from the printwriter
 	private final String address = "127.0.0.1";
 	private String name;
 	private final int port = 1040; //porta in cui si mette in ascolto il socket
 	private SubscriberSocket subscriber;
+	private ObjectOutput outobj;
+	private ObjectInput inObj;
 	
 	public SubscriberThread (String name, SubscriberSocket subscriber){
 		this.name = name;
 		this.subscriber = subscriber;
 		try {
 			subscribe();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			this.outobj = new ObjectOutputStream(subSocket.getOutputStream());
+			outobj.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			this.inObj = new ObjectInputStream(subSocket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	//Il thread rimane in ascolto dei msg che gli arrivan dal broker
 	@Override
 	public void run(){
-		System.out.println("prova a fare receive number game");
-		System.out.println("Aggiunto al gioco numero: "+receiveNumberGame());
-		//anche se entra in questo ciclo while non riceve i messaggi della dispatch
-		receiveNumberGame();
 		while(true){
-			
-			try {
-				receive();
-			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} //QUI CONTINUA A RICEVERE MESSAGGI NULL
-		//	Integer numberGame = receiveNumberGame();
-			//System.out.println("number Game is: "+numberGame);
+			receive();
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
@@ -57,41 +61,110 @@ public class SubscriberThread extends Thread {
 		}
 	}
 	
-	private String receive() throws BadLocationException{ //QUI IL SUBSCRIBER NON RICEVE IL MESSAGGIO
+	private String receive() { 
+		
 		String msg = null;
+		Scanner inMsg;
+		String messageToPrint = null;
+
 		try {
 			if(in.ready()){
-			msg = in.readLine();
-			System.out.println(msg);
+				msg = in.readLine();
+				//System.out.println(msg);
+				inMsg = new Scanner(msg);
+				if(msg !=null){
+					String messageReceived= inMsg.next();
+					
+					if(messageReceived.toUpperCase().equals("FALSE")){
+						messageToPrint = inMsg.nextLine();
+						this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messageToPrint+"\n",Color.RED);
+						System.out.println("Thread "+name+" received the message: "+messageToPrint);
+
+					}
+					
+					if(messageReceived.toUpperCase().equals("NUMBERGAME")){
+						messageToPrint = inMsg.next();
+						System.out.println("PROVA NUMERO GIOCO SUBSCRIBER THREAD "+Integer.parseInt(messageToPrint));
+						Integer numberGame = Integer.parseInt(messageToPrint);
+						subscriber.getView().setNumberGame(numberGame);
+					}
+					if(messageReceived.toUpperCase().equals("PLAYERID")){
+						messageToPrint = inMsg.next();
+						System.out.println("PROVA PLAYER ID SUB THREAD: " +messageToPrint);
+						Integer playerId = Integer.parseInt(messageToPrint);
+						subscriber.getView().setPlayerID(playerId);
+						subscriber.getView().getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(playerId);
+				
+					}
+					
+					if(messageReceived.toUpperCase().equals("TRUE")){		
+						messageToPrint = inMsg.nextLine();
+						this.subscriber.getView().getViewController().getEscape().getMessagePanel().updateChatMessage(messageToPrint);
+						System.out.println("Thread "+name+" received the chat message: "+messageToPrint);
+						inMsg.close();
+						return messageToPrint;
+					} 
+					
+				if(messageReceived.toUpperCase().equals("CHARACTER")){
+						receiveCharacter();			
+				}
+								
 			}
-		} catch (IOException e) {
+		}
+		}  catch (IOException e) {
+			e.printStackTrace();
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		if(msg !=null){
-			this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
-			System.out.println("Thread "+name+" received the message: "+msg);
-		}
-		return msg;
+			
+			
+		
+		
+		return messageToPrint;
 	}
 	
-	public Integer receiveNumberGame(){
-		Integer numberGame = null;
+	private Character receiveCharacter(){
+		Character character = null;
+		Object object =null;
 		try {
-			if(in.ready()){
-				numberGame = Integer.parseInt(in.readLine());
-				System.out.println(numberGame);
-			}
-		} catch (NumberFormatException | IOException e) {
+		object = inObj.readObject();
+		character = (Character)object;
+		subscriber.getView().setCharacter(character);
+		subscriber.getView().getViewController().getEscape().getDtoPanel().updateDtoPanel(subscriber.getView().getCharacter());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		return character;		
+	}
+	
+/*	public Integer receiveNumberGame() throws IOException{
+		//BufferedReader inNum = new BufferedReader(new InputStreamReader(subSocket.getInputStream()));
+		String ciao = in.readLine();
+		Scanner inNumero = new Scanner(ciao);
+		System.out.println(ciao+" ciaociaociao");
 		
-		if(numberGame != null){
-			System.out.println("Thread "+name+" received the number of the game: "+numberGame);
-			subscriber.getView().setNumberGame(numberGame);
+		Integer numberGame = null;
+		try {
+			//if(in.ready()){
+				numberGame = Integer.parseInt(inNumero.next());
+				System.out.println("PROVA NUMERO GIOCO"+numberGame);
+				subscriber.getView().setNumberGame(numberGame);
+				isGameStarted = true;
+			//}
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		//}
+		
+		//if(numberGame != null){
+			//System.out.println("Thread "+name+" received the number of the game: "+numberGame);
+			
 			
 		}
 		return numberGame;
-	}
+	}*/
 	
 	//Subscription to the one and only topic !
 	private void subscribe() throws UnknownHostException, IOException{

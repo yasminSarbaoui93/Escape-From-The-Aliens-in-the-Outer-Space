@@ -4,7 +4,6 @@ import it.polimi.ingsw.cg_5.view.ViewController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 /**classe che implementa actionlistener ma che ha altri parametri utilizzare per aggiornare lo stato dei pannelli di gioco
  * @author Andrea
@@ -34,10 +33,8 @@ public class MessageListener implements ActionListener {
 			panel.getMessageBox().setText("");
 			this.viewController.getView().getClient().sendmessageRequest(message, viewController.getView().getCharacter().getPlayerID()
 					, viewController.getView().getNumberGame());
-			
-		
-		} catch (ClassNotFoundException | IOException e1) {
-			// TODO Auto-generated catch block
+
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 

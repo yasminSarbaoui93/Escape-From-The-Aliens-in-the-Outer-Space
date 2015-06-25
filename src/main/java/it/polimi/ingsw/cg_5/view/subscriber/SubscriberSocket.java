@@ -15,7 +15,18 @@ public class SubscriberSocket implements Subscriber{
 		subscriberThread.start();
 	}
 	
-	
+		
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
 	public void setView(View view){
 		this.view = view;		
 	}

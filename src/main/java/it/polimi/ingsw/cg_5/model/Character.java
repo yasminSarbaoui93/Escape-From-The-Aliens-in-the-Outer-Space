@@ -3,31 +3,23 @@ package it.polimi.ingsw.cg_5.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.lang.model.type.UnionType;
 
 
-
-//umano emula le azioni dell  alieno quando usa la carta attacck e adrenaline per cui il metodo equivarrà per entrambi
-
-//umano emula le azioni dell  alieno quando usa la carta attack e adrenaline per cui il metodo equivarrà per entrambi
-
-//Le  carte sedativo ,spotlight,defence corrisponderanno a metodi solo per l'umano.
-//occorrono costruttori diversi per alieno e umano perche hanno valori(maxmove canAttack) diversi al  momento  della  creazione--
 public abstract class Character implements Serializable {
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4139877974107622536L;
 	protected int maxMove;
 	protected Sector currentSector;
 	protected final String name;
-	private final int playerID;
+	private final Integer playerID;
 	protected boolean canAttack;
 	private ArrayList <ItemCard> itemPlayerCard=new ArrayList <ItemCard> ();
-	//probabilmente in character dovremmo inserire un attributo player, perchè ci serve per eliminarlo dal gioco
-	// quando il character viene ucciso
 	
-	public Character(String name, int playerID){
+	public Character(String name, Integer playerID){
 		this.name=name; 
 		this.playerID=playerID;
 	}
@@ -36,13 +28,17 @@ public abstract class Character implements Serializable {
 	}
 	
 	
-	public int getPlayerID() {
+	public Integer getPlayerID() {
 		return playerID;
 	}
 
 
 	public Sector getCurrentSector(){
 		return currentSector;
+	}
+	
+	public void setSectorByName(String sectorName){
+		
 	}
 	
 	
@@ -74,10 +70,5 @@ public abstract class Character implements Serializable {
 	public void setCanAttack(boolean canAttack) {
 		this.canAttack = canAttack;
 	}
-	
-	
-
-
-		
 	
 }
