@@ -25,7 +25,9 @@ public class DiscardItemCardTest {
 		matchGalilei1.getCurrentCharacter().getItemPlayerCard().add(itemcard);
 		assert(matchGalilei1.getCurrentCharacter().getItemPlayerCard().contains(itemcard));
 		DiscardItemCard discardCard= new DiscardItemCard(matchGalilei1,ItemCardType.ADRENALINE);
+		if(discardCard.checkAction()){
 		discardCard.execute();
+		}
 		assert(!matchGalilei1.getCurrentCharacter().getItemPlayerCard().contains(itemcard));
 	}
 

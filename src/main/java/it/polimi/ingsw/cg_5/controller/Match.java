@@ -42,9 +42,7 @@ public class Match {
 		return gameState;
 	}
 
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
-	}
+	
 
 	public int getNumberGame() {
 		return numberGame;
