@@ -3,17 +3,31 @@ package it.polimi.ingsw.cg_5.controller;
 
 import java.rmi.RemoteException;
 
+
+
+
+
+
+
 import it.polimi.ingsw.cg_5.model.TurnState;
+import it.polimi.ingsw.cg_5.view.RmiClient;
+import it.polimi.ingsw.cg_5.view.View;
+import it.polimi.ingsw.cg_5.view.ViewController;
 import it.polimi.ingsw.cg_5.view.subscriber.SubscriberRmi;
 
 import org.junit.Test;
-
+/*
 public class GameManagerTest {
 
 	@Test
-	public void test() throws RemoteException {
-GameManager prova = GameManager.getInstance();	
+	public void test() throws Exception {
+		
+		GameManager prova = GameManager.getInstance();	
 		SubscriberRmi subscriber = new SubscriberRmi("ANDREA");
+		RmiClient client=new RmiClient();
+		View view=new View("andrea", client, subscriber);
+		view.setViewController(new ViewController());
+		subscriber.setView(new View("andrea", new RmiClient(), subscriber));
 		for(int i=0; i<11 ; i++){
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
@@ -31,7 +45,7 @@ GameManager prova = GameManager.getInstance();
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		
 		
-		prova.MatchCreator();
+		prova.MatchCreator("RMI");
 		prova.getPlayerListManager().addToChosenList("FERMI",3, subscriber);
 		prova.getPlayerListManager().addToChosenList("GALILEI",4, subscriber);
 		prova.getPlayerListManager().addToChosenList("GALILEI",5, subscriber);
@@ -39,7 +53,7 @@ GameManager prova = GameManager.getInstance();
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
 		prova.getPlayerListManager().addToChosenList("GALILEI",8, subscriber);
-		prova.MatchCreator();
+		prova.MatchCreator("RMI");
 		System.out.println(prova.getListOfMatch().get(1).getGameState().getMap().takeSector("L06").getCharacterList());
 		
 			
@@ -57,3 +71,4 @@ GameManager prova = GameManager.getInstance();
 	}
 
 }
+*/

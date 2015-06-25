@@ -49,7 +49,7 @@ public class MoveTest {
 		System.out.println("metto il personaggio su settore all'interno dei confini del confine del escape 2 e lo muovo");
 		stateprova.getTurn().setTurnState(TurnState.STARTED);
 		stateprova.getCurrentCharacter().setCurrentSector(stateprova.getMap().takeSector("U02"));
-		Sector destination3=stateprova.getMap().takeSector("2");
+		Sector destination3=stateprova.getMap().takeSector("V02");
 		Move mossaEscape= new Move(stateprova,destination3);
 		System.out.println(mossaEscape.checkAction());
 	}

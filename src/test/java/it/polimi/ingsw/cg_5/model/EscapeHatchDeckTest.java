@@ -11,11 +11,11 @@ public class EscapeHatchDeckTest {
 		
 
 		EscapeHatchDeck escapeHatchDeck = new EscapeHatchDeck();
-		
+		assertEquals(6, escapeHatchDeck.dimension());
 		Card card = escapeHatchDeck.removeCard();
 		Card card1 = escapeHatchDeck.removeCard();
 		System.out.println(escapeHatchDeck.dimension());
-		assertEquals(6, escapeHatchDeck.dimension());
+		assertEquals(4, escapeHatchDeck.dimension());
 		
 		System.out.println(card);
 		System.out.println(card1);

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.cg_5.controller;
 
 
+import it.polimi.ingsw.cg_5.connection.broker.Broker;
+import it.polimi.ingsw.cg_5.connection.broker.BrokerRmi;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
@@ -17,9 +19,10 @@ public class EndTurnTest {
 		for (int i=0 ; i<5; i++){
 			playersID.add(i);
 		}
-		
+		Broker broker = new BrokerRmi("BrokerFake");
 		GameState stateprova= new GameState(playersID,"GALILEI",0);
-		EndTurn endTurn= new EndTurn(stateprova);
+		Match match = new Match(stateprova, 0, broker);
+		EndTurn endTurn= new EndTurn(stateprova, match);
 		System.out.println(stateprova.getCurrentCharacter());
 		System.out.println(stateprova.getTurn().getTurnState());
 		stateprova.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
