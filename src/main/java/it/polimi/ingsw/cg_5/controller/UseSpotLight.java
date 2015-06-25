@@ -29,6 +29,7 @@ public class UseSpotLight extends UseItemCard {
 				spottedPlayer.addAll(gameState.getMap().takeSector(sectorToSpotlight).getCharacterList());
 				for(Sector sector : gameState.getMap().takeSector(sectorToSpotlight).getReachableSectors(1, gameState.getMap().takeSector(sectorToSpotlight)) ){
 					spottedPlayer.addAll(gameState.getMap().takeSector(sector.getSectorName()).getCharacterList());
+					
 				}
 							
 			}

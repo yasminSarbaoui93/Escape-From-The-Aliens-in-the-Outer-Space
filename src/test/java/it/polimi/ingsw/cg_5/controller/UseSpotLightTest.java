@@ -21,9 +21,10 @@ public class UseSpotLightTest {
 			
 				GameState matchGalilei1= new GameState (playersID, "Galilei",0);
 				matchGalilei1.getCharacterList().get(2).setCurrentSector(matchGalilei1.getMap().takeSector("K06"));
-	
-	UseSpotLight useSpot = new UseSpotLight(matchGalilei1,ItemCardType.SPOTLIGHT, "K06");
+				matchGalilei1.getMap().takeSector("K06").getCharacterList().add(matchGalilei1.getCharacterList().get(2));
+	UseSpotLight useSpot = new UseSpotLight(matchGalilei1,ItemCardType.SPOTLIGHT, "J06");
 	useSpot.execute();
+	System.out.println(useSpot.getSpottedPlayer());
 	assert(useSpot.getSpottedPlayer().contains(matchGalilei1.getCharacterList().get(2)));
 	}
 
