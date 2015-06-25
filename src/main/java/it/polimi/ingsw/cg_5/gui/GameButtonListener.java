@@ -2,20 +2,15 @@ package it.polimi.ingsw.cg_5.gui;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import it.polimi.ingsw.cg_5.view.ViewController;
-import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.Human;
 import java.awt.Color;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 
-/** classe che implementa actionListener, ci serve per "ascoltare" i nostri game button ma avendo dei parametri aggiuntivi
- * che servono  per aggiornare direttamente i pannelli della schermata
+/**Implements the actionListener. Useful to "listen" to the game buttons with additive patameters needed to update the screan panels.
  * @author Andrea
  *
  */
@@ -35,15 +30,12 @@ public class GameButtonListener implements ActionListener {
 
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;
-	}
-
-	
+	}	
 
 	public GameButtonListener(ViewController viewController, DtoPanel dtoPanel,LogMessage logPanel,
 			 String actionType, String sector) {
 		super();
 		this.viewController = viewController;
-
 		this.dtoPanel = dtoPanel;
 		this.logPanel=logPanel;
 		this.actionType=actionType;
@@ -51,9 +43,8 @@ public class GameButtonListener implements ActionListener {
 	}
 
 	/* (non-Javadoc)
-	 * data l'azione di ingresso chiama il metodo del client che permette di comunicare al server l'azione scelta dal
-	 * giocatore, si occupa inoltre di stampare la pedina nel giusto settore se ci si è mossi, utilizzando i metodi
-	 * della classe confines che dati lettera e numero ti restituiscono le coordinate
+	 * Give an input action, it calls the client method that allouds to communicate to the server the choosen action by the player.
+	 * Moreover, it prints the piece on the right sector if a move is performed, using the metods of the Confines class.
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
@@ -124,14 +115,8 @@ public class GameButtonListener implements ActionListener {
 		else{
 			result= playerDTO.getMessageToSend();	
 		}
-	} catch (RemoteException e2) {
-		// TODO Auto-generated catch block
-		e2.printStackTrace();
-	} catch (ClassNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
+	
+	} catch (Exception e1) {
 		e1.printStackTrace();
 	}
 			try {
@@ -139,12 +124,10 @@ public class GameButtonListener implements ActionListener {
 			} catch (BadLocationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-		
-				
+			}				
 			 
-		 }
-
 	}
+
+}
 
 

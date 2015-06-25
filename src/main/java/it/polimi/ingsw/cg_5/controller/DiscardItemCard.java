@@ -25,7 +25,8 @@ public class DiscardItemCard extends Action {
 		}
 
 	}
-
+	
+	@Override
 	public boolean checkAction(){
 		if(gameState.getCurrentCharacter().getItemPlayerCard().size()>0){
 			for(ItemCard playerItemCard : gameState.getCurrentCharacter().getItemPlayerCard()){

@@ -17,7 +17,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/** schermata di inizio gioco, permette di inserire la username e le configurazioni di gioco preferite
+/**Scren of the starting game. It allowds to insert username and the favourite game configurations.
  * @author Andrea
  *
  */
@@ -27,13 +27,11 @@ public class StartOptions extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private static final int WINDOW_WIDTH = 800;
 	private static final int WINDOW_HEIGHT = 443;
-	
-	
 	private Image backgroundImage;
 	private JLabel backgroundLabel;
 	private JLayeredPane layeredPane;
 	private ViewController viewController;
-	private JLabel label1 = new JLabel("Choose The Map");
+	JLabel label1 = new JLabel("Choose The Map");
 	final JComboBox<String> listMap = new JComboBox<String>();
 
 
@@ -81,82 +79,68 @@ public class StartOptions extends JFrame {
 	 */
 	private void initComponents() {
 		layeredPane = new JLayeredPane();
-		  setContentPane(layeredPane);
-		  
-		  //impostazione sfondo
-		  backgroundLabel = new JLabel(new ImageIcon(backgroundImage));
-			backgroundLabel.setBounds(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
-			add(backgroundLabel);
-			layeredPane.setLayer(backgroundLabel, LAYER_BACKGROUND);
+		setContentPane(layeredPane);
+		backgroundLabel = new JLabel(new ImageIcon(backgroundImage));
+		backgroundLabel.setBounds(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
+		add(backgroundLabel);
+		layeredPane.setLayer(backgroundLabel, LAYER_BACKGROUND);
+		final JPanel StartinPanel = new JPanel();
 			
-			//inserisco un pannello   varie scelte del giocatore  inerenti alla nuova partita che vorra giocare
-			final JPanel StartinPanel = new JPanel();
+		 listMap.addItem("GALILEI");
+		 listMap.addItem("GALVANI");
+		 listMap.addItem("FERMI");
 			
-			// con JComboBox possiamo fare imenu a tendina
-			listMap.addItem("GALILEI");
-			listMap.addItem("GALVANI");
+		 listMap.setBackground(Color.BLACK);
+		 listMap.setForeground(Color.GREEN);
+		 final JComboBox<String> listPlayerNumber = new JComboBox<String>();
+		 listPlayerNumber.addItem("2");
+		 listPlayerNumber.addItem("3");
+		 listPlayerNumber.addItem("4");
+		 listPlayerNumber.addItem("5");
+		 listPlayerNumber.addItem("6");
+		 listPlayerNumber.addItem("7");
+		 listPlayerNumber.addItem("8");
+		 listPlayerNumber.setBackground(Color.BLACK);
+		 listPlayerNumber.setForeground(Color.GREEN);
+		 final JComboBox<String> typeConnection = new JComboBox<String>();
+		 typeConnection.addItem("SOCKET");
+		 typeConnection.addItem("RMI");
+		 
 			
-			
+		 typeConnection.setBackground(Color.BLACK);
+		 typeConnection.setForeground(Color.GREEN);
 		
-			listMap.addItem("FERMI");
-			
-			listMap.setBackground(Color.BLACK);
-			listMap.setForeground(Color.GREEN);
-			final JComboBox<String> listPlayerNumber = new JComboBox<String>();
-			listPlayerNumber.addItem("2");
-			listPlayerNumber.addItem("3");
-			listPlayerNumber.addItem("4");
-			listPlayerNumber.addItem("5");
-			listPlayerNumber.addItem("6");
-			listPlayerNumber.addItem("7");
-			listPlayerNumber.addItem("8");
-			listPlayerNumber.setBackground(Color.BLACK);
-			listPlayerNumber.setForeground(Color.GREEN);
-			final JComboBox<String> typeConnection = new JComboBox<String>();
-			typeConnection.addItem("RMI");
-			typeConnection.addItem("SOCKET");
-			
-			typeConnection.setBackground(Color.BLACK);
-			typeConnection.setForeground(Color.GREEN);
+		 final JTextField userLabel = new JTextField (10) ;
+		 JLabel label1 = new JLabel("Choose The Map");
+		 JLabel label2 = new JLabel("Max Number of Players");
+		 JLabel label3 = new JLabel("Choose type of Connection");
+		 label1.setForeground(Color.white);
+		 label2.setForeground(Color.white);
+		 label3.setForeground(Color.white);
+		 
+		 StartinPanel.add(userLabel);
+		 StartinPanel.add(label1);
+		 StartinPanel.add(listMap);
+		 StartinPanel.add(label2);
+		 StartinPanel.add(listPlayerNumber);
+		 StartinPanel.add(label3);
+		 StartinPanel.add(typeConnection);
+		 JButton startButton = new JButton("Start the Game");
+		 add(StartinPanel);
 		
-
-
-			final JTextField userLabel = new JTextField (10) ;
-			JLabel label1 = new JLabel("Choose The Map");
-			JLabel label2 = new JLabel("Max Number of Players");
-			JLabel label3 = new JLabel("Choose type of Connection");
-			label1.setForeground(Color.white);
-			label2.setForeground(Color.white);
-			label3.setForeground(Color.white);
-			
-			StartinPanel.add(userLabel);
-			StartinPanel.add(label1);
-			StartinPanel.add(listMap);
-			StartinPanel.add(label2);
-			StartinPanel.add(listPlayerNumber);
-			StartinPanel.add(label3);
-			StartinPanel.add(typeConnection);
-			JButton startButton = new JButton("Start the Game");
-			add(StartinPanel);
-			
-			// alla press del bottone Start Game
-			//final StartButtonListener listener = new StartButtonListener (this.viewController);
-			//startButton.addActionListener(listener);
-			startButton.addActionListener(new StartButtonListener (this.viewController,userLabel,
-					listMap,listPlayerNumber,typeConnection));
-			
-			
-			
-			StartinPanel.add(startButton);
-			layeredPane.setLayer(StartinPanel, LAYER_START_WINDOW );
-			StartinPanel.setBounds(500, 180,150, 220);
-			
-			StartinPanel.setBackground(Color.black);
+		startButton.addActionListener(new StartButtonListener (this.viewController,userLabel,
+				listMap,listPlayerNumber,typeConnection));
+						
+		StartinPanel.add(startButton);
+		layeredPane.setLayer(StartinPanel, LAYER_START_WINDOW );
+		StartinPanel.setBounds(500, 180,150, 220);
+		
+		StartinPanel.setBackground(Color.black);
 	}
 
 
    
-	/** caricamento della immagine di sfondo della schermata
+	/** Uploading of the images.
 	 * 
 	 */
 	private void loadResources() {

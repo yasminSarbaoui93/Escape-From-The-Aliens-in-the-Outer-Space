@@ -18,23 +18,16 @@ public class taskTimer extends TimerTask {
 	public void run() {
 	
 	EndTurn endTurn=new EndTurn(this.match.getGameState(), this.match);
-	try {
-		this.match.getBroker().publish("The time for the Player with ID-"+this.match.getGameState().getCurrentCharacter().getPlayerID()+ " is "
-				+ "expired and he will be removed from the game", false);
-	} catch (RemoteException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+		this.match.getBroker().publish(false, "The time for the Player with ID-"+this.match.getGameState().getCurrentCharacter().getPlayerID()+ " is "
+				+ "expired and he will be removed from the game");
+	
 	Character timerCharacter=this.match.getGameState().getCurrentCharacter();
 	this.match.getGameState().removeCharacter(timerCharacter);
 	if(match.isGameOver()){
 		match.setMatchState(MatchState.ENDED);
-		try {
-			this.match.getBroker().publish("The game is ended after a player abandoned the game", false);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+			this.match.getBroker().publish(false,"The game is ended after a player abandoned the game");
+		
 	}
 	if(match.getMatchState()!=MatchState.ENDED){
 		endTurn.execute();
@@ -44,12 +37,9 @@ public class taskTimer extends TimerTask {
 	else {
 		endTurn.execute();
 	}
-	try {
+	
 		this.match.getBroker().publishNumberGame(this.match.getNumberGame(), this.match.getGameState().getCurrentCharacter().getPlayerID());
-	} catch (RemoteException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+
 	}
 	}
 

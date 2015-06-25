@@ -1,11 +1,9 @@
 package it.polimi.ingsw.cg_5.model;
 
 public  class EscapeHatchCard implements Card {
-	
-	// tipo
+
 	private final EscapeHatchType escapeHatchType;
-	
-// costruttore
+
 	public EscapeHatchCard(EscapeHatchType escapeHatchType) {
 		
 		this.escapeHatchType = escapeHatchType;
@@ -29,10 +27,5 @@ public  class EscapeHatchCard implements Card {
 	public EscapeHatchType getEscapeHatchType() {
 		return escapeHatchType;
 	}
-
-	
-	
-	
-	
 
 }

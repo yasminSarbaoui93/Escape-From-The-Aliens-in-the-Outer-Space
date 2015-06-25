@@ -1,6 +1,6 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -16,9 +16,6 @@ import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.view.User;
-import it.polimi.ingsw.cg_5.view.subscriber.SubscriberInterfaceRmi;
-
-
 
 
 public class GameManager implements Observer{
@@ -39,15 +36,12 @@ public class GameManager implements Observer{
 		}return instance;
 	}
 	
-	
-	
-	
-	
 	/**Method that creates a new match of the game. The conditions to respect are mainly two: the waiting list of a certain game is full; the timer reaches the maximum waiting time set.
+	 * @throws Exception 
 	 * @throws RemoteException 
 	 * 
 	 */
-	public void MatchCreator(String connectionType) throws RemoteException{
+	public void MatchCreator(String connectionType){
 		ArrayList <WaitingList> waitingListToRemove= new ArrayList <WaitingList>() ;
 		
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
@@ -67,28 +61,32 @@ public class GameManager implements Observer{
 						matchBroker.subscribe(subscriber);
 				}				
 				Match newMatch =new Match(newGameState ,indexOfCurrentMatches,matchBroker);
-				
-				
-				newMatch.getBroker().publish("You've been added to the game number "+indexOfCurrentMatches,false);
+				newMatch.getBroker().publish(false, "You've been added to the game number "+indexOfCurrentMatches);
 				newMatch.getBroker().publishNumberGame(indexOfCurrentMatches,newMatch.getGameState().getCurrentCharacter().getPlayerID());
+				
+				
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
 						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());
 						if(user.getPlayerId()==character.getPlayerID()){
 							
-							user.getUserSubscriber().updateCharacter(character);
+							try {
+								user.getUserSubscriber().updateCharacter(character);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 
 				}
-				
-				newMatch.getBroker().publish("The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
-						+"start to play!",false);
+				newMatch.getBroker().publish(false, "The Player with ID- "+newMatch.getGameState().getCurrentCharacter().getPlayerID()
+						+"start to play!");
 				newGameState.getTimer().cancel();
 				newGameState.getTimer().purge();
 				taskTimer task= new taskTimer(newMatch);
 				newGameState.setTimer(new Timer());
 				newGameState.getTimer().schedule(task, 120*1000);
+
 				
 				newGameState.getMap().drawMap();
 
@@ -125,7 +123,7 @@ public class GameManager implements Observer{
 	 */
 	public boolean canAct(Integer numberGame,Integer playerID){
 		if(this.listOfMatch.containsKey(numberGame)){
-				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID()==playerID)
+				if(this.listOfMatch.get(numberGame).getGameState().getCurrentCharacter().getPlayerID().equals(playerID))
 					return true;		
 			}
 	
@@ -137,7 +135,6 @@ public class GameManager implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 
-		//This updates all the arguments of the type character that are returned from the methods attackCharacter or setCurrentCharacter of the model.
 		if(arg instanceof Character){
 			Character character = (Character) arg;
 			System.out.println(character);
@@ -148,10 +145,9 @@ public class GameManager implements Observer{
 			Scanner in = new Scanner(message);
 			Integer gameNumber=Integer.parseInt(in.next());
 			try {
-				this.listOfMatch.get(gameNumber).getBroker().publish(in.nextLine(),false);
-			} catch (RemoteException e) {
-				//e.getMessage();
-				
+				this.listOfMatch.get(gameNumber).getBroker().publish(false, in.nextLine());
+			}catch (Exception e) {
+				e.printStackTrace();
 			}
 			in.close();
 			

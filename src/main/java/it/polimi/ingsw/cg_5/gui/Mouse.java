@@ -1,27 +1,15 @@
 package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
-import java.awt.List;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Image;
-
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 
-/**classe che implementa mouselistener e ci permette di utilizzare il mouse per eseguire alcune azioni
+/**Implements the mouseListener to abilitate the mouse and execute some actions.
  * @author Andrea
  *
  */
@@ -38,17 +26,13 @@ public class Mouse implements MouseListener {
 	Label.setBounds(100, 100, 0, 0);
 	Label.setBackground(Color.GREEN);
 	Label.setVisible(true);
-	//costruzione lista colonne
-	
-	
 	}
 	
 
 	
 	/* (non-Javadoc)
-	 * metodo che decide che cosa fare dopo aver premuto uno dei tasti del mouse, nel caso venga premuto il tasto sinistro
-	 * verrà disegnato un cerchio intorno al settore selezionato, se viene premuto il tasto destro si aprirà un menù a 
-	 * tendina con le scelte che sarà possibile fre
+	 *It decides what to do after some mouse buttons are pushed. In case the left button is pushed, a circle will be printed around
+	 *the selected sector, while if the right button is pushed, a menù will be opened with the possible choices.
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
 	 */ 
 	public void mouseClicked(MouseEvent e) {
@@ -71,8 +55,7 @@ public class Mouse implements MouseListener {
 		}
 		}
 	
-		/** metodo che dato un evento di click del mouse va a stampare il cerchio sopra citato facendo in modo che sia
-		 * centrato nel settore in cui si è cliccato
+		/**Given a click event of the mouse, it prints the circle at the center of the clicked sector.
 		 * @param e
 		 * @return
 		 */
@@ -119,40 +102,23 @@ public class Mouse implements MouseListener {
 			Label.setText("X " + xMousePosition + " Y "+ yMousePosition
 					+" Column "+column +" Row" + row);
 			this.escape.printCircle((int)exactX-32, (int)exactY-55);
-			
-			// tasto destro
-			
 			return column+row;
 			
 			}
-			
-			
-		
-		
-		
-
-		
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
+		
 }

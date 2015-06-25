@@ -8,15 +8,18 @@ import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
 
 
-//Those are all the attributes that will be sent by the server to the client
-//in answer to every change that the player does to the game state.
+
+/**This class conintains all the attributes that will be sent by the server to the client in answer to every change that the player does to the game state.
+ * @author Yasmin
+ *
+ */
 public class PlayerDTO implements Serializable {
 
 	/**
 	 * 
 	 */
-	private TurnState turnState;
 	private static final long serialVersionUID = 1L;
+	private TurnState turnState;
 	private Character yourCharacter;
 	private ArrayList <String> reachableSectors = new ArrayList<String>();
 	private String messagesToSend;

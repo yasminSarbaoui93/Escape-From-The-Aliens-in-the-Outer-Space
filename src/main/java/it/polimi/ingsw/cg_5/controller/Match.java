@@ -1,7 +1,5 @@
 package it.polimi.ingsw.cg_5.controller;
 
-import java.util.ArrayList;
-
 import it.polimi.ingsw.cg_5.connection.broker.Broker;
 import it.polimi.ingsw.cg_5.model.*;
 import it.polimi.ingsw.cg_5.model.Character;
@@ -24,6 +22,11 @@ public class Match {
 	}
 
 
+	/**Constructor of a new match that will have as attributes the new game state, the ID of the match and the broker that will send all the broadcast messages to the subscribers that belong to this match.
+	 * @param gameState
+	 * @param numberGame
+	 * @param broker
+	 */
 	public Match(GameState gameState ,Integer numberGame, Broker broker){
 		this.numberGame=numberGame;
 		this.gameState=gameState;
@@ -61,7 +64,7 @@ public class Match {
 	
 	
 	
-	/**Boolean to control if there are still humans or aliens still alive. If so, the game will not be over; while if there are no more humans or no more aliens playng the game, or if the number of rounds reached the maximum value of 39, the game will be over.
+	/**Boolean to control if there are humans or aliens still alive. If so, the game will not be over; while if there are no more humans or no more aliens playng the game, or if the number of rounds reached the maximum value of 39, the game will be over.
 	 * @return true if the game is over.
 	 */
 	public boolean isGameOver(){
@@ -95,13 +98,12 @@ public class Match {
 				else gameState.getLosers().add(character);
 				}
 			return true;
-		
-			
+
 		
 		// di base sarà return true, perchè tanto è obbligato a fare il ciclo foreach e se almeno uno non è rotto
 		//ritornerà false, altrimenti se tutti sono rotti ritornerà true, il gioco è finito
 		
-		
+
 	}
 	
 	

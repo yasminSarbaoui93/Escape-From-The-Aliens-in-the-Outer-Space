@@ -6,21 +6,20 @@ import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.model.Character;
-
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GameButton attackButton= new GameButton("Attack");
 	private GameButton drawCard=new GameButton("DrawCard");
-	
 	private GameButton useCardButton= new GameButton("UseCard");
 	private GameButton endTurn= new GameButton("endTurn");
 	private GameButton discard = new GameButton("Discard");
@@ -33,8 +32,6 @@ public class ButtonPanel extends JPanel{
 	public GameButton getDrawCard() {
 		return drawCard;
 	}
-
-
 
 	public GameButton getUseCardButton() {
 		return useCardButton;
@@ -66,8 +63,8 @@ public class ButtonPanel extends JPanel{
 		add(buttonFake);
 	}
 	
-	/** Metodo che in base al turnState abilita/disabilita i button che è possibile premere
-	 * @param turnState
+	/** Abilitates the bottons that the player chan push and disabilitates the others.
+	 * @param turnState state of the player's turn.
 	 * @param playerDTO
 	 */
 	public void buttonsSetter(TurnState turnState,PlayerDTO playerDTO){

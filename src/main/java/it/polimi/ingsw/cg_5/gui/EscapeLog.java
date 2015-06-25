@@ -2,13 +2,10 @@ package it.polimi.ingsw.cg_5.gui;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,12 +17,16 @@ import javax.swing.JTextField;
 
 
 
-/** classe che estende Jframe che contiene la schermata di login, che al momento non utilizziamo
+/**Extends Jframe and it cointains the login Screan.
  * @author Andrea
  *
  */
 public class EscapeLog extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int WINDOW_WIDTH = 700;
 	private static final int WINDOW_HEIGHT = 681;
 	
@@ -40,30 +41,19 @@ public class EscapeLog extends JFrame {
 	public EscapeLog() {
 
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + getInsets().top);
-		
-		//title of the window 
 		setTitle("EscapeFromAlien_Login");
-		
-		//we don't want to let the user to resize the windows
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		loadResources();
 		initComponents();
 	
 	}
 	
 	private void loadResources() {
-		//load the background image from the disk
 		try {
-
 			backgroundImage = ImageIO.read(new File("./src/main/java/it/polimi/ingsw/cg_5/gui/escape.jpg"));
 
 		} catch (IOException e) {
-
 			e.printStackTrace();
 
 		}
@@ -73,10 +63,7 @@ public class EscapeLog extends JFrame {
 	private void initComponents() {
 		
 		layeredPane = new JLayeredPane();
-		  setContentPane(layeredPane);
-
-		//The background image is just a JLabel as big as the 
-		//whole window
+		setContentPane(layeredPane);
 		backgroundLabel = new JLabel(new ImageIcon(backgroundImage));
 		backgroundLabel.setBounds(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
 		add(backgroundLabel);
@@ -105,22 +92,11 @@ public class EscapeLog extends JFrame {
 		loginPanel.add(label2);
 		loginPanel.add(password);
 		label2.setForeground(Color.WHITE);
-		loginPanel.add(login);
-		
-		
-		add(loginPanel);
-		
+		loginPanel.add(login);		
+		add(loginPanel);		
 		layeredPane.setLayer(loginPanel, LAYER_LOGIN);
-		loginPanel.setBounds(220, 0, 250, 150);
-		
+		loginPanel.setBounds(220, 0, 250, 150);		
 		loginPanel.setBackground(Color.black);
-
-		
-		
-		//System.out.println(user);
-		
-	
-		
 
 
 	}

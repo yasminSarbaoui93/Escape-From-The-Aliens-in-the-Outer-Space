@@ -25,7 +25,6 @@ import it.polimi.ingsw.cg_5.model.Character;
 import it.polimi.ingsw.cg_5.model.EscapeHatchType;
 import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameCardType;
-import it.polimi.ingsw.cg_5.model.Human;
 import it.polimi.ingsw.cg_5.model.ItemCardType;
 import it.polimi.ingsw.cg_5.model.Sector;
 import it.polimi.ingsw.cg_5.model.TurnState;
@@ -63,8 +62,7 @@ public class GameRules {
 			//devo fare la get thel brokerThread creato nel server !!! e passarlo in ingresso al metodo
 			
 		}
-		//ULTIMO PROBLEMA DA RISOLVERE: IL SUBSCRIBER SOCKET DEVE ESSERE PASSATO IN QUALCHE MODO ! PER IL RESTO ORA FUNZIONA
-		//subscriber = new SubscriberSocket(name);
+		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
@@ -74,14 +72,14 @@ public class GameRules {
 	}
 	
 	
-	/**
+	/**It makes all the checks necessary to let the character perform the move action. The player DTO is updated and then sent back.
 	 * @param sectorName
 	 * @param yourId
 	 * @param numberGame
-	 * @return
-	 * @throws RemoteException
+	 * @return the player's data transfer object with all the updated informations of the character (such as the current sector and the rispective server answer message).
+	 * @throws Exception 
 	 */
-	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) throws RemoteException {
+	public PlayerDTO performMove(String sectorName, Integer yourId ,Integer numberGame) {
 		
 		
 		try{
@@ -111,9 +109,10 @@ public class GameRules {
 						playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
+
 							
-							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("Now is the turn of the Player"
-									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter(),false);
+							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "Now is the turn of the Player"
+									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 							if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
 								HashSet<Character> removeAlien=gameManager.getListOfMatch().get(numberGame).getGameState().getWinners();
 								for(Character character :removeAlien ){
@@ -123,12 +122,13 @@ public class GameRules {
 									}
 									
 								}
-								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
-										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
+										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
 								playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");
 								this.gameManager.getListOfMatch().remove(numberGame);
 								return playerDTO;
 								}
+
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
 							
 							return playerDTO;
@@ -161,7 +161,13 @@ public class GameRules {
 	}
 	
 	
-	public PlayerDTO performAttack(Integer yourId ,Integer numberGame) throws RemoteException {
+	/**It checks if the character can actually perform the attack and, if so, it checks if in the attacked sector there's any other character.
+	 * @param yourId
+	 * @param numberGame
+	 * @return playerDTO updated with the turn state as Has Attacked
+	 * @throws Exception 
+	 */
+	public PlayerDTO performAttack(Integer yourId ,Integer numberGame) {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -170,23 +176,25 @@ public class GameRules {
 				attack.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				if(!attack.getPlayerToKill().isEmpty()){
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The players/s"+
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The players/s"+
 				attack.getPlayerToKill() +" was/were killed by the player with ID- " + 
-			  gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID() + "!",false);
+			  gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID() + "!");
 				}
 				if(!attack.getSafeCharacter().isEmpty()){
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+ 
-				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card",false);
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The player "+ 
+				attack.getSafeCharacter().get(0).getPlayerID() + "was attacked but he's alive thanks to the Defence Card");
 				}
+
 			
-				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.",false);
+				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.");
 				/// qua 
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
-					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
-							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
+							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
 					playerDTO.setMessageToSend("Game Over");
 					this.gameManager.getListOfMatch().remove(numberGame);
 					return playerDTO;
+
 					}
 				playerDTO.setMessageToSend("You've attacked!!");
 				return playerDTO;
@@ -203,7 +211,13 @@ public class GameRules {
 		}
 	}
 	
-	public PlayerDTO performEndTurn(Integer yourId,Integer numberGame)  throws RemoteException{
+	/**Controls if the player can end his turn or if it still has to perform any action before. If the turn can end, the turn goes to the next character, updating the current character of the model.
+	 * @param yourId
+	 * @param numberGame
+	 * @return Player DTO with the message updated.
+	 * @throws Exception 
+	 */
+	public PlayerDTO performEndTurn(Integer yourId,Integer numberGame) {
 		
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -212,6 +226,7 @@ public class GameRules {
 				endTurn.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
+
 				
 				// qua
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()!=(MatchState.ENDED)){
@@ -221,13 +236,12 @@ public class GameRules {
 					}
 				
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
-					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish("The game is ended and"
-							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners() , false);
+					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
+							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
 					playerDTO.setMessageToSend("Game Over");
 					this.gameManager.getListOfMatch().remove(numberGame);
 					return playerDTO;
 					}
-				
 
 			}
 			else 
@@ -243,7 +257,14 @@ public class GameRules {
 		
 	}
 	
-	public PlayerDTO performDrawCard(Integer yourId,Integer numberGame)  throws RemoteException{
+	/**Controls if the player has performed the move and, if it's its turn and if the current sector is Dangerous and not Safe, all conditions neessary to draw a Game Card.
+	 * It even controls if the Item Icon on the card is true. If so, the player will have to draw an item card before ending the turn.
+	 * @param yourId
+	 * @param numberGame
+	 * @return playerDTO updated with the messages and the cards owned.
+	 * @throws Exception 
+	 */
+	public PlayerDTO performDrawCard(Integer yourId,Integer numberGame){
 		String message = new String ("");
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
@@ -262,12 +283,12 @@ public class GameRules {
 						}
 					}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_YOUR_SECTOR){
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getCurrentSector(),false);
+							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getCurrentSector());
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.SILENCE ){
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish("Silence...",false);
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "Silence...");
 				
 				}
 				if(drawCard.getDrawnCard().getGameCardType()==GameCardType.NOISE_ANY_SECTOR ){
@@ -292,14 +313,21 @@ public class GameRules {
 		
 	}
 	
-	public PlayerDTO bluffSector(String bluffSector, Integer yourId , Integer numberGame) throws RemoteException {
+	/**This method is called if the player's drawn the game card "noise in any sector". If the player draws it, he has to bluff his position and he can chose the sector where he wants to pretend to be to confuse the other players.
+	 * @param bluffSector
+	 * @param yourId
+	 * @param numberGame
+	 * @return playerDTO with messages updated
+	 * @throws Exception 
+	 */
+	public PlayerDTO bluffSector(String bluffSector, Integer yourId , Integer numberGame)  {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			if(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState()==TurnState.BLUFFING){
 				try {
-					gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+					gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 							"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector),false);
+							+" make noise in the Sector: " + gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(bluffSector));
 					gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 					playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 					playerDTO.setMessageToSend("You bluffed succesfully!");
@@ -322,7 +350,14 @@ public class GameRules {
 		}
 	}
 	
-	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame) throws RemoteException {
+	/**Its called when a player decides to use an item card. It's the only action that any player can do in any time of the game, even if it's not his turn.
+	 * @param itemCardType
+	 * @param yourId
+	 * @param numberGame
+	 * @return playerDTO with message updated and the remaining item cards that the player owns
+	 * @throws Exception 
+	 */
+	public PlayerDTO performUseCard(String itemCardType, Integer yourId, Integer numberGame)  {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 
@@ -333,9 +368,9 @@ public class GameRules {
 				itemCard.execute();
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());			
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" use the Item Card " + itemCardType,false ) ;
+						+" use the Item Card " + itemCardType) ;
 				playerDTO.setMessageToSend("You've used the item card: "+itemCardType);
 				return playerDTO;
 			}
@@ -353,7 +388,15 @@ public class GameRules {
 		
 	}
 
-	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector) throws RemoteException {
+	/**Controls if the player owns the cart spotlight and it's his turn. If so, he uses the spotlight card and removes it from the deck of the owned cards.
+	 * @param itemCardType
+	 * @param yourId
+	 * @param numberGame
+	 * @param sector
+	 * @return PlayerDTO with the messages and the player's deck updated.
+	 * @throws Exception 
+	 */
+	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector){
 				if(gameManager.canAct(numberGame, yourId)){
 					PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
@@ -366,15 +409,15 @@ public class GameRules {
 				useSpotLight.execute();
 				if( !useSpotLight.getSpottedPlayer().isEmpty()){
 				for(Character character : useSpotLight.getSpottedPlayer()){
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish("The Player with ID -" + character.getPlayerID()
-						+ "is in the Sector: " + character.getCurrentSector(),false);
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The Player with ID -" + character.getPlayerID()
+						+ "is in the Sector: " + character.getCurrentSector());
 				}
 				}
 				
 				//RIMUOVERE LA CARTA DALL ITEM DECK DEL YOURCHARACTER
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" use the Item Card " + itemCardType,false ) ;
+						+" use the Item Card " + itemCardType) ;
 				playerDTO.setMessageToSend("You've used the Item Card" + itemCardType);
 				return playerDTO;
 			}
@@ -391,8 +434,15 @@ public class GameRules {
 		
 	}
 
+	/**Mainly used when a character owns more than 3 item cards. This method takes as input the card type that the player wants to discard, and removes it from the player's deck.
+	 * @param itemCardType
+	 * @param yourId
+	 * @param numberGame
+	 * @return
+	 * @throws Exception 
+	 */
 	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId,
-			Integer numberGame) throws RemoteException {
+			Integer numberGame) {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType = getTypeFromString(itemCardType);
@@ -400,9 +450,9 @@ public class GameRules {
 			DiscardItemCard discartCard = new DiscardItemCard(gameManager.getListOfMatch().get(numberGame).getGameState(),cardType);
 			if(discartCard.checkAction()){
 				discartCard.execute();
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish(
+				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
-						+" discard an Item Card of Type " + itemCardType ,false) ;
+						+" discard an Item Card of Type " + itemCardType) ;
 				playerDTO.setMessageToSend("You succesfully discard a card of type:"+itemCardType +"!");
 				return playerDTO;
 				
@@ -419,6 +469,14 @@ public class GameRules {
 			return playerDTO;
 		}
 	}
+	
+	public void performSendMessage(String message, Integer yourId, Integer numberGame) {
+		gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
+	}
+	/**Associates the input string to a specific item card.
+	 * @param cardTypeName
+	 * @return the item card that has the same name of the string given as parameter.
+	 */
 	public ItemCardType getTypeFromString(String cardTypeName){
 		ItemCardType cardtypeback =null;
 		if(cardTypeName.equals("ATTACK"))

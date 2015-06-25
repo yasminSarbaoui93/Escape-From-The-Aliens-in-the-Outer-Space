@@ -1,8 +1,7 @@
 package it.polimi.ingsw.cg_5.gui;
 
-/**classe di supporto utilizzata per avere un oggetto che abbia una coordinata minima e una massima,
- * si è fatta la scelta di utilizzare un oggetto di tipo Object in quanto nel caso delle colonne si tratta di una variabile 
- * di tipo char, nel caso delle righe di una variabile di tipo String
+/**Support class used to have an object that has a coordinate min and max. It's used an object because in the case of columns, it's used
+ * a char variable while in case of lines it's used a String variable.
  * @author Andrea
  *
  */

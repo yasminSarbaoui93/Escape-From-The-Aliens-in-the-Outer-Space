@@ -8,6 +8,10 @@ import javax.swing.border.LineBorder;
 
 public class GameButton extends JButton{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final Color buttonBackGColor= Color.BLACK;
 	private final Color buttonColor = Color.green;
 	private final Border buttonBorder = new LineBorder(Color.blue, 1);
