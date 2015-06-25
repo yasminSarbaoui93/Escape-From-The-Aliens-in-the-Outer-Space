@@ -71,7 +71,6 @@ public class GameManager implements Observer{
 							
 							try {
 								user.getUserSubscriber().updateCharacter(character);
-								System.out.println(character+" CAPIRE SE INVIA CHARACTER GIUSTO");
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
