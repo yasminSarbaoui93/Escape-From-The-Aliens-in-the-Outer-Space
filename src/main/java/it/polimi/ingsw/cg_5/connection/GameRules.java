@@ -63,7 +63,7 @@ public class GameRules {
 			
 		}
 		
-		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber);
+		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber, connectionType);
 		System.out.println("The player with ID:" + yourId + "joined the game");
 		System.out.println("Matches started: " + gameManager.getListOfMatch());
 		this.gameManager.MatchCreator(connectionType);
