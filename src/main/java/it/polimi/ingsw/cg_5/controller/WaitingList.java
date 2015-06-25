@@ -13,6 +13,7 @@ public class WaitingList {
 	private ArrayList <User> users = new ArrayList <User> ();
 	private final String choosenMap;
 	private final int maxSize;
+	private final String connectionType;
 	
 	//private final int  MAX_NUM_OF_PLAYERS=8;
 	
@@ -22,11 +23,11 @@ public class WaitingList {
 	}
 	
 
-	public WaitingList(User newUser, String choosenMap, int maxSize) {
+	public WaitingList(User newUser, String choosenMap, int maxSize, String connectionType) {
 		this.users.add(newUser);
 		this.choosenMap=choosenMap;
 		this.maxSize=maxSize;
-			
+		this.connectionType = connectionType;
 	}
 	public ArrayList<User> getUsers() {
 		return users;
@@ -39,6 +40,12 @@ public class WaitingList {
 		return PlayerIDList ;
 		
 	}
+	
+	public String getConnectionType() {
+		return connectionType;
+	}
+
+
 	public ArrayList<PubSubCommunication> getPlayersSubscriber() {
 		ArrayList<PubSubCommunication> PlayerSubscriberList = new ArrayList<PubSubCommunication> ();
 		for ( User user : this.users ){
