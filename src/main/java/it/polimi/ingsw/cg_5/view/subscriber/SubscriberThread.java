@@ -33,20 +33,16 @@ public class SubscriberThread extends Thread {
 			subscribe();
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Cannot connect..Trobles creating a new socket!");
 		}
 		try {
 			this.outobj = new ObjectOutputStream(subSocket.getOutputStream());
 			outobj.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			this.inObj = new ObjectInputStream(subSocket.getInputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Cannot create a new object input/output stream!"+e.getMessage());
 		}
+
 
 	}
 
@@ -57,7 +53,7 @@ public class SubscriberThread extends Thread {
 			try {
 				Thread.sleep(5);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.err.println("Tread woke up or couldn't sleep");
 			}
 		}
 	}
@@ -107,7 +103,7 @@ public class SubscriberThread extends Thread {
 						synchronized(inObj){
 						inObj.wait(10);}
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						System.err.println("Couldn't make the object input stream wait 10ms.");
 					}
 						receiveCharacter();			
 				}
@@ -118,9 +114,9 @@ public class SubscriberThread extends Thread {
 			
 
 		}  catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("I/O trouble..impossible to receive the message!");
 		} catch (BadLocationException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 			
 			
@@ -143,9 +139,9 @@ public class SubscriberThread extends Thread {
 		subscriber.getView().setCharacter(character);
 		subscriber.getView().getViewController().getEscape().getDtoPanel().updateDtoPanel(subscriber.getView().getCharacter());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("The character didn't arrive to the object input stream");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.err.println("Cannot cast onto Character class");
 		}
 		return character;		
 	}
@@ -160,7 +156,7 @@ public class SubscriberThread extends Thread {
 		try {
 			subSocket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Impossible to close the socket "+e.getMessage());
 		}
 		in=null;
 		subSocket = null;

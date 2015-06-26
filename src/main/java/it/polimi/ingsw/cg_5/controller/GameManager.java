@@ -71,7 +71,7 @@ public class GameManager implements Observer{
 							try {
 								user.getUserSubscriber().updateCharacter(character);
 							} catch (Exception e) {
-								e.printStackTrace();
+								new Exception("Impossible to update character");
 							}
 						}
 					}
@@ -145,7 +145,7 @@ public class GameManager implements Observer{
 			try {
 				this.listOfMatch.get(gameNumber).getBroker().publish(false, in.nextLine());
 			}catch (Exception e) {
-				e.printStackTrace();
+				new Exception("There's no message to be sent by the broker!");
 			}
 			in.close();
 			
