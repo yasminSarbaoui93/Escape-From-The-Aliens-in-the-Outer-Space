@@ -25,14 +25,14 @@ public class EscapeMoveTest {
 		EscapeMove move = new EscapeMove(matchGalilei1,matchGalilei1.getMap().takeSector("V02"),match);
 		if(move.checkAction()){
 			move.execute();
-		}
+		
 		if( move.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 			assert(matchGalilei1.getWinners().contains(matchGalilei1.getCurrentCharacter()));
 		}
 		else{
 			assert(!matchGalilei1.getWinners().contains(matchGalilei1.getCurrentCharacter()));
 		}
-		
+		}
 	}
 
 }
