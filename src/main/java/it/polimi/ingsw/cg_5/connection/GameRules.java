@@ -89,6 +89,7 @@ public class GameRules {
 				PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 				Sector destinationSector=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sectorName);
 				if(destinationSector.getClass() != EscapeSector.class){
+					
 					Move move = new Move(gameManager.getListOfMatch().get(numberGame).getGameState(),destinationSector); 
 					if(move.checkAction()){
 						move.execute();
@@ -110,7 +111,9 @@ public class GameRules {
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 
+
 							if(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCharacterList().size()>2){
+
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 							}
@@ -130,7 +133,10 @@ public class GameRules {
 								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
 										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
 								this.gameManager.getListOfMatch().remove(numberGame);
-								return playerDTO=new PlayerDTO("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");
+
+								playerDTO= new PlayerDTO("You escape! You won the match. CONGRATULATIONS!!!Game Over");
+								return playerDTO;
+
 								}
 
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
