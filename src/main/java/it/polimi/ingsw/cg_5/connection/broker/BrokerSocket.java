@@ -46,7 +46,7 @@ public class BrokerSocket extends Thread implements Broker{
 					sub.updateNumberGame(numberGame);
 					sub.updatecurrentPlayerId(playerId);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.err.println(e.getMessage());
 				}
 				
 			}
