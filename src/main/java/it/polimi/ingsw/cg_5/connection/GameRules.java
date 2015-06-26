@@ -57,12 +57,10 @@ public class GameRules {
 			}
 		}
 		
-		if(connectionType.toUpperCase().equals("SOCKET")){
+		else{
 			
 			subscriber =SocketServer.getInstance().getBrokerThread();
-			
 		}
-		else throw new IOException("Something wrong happend with the string received.");
 		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber, connectionType);
 		System.out.println("The player with ID:" + yourId + "joined the game");
@@ -160,13 +158,13 @@ public class GameRules {
 				
 			}
 			else{			
-				PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game ore it's not your turn");	
+				PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn");	
 				return playerDTO;				
 			}
 				
 		}catch(NullPointerException e){
-			new IOException("Character not found!");
-			PlayerDTO playerDTO= new PlayerDTO("Impossible to find your character");
+			new IOException("Error occured!!");
+			PlayerDTO playerDTO= new PlayerDTO("An error occurred!!");
 			return playerDTO;
 		}
 	}
