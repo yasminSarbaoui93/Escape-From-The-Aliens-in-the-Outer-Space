@@ -47,15 +47,8 @@ public class ClientHandler extends Thread {
 						Integer yourID = gameManager.getGameRules().SubscribeRequest(choosenMap, maxSize, name, connectionType);
 						client.send(yourID.toString());
 					
-					} catch (RemoteException e) {
-				
-						e.printStackTrace();
-					} catch (UnknownHostException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (NotBoundException e) {
-						e.printStackTrace();
+					}catch (IOException e) {
+						System.err.println(e.getMessage());
 					}
 				}
 			
@@ -63,28 +56,22 @@ public class ClientHandler extends Thread {
 					Integer yourId = Integer.parseInt(in.next());
 					Integer numberGame = Integer.parseInt(in.next());			
 					if(stringToRead.toUpperCase().equals("MOVE")){
-
 						String sectorName = in.next();
-						try {
-							playerDTO = gameManager.getGameRules().performMove(sectorName, yourId, numberGame);
-							client.sendDTO(playerDTO);
-						} catch (RemoteException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-					
-							e.printStackTrace();
-						}
+						playerDTO = gameManager.getGameRules().performMove(sectorName, yourId, numberGame);	
+							try {
+								client.sendDTO(playerDTO);
+							} catch (IOException e) {
+								e.getMessage();
+							}
+									
 					}
 			
-					if(stringToRead.toUpperCase().equals("ATTACK")){
-			
+					if(stringToRead.toUpperCase().equals("ATTACK")){						
+						playerDTO = gameManager.getGameRules().performAttack(yourId, numberGame);
 						try {
-							playerDTO = gameManager.getGameRules().performAttack(yourId, numberGame);
 							client.sendDTO(playerDTO);
-						} catch (RemoteException e) {
-							e.printStackTrace();
 						} catch (IOException e) {
-							e.printStackTrace();
+							e.getMessage();
 						}
 					}
 			
@@ -93,10 +80,9 @@ public class ClientHandler extends Thread {
 						try {
 							playerDTO = gameManager.getGameRules().performEndTurn(yourId, numberGame);
 							client.sendDTO(playerDTO);
-						} catch (RemoteException e) {
-							e.printStackTrace();
+						
 						} catch (IOException e) {
-							e.printStackTrace();
+							e.getMessage();
 						}
 					}
 			
@@ -105,10 +91,8 @@ public class ClientHandler extends Thread {
 						try {
 							playerDTO = gameManager.getGameRules().performDrawCard(yourId, numberGame);
 							client.sendDTO(playerDTO);
-						} catch (RemoteException e) {
-							e.printStackTrace();
 						} catch (IOException e) {
-							e.printStackTrace();
+							e.getMessage();
 						}
 				
 					}
@@ -119,11 +103,8 @@ public class ClientHandler extends Thread {
 						try {
 							playerDTO = gameManager.getGameRules().performUseCard(itemCardType, yourId, numberGame);
 							client.sendDTO(playerDTO);
-						} catch (RemoteException e1) {
-							e1.printStackTrace();
-						}
-						catch (IOException e) {
-							e.printStackTrace();
+						}catch (IOException e) {
+							e.getMessage();
 						}
 					}
 			
@@ -133,10 +114,8 @@ public class ClientHandler extends Thread {
 						try{
 							playerDTO = gameManager.getGameRules().performSpotLightUse(itemCardType, yourId, numberGame, sector);
 							client.sendDTO(playerDTO);
-						} catch(RemoteException e1){
-							e1.printStackTrace();
 						}catch(IOException e){
-							e.printStackTrace();
+							e.getMessage();
 						}
 					}
 			
@@ -145,10 +124,8 @@ public class ClientHandler extends Thread {
 						try{
 							playerDTO = gameManager.getGameRules().bluffSector(bluffSector, yourId, numberGame);
 							client.sendDTO(playerDTO);
-						} catch(RemoteException e1){
-							e1.printStackTrace();
 						}catch(IOException e){
-							e.printStackTrace();
+							e.getMessage();
 						}
 				
 					}
@@ -159,20 +136,14 @@ public class ClientHandler extends Thread {
 							playerDTO = gameManager.getGameRules().performDiscardCard(itemCardType, yourId, numberGame);
 							client.sendDTO(playerDTO);
 						} catch(IOException e){
-							e.printStackTrace();
+							e.getMessage();
 						}
 					}
 			
 					if(stringToRead.toUpperCase().equals("CHAT")){
 						String message = in.nextLine();
-						try {
-							playerDTO = new PlayerDTO("you sent a chat message");
 							gameManager.getListOfMatch().get(numberGame).getBroker().publish(true, message);
-							client.sendDTO(playerDTO);
-				
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+					
 					}
 				}
 			}

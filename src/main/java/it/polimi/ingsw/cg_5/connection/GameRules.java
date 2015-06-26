@@ -3,11 +3,9 @@ package it.polimi.ingsw.cg_5.connection;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.HashSet;
-
 import it.polimi.ingsw.cg_5.connection.broker.PubSubCommunication;
 import it.polimi.ingsw.cg_5.controller.Attack;
 import it.polimi.ingsw.cg_5.controller.DiscardItemCard;
@@ -49,17 +47,22 @@ public class GameRules {
 	 * @throws IOException, RemoteException 
 	 * @throws UnknownHostException 
 	 */
-	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException, RemoteException {
+	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws IOException{
 		if(connectionType.toUpperCase().equals("RMI")){
 			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
-			subscriber = (SubscriberInterfaceRmi)registry.lookup(name);
+			try {
+				subscriber = (SubscriberInterfaceRmi)registry.lookup(name);
+			} catch (NotBoundException e) {
+				System.out.println("Trouble trying to lookup registry!"+e.getMessage());
+			}
 		}
 		
-		else{
-			
+		if(connectionType.toUpperCase().equals("SOCKET")){
 			
 			subscriber =SocketServer.getInstance().getBrokerThread();
+			
 		}
+		else throw new IOException("Something wrong happend with the string received.");
 		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber, connectionType);
 		System.out.println("The player with ID:" + yourId + "joined the game");
@@ -154,8 +157,8 @@ public class GameRules {
 			}
 				
 		}catch(NullPointerException e){
-			e.printStackTrace();
-			PlayerDTO playerDTO= new PlayerDTO("Impossibile to find your character");
+			new IOException("Character not found!");
+			PlayerDTO playerDTO= new PlayerDTO("Impossible to find your character");
 			return playerDTO;
 		}
 	}
@@ -187,7 +190,6 @@ public class GameRules {
 
 			
 				this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The player "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()+" has attacked.");
-				/// qua 
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
 					this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
 							+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
@@ -227,8 +229,6 @@ public class GameRules {
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("Your turn's over!");
 
-				
-				// qua
 				if(gameManager.getListOfMatch().get(numberGame).getMatchState()!=(MatchState.ENDED)){
 					gameManager.getListOfMatch().get(numberGame).getBroker().publishNumberGame(numberGame, gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
 					playerDTO.setCurrentCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID());
@@ -379,7 +379,7 @@ public class GameRules {
 				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				return playerDTO; 
 			}
-			}
+		}
 		else{
 			PlayerDTO playerDTO = new PlayerDTO("You don't belong to any game or it's not your turn!");
 			
@@ -397,8 +397,8 @@ public class GameRules {
 	 * @throws Exception 
 	 */
 	public PlayerDTO performSpotLightUse(String itemCardType, Integer yourId, Integer numberGame, String sector){
-				if(gameManager.canAct(numberGame, yourId)){
-					PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+		if(gameManager.canAct(numberGame, yourId)){
+			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType= null;
 			if(itemCardType.equals("SPOTLIGHT")){
 				cardType=ItemCardType.SPOTLIGHT;
@@ -408,13 +408,11 @@ public class GameRules {
 			if(useSpotLight.checkAction()){
 				useSpotLight.execute();
 				if( !useSpotLight.getSpottedPlayer().isEmpty()){
-				for(Character character : useSpotLight.getSpottedPlayer()){
-				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The Player with ID -" + character.getPlayerID()
+					for(Character character : useSpotLight.getSpottedPlayer()){
+						gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The Player with ID -" + character.getPlayerID()
 						+ "is in the Sector: " + character.getCurrentSector());
+					}
 				}
-				}
-				
-				//RIMUOVERE LA CARTA DALL ITEM DECK DEL YOURCHARACTER
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" use the Item Card " + itemCardType) ;
@@ -441,8 +439,7 @@ public class GameRules {
 	 * @return
 	 * @throws Exception 
 	 */
-	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId,
-			Integer numberGame) {
+	public PlayerDTO performDiscardCard(String itemCardType, Integer yourId, Integer numberGame) {
 		if(gameManager.canAct(numberGame, yourId)){
 			PlayerDTO playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 			ItemCardType cardType = getTypeFromString(itemCardType);

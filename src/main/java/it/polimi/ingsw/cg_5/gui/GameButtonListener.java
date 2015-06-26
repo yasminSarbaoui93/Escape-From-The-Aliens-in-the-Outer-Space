@@ -117,12 +117,11 @@ public class GameButtonListener implements ActionListener {
 		}
 	
 	} catch (Exception e1) {
-		e1.printStackTrace();
+		e1.getMessage();
 	}
 			try {
 				viewController.getEscape().getLogPanel().updateLogMessage(result,Color.GREEN);
 			} catch (BadLocationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}				
 			 

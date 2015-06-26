@@ -105,7 +105,7 @@ public class SocketClient implements Client {
 	@Override
 	public void sendmessageRequest(String message, Integer yourId,Integer gameNumber) throws ClassNotFoundException,IOException {
 		String command = "CHAT "+yourId+" "+gameNumber+" "+message;
-		receivePlayerDTO(command);
+		server.send(command);
 	}
 
 }
