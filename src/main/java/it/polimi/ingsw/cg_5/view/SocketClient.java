@@ -5,22 +5,15 @@ import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.util.Scanner;
 
-import org.junit.runners.ParentRunner;
 
 public class SocketClient implements Client {
 	
-	private String ip;
-	private int port;
 	Socket socket;
 	SocketCommunicator server;
 	
 	public SocketClient(String ip, int port) throws UnknownHostException, IOException{
-		this.ip=ip;
-		this.port=port;
+
 		this.socket = new Socket (ip, port);
 		this.server = new SocketCommunicator(socket);
 		

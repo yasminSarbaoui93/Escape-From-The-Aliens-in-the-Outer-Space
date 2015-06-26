@@ -414,7 +414,7 @@ public class GameRules {
 			}
 			UseSpotLight useSpotLight= new UseSpotLight(gameManager.getListOfMatch().get(numberGame).getGameState(),
 					cardType,sector);
-			try{	 Sector sectorToMove=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sector);
+			try{	 gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sector);
 			
 			}catch(NullPointerException e){
 				 return playerDTO = new PlayerDTO("The sector doesn't exist! Try again!");

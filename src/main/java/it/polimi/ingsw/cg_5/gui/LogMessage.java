@@ -15,6 +15,10 @@ import javax.swing.text.StyledDocument;
  */
 public class LogMessage extends JScrollPane {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static  JTextPane textLog=new JTextPane();
 	StyledDocument doc  = textLog.getStyledDocument();
 	

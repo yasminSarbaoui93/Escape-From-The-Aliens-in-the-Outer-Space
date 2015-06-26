@@ -2,8 +2,7 @@ package it.polimi.ingsw.cg_5.view;
 
 import it.polimi.ingsw.cg_5.connection.PlayerDTO;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
+
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -19,11 +18,11 @@ public class SocketCommunicator implements Communicator{
 	
 	Socket socket;
 	
-	//Leggere input da socket
+	
 	Scanner in;
 	ObjectInput inObj;
 	ObjectOutput outObj;
-	//Scrivere su socket
+
 	PrintWriter out;
 	
 	public SocketCommunicator(Socket socket) throws IOException{

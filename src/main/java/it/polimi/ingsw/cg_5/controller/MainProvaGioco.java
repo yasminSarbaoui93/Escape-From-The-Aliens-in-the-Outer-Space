@@ -1,5 +1,5 @@
 package it.polimi.ingsw.cg_5.controller;
-
+/*
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ import it.polimi.ingsw.cg_5.model.TurnState;
 public class MainProvaGioco {
 	
 	
-/*
+
 	public static void main(String[] args) {
 		
 		ArrayList<Integer> playersID = new ArrayList<Integer>();
@@ -300,5 +300,6 @@ public class MainProvaGioco {
 		
 	
 	}
-*/
+
 }
+*/

@@ -32,7 +32,7 @@ public class DrawCardFromGamedeck extends Action {
 		
 		}
 		drawnCard= (GameCard) gameState.currentCharacterDrawsGameCard();
-		//gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
+		gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 		
 	}
 	

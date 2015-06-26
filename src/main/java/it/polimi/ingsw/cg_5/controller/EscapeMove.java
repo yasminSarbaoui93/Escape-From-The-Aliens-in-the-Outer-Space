@@ -51,7 +51,8 @@ public class EscapeMove extends Move {
 			}
 			gameState.getWinners().add(escapedCharacter);
 			if(checkEnd){
-			gameState.goToNextCharacter();
+			EndTurn endturn = new EndTurn(this.gameState,this.match);
+			endturn.execute();
 			}
 			
 			gameState.getCharacterList().remove(escapedCharacter);

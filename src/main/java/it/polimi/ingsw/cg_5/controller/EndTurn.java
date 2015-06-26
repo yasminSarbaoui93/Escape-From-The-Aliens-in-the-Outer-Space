@@ -7,7 +7,6 @@ import it.polimi.ingsw.cg_5.model.EscapeSector;
 import it.polimi.ingsw.cg_5.model.GameState;
 import it.polimi.ingsw.cg_5.model.SafeSector;
 import it.polimi.ingsw.cg_5.model.TurnState;
-import it.polimi.ingsw.cg_5.model.Character;
 
 
 

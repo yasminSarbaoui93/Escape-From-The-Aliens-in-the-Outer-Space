@@ -2,6 +2,10 @@ package it.polimi.ingsw.cg_5.model;
 
 public class EscapeSector extends Sector {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean isAvailable;
 	public EscapeSector(String name){
 		super(name);

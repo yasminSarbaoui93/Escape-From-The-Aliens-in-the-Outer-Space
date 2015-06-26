@@ -3,7 +3,6 @@ package it.polimi.ingsw.cg_5.controller;
 
 import it.polimi.ingsw.cg_5.model.Character;
 
-import java.rmi.RemoteException;
 import java.util.TimerTask;
 
 public class taskTimer extends TimerTask {

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.cg_5.model;
 
 
-import it.polimi.ingsw.cg_5.controller.taskTimer;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,7 +8,6 @@ import java.util.Observable;
 import java.util.Timer;
 
 public class GameState extends Observable{
-	//tutti gli attributi del gioco che potrebbero essere utili per rappresentare una partita
 	
 	private Map  map;
 	private int round;
@@ -20,7 +17,6 @@ public class GameState extends Observable{
 	private ArrayList<Character> characterList = new ArrayList <Character>();
 	private Character currentCharacter;
 	private Turn turn= new Turn();
-	private final int MAX_NUM_ROUND;
 	private final Integer matchIndex;
 	private HashSet<Character> winners=new HashSet <Character>();
 	private HashSet<Character> losers=new HashSet <Character>();
@@ -55,7 +51,6 @@ public class GameState extends Observable{
 		itemDeck= new ItemDeck();
 		gameDeck=new GameDeck();
 		characterList=createCharacterList(IDsofplayers);
-		this.MAX_NUM_ROUND = 39;
 		currentCharacter=getCharacterList().get(0);
 		turn.setTurnState(TurnState.STARTED);
 		this.matchIndex=matchIndex;
@@ -233,10 +228,10 @@ public class GameState extends Observable{
 		return this.gameDeck;
 	}
 	
-	//TOGLIERE COMMENTO POI
+	
 	public void goToNextCharacter(){
 		if(currentCharacter.getClass()==Human.class){
-			//((Human) currentCharacter).setHumanBack();
+			((Human) currentCharacter).setHumanBack();
 		}
 		
 		if(getCharacterList().indexOf(getCurrentCharacter())<getCharacterList().size()-1){
