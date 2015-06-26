@@ -33,8 +33,8 @@ public class UseItemCard extends Action {
 		
 		if(usingItemCardType==ItemCardType.TELEPORT){
 			gameState.getCurrentCharacter().getCurrentSector().getCharacterList().remove(gameState.getCurrentCharacter());
-			gameState.getCurrentCharacter().setCurrentSector(gameState.getMap().takeSector("HUMAN_START"));
-			gameState.getMap().takeSector("HUMAN_START").getCharacterList().add(gameState.getCurrentCharacter());
+			gameState.getCurrentCharacter().setCurrentSector(gameState.getMap().getHumanStart());
+			gameState.getMap().getHumanStart().getCharacterList().add(gameState.getCurrentCharacter());
 			if(gameState.getTurn().getTurnState()==TurnState.HASMOVED)
 				gameState.getTurn().setTurnState(TurnState.HASATTACKORDRAWN);
 			

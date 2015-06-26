@@ -65,7 +65,7 @@ public class SubscriberRmi implements SubscriberInterfaceRmi, Serializable {
 		System.out.println("Subscriber-"+name+" received message: "+msg);
 		try {
 			if(chat==false){
-			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.RED);
+			this.getView().getViewController().getEscape().getLogPanel().updateLogMessage(msg,Color.WHITE);
 			}
 			else{
 				

@@ -78,7 +78,7 @@ public class SubscriberThread extends Thread {
 					
 					if(messageReceived.toUpperCase().equals("FALSE")){
 						messageToPrint = inMsg.nextLine();
-						this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messageToPrint,Color.RED);
+						this.subscriber.getView().getViewController().getEscape().getLogPanel().updateLogMessage(messageToPrint,Color.WHITE);
 						System.out.println("Thread "+name+" received the message: "+messageToPrint);
 
 					}

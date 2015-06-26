@@ -93,9 +93,10 @@ public class StartOptions extends JFrame {
 		 listMap.setBackground(Color.BLACK);
 		 listMap.setForeground(Color.GREEN);
 		 final JComboBox<String> listPlayerNumber = new JComboBox<String>();
+		 listPlayerNumber.addItem("4");
 		 listPlayerNumber.addItem("2");
 		 listPlayerNumber.addItem("3");
-		 listPlayerNumber.addItem("4");
+		
 		 listPlayerNumber.addItem("5");
 		 listPlayerNumber.addItem("6");
 		 listPlayerNumber.addItem("7");
@@ -103,8 +104,9 @@ public class StartOptions extends JFrame {
 		 listPlayerNumber.setBackground(Color.BLACK);
 		 listPlayerNumber.setForeground(Color.GREEN);
 		 final JComboBox<String> typeConnection = new JComboBox<String>();
-		 typeConnection.addItem("SOCKET");
 		 typeConnection.addItem("RMI");
+		 typeConnection.addItem("SOCKET");
+		
 		 
 			
 		 typeConnection.setBackground(Color.BLACK);

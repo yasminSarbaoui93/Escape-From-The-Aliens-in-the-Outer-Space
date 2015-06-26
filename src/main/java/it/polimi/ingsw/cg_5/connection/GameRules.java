@@ -110,23 +110,27 @@ public class GameRules {
 						playerDTO.getYourCharacter().setCurrentSector(destinationSector);
 						if(runAway.getEscapeCard().getEscapeHatchType()==EscapeHatchType.GREEN_SHALLOP){
 
-							
+							if(this.gameManager.getListOfMatch().get(numberGame).getGameState().getCharacterList().size()>2){
 							this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "Now is the turn of the Player"
 									+ this.gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
+							}
 							if(gameManager.getListOfMatch().get(numberGame).getMatchState()==MatchState.ENDED){
-								HashSet<Character> removeAlien=gameManager.getListOfMatch().get(numberGame).getGameState().getWinners();
+								 HashSet<Character> removeAlien = new HashSet<Character>();
+								 
+								removeAlien.addAll(gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
+								if(removeAlien.size()>0){
 								for(Character character :removeAlien ){
 									if(character.getClass()==Alien.class){
 										gameManager.getListOfMatch().get(numberGame).getGameState().getWinners().remove(character);
 										gameManager.getListOfMatch().get(numberGame).getGameState().getLosers().add(character);
 									}
+								}
 									
 								}
 								this.gameManager.getListOfMatch().get(numberGame).getBroker().publish(false, "The game is ended and"
 										+ "will be removed from the list of the game! \n"+"The winner are"+this.gameManager.getListOfMatch().get(numberGame).getGameState().getWinners());
-								playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");
 								this.gameManager.getListOfMatch().remove(numberGame);
-								return playerDTO;
+								return playerDTO=new PlayerDTO("Since you ran away, you won the match. CONGRATULATIONS!!! /n Game Over");
 								}
 
 							playerDTO.setMessageToSend("Since you ran away, you won the match. CONGRATULATIONS!!!");
@@ -366,11 +370,14 @@ public class GameRules {
 						cardType);
 			if(itemCard.checkAction()){
 				itemCard.execute();
-				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+				System.out.println(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+			
 				playerDTO = new PlayerDTO(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());			
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" use the Item Card " + itemCardType) ;
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
+				playerDTO.setYourCharacter(gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter());
 				playerDTO.setMessageToSend("You've used the item card: "+itemCardType);
 				return playerDTO;
 			}
@@ -405,7 +412,18 @@ public class GameRules {
 			}
 			UseSpotLight useSpotLight= new UseSpotLight(gameManager.getListOfMatch().get(numberGame).getGameState(),
 					cardType,sector);
+			try{	 Sector sectorToMove=gameManager.getListOfMatch().get(numberGame).getGameState().getMap().takeSector(sector);
+			
+			}catch(NullPointerException e){
+				 return playerDTO = new PlayerDTO("The sector doesn't exist! Try again!");
+				
+			}
 			if(useSpotLight.checkAction()){
+				
+				
+				
+				
+				
 				useSpotLight.execute();
 				if( !useSpotLight.getSpottedPlayer().isEmpty()){
 				for(Character character : useSpotLight.getSpottedPlayer()){
@@ -418,6 +436,7 @@ public class GameRules {
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" use the Item Card " + itemCardType) ;
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("You've used the Item Card" + itemCardType);
 				return playerDTO;
 			}
@@ -453,6 +472,7 @@ public class GameRules {
 				gameManager.getListOfMatch().get(numberGame).getBroker().publish(false,
 						"The Player with ID- "+gameManager.getListOfMatch().get(numberGame).getGameState().getCurrentCharacter().getPlayerID()
 						+" discard an Item Card of Type " + itemCardType) ;
+				playerDTO.setTurnState(gameManager.getListOfMatch().get(numberGame).getGameState().getTurn().getTurnState());
 				playerDTO.setMessageToSend("You succesfully discard a card of type:"+itemCardType +"!");
 				return playerDTO;
 				

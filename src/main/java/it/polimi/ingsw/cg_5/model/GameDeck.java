@@ -15,18 +15,18 @@ public class GameDeck extends Deck {
 		gameDeck = new ArrayList<GameCard>();
 		
 		for(int i=0;i<6;i++){
-			gameDeck.add(new GameCard(false,GameCardType.NOISE_YOUR_SECTOR));
-			gameDeck.add(new GameCard(false,GameCardType.NOISE_ANY_SECTOR));
+			//gameDeck.add(new GameCard(false,GameCardType.NOISE_YOUR_SECTOR));
+			//gameDeck.add(new GameCard(false,GameCardType.NOISE_ANY_SECTOR));
 		}
 		
 		for(int j=0;j<4;j++){
 			gameDeck.add(new GameCard(true,GameCardType.NOISE_YOUR_SECTOR));
-			gameDeck.add(new GameCard(true,GameCardType.NOISE_ANY_SECTOR));
+			//gameDeck.add(new GameCard(true,GameCardType.NOISE_ANY_SECTOR));
 			
 		}
 		
 		for(int a=0;a<5;a++){
-			gameDeck.add(new GameCard(false,GameCardType.SILENCE));
+			//gameDeck.add(new GameCard(false,GameCardType.SILENCE));
 			
 		}
 		
