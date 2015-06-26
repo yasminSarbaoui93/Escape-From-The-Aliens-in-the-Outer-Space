@@ -15,7 +15,7 @@ public interface Communicator {
 	 * @param playerDTO
 	 * @throws IOException
 	 */
-	void sendDTO(PlayerDTO playerDTO) throws IOException;
+	void sendDTO(PlayerDTO playerDTO)throws IOException;
 	/**Listens on a port waiting to get the message sent by the socket
 	 * @return the message sent by the server or the client
 	 * @throws NoSuchElementException

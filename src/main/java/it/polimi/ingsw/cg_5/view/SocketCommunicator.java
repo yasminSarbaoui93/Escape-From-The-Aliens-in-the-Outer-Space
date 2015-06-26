@@ -58,10 +58,10 @@ public class SocketCommunicator implements Communicator{
 
 	@Override
 	public void sendDTO(PlayerDTO playerDTO) throws IOException {
-	
-		outObj = new ObjectOutputStream(socket.getOutputStream());
-		outObj.writeObject(playerDTO);;
-		outObj.flush();
+			if(playerDTO == null) throw new IOException("Troubles sending the player's data transfer object");
+			outObj = new ObjectOutputStream(socket.getOutputStream());
+			outObj.writeObject(playerDTO);;
+			outObj.flush();
 	}
 
 	@Override
