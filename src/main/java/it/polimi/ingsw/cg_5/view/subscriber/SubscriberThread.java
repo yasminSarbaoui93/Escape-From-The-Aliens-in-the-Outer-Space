@@ -18,10 +18,10 @@ import javax.swing.text.BadLocationException;
 
 public class SubscriberThread extends Thread {
 	private Socket subSocket;
-	private BufferedReader in; //gets the message that arrive from the printwriter
+	private BufferedReader in; 
 	private final String address = "127.0.0.1";
 	private String name;
-	private final int port = 1040; //porta in cui si mette in ascolto il socket
+	private final int port = 1040;
 	private SubscriberSocket subscriber;
 	private ObjectOutput outobj;
 	private ObjectInput inObj;
@@ -71,7 +71,6 @@ public class SubscriberThread extends Thread {
 		try {
 			if(in.ready()){
 				msg = in.readLine();
-				//System.out.println(msg);
 				inMsg = new Scanner(msg);
 				if(msg !=null){
 					String messageReceived= inMsg.next();
@@ -85,13 +84,11 @@ public class SubscriberThread extends Thread {
 					
 					if(messageReceived.toUpperCase().equals("NUMBERGAME")){
 						messageToPrint = inMsg.next();
-						System.out.println("PROVA NUMERO GIOCO SUBSCRIBER THREAD "+Integer.parseInt(messageToPrint));
 						Integer numberGame = Integer.parseInt(messageToPrint);
 						subscriber.getView().setNumberGame(numberGame);
 					}
 					if(messageReceived.toUpperCase().equals("PLAYERID")){
 						messageToPrint = inMsg.next();
-						System.out.println("PROVA PLAYER ID SUB THREAD: " +messageToPrint);
 						Integer playerId = Integer.parseInt(messageToPrint);
 						subscriber.getView().setCurrentPlayerId(playerId);
 						subscriber.getView().getViewController().getEscape().getDtoPanel().updateDtoPanelCurrentId(playerId);
@@ -153,36 +150,8 @@ public class SubscriberThread extends Thread {
 		return character;		
 	}
 	
-/*	public Integer receiveNumberGame() throws IOException{
-		//BufferedReader inNum = new BufferedReader(new InputStreamReader(subSocket.getInputStream()));
-		String ciao = in.readLine();
-		Scanner inNumero = new Scanner(ciao);
-		System.out.println(ciao+" ciaociaociao");
-		
-		Integer numberGame = null;
-		try {
-			//if(in.ready()){
-				numberGame = Integer.parseInt(inNumero.next());
-				System.out.println("PROVA NUMERO GIOCO"+numberGame);
-				subscriber.getView().setNumberGame(numberGame);
-				isGameStarted = true;
-			//}
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		//}
-		
-		//if(numberGame != null){
-			//System.out.println("Thread "+name+" received the number of the game: "+numberGame);
-			
-			
-		}
-		return numberGame;
-	}*/
-	
-	//Subscription to the one and only topic !
 	private void subscribe() throws UnknownHostException, IOException{
-		subSocket = new Socket(address, port); //Crea il socket verso il subscriber a cui è associato
+		subSocket = new Socket(address, port);
 		in = new BufferedReader(new InputStreamReader(subSocket.getInputStream()));
 		
 	}

@@ -47,7 +47,6 @@ public class GameManager implements Observer{
 		for(WaitingList waitingList : playerListManager.getWaitingLists()){
 			if(waitingList.canStartNewGame()){
 				ArrayList <Integer> lista = waitingList.getPlayersID();
-				System.out.println(lista); //da togliere poi
 				GameState newGameState=new GameState(lista,waitingList.getChoosenMap(),indexOfCurrentMatches);
 				newGameState.addObserver(this);
 				Broker matchBroker;
@@ -67,7 +66,6 @@ public class GameManager implements Observer{
 				
 				for(User user : waitingList.getUsers()){
 					for (Character character : newGameState.getCharacterList()){
-						System.out.println(user.getPlayerId() + "car" +character.getPlayerID());
 						if(user.getPlayerId()==character.getPlayerID()){
 							
 							try {

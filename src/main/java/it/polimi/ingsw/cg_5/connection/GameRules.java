@@ -49,7 +49,7 @@ public class GameRules {
 	 * @throws IOException, RemoteException 
 	 * @throws UnknownHostException 
 	 */
-	public Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException, RemoteException {
+	public synchronized Integer SubscribeRequest (String choosenMap, int choosenMaxSize, String name, String connectionType) throws NotBoundException, UnknownHostException, IOException, RemoteException {
 		if(connectionType.toUpperCase().equals("RMI")){
 			Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 			subscriber = (SubscriberInterfaceRmi)registry.lookup(name);
@@ -59,8 +59,6 @@ public class GameRules {
 			
 			
 			subscriber =SocketServer.getInstance().getBrokerThread();
-			//devo fare la get thel brokerThread creato nel server !!! e passarlo in ingresso al metodo
-			
 		}
 		
 		Integer yourId =gameManager.getPlayerListManager().addToChosenList(choosenMap, choosenMaxSize, subscriber, connectionType);
